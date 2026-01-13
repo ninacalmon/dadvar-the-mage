@@ -15,7 +15,7 @@ func start(pos):
 @export var frequency := 1.0
 @export var amplitude := PI * 0.25
 func wobble():
-	rotation = sin(Time.get_ticks_msec() * frequency) * amplitude
+	$AnimatedSprite2D.rotation = sin(Time.get_ticks_msec() * frequency) * amplitude
 			
 func _physics_process(delta: float) -> void:
 	shoot_cooldown = max(shoot_cooldown - delta, 0)
@@ -77,7 +77,6 @@ func _on_body_entered(body: Node2D) -> void:
 		var behaviour: MobBehaviourModule = body.behaviour_module
 		var current_health = health_module.get_health()
 		health_module.set_health(current_health - behaviour.damage)
-		print('GOT HIT, HEALTH NOW IS:', health_module.get_health())
 
 func _on_player_health_health_depleted() -> void:
 	hide()
