@@ -11,9 +11,7 @@ func _process(_delta: float) -> void:
 	behaviour_module.handle_sprite_flip()
 
 func take_damage(damage: float):
-	#var tween = get_tree().create_tween()
 	$BloodParticles.emitting = true
-	#hit_flash_animation.play("hit_flash")
 	behaviour_module.handle_take_damage(damage)
 
 func _on_goblin_boss_health_module_health_depleted() -> void:

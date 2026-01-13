@@ -21,13 +21,13 @@ func _on_start_timer_timeout() -> void:
 
 func _on_score_timer_timeout() -> void:
 	time_count += 1
-	print(time_count)
 	if time_count == 20:
 		var mob = mob_scene3.instantiate()
 		
 		mob.position = get_random_spawn_position()
 		add_child(mob)
 	
+## Spawn timer and mob probability (soon to be changed).
 func _on_mob_timer_timeout() -> void:
 	var mob
 	var random_number = randi_range(1, 100)
@@ -37,28 +37,13 @@ func _on_mob_timer_timeout() -> void:
 		mob = mob_scene2.instantiate()
 		
 	
-	# Create a new instance of a Mob.
-
-	
+	## Create a new instance of a Mob.
 	# Choose random spawn location on Path2D.
-	# var mob_spawn_location = $player/CameraMobPath/CameraMobSpawnLocation
-	# print("Mob spawn location:", mob_spawn_location.position)
-	# mob_spawn_location.progress_ratio = randf()
 	mob.position = get_random_spawn_position()
-	
-	# Set the mob's direction perpendicular to the path location.
-	# var direction = mob_spawn_location.rotation + PI / 2
-	# + Some randomness.
-	# direction += randf_range(-PI / 4, PI / 4)
-	# mob.rotation = direction
-	
-	# Choose velocity.
-	# var velocity = Vector2(randf_range(150.0, 250.0), 0.0)
-	# mob.linear_velocity = velocity
-	
-	# Spawn mob into the Game scene (finally).
+
+	# Spawn mob into the Game scene.
 	add_child(mob)
-	#
+	
 func get_random_spawn_position() -> Vector2:
 	const OFFSET_TO_OUT_OF_VIEWPORT = 1.3
 	var random_offset = randf_range(1.2, 1.8)
@@ -93,6 +78,7 @@ func get_random_spawn_position() -> Vector2:
 
 	return Vector2(x_spawn, y_spawn)
 
+## Prepares and set for reload.
 func _on_player_player_death() -> void:
 	$ScoreTimer.stop()
 	$MobTimer.stop()

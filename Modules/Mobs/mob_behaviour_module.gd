@@ -24,3 +24,4 @@ func handle_sprite_flip() -> void:
 func handle_take_damage(damage: float) -> void:
 	var current_health = health_module.get_health()
 	health_module.set_health(current_health - damage)
+	
