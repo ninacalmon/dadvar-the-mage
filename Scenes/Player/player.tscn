@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://d2c1s3qmdi4ti"]
+[gd_scene load_steps=8 format=3 uid="uid://d2c1s3qmdi4ti"]
 
 [ext_resource type="Script" uid="uid://ddcjyfv6u117d" path="res://Scenes/Player/player.gd" id="1_fkybt"]
 [ext_resource type="Texture2D" uid="uid://dqqxlre8b55bg" path="res://Sprites/TheMage.png" id="2_a3d8c"]
 [ext_resource type="PackedScene" uid="uid://73ai3a0wwokb" path="res://Scenes/Player/Spells/test_bullet.tscn" id="2_xpcdj"]
 [ext_resource type="Script" uid="uid://ckp8nqvjgsevu" path="res://Modules/Generics/health_module.gd" id="4_mtuoh"]
+[ext_resource type="PackedScene" uid="uid://cxyeuoba4nxrv" path="res://UI/health_bar.tscn" id="5_htcer"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_tx1dd"]
 animations = [{
@@ -46,6 +47,16 @@ position = Vector2(63, -32)
 script = ExtResource("4_mtuoh")
 max_health = 100.0
 metadata/_custom_type_script = "uid://ckp8nqvjgsevu"
+
+[node name="HealthBar" parent="." node_paths=PackedStringArray("character") instance=ExtResource("5_htcer")]
+offset_left = -56.000008
+offset_top = 72.00001
+offset_right = 93.99999
+offset_bottom = 99.00001
+scale = Vector2(0.7, 0.7)
+value = 0.0
+character = NodePath("..")
+metadata/_edit_use_anchors_ = true
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="health_depleted" from="Health" to="." method="_on_player_health_health_depleted"]
