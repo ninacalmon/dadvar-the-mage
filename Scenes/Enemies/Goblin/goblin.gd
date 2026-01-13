@@ -16,10 +16,10 @@ func _ready() -> void:
 	original_modulate = $AnimatedSprite2D.modulate
 
 func _physics_process(_delta: float) -> void:
-	behaviour_module.handleMovement()
+	behaviour_module.handle_movement()
 
 func _process(_delta: float) -> void:
-	behaviour_module.handleSpriteFlip()
+	behaviour_module.handle_sprite_flip()
 	
 func take_damage(damage: float):
 	var tween = get_tree().create_tween()
@@ -29,7 +29,7 @@ func take_damage(damage: float):
 	#await tween.tween_property($AnimatedSprite2D, "modulate", original_modulate, 0.1)
 	$BloodParticles.emitting = true
 	hit_flash_animation.play("hit_flash")
-	behaviour_module.handleTakeDamage(damage)
+	behaviour_module.handle_take_damage(damage)
 
 func _on_mob_behaviour_im_dead() -> void:
 	queue_free()

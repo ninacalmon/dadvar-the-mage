@@ -5,15 +5,13 @@ extends CharacterBody2D
 var implements = Interface.Damageable
 
 func _physics_process(_delta: float) -> void:
-	behaviour_module.handleMovement()
+	behaviour_module.handle_movement()
 
 func _process(_delta: float) -> void:
-	behaviour_module.handleSpriteFlip()
+	behaviour_module.handle_sprite_flip()
 
 func take_damage(damage: float):
-	behaviour_module.handleTakeDamage(damage)
-	
-	
+	behaviour_module.handle_take_damage(damage)
 
 #@export var movement_speed = 50
 #@onready var player = get_tree().get_first_node_in_group("PlayerGroup")
