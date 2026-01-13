@@ -60,8 +60,9 @@ func _on_mob_timer_timeout() -> void:
 	add_child(mob)
 	#
 func get_random_spawn_position() -> Vector2:
+	const OFFSET_TO_OUT_OF_VIEWPORT = 1.3
 	var random_offset = randf_range(1.2, 1.8)
-	var viewport = Vector2(get_viewport().size) + Vector2(random_offset, random_offset)
+	var viewport = Vector2(get_viewport().size * OFFSET_TO_OUT_OF_VIEWPORT) + Vector2(random_offset, random_offset)
 
 	var top_left = Vector2(player.global_position.x - viewport.x / 2, player.global_position.y - viewport.y/2) 
 	var top_right = Vector2(player.global_position.x + viewport.x / 2, player.global_position.y - viewport.y/2)
