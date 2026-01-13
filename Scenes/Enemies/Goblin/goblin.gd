@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+var implements = Interface.Damageable
+
 @export var behaviour_module: MobBehaviourModule
 @export var hit_flash_shader: ShaderMaterial
 

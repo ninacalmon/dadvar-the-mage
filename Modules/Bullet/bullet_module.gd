@@ -18,6 +18,7 @@ func update_lifetime(delta: float) -> void:
 		get_parent().queue_free()
 
 func _on_body_entered(body: Node2D) -> void:
-	if body.has_method('take_damage'):
+	if Interface.node_implements_interface(body, Interface.Damageable):
 		body.take_damage(self.damage)
+
 	get_parent().queue_free()

@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 @export var behaviour_module: MobBehaviourModule
 
+var implements = Interface.Damageable
 
 func _physics_process(_delta: float) -> void:
 	behaviour_module.handleMovement()
