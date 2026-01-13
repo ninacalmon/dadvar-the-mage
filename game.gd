@@ -10,10 +10,6 @@ var time_count
 func _ready() -> void:
 	new_game()
 	
-func player_hit() -> void:
-	player.health -= 1
-	print("player got hit", player.health)
-	
 func new_game():
 	time_count = 0
 	$player.start($StartPosition.position)
@@ -96,9 +92,8 @@ func get_random_spawn_position() -> Vector2:
 
 	return Vector2(x_spawn, y_spawn)
 
-func _process(delta: float) -> void:
-	if player.health <= 1:
-		$ScoreTimer.stop()
-		$MobTimer.stop()
-		print(time_count)
-		get_tree().reload_current_scene()
+func _on_player_player_death() -> void:
+	$ScoreTimer.stop()
+	$MobTimer.stop()
+	print(time_count)
+	get_tree().reload_current_scene()

@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://d2c1s3qmdi4ti"]
+[gd_scene load_steps=7 format=3 uid="uid://d2c1s3qmdi4ti"]
 
 [ext_resource type="Script" uid="uid://ddcjyfv6u117d" path="res://Scenes/Player/player.gd" id="1_fkybt"]
 [ext_resource type="Texture2D" uid="uid://dqqxlre8b55bg" path="res://Sprites/TheMage.png" id="2_a3d8c"]
 [ext_resource type="PackedScene" uid="uid://73ai3a0wwokb" path="res://Scenes/Player/Spells/test_bullet.tscn" id="2_xpcdj"]
+[ext_resource type="Script" uid="uid://ckp8nqvjgsevu" path="res://Modules/Generics/health_module.gd" id="4_mtuoh"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_tx1dd"]
 animations = [{
@@ -19,9 +20,10 @@ animations = [{
 radius = 32.0
 height = 112.0
 
-[node name="player" type="Area2D" groups=["PlayerGroup"]]
+[node name="player" type="Area2D" node_paths=PackedStringArray("health_module") groups=["PlayerGroup"]]
 collision_mask = 2
 script = ExtResource("1_fkybt")
+health_module = NodePath("Health")
 bullet = ExtResource("2_xpcdj")
 player_shoot_cooldown = 0.1
 frequency = 0.02
@@ -40,4 +42,10 @@ shape = SubResource("CapsuleShape2D_a3d8c")
 [node name="WandTip" type="Node2D" parent="."]
 position = Vector2(63, -32)
 
+[node name="Health" type="Node" parent="."]
+script = ExtResource("4_mtuoh")
+max_health = 100.0
+metadata/_custom_type_script = "uid://ckp8nqvjgsevu"
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="health_depleted" from="Health" to="." method="_on_player_health_health_depleted"]

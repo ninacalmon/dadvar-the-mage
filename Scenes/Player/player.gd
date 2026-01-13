@@ -1,7 +1,8 @@
 extends Area2D
-signal hit
+signal player_death
 
 @export var health = 100
+@export var health_module: HealthModule
 @export var speed = 400
 @export var bullet: PackedScene
 @export var player_shoot_cooldown: float
@@ -26,7 +27,6 @@ func _physics_process(delta: float) -> void:
 		#bullet.shoot(get_global_mouse_position())
 		get_parent().add_child(bullet)
 		shoot_cooldown = player_shoot_cooldown
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -74,8 +74,13 @@ func _process(delta: float) -> void:
 			
 	# Collision
 func _on_body_entered(body: Node2D) -> void:
-	hit.emit()
-	
-func player_death():
+	if Interface.node_implements_interface(body, Interface.Mob):
+		var behaviour: MobBehaviourModule = body.behaviour_module
+		var current_health = health_module.get_health()
+		health_module.set_health(current_health - behaviour.damage)
+		print('GOT HIT, HEALTH NOW IS:', health_module.get_health())
+
+func _on_player_health_health_depleted() -> void:
 	hide()
 	$CollisionShape2D.set_deferred("disabled", true)
+	player_death.emit()
