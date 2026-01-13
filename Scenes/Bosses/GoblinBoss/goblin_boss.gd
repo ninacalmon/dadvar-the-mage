@@ -16,5 +16,5 @@ func take_damage(damage: float):
 	#hit_flash_animation.play("hit_flash")
 	behaviour_module.handle_take_damage(damage)
 
-func _on_mob_behaviour_im_dead() -> void:
+func _on_goblin_boss_health_module_health_depleted() -> void:
 	queue_free()

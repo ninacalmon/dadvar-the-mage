@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://bkxqp8mj6ayjy"]
+[gd_scene load_steps=7 format=3 uid="uid://bkxqp8mj6ayjy"]
 
 [ext_resource type="Script" uid="uid://dx3yt7m6kh8kw" path="res://Scenes/Enemies/Ghost/ghost.gd" id="1_o80aq"]
 [ext_resource type="Texture2D" uid="uid://bgaihgqkwmpf2" path="res://Sprites/Ghost.png" id="2_6mdp7"]
+[ext_resource type="Script" uid="uid://ckp8nqvjgsevu" path="res://Modules/Generics/health_module.gd" id="4_3fldh"]
 [ext_resource type="PackedScene" uid="uid://dnr2fm6mdvs2" path="res://Modules/Mobs/mob_behaviour_module.tscn" id="7_o80aq"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_o80aq"]
@@ -40,11 +41,18 @@ rect = Rect2(-45, -39, 77, 75)
 
 [node name="Behaviour" type="Node" parent="."]
 
-[node name="MobBehaviour" parent="Behaviour" node_paths=PackedStringArray("mob", "mob_sprite") instance=ExtResource("7_o80aq")]
+[node name="HealthModule" type="Node" parent="Behaviour"]
+script = ExtResource("4_3fldh")
+max_health = 1.0
+metadata/_custom_type_script = "uid://ckp8nqvjgsevu"
+
+[node name="MobBehaviour" parent="Behaviour" node_paths=PackedStringArray("health_module", "mob", "mob_sprite") instance=ExtResource("7_o80aq")]
 movement_speed = 70
 damage = 5.0
 health = 1.0
+health_module = NodePath("../HealthModule")
 mob = NodePath("../..")
 mob_sprite = NodePath("../../AnimatedSprite2D")
 
+[connection signal="health_depleted" from="Behaviour/HealthModule" to="." method="_on_ghost_health_module_health_depleted"]
 [connection signal="im_dead" from="Behaviour/MobBehaviour" to="." method="_on_mob_behaviour_im_dead"]

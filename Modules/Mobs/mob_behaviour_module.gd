@@ -4,7 +4,7 @@ signal im_dead
 
 @export var movement_speed: int
 @export var damage: float
-@export var health: float = 100
+@export var health_module: HealthModule
 
 @export var mob: CharacterBody2D
 @export var mob_sprite: AnimatedSprite2D
@@ -22,6 +22,5 @@ func handle_sprite_flip() -> void:
 	mob_sprite.flip_h =  mob.global_position.x > player.global_position.x
 
 func handle_take_damage(damage: float) -> void:
-	self.health -= damage
-	if (self.health <= 0):
-		im_dead.emit()
+	var current_health = health_module.get_health()
+	health_module.set_health(current_health - damage)

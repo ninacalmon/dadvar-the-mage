@@ -1,7 +1,6 @@
 extends Area2D
 signal player_death
 
-@export var health = 100
 @export var health_module: HealthModule
 @export var speed = 400
 @export var bullet: PackedScene

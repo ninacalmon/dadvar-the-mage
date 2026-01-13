@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://lo1aexwurrqg"]
+[gd_scene load_steps=14 format=3 uid="uid://lo1aexwurrqg"]
 
 [ext_resource type="Script" uid="uid://66e13ckj7aom" path="res://Scenes/Enemies/Goblin/goblin.gd" id="1_v3txi"]
 [ext_resource type="Texture2D" uid="uid://mxpku1fk6108" path="res://Sprites/Goblin-2.png" id="2_v3txi"]
 [ext_resource type="Shader" uid="uid://mm42ofpnqd40" path="res://Shaders/hit_flash.tres" id="2_xpyb8"]
 [ext_resource type="Texture2D" uid="uid://yx74icg37doa" path="res://Sprites/Goblin-3.png" id="3_xpyb8"]
 [ext_resource type="PackedScene" uid="uid://dnr2fm6mdvs2" path="res://Modules/Mobs/mob_behaviour_module.tscn" id="4_xpyb8"]
+[ext_resource type="Script" uid="uid://ckp8nqvjgsevu" path="res://Modules/Generics/health_module.gd" id="6_u8yfu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xpyb8"]
 shader = ExtResource("2_xpyb8")
@@ -102,12 +103,17 @@ rect = Rect2(-35, -34, 70, 79)
 
 [node name="Behaviour" type="Node" parent="."]
 
-[node name="MobBehaviour" parent="Behaviour" node_paths=PackedStringArray("mob", "mob_sprite") instance=ExtResource("4_xpyb8")]
+[node name="MobBehaviour" parent="Behaviour" node_paths=PackedStringArray("health_module", "mob", "mob_sprite") instance=ExtResource("4_xpyb8")]
 movement_speed = 50
 damage = 10.0
-health = 30.0
+health_module = NodePath("../HealthModule")
 mob = NodePath("../..")
 mob_sprite = NodePath("../../AnimatedSprite2D")
+
+[node name="HealthModule" type="Node" parent="Behaviour"]
+script = ExtResource("6_u8yfu")
+max_health = 30.0
+metadata/_custom_type_script = "uid://ckp8nqvjgsevu"
 
 [node name="HitFlashAnimPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -134,3 +140,4 @@ scale_amount_max = 6.0
 color = Color(0.28235295, 0, 0, 1)
 
 [connection signal="im_dead" from="Behaviour/MobBehaviour" to="." method="_on_mob_behaviour_im_dead"]
+[connection signal="health_depleted" from="Behaviour/HealthModule" to="." method="_on_goblin_health_module_health_depleted"]

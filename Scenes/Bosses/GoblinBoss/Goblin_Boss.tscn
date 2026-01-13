@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://drrllpdvbctga"]
+[gd_scene load_steps=7 format=3 uid="uid://drrllpdvbctga"]
 
 [ext_resource type="Script" uid="uid://cvh6pdd1cahof" path="res://Scenes/Bosses/GoblinBoss/goblin_boss.gd" id="1_bs2mh"]
 [ext_resource type="Texture2D" uid="uid://bgqumwqddncyp" path="res://Sprites/Goblin-1.png" id="2_h2756"]
 [ext_resource type="PackedScene" uid="uid://dnr2fm6mdvs2" path="res://Modules/Mobs/mob_behaviour_module.tscn" id="3_1lps0"]
+[ext_resource type="Script" uid="uid://ckp8nqvjgsevu" path="res://Modules/Generics/health_module.gd" id="4_4f2ww"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_q0u7v"]
 animations = [{
@@ -42,12 +43,17 @@ rect = Rect2(-48, -56, 80, 136)
 
 [node name="Behaviour" type="Node" parent="."]
 
-[node name="MobBehaviour" parent="Behaviour" node_paths=PackedStringArray("mob", "mob_sprite") instance=ExtResource("3_1lps0")]
+[node name="MobBehaviour" parent="Behaviour" node_paths=PackedStringArray("health_module", "mob", "mob_sprite") instance=ExtResource("3_1lps0")]
 movement_speed = 20
 damage = 20.0
-health = 80.0
+health_module = NodePath("../HealthModule")
 mob = NodePath("../..")
 mob_sprite = NodePath("../../AnimatedSprite2D")
+
+[node name="HealthModule" type="Node" parent="Behaviour"]
+script = ExtResource("4_4f2ww")
+max_health = 80.0
+metadata/_custom_type_script = "uid://ckp8nqvjgsevu"
 
 [node name="BloodParticles" type="CPUParticles2D" parent="."]
 emitting = false
@@ -67,3 +73,5 @@ initial_velocity_max = 100.0
 scale_amount_min = 3.0
 scale_amount_max = 6.0
 color = Color(0.28235295, 0, 0, 1)
+
+[connection signal="health_depleted" from="Behaviour/HealthModule" to="." method="_on_goblin_boss_health_module_health_depleted"]
