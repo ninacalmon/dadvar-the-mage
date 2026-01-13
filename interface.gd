@@ -29,6 +29,9 @@ class Damageable:
 	func take_damage():
 		pass
 
+class Mob:
+	var behaviour_module: MobBehaviourModule
+
 ## Takes a node and an interface, and returns true if the given node
 ## implements the given interface, and false if it does not
 func node_implements_interface(node_to_check:Node, interface) -> bool:

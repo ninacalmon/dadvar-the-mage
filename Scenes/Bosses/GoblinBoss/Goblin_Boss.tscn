@@ -44,6 +44,7 @@ rect = Rect2(-48, -56, 80, 136)
 
 [node name="MobBehaviour" parent="Behaviour" node_paths=PackedStringArray("mob", "mob_sprite") instance=ExtResource("3_1lps0")]
 movement_speed = 20
+damage = 20.0
 health = 80.0
 mob = NodePath("../..")
 mob_sprite = NodePath("../../AnimatedSprite2D")
