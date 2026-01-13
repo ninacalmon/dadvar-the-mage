@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bhhkmo6wlsiqg"]
+
+[ext_resource type="Script" uid="uid://dqv4doaqo20fq" path="res://Modules/Bullet/bullet_module.gd" id="1_3vejn"]
+
+[node name="bullet_module" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_3vejn")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

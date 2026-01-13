@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=3 uid="uid://btr3lxh301x6x"]
+
+[ext_resource type="Texture2D" uid="uid://cjmb3mbo4ao5x" path="res://icon.svg" id="2_twu7u"]
+[ext_resource type="PackedScene" uid="uid://bhhkmo6wlsiqg" path="res://Modules/Bullet/bullet_module.tscn" id="3_0cdjp"]
+
+[sub_resource type="GDScript" id="GDScript_twu7u"]
+script/source = "extends Area2D
+class_name Bullet
+
+@export var bullet_module: BulletModule
+
+
+func shoot(target_position: Vector2) -> void:
+	bullet_module.set_direction(target_position)
+
+func _physics_process(delta: float) -> void:
+	position += bullet_module.get_movement() * delta
+
+#var direction: Vector2
+#var bullet_speed: int = 10
+## Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _physics_process(delta: float) -> void:
+	#position += direction.normalized() * 10
+#
+#
+#func shoot(target_position: Vector2) -> void:
+	#direction = (target_position - global_position).normalized()
+	#look_at(target_position)
+#
+#func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+	#queue_free()
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_twu7u"]
+
+[node name="bullet" type="Area2D"]
+script = SubResource("GDScript_twu7u")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_twu7u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_twu7u")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="bullet_module" parent="." instance=ExtResource("3_0cdjp")]
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

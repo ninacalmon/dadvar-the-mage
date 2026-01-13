@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://d2c1s3qmdi4ti"]
+
+[ext_resource type="Script" uid="uid://ddcjyfv6u117d" path="res://Scenes/Player/player.gd" id="1_fkybt"]
+[ext_resource type="Texture2D" uid="uid://dqqxlre8b55bg" path="res://Sprites/TheMage.png" id="2_a3d8c"]
+[ext_resource type="PackedScene" uid="uid://73ai3a0wwokb" path="res://Scenes/Player/Spells/test_bullet.tscn" id="2_xpcdj"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tx1dd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_a3d8c")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a3d8c"]
+radius = 32.0
+height = 112.0
+
+[node name="player" type="Area2D" groups=["PlayerGroup"]]
+collision_mask = 2
+script = ExtResource("1_fkybt")
+bullet = ExtResource("2_xpcdj")
+player_shoot_cooldown = 0.1
+frequency = 0.02
+amplitude = 0.1
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0.6100901, -6.973363)
+sprite_frames = SubResource("SpriteFrames_tx1dd")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8)
+shape = SubResource("CapsuleShape2D_a3d8c")
+
+[node name="WandTip" type="Node2D" parent="."]
+position = Vector2(63, -32)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

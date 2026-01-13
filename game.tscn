@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://qinxn2c2shu7"]
+
+[ext_resource type="PackedScene" uid="uid://d2c1s3qmdi4ti" path="res://Scenes/Player/player.tscn" id="1_80nbo"]
+[ext_resource type="Script" uid="uid://g1vr201lpslj" path="res://game.gd" id="1_feb5d"]
+[ext_resource type="PackedScene" uid="uid://bkxqp8mj6ayjy" path="res://Scenes/Enemies/Ghost/ghost.tscn" id="2_fc0e3"]
+[ext_resource type="PackedScene" uid="uid://lo1aexwurrqg" path="res://Scenes/Enemies/Goblin/goblin.tscn" id="3_eow3j"]
+[ext_resource type="Texture2D" uid="uid://db63gbv5pp4qw" path="res://Sprites/bg.png" id="4_7jktm"]
+[ext_resource type="PackedScene" uid="uid://drrllpdvbctga" path="res://Scenes/Bosses/GoblinBoss/Goblin_Boss.tscn" id="4_ryrav"]
+
+[node name="game" type="Node" node_paths=PackedStringArray("player")]
+script = ExtResource("1_feb5d")
+mob_scene = ExtResource("2_fc0e3")
+mob_scene2 = ExtResource("3_eow3j")
+mob_scene3 = ExtResource("4_ryrav")
+player = NodePath("player")
+
+[node name="Bg & Borders" type="Node" parent="."]
+
+[node name="Bg" type="Sprite2D" parent="Bg & Borders"]
+scale = Vector2(70, 70)
+texture = ExtResource("4_7jktm")
+
+[node name="player" parent="." instance=ExtResource("1_80nbo")]
+
+[node name="Camera2D" type="Camera2D" parent="player"]
+position_smoothing_enabled = true
+
+[node name="MobTimer" type="Timer" parent="."]
+wait_time = 0.212
+
+[node name="ScoreTimer" type="Timer" parent="."]
+
+[node name="StartTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="StartPosition" type="Marker2D" parent="."]
+position = Vector2(240, 450)
+
+[connection signal="hit" from="player" to="." method="player_hit"]
+[connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
+[connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]
+[connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
