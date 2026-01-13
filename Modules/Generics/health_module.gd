@@ -34,7 +34,7 @@ func set_health(health_value: float):
 		health = health_value
 		health_changed.emit(difference)
 		
-		if health == 0:
+		if health <= 0:
 			health_depleted.emit()
 
 func get_health() -> float:
