@@ -1,9 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://drrllpdvbctga"]
+[gd_scene load_steps=12 format=3 uid="uid://drrllpdvbctga"]
 
 [ext_resource type="Script" uid="uid://cvh6pdd1cahof" path="res://Scenes/Bosses/GoblinBoss/goblin_boss.gd" id="1_bs2mh"]
 [ext_resource type="Texture2D" uid="uid://bgqumwqddncyp" path="res://Sprites/Goblin-1.png" id="2_h2756"]
+[ext_resource type="Shader" uid="uid://mm42ofpnqd40" path="res://Shaders/hit_flash.tres" id="2_hxret"]
 [ext_resource type="PackedScene" uid="uid://dnr2fm6mdvs2" path="res://Modules/Mobs/mob_behaviour_module.tscn" id="3_1lps0"]
 [ext_resource type="Script" uid="uid://ckp8nqvjgsevu" path="res://Modules/Generics/health_module.gd" id="4_4f2ww"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jbg4a"]
+shader = ExtResource("2_hxret")
+shader_parameter/enable = false
+shader_parameter/ColorParameter = Color(0.364706, 0, 0, 1)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_q0u7v"]
 animations = [{
@@ -19,6 +25,43 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u8yfu"]
 size = Vector2(128, 72)
 
+[sub_resource type="Animation" id="Animation_xpyb8"]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/enable")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_u8yfu"]
+resource_name = "hit_flash"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/enable")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xpmg4"]
+_data = {
+&"RESET": SubResource("Animation_xpyb8"),
+&"hit_flash": SubResource("Animation_u8yfu")
+}
+
 [node name="GoblinBoss" type="CharacterBody2D" node_paths=PackedStringArray("behaviour_module")]
 collision_layer = 2
 script = ExtResource("1_bs2mh")
@@ -26,6 +69,7 @@ behaviour_module = NodePath("Behaviour/MobBehaviour")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
+material = SubResource("ShaderMaterial_jbg4a")
 position = Vector2(-8, 0)
 scale = Vector2(-1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_q0u7v")
@@ -73,5 +117,10 @@ initial_velocity_max = 100.0
 scale_amount_min = 3.0
 scale_amount_max = 6.0
 color = Color(0.28235295, 0, 0, 1)
+
+[node name="HitFlashAnimPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_xpmg4")
+}
 
 [connection signal="health_depleted" from="Behaviour/HealthModule" to="." method="_on_goblin_boss_health_module_health_depleted"]

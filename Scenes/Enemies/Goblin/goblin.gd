@@ -28,4 +28,11 @@ func take_damage(damage: float):
 	behaviour_module.handle_take_damage(damage)
 
 func _on_goblin_health_module_health_depleted() -> void:
+	var tween = get_tree().create_tween()
+	$CollisionShape2D.set_deferred("disabled", true)
+	$BloodParticles.emitting = true
+	hit_flash_animation.connect("animation_finished", die_after_anim_finished)
+	hit_flash_animation.play_backwards("hit_flash")
+
+func die_after_anim_finished(_anim_name):
 	queue_free()

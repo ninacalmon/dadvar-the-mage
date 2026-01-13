@@ -16,5 +16,5 @@ func take_damage(damage: float):
 func _on_ghost_health_module_health_depleted() -> void:
 	var tween = get_tree().create_tween()
 	$CollisionShape2D.set_deferred("disabled", true)
-	tween.tween_property($AnimatedSprite2D, "modulate", Color(1, 1, 1, 0), 0.5)
+	tween.tween_property($AnimatedSprite2D, "modulate", Color(1, 1, 1, 0), 0.2)
 	tween.tween_callback(self.queue_free)

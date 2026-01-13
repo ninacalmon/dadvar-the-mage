@@ -16,7 +16,7 @@ shader_parameter/ColorParameter = Color(1, 1, 1, 1)
 resource_local_to_scene = true
 shader = ExtResource("2_xpyb8")
 shader_parameter/enable = false
-shader_parameter/ColorParameter = Color(0.3647059, 0, 0, 1)
+shader_parameter/ColorParameter = Color(0.364706, 0, 0, 1)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_q0u7v"]
 animations = [{

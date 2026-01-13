@@ -10,6 +10,7 @@ default_input_values = [0, 0.0, 1, 1.0, 2, 1e-05, 3, Vector3(0, 0, 0), 4, Vector
 [sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_fxlho"]
 parameter_name = "ColorParameter"
 default_value_enabled = true
+default_value = Color(0.3647059, 0, 0, 1)
 
 [sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_raoc3"]
 input_name = "color"
@@ -20,7 +21,7 @@ code = "shader_type canvas_item;
 render_mode blend_mix;
 
 uniform bool enable = false;
-uniform vec4 ColorParameter : source_color = vec4(1.000000, 1.000000, 1.000000, 1.000000);
+uniform vec4 ColorParameter : source_color = vec4(0.364706, 0.000000, 0.000000, 1.000000);
 
 
 

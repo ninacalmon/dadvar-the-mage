@@ -19,6 +19,7 @@ func _on_start_timer_timeout() -> void:
 	$MobTimer.start()
 	$ScoreTimer.start()
 
+## Spawn Goblin Boss, deprecated.
 func _on_score_timer_timeout() -> void:
 	time_count += 1
 	if time_count == 20:
