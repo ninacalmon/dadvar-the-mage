@@ -1,9 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://cxyeuoba4nxrv"]
+[gd_scene load_steps=5 format=3 uid="uid://cxyeuoba4nxrv"]
 
 [ext_resource type="Script" uid="uid://3d62f857c6wr" path="res://UI/health_bar.gd" id="1_6f3ms"]
+[ext_resource type="Texture2D" uid="uid://clc3oknuw6pky" path="res://Sprites/healthbarUnder.png" id="2_qh381"]
+[ext_resource type="Texture2D" uid="uid://dxce4pck1txxr" path="res://Sprites/healthbarOver.png" id="3_xoxfh"]
+[ext_resource type="Texture2D" uid="uid://cm75j6idbtg3" path="res://Sprites/healthbarProgress.png" id="4_m6ls7"]
 
-[node name="HealthBar" type="ProgressBar"]
-modulate = Color(1, 0, 0, 1)
+[node name="HealthBar" type="TextureProgressBar"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -12,4 +14,8 @@ offset_bottom = -440.0
 grow_horizontal = 2
 grow_vertical = 2
 value = 100.0
+texture_under = ExtResource("2_qh381")
+texture_over = ExtResource("3_xoxfh")
+texture_progress = ExtResource("4_m6ls7")
+texture_progress_offset = Vector2(0.5, 0)
 script = ExtResource("1_6f3ms")

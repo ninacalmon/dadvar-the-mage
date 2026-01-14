@@ -49,20 +49,11 @@ max_health = 100.0
 metadata/_custom_type_script = "uid://ckp8nqvjgsevu"
 
 [node name="HealthBar" parent="." node_paths=PackedStringArray("character") instance=ExtResource("5_htcer")]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-offset_left = -60.0
-offset_top = -27.0
-offset_right = 60.0
-offset_bottom = 0.0
-grow_vertical = 0
-scale = Vector2(0.7, 0.7)
-pivot_offset = Vector2(50, 320)
-value = 0.0
+offset_left = -46.0
+offset_top = 73.0
+offset_right = 38.0
+offset_bottom = 89.0
 character = NodePath("..")
-metadata/_edit_use_anchors_ = true
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="health_depleted" from="HealthModule" to="." method="_on_player_health_health_depleted"]
