@@ -22,7 +22,7 @@ func _on_start_timer_timeout() -> void:
 ## Spawn Goblin Boss, deprecated.
 func _on_score_timer_timeout() -> void:
 	time_count += 1
-	if time_count == 20:
+	if time_count == 2:
 		var mob = mob_scene3.instantiate()
 		
 		mob.position = get_random_spawn_position()

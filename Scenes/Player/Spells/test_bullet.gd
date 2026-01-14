@@ -3,11 +3,19 @@ extends Sprite2D
 @export var bullet_module: BulletModule
 
 var direction
+var audio_track = preload("res://Sounds/magic_parry-301969.mp3")
 
 func _ready():
 	$PointLight2D.energy = 1
 	$PointLight2D.texture_scale = 0
 	$CPUParticles2D.emitting = true
+	# GAMBIARRA
+	var stream_player = AudioStreamPlayer.new()
+	stream_player.pitch_scale = randf_range(0.4, 1.5)
+	stream_player.stream = audio_track
+	stream_player.autoplay = true
+	get_parent().add_child(stream_player)
+	
 	direction = bullet_module.get_bullet_move_direction(self.position, get_global_mouse_position())
 
 func _physics_process(delta: float) -> void:
