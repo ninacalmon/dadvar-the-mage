@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://c2ldsx1wks0tc" path="res://Sprites/bullet1.png" id="1_5fyw6"]
 [ext_resource type="Script" uid="uid://wg664yw4jx2m" path="res://Scenes/Player/Spells/test_bullet.gd" id="2_5mxg8"]
 [ext_resource type="PackedScene" uid="uid://bhhkmo6wlsiqg" path="res://Modules/Bullet/bullet_module.tscn" id="3_bosj0"]
-[ext_resource type="AudioStream" uid="uid://b4fyxs1may7r8" path="res://Sounds/magic_parry-301969.mp3" id="4_humpc"]
+[ext_resource type="AudioStream" uid="uid://j7hlt3p0fhem" path="res://Sounds/city-castle-398832.mp3" id="4_humpc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vkspu"]
 size = Vector2(10.666667, 10.666667)
@@ -61,3 +61,4 @@ hue_variation_max = 0.54
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_humpc")
+volume_db = -16.0

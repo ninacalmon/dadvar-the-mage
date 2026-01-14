@@ -8,6 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://b66t5o1p1hh8k" path="res://Sounds/witch-laugh-256450.mp3" id="6_jbg4a"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jbg4a"]
+resource_local_to_scene = true
 shader = ExtResource("2_hxret")
 shader_parameter/enable = false
 shader_parameter/ColorParameter = Color(0.364706, 0, 0, 1)
@@ -89,7 +90,7 @@ rect = Rect2(-48, -56, 80, 136)
 [node name="Behaviour" type="Node" parent="."]
 
 [node name="MobBehaviour" parent="Behaviour" node_paths=PackedStringArray("health_module", "mob", "mob_sprite") instance=ExtResource("3_1lps0")]
-movement_speed = 20
+movement_speed = 45
 damage = 20.0
 health_module = NodePath("../HealthModule")
 mob = NodePath("../..")

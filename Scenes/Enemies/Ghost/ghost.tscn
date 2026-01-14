@@ -48,7 +48,7 @@ max_health = 1.0
 metadata/_custom_type_script = "uid://ckp8nqvjgsevu"
 
 [node name="MobBehaviour" parent="Behaviour" node_paths=PackedStringArray("health_module", "mob", "mob_sprite") instance=ExtResource("7_o80aq")]
-movement_speed = 70
+movement_speed = 90
 damage = 5.0
 health_module = NodePath("../HealthModule")
 mob = NodePath("../..")

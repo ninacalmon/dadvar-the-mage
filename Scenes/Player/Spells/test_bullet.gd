@@ -3,7 +3,7 @@ extends Sprite2D
 @export var bullet_module: BulletModule
 
 var direction
-var audio_track = preload("res://Sounds/magic_parry-301969.mp3")
+var audio_track = preload("res://Sounds/city-castle-398832.mp3")
 
 func _ready():
 	$PointLight2D.energy = 1
@@ -11,7 +11,8 @@ func _ready():
 	$CPUParticles2D.emitting = true
 	# GAMBIARRA
 	var stream_player = AudioStreamPlayer.new()
-	stream_player.pitch_scale = randf_range(0.4, 1.5)
+	stream_player.pitch_scale = randf_range(0.7, 1.7)
+	stream_player.volume_db = -16
 	stream_player.stream = audio_track
 	stream_player.autoplay = true
 	get_parent().add_child(stream_player)

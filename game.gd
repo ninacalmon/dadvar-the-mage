@@ -17,17 +17,16 @@ func new_game():
 	
 func _on_start_timer_timeout() -> void:
 	$MobTimer.start()
+	$BossTimer.start()
 	$ScoreTimer.start()
 
 ## Spawn Goblin Boss, deprecated.
-func _on_score_timer_timeout() -> void:
-	time_count += 1
-	if time_count == 2:
-		var mob = mob_scene3.instantiate()
+func _on_boss_timer_timeout() -> void:
+	var mob = mob_scene3.instantiate()
 		
-		mob.position = get_random_spawn_position()
-		add_child(mob)
-	
+	mob.position = get_random_spawn_position()
+	add_child(mob)
+
 ## Spawn timer and mob probability (soon to be changed).
 func _on_mob_timer_timeout() -> void:
 	var mob

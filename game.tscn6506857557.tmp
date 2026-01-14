@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://lo1aexwurrqg" path="res://Scenes/Enemies/Goblin/goblin.tscn" id="3_eow3j"]
 [ext_resource type="Texture2D" uid="uid://db63gbv5pp4qw" path="res://Sprites/bg.png" id="4_7jktm"]
 [ext_resource type="PackedScene" uid="uid://drrllpdvbctga" path="res://Scenes/Bosses/GoblinBoss/Goblin_Boss.tscn" id="4_ryrav"]
-[ext_resource type="Script" uid="uid://bex5kwk08q0b1" path="res://UI/current_time.gd" id="7_eow3j"]
+[ext_resource type="PackedScene" uid="uid://dpxggqlauovfh" path="res://UI/score.tscn" id="8_j5wjh"]
 
 [node name="game" type="Node" node_paths=PackedStringArray("player")]
 script = ExtResource("1_feb5d")
@@ -44,19 +44,7 @@ position = Vector2(240, 450)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="ScoreLabel" type="RichTextLabel" parent="CanvasLayer" node_paths=PackedStringArray("score_timer")]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -56.0
-offset_right = -16.0
-offset_bottom = 40.0
-grow_horizontal = 0
-text = "0"
-horizontal_alignment = 2
-vertical_alignment = 1
-script = ExtResource("7_eow3j")
-score_timer = NodePath("../../ScoreTimer")
+[node name="Control" parent="CanvasLayer" instance=ExtResource("8_j5wjh")]
 
 [connection signal="player_death" from="player" to="." method="_on_player_player_death"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
