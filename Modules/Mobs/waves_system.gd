@@ -7,9 +7,9 @@ extends Node
 
 var mob = 0
 var wave_count = 1
-var wave1_duration = 20
-var wave2_duration = 30
-var wave3_duration = 1000
+var wave1_duration = 5
+var wave2_duration = 5
+var wave3_duration = 5000
 
 func _ready() -> void:
 	if wave_count == 1:
@@ -35,7 +35,7 @@ func _on_wave_timer_timeout() -> void:
 		$WaveTimer.wait_time = wave3_duration
 		$GhostSpawnRate.wait_time = randf_range(5, 10)
 		$GoblinSpawnRate.wait_time = 0.3
-		$GoblinBossSpawnRate.wait_time = 10
+		$GoblinBossSpawnRate.wait_time = 2
 		$GoblinBossSpawnRate.start()
 
 func _on_ghost_spawn_rate_timeout() -> void:
@@ -89,3 +89,11 @@ func get_random_spawn_position() -> Vector2:
 	var y_spawn = randf_range(pos_1.y, pos_2.y)
 
 	return Vector2(x_spawn, y_spawn)
+	
+	
+func _on_player_player_death() -> void:
+	wave_count = 1
+	$WaveTimer.stop()
+	$GhostSpawnRate.stop()
+	$GoblinSpawnRate.stop()
+	$GoblinBossSpawnRate.stop()

@@ -69,6 +69,7 @@ wait_time = 0.5
 one_shot = true
 
 [connection signal="player_death" from="player" to="." method="_on_player_player_death"]
+[connection signal="player_death" from="player" to="WavesSystem" method="_on_player_player_death"]
 [connection signal="timeout" from="WavesSystem/WaveTimer" to="WavesSystem" method="_on_wave_timer_timeout"]
 [connection signal="timeout" from="WavesSystem/GhostSpawnRate" to="WavesSystem" method="_on_ghost_spawn_rate_timeout"]
 [connection signal="timeout" from="WavesSystem/GoblinSpawnRate" to="WavesSystem" method="_on_goblin_spawn_rate_timeout"]
