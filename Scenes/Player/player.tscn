@@ -22,7 +22,7 @@ radius = 32.0
 height = 112.0
 
 [node name="player" type="Area2D" node_paths=PackedStringArray("health_module") groups=["PlayerGroup"]]
-collision_mask = 2
+collision_mask = 6
 script = ExtResource("1_fkybt")
 health_module = NodePath("HealthModule")
 bullet = ExtResource("2_xpcdj")

@@ -79,6 +79,7 @@ _data = {
 
 [node name="Goblin" type="CharacterBody2D" node_paths=PackedStringArray("behaviour_module")]
 collision_layer = 2
+collision_mask = 3
 script = ExtResource("1_v3txi")
 behaviour_module = NodePath("Behaviour/MobBehaviour")
 hit_flash_shader = SubResource("ShaderMaterial_xpyb8")
@@ -92,13 +93,11 @@ sprite_frames = SubResource("SpriteFrames_q0u7v")
 animation = &"goblin1"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(3.4999998, 6)
 rotation = 1.5707964
 shape = SubResource("RectangleShape2D_u8yfu")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-visible = false
 rect = Rect2(-35, -34, 70, 79)
 
 [node name="Behaviour" type="Node" parent="."]

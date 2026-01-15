@@ -66,6 +66,7 @@ _data = {
 
 [node name="GoblinBoss" type="CharacterBody2D" node_paths=PackedStringArray("behaviour_module")]
 collision_layer = 2
+collision_mask = 3
 script = ExtResource("1_bs2mh")
 behaviour_module = NodePath("Behaviour/MobBehaviour")
 

@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://bkxqp8mj6ayjy"]
+[gd_scene load_steps=8 format=3 uid="uid://bkxqp8mj6ayjy"]
 
 [ext_resource type="Script" uid="uid://dx3yt7m6kh8kw" path="res://Scenes/Enemies/Ghost/ghost.gd" id="1_o80aq"]
-[ext_resource type="Texture2D" uid="uid://bgaihgqkwmpf2" path="res://Sprites/Ghost.png" id="2_6mdp7"]
+[ext_resource type="Texture2D" uid="uid://cvdngryfuoml1" path="res://Sprites/Ghost1.png" id="2_jpmw3"]
+[ext_resource type="Texture2D" uid="uid://bvdgk8bgex13u" path="res://Sprites/Ghost2.png" id="3_jpmw3"]
 [ext_resource type="Script" uid="uid://ckp8nqvjgsevu" path="res://Modules/Generics/health_module.gd" id="4_3fldh"]
 [ext_resource type="PackedScene" uid="uid://dnr2fm6mdvs2" path="res://Modules/Mobs/mob_behaviour_module.tscn" id="7_o80aq"]
 
@@ -9,19 +10,27 @@
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_6mdp7")
+"texture": ExtResource("2_jpmw3")
 }],
-"loop": false,
-"name": &"fly",
-"speed": 10.0
+"loop": true,
+"name": &"ghost1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_jpmw3")
+}],
+"loop": true,
+"name": &"ghost2",
+"speed": 5.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6mdp7"]
-radius = 28.0
+radius = 22.0
 height = 76.0
 
 [node name="Ghost" type="CharacterBody2D" node_paths=PackedStringArray("behaviour_module")]
-collision_layer = 2
+collision_layer = 4
 script = ExtResource("1_o80aq")
 behaviour_module = NodePath("Behaviour/MobBehaviour")
 
@@ -29,11 +38,10 @@ behaviour_module = NodePath("Behaviour/MobBehaviour")
 modulate = Color(1, 1, 1, 0.74509805)
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_o80aq")
-animation = &"fly"
-frame_progress = 1.0
+animation = &"ghost1"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(3, 0)
+position = Vector2(6, 0)
 shape = SubResource("CapsuleShape2D_6mdp7")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]

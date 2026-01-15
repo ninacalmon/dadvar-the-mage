@@ -7,14 +7,12 @@ var implements = [Interface.Mob, Interface.Damageable]
 
 @onready var hit_flash_animation = $HitFlashAnimPlayer
 
-var original_modulate
 
 ## Pick random animation (used as variations of Goblins).
 func _ready() -> void:
 	var goblin_types = Array($AnimatedSprite2D.sprite_frames.get_animation_names())
 	$AnimatedSprite2D.animation = goblin_types.pick_random()
 	$AnimatedSprite2D.play()
-	original_modulate = $AnimatedSprite2D.modulate
 
 func _physics_process(_delta: float) -> void:
 	behaviour_module.handle_movement()
