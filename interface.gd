@@ -32,6 +32,9 @@ class Damageable:
 class Mob:
 	var behaviour_module: MobBehaviourModule
 
+class MobProjectile:
+	var bullet_module: BulletModule
+
 ## Takes a node and an interface, and returns true if the given node
 ## implements the given interface, and false if it does not
 func node_implements_interface(node_to_check:Node, interface) -> bool:
