@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://cxyeuoba4nxrv"]
 
 [ext_resource type="Script" uid="uid://3d62f857c6wr" path="res://UI/health_bar.gd" id="1_6f3ms"]
-[ext_resource type="Texture2D" uid="uid://clc3oknuw6pky" path="res://Sprites/healthbarUnder.png" id="2_qh381"]
-[ext_resource type="Texture2D" uid="uid://dxce4pck1txxr" path="res://Sprites/healthbarOver.png" id="3_xoxfh"]
-[ext_resource type="Texture2D" uid="uid://cm75j6idbtg3" path="res://Sprites/healthbarProgress.png" id="4_m6ls7"]
+[ext_resource type="Texture2D" uid="uid://crydbhibf46vd" path="res://Sprites/healthbarUnder2.png" id="1_qh381"]
+[ext_resource type="Texture2D" uid="uid://di0fjkfsmm85q" path="res://Sprites/healthbarOver2.png" id="2_xoxfh"]
+[ext_resource type="Texture2D" uid="uid://d1dyweg2kd3vw" path="res://Sprites/healthbarProgress2.png" id="3_m6ls7"]
 
 [node name="HealthBar" type="TextureProgressBar"]
 anchors_preset = 15
@@ -14,8 +14,7 @@ offset_bottom = -440.0
 grow_horizontal = 2
 grow_vertical = 2
 value = 100.0
-texture_under = ExtResource("2_qh381")
-texture_over = ExtResource("3_xoxfh")
-texture_progress = ExtResource("4_m6ls7")
-texture_progress_offset = Vector2(0.5, 0)
+texture_under = ExtResource("1_qh381")
+texture_over = ExtResource("2_xoxfh")
+texture_progress = ExtResource("3_m6ls7")
 script = ExtResource("1_6f3ms")
