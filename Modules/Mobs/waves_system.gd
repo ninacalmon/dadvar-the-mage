@@ -3,13 +3,18 @@ extends Node
 @export var ghost: PackedScene
 @export var goblin: PackedScene
 @export var goblin_boss: PackedScene
+@export var cerberus: PackedScene
+@export var mega_cerberus: PackedScene
 @export var player: Area2D
 
 var mob = 0
 var wave_count = 1
-var wave1_duration = 5
-var wave2_duration = 5
-var wave3_duration = 5000
+var wave1_duration = 25
+var wave2_duration = 25
+var wave3_duration = 25
+var wave4_duration = 5000
+
+@onready var main_soundtrack: AudioStreamPlayer = $"../AudioStreamPlayer2D"
 
 func _ready() -> void:
 	if wave_count == 1:
@@ -17,7 +22,7 @@ func _ready() -> void:
 		$WaveTimer.wait_time = wave1_duration
 		$WaveTimer.start()
 		
-		$GhostSpawnRate.wait_time = 0.5
+		$GhostSpawnRate.wait_time = 0.3
 		$GhostSpawnRate.start()
 	
 func _on_wave_timer_timeout() -> void:
@@ -25,18 +30,35 @@ func _on_wave_timer_timeout() -> void:
 	print(wave_count)
 	if wave_count == 2:
 		$WaveTimer.wait_time = wave2_duration
-		$WaveTimer.one_shot = true
-		$GoblinSpawnRate.start()
 		
-		$GhostSpawnRate.wait_time = 3
-		$GoblinSpawnRate.wait_time = 0.3
+		$GhostSpawnRate.stop()
+		$GoblinSpawnRate.wait_time = 0.4
+		
+		$GoblinSpawnRate.start()
 
 	if wave_count == 3:
 		$WaveTimer.wait_time = wave3_duration
-		$GhostSpawnRate.wait_time = randf_range(5, 10)
-		$GoblinSpawnRate.wait_time = 0.3
-		$GoblinBossSpawnRate.wait_time = 2
+		$GhostSpawnRate.wait_time = 4
+		$GoblinSpawnRate.stop()
+		$CerberusSpawnRate.wait_time = 2
+		$GoblinBossSpawnRate.wait_time = 7
+		$CerberusSpawnRate.start()
 		$GoblinBossSpawnRate.start()
+		
+	if wave_count == 4:
+		var tween = get_tree().create_tween()
+		tween.tween_property(main_soundtrack, "volume_db", -40, 2)
+		tween.tween_callback(start_new_soundtrack.bind(preload("res://Sounds/Vordt of the Boreal Valley.mp3"), main_soundtrack))
+
+		$WaveTimer.wait_time = wave4_duration
+		$GoblinBossSpawnRate.stop()
+		$CerberusSpawnRate.stop()
+		$GhostSpawnRate.wait_time = 0.4
+		$GhostSpawnRate.start()
+		$MegaCerberusSpawnRate.wait_time = 3
+		$MegaCerberusSpawnRate.one_shot = true
+		$MegaCerberusSpawnRate.start()
+		
 
 func _on_ghost_spawn_rate_timeout() -> void:
 	spawn_mob(ghost)
@@ -44,14 +66,18 @@ func _on_ghost_spawn_rate_timeout() -> void:
 func _on_goblin_spawn_rate_timeout() -> void:
 	spawn_mob(goblin)
 	
+func _on_cerberus_spawn_rate_timeout() -> void:
+	spawn_mob(cerberus)
+	
 func _on_goblin_boss_spawn_rate_timeout() -> void:
 	spawn_mob(goblin_boss)
 	
+func _on_mega_cerberus_spawn_rate_timeout() -> void:
+	spawn_mob(mega_cerberus)
 
-	
-	
-func spawn_mob(mob):
-	mob = mob.instantiate()
+
+func spawn_mob(mob_to_spawn):
+	mob = mob_to_spawn.instantiate()
 	mob.position = get_random_spawn_position()
 	add_child(mob)
 	
@@ -97,3 +123,12 @@ func _on_player_player_death() -> void:
 	$GhostSpawnRate.stop()
 	$GoblinSpawnRate.stop()
 	$GoblinBossSpawnRate.stop()
+	
+func start_new_soundtrack(audio_track: AudioStream, track_to_remove: AudioStreamPlayer = null) -> void:
+	if track_to_remove:
+		track_to_remove.stop()
+
+	var stream_player = AudioStreamPlayer.new()
+	stream_player.stream = audio_track
+	stream_player.autoplay = true
+	get_parent().add_child(stream_player)

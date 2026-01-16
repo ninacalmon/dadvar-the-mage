@@ -1,44 +1,37 @@
-[gd_scene load_steps=14 format=3 uid="uid://lo1aexwurrqg"]
+[gd_scene load_steps=14 format=3 uid="uid://ck5sefsx2pmdk"]
 
-[ext_resource type="Script" uid="uid://66e13ckj7aom" path="res://Scenes/Enemies/Goblin/goblin.gd" id="1_v3txi"]
-[ext_resource type="Texture2D" uid="uid://mxpku1fk6108" path="res://Sprites/Goblin-2.png" id="2_v3txi"]
-[ext_resource type="Shader" uid="uid://mm42ofpnqd40" path="res://Shaders/hit_flash.tres" id="2_xpyb8"]
-[ext_resource type="Texture2D" uid="uid://yx74icg37doa" path="res://Sprites/Goblin-3.png" id="3_xpyb8"]
-[ext_resource type="PackedScene" uid="uid://dnr2fm6mdvs2" path="res://Modules/Mobs/mob_behaviour_module.tscn" id="4_xpyb8"]
-[ext_resource type="Script" uid="uid://ckp8nqvjgsevu" path="res://Modules/Generics/health_module.gd" id="6_u8yfu"]
+[ext_resource type="Script" uid="uid://d2a7beioym84e" path="res://Scenes/Bosses/MegaCerberus/mega_cerberus.gd" id="1_40f5u"]
+[ext_resource type="Shader" uid="uid://mm42ofpnqd40" path="res://Shaders/hit_flash.tres" id="2_4khvt"]
+[ext_resource type="Texture2D" uid="uid://cbu0c86h4sygg" path="res://Sprites/cerberus.png" id="3_d02t7"]
+[ext_resource type="PackedScene" uid="uid://dnr2fm6mdvs2" path="res://Modules/Mobs/mob_behaviour_module.tscn" id="4_0n0sj"]
+[ext_resource type="Script" uid="uid://ckp8nqvjgsevu" path="res://Modules/Generics/health_module.gd" id="5_clmh5"]
+[ext_resource type="PackedScene" uid="uid://c3ueu20cyo6w8" path="res://Scenes/Player/Spells/mob_projectile.tscn" id="6_4khvt"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xpyb8"]
-shader = ExtResource("2_xpyb8")
-shader_parameter/enable = false
-shader_parameter/ColorParameter = Color(1, 1, 1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_u8yfu"]
-resource_local_to_scene = true
-shader = ExtResource("2_xpyb8")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_40f5u"]
+shader = ExtResource("2_4khvt")
 shader_parameter/enable = false
 shader_parameter/ColorParameter = Color(0.364706, 0, 0, 1)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_q0u7v"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u8yfu"]
+resource_local_to_scene = true
+shader = ExtResource("2_4khvt")
+shader_parameter/enable = false
+shader_parameter/ColorParameter = Color(0.364706, 0, 0, 1)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8ig6l"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_v3txi")
+"texture": ExtResource("3_d02t7")
 }],
 "loop": true,
-"name": &"goblin1",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("3_xpyb8")
-}],
-"loop": true,
-"name": &"goblin2",
+"name": &"MegaCerberus",
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_u8yfu"]
-size = Vector2(78, 61)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p4grk"]
+radius = 43.0
+height = 128.0
 
 [sub_resource type="Animation" id="Animation_xpyb8"]
 length = 0.001
@@ -77,41 +70,41 @@ _data = {
 &"hit_flash": SubResource("Animation_u8yfu")
 }
 
-[node name="Goblin" type="CharacterBody2D" node_paths=PackedStringArray("behaviour_module")]
-collision_layer = 2
+[node name="Mega Cerberus" type="CharacterBody2D" node_paths=PackedStringArray("behaviour_module")]
+scale = Vector2(4, 4)
+collision_layer = 4
 collision_mask = 3
-script = ExtResource("1_v3txi")
+script = ExtResource("1_40f5u")
 behaviour_module = NodePath("Behaviour/MobBehaviour")
-hit_flash_shader = SubResource("ShaderMaterial_xpyb8")
+hit_flash_shader = SubResource("ShaderMaterial_40f5u")
+bullet = ExtResource("6_4khvt")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(0.9226216, 0.703447, 0.703447, 1)
 material = SubResource("ShaderMaterial_u8yfu")
-position = Vector2(-3, -32)
-rotation = -3.1415927
-scale = Vector2(1, -1)
-sprite_frames = SubResource("SpriteFrames_q0u7v")
-animation = &"goblin1"
+sprite_frames = SubResource("SpriteFrames_8ig6l")
+animation = &"MegaCerberus"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(3.4999998, 6)
+position = Vector2(1, 10)
 rotation = 1.5707964
-shape = SubResource("RectangleShape2D_u8yfu")
+shape = SubResource("CapsuleShape2D_p4grk")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-rect = Rect2(-35, -34, 70, 79)
+rect = Rect2(-74, -44, 144, 114)
 
 [node name="Behaviour" type="Node" parent="."]
 
-[node name="MobBehaviour" parent="Behaviour" node_paths=PackedStringArray("health_module", "mob", "mob_sprite") instance=ExtResource("4_xpyb8")]
-movement_speed = 50
-damage = 10.0
+[node name="MobBehaviour" parent="Behaviour" node_paths=PackedStringArray("health_module", "mob", "mob_sprite") instance=ExtResource("4_0n0sj")]
+movement_speed = 70
+damage = 25.0
 health_module = NodePath("../HealthModule")
 mob = NodePath("../..")
 mob_sprite = NodePath("../../AnimatedSprite2D")
 
 [node name="HealthModule" type="Node" parent="Behaviour"]
-script = ExtResource("6_u8yfu")
-max_health = 20.0
+script = ExtResource("5_clmh5")
+max_health = 1200.0
 metadata/_custom_type_script = "uid://ckp8nqvjgsevu"
 
 [node name="HitFlashAnimPlayer" type="AnimationPlayer" parent="."]
@@ -138,4 +131,18 @@ scale_amount_min = 3.0
 scale_amount_max = 6.0
 color = Color(0.28235295, 0, 0, 1)
 
-[connection signal="health_depleted" from="Behaviour/HealthModule" to="." method="_on_goblin_health_module_health_depleted"]
+[node name="MobCooldown" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="Head1" type="Node2D" parent="."]
+position = Vector2(54, 16)
+
+[node name="Head2" type="Node2D" parent="."]
+position = Vector2(46, -16)
+
+[node name="Head3" type="Node2D" parent="."]
+position = Vector2(10, -30)
+
+[connection signal="health_depleted" from="Behaviour/HealthModule" to="." method="_on_cerberus_health_module_health_depleted"]
+[connection signal="timeout" from="MobCooldown" to="." method="_on_mob_cooldown_timeout"]

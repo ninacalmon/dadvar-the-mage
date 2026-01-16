@@ -1,6 +1,5 @@
 extends Node2D
 class_name MobBehaviourModule
-signal im_dead
 
 @export var movement_speed: int
 @export var damage: float

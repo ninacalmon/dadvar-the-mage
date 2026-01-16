@@ -5,8 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://bhhkmo6wlsiqg" path="res://Modules/Bullet/bullet_module.tscn" id="3_bosj0"]
 [ext_resource type="AudioStream" uid="uid://j7hlt3p0fhem" path="res://Sounds/city-castle-398832.mp3" id="4_humpc"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vkspu"]
-size = Vector2(10.666667, 10.666667)
+[sub_resource type="CircleShape2D" id="CircleShape2D_humpc"]
+radius = 8.0
 
 [sub_resource type="Gradient" id="Gradient_5fyw6"]
 offsets = PackedFloat32Array(0, 0.5833333)
@@ -38,7 +38,7 @@ damage = 10.0
 bullet_speed = 1000.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="bullet_module"]
-shape = SubResource("RectangleShape2D_vkspu")
+shape = SubResource("CircleShape2D_humpc")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 scale = Vector2(0.25, 0.25)

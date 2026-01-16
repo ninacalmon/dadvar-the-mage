@@ -55,5 +55,6 @@ offset_right = 38.0
 offset_bottom = 89.0
 character = NodePath("..")
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="health_depleted" from="HealthModule" to="." method="_on_player_health_health_depleted"]

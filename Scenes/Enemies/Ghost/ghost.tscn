@@ -31,6 +31,7 @@ height = 76.0
 
 [node name="Ghost" type="CharacterBody2D" node_paths=PackedStringArray("behaviour_module")]
 collision_layer = 4
+collision_mask = 4
 script = ExtResource("1_o80aq")
 behaviour_module = NodePath("Behaviour/MobBehaviour")
 
@@ -62,4 +63,3 @@ mob = NodePath("../..")
 mob_sprite = NodePath("../../AnimatedSprite2D")
 
 [connection signal="health_depleted" from="Behaviour/HealthModule" to="." method="_on_ghost_health_module_health_depleted"]
-[connection signal="im_dead" from="Behaviour/MobBehaviour" to="." method="_on_mob_behaviour_im_dead"]

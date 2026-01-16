@@ -1,11 +1,15 @@
 extends Area2D
 signal player_death
 
+const WAND_TIP_POSITION_X_ABSOLUTE = 63
+
 @export var health_module: HealthModule
 @export var speed = 400
 @export var bullet: PackedScene
 @export var player_shoot_cooldown: float
 var shoot_cooldown = 0
+
+var audio_track: AudioStream = preload("res://Sounds/retro-game-shot-2-152053.mp3")
 
 func start(pos):
 	position = pos
@@ -19,7 +23,7 @@ func wobble():
 			
 func _physics_process(delta: float) -> void:
 	shoot_cooldown = max(shoot_cooldown - delta, 0)
-	if Input.is_action_pressed("shoot") and shoot_cooldown <= 0:
+	if Input.is_action_just_pressed("shoot") and shoot_cooldown <= 0:
 		var bullet = bullet.instantiate()
 		bullet.global_position = $WandTip.global_position
 
@@ -41,7 +45,6 @@ func _process(delta: float) -> void:
 		$AnimatedSprite2D.animation = "idle"
 		$AnimatedSprite2D.flip_h = velocity.x < 0
 
-		const WAND_TIP_POSITION_X_ABSOLUTE = 63
 		$WandTip.position.x = -WAND_TIP_POSITION_X_ABSOLUTE if velocity.x < 0 else WAND_TIP_POSITION_X_ABSOLUTE
 		wobble()
 		velocity = velocity.normalized() * speed
@@ -53,12 +56,29 @@ func _process(delta: float) -> void:
 
 	# Collision
 func _on_body_entered(body: Node2D) -> void:
-	if Interface.node_implements_interface(body, Interface.Mob):
+	var is_mob = Interface.node_implements_interface(body, Interface.Mob)
+	if is_mob == true:
 		var behaviour: MobBehaviourModule = body.behaviour_module
 		var current_health = health_module.get_health()
 		health_module.set_health(current_health - behaviour.damage)
 
+func _on_area_entered(area: Area2D) -> void:
+	var area_parent = area.get_parent()
+	var is_mob_projectile = Interface.node_implements_interface(area_parent, Interface.MobProjectile)
+
+	if is_mob_projectile == true:
+		var bullet_module: BulletModule = area_parent.bullet_module
+		var current_health = health_module.get_health()
+		health_module.set_health(current_health - bullet_module.damage)
+
 func _on_player_health_health_depleted() -> void:
+	## GAMBIARRA
+	var stream_player = AudioStreamPlayer.new()
+	stream_player.stream = audio_track
+	stream_player.pitch_scale = randf_range(0.8, 1.2)
+	stream_player.autoplay = true
+	get_parent().add_child(stream_player)
+	
 	hide()
 	$CollisionShape2D.set_deferred("disabled", true)
 	player_death.emit()
