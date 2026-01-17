@@ -19,6 +19,7 @@ const WAND_TIP_POSITION_X_ABSOLUTE = 63
 
 var shoot_cooldown = 0
 
+@onready var hit_flash_animation = $HitFlashAnimPlayer
 var audio_track: AudioStream = preload("res://Sounds/retro-game-shot-2-152053.mp3")
 
 func start(pos):
@@ -26,10 +27,16 @@ func start(pos):
 	show()
 	$CollisionShape2D.disabled = false
 	
+
 ## PUT THIS IN UTILS LATER!!!
 func wobble():
 	$AnimatedSprite2D.rotation = sin(Time.get_ticks_msec() * frequency) * amplitude
-			
+
+func take_damage(mob_behaviour: MobBehaviourModule):
+	hit_flash_animation.play("hit_flash")
+	var current_health = health_module.get_health()
+	health_module.set_health(current_health - mob_behaviour.damage)
+
 func _physics_process(delta: float) -> void:
 	shoot_cooldown = max(shoot_cooldown - delta, 0)
 	if Input.is_action_just_pressed("shoot") and shoot_cooldown <= 0:
@@ -68,8 +75,7 @@ func _on_body_entered(body: Node2D) -> void:
 	var is_mob = Interface.node_implements_interface(body, Interface.Mob)
 	if is_mob == true:
 		var behaviour: MobBehaviourModule = body.behaviour_module
-		var current_health = health_module.get_health()
-		health_module.set_health(current_health - behaviour.damage)
+		take_damage(behaviour)
 
 func _on_area_entered(area: Area2D) -> void:
 	var node_mob_projectile = Interface.is_any_interface_implements_node(find_root_node(area), Interface.MobProjectile)
@@ -87,7 +93,8 @@ func _on_area_entered(area: Area2D) -> void:
 
 
 func _on_player_health_health_depleted() -> void:
-	## GAMBIARRA
+	## GAMBIARRA e não funciona ainda por causa da "morte" do player, mas será ajustado quando
+	## a morte não resultar mais em restart instantaneo.
 	var stream_player = AudioStreamPlayer.new()
 	stream_player.stream = audio_track
 	stream_player.pitch_scale = randf_range(0.8, 1.2)
