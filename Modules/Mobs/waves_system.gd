@@ -7,8 +7,9 @@ extends Node
 @export var mega_cerberus: PackedScene
 @export var player: Area2D
 
-var mob = 0
+var mob = null
 var wave_count = 1
+
 var wave1_duration = 25
 var wave2_duration = 25
 var wave3_duration = 25

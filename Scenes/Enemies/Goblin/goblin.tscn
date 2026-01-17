@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://lo1aexwurrqg"]
+[gd_scene load_steps=15 format=3 uid="uid://lo1aexwurrqg"]
 
 [ext_resource type="Script" uid="uid://66e13ckj7aom" path="res://Scenes/Enemies/Goblin/goblin.gd" id="1_v3txi"]
 [ext_resource type="Texture2D" uid="uid://mxpku1fk6108" path="res://Sprites/Goblin-2.png" id="2_v3txi"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://yx74icg37doa" path="res://Sprites/Goblin-3.png" id="3_xpyb8"]
 [ext_resource type="PackedScene" uid="uid://dnr2fm6mdvs2" path="res://Modules/Mobs/mob_behaviour_module.tscn" id="4_xpyb8"]
 [ext_resource type="Script" uid="uid://ckp8nqvjgsevu" path="res://Modules/Generics/health_module.gd" id="6_u8yfu"]
+[ext_resource type="PackedScene" uid="uid://074u46307g8r" path="res://Scenes/Progression/Void Power/vp_common.tscn" id="6_xpmg4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xpyb8"]
 shader = ExtResource("2_xpyb8")
@@ -106,10 +107,11 @@ rect = Rect2(-35, -34, 70, 79)
 movement_speed = 50
 damage = 10.0
 health_module = NodePath("../HealthModule")
+vp_orb_scene = ExtResource("6_xpmg4")
 mob = NodePath("../..")
 mob_sprite = NodePath("../../AnimatedSprite2D")
 
-[node name="HealthModule" type="Node" parent="Behaviour"]
+[node name="HealthModule" type="Node" parent="Behaviour" groups=["HealthModuleGroup"]]
 script = ExtResource("6_u8yfu")
 max_health = 20.0
 metadata/_custom_type_script = "uid://ckp8nqvjgsevu"

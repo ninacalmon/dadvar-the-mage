@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://d2c1s3qmdi4ti"]
+[gd_scene load_steps=11 format=3 uid="uid://d2c1s3qmdi4ti"]
 
 [ext_resource type="Script" uid="uid://ddcjyfv6u117d" path="res://Scenes/Player/player.gd" id="1_fkybt"]
 [ext_resource type="Texture2D" uid="uid://dqqxlre8b55bg" path="res://Sprites/TheMage.png" id="2_a3d8c"]
@@ -25,8 +25,11 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a3d8c"]
-radius = 32.0
-height = 112.0
+radius = 24.0
+height = 96.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dd0ac"]
+radius = 112.0
 
 [node name="player" type="Area2D" node_paths=PackedStringArray("health_module") groups=["PlayerGroup"]]
 collision_mask = 2054
@@ -62,6 +65,14 @@ offset_top = 73.0
 offset_right = 38.0
 offset_bottom = 89.0
 character = NodePath("..")
+
+[node name="vp_collector" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 128
+
+[node name="range" type="CollisionShape2D" parent="vp_collector"]
+position = Vector2(0, 24)
+shape = SubResource("CircleShape2D_dd0ac")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://drrllpdvbctga"]
+[gd_scene load_steps=14 format=3 uid="uid://drrllpdvbctga"]
 
 [ext_resource type="Script" uid="uid://cvh6pdd1cahof" path="res://Scenes/Bosses/GoblinBoss/goblin_boss.gd" id="1_bs2mh"]
 [ext_resource type="Texture2D" uid="uid://bgqumwqddncyp" path="res://Sprites/Goblin-1.png" id="2_h2756"]
 [ext_resource type="Shader" uid="uid://mm42ofpnqd40" path="res://Shaders/hit_flash.tres" id="2_hxret"]
 [ext_resource type="PackedScene" uid="uid://dnr2fm6mdvs2" path="res://Modules/Mobs/mob_behaviour_module.tscn" id="3_1lps0"]
 [ext_resource type="Script" uid="uid://ckp8nqvjgsevu" path="res://Modules/Generics/health_module.gd" id="4_4f2ww"]
+[ext_resource type="PackedScene" uid="uid://d048m6awnu3o7" path="res://Scenes/Progression/Void Power/vp_rare.tscn" id="5_1p0cp"]
 [ext_resource type="AudioStream" uid="uid://b66t5o1p1hh8k" path="res://Sounds/witch-laugh-256450.mp3" id="6_jbg4a"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jbg4a"]
@@ -99,12 +100,13 @@ rect = Rect2(-48, -56, 80, 136)
 movement_speed = 45
 damage = 20.0
 health_module = NodePath("../HealthModule")
+vp_orb_scene = ExtResource("5_1p0cp")
 mob = NodePath("../..")
 mob_sprite = NodePath("../../AnimatedSprite2D")
 
 [node name="HealthModule" type="Node" parent="Behaviour"]
 script = ExtResource("4_4f2ww")
-max_health = 80.0
+max_health = 150.0
 metadata/_custom_type_script = "uid://ckp8nqvjgsevu"
 
 [node name="BloodParticles" type="CPUParticles2D" parent="."]

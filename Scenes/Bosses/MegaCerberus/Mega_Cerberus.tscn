@@ -1,11 +1,12 @@
-[gd_scene load_steps=14 format=3 uid="uid://ck5sefsx2pmdk"]
+[gd_scene load_steps=15 format=3 uid="uid://ck5sefsx2pmdk"]
 
 [ext_resource type="Script" uid="uid://d2a7beioym84e" path="res://Scenes/Bosses/MegaCerberus/mega_cerberus.gd" id="1_40f5u"]
 [ext_resource type="Shader" uid="uid://mm42ofpnqd40" path="res://Shaders/hit_flash.tres" id="2_4khvt"]
 [ext_resource type="Texture2D" uid="uid://cbu0c86h4sygg" path="res://Sprites/cerberus.png" id="3_d02t7"]
 [ext_resource type="PackedScene" uid="uid://dnr2fm6mdvs2" path="res://Modules/Mobs/mob_behaviour_module.tscn" id="4_0n0sj"]
 [ext_resource type="Script" uid="uid://ckp8nqvjgsevu" path="res://Modules/Generics/health_module.gd" id="5_clmh5"]
-[ext_resource type="PackedScene" uid="uid://c3ueu20cyo6w8" path="res://Scenes/Player/Spells/mob_projectile.tscn" id="6_4khvt"]
+[ext_resource type="PackedScene" uid="uid://c3ueu20cyo6w8" path="res://Scenes/Bosses/MegaCerberus/mob_projectile.tscn" id="6_4khvt"]
+[ext_resource type="PackedScene" uid="uid://cnifl2hunxyar" path="res://Scenes/Progression/Void Power/vp_ultrarare.tscn" id="6_d02t7"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_40f5u"]
 shader = ExtResource("2_4khvt")
@@ -99,6 +100,7 @@ rect = Rect2(-74, -44, 144, 114)
 movement_speed = 70
 damage = 25.0
 health_module = NodePath("../HealthModule")
+vp_orb_scene = ExtResource("6_d02t7")
 mob = NodePath("../..")
 mob_sprite = NodePath("../../AnimatedSprite2D")
 

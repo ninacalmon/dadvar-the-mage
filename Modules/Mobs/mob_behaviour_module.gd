@@ -4,10 +4,18 @@ class_name MobBehaviourModule
 @export var movement_speed: int
 @export var damage: float
 @export var health_module: HealthModule
+@export var vp_orb_scene: PackedScene
 
 @export var mob: CharacterBody2D
 @export var mob_sprite: AnimatedSprite2D
 @onready var player =  get_tree().get_first_node_in_group("PlayerGroup")
+## THE HEALTH MODULE NEEDS TO BE SIBLING TO THE MOB BEHAVIOUR
+## NOT THE BEST WAY TO DO THIS, MAYBE IMPROVE LATER
+@onready var health_module_node = get_parent().get_node("HealthModule")
+
+## ASSERT VARIABLES ON READY TO AVOID GETTING ERRORS THAT ARE NONSENSE
+func _ready():
+	health_module_node.connect("health_depleted", _on_health_module_health_depleted)
 
 func handle_movement() -> void:
 	# point to Player and move towards it.
@@ -20,7 +28,28 @@ func handle_sprite_flip() -> void:
 	## Behaviour node position! (Which does not moves at all)
 	mob_sprite.flip_h =  mob.global_position.x > player.global_position.x
 
-func handle_take_damage(damage: float) -> void:
+func handle_take_damage(damage_to_receive: float) -> void:
 	var current_health = health_module.get_health()
-	health_module.set_health(current_health - damage)
+	health_module.set_health(current_health - damage_to_receive)
+	
+# drops xp orb
+func _on_health_module_health_depleted() -> void:
+	assert(vp_orb_scene != null, "Mob does not have a VP orb to drop defined")
+	var vp_orb = vp_orb_scene.instantiate()
+	vp_orb.position = get_parent().get_parent().position
+	find_main_game_node(self).add_child(vp_orb)
+	
+## PUT THIS 0N A SEPARATE FILE FOR UTILS
+func find_main_game_node(node: Node) -> Node:
+	# Find topmost parent of this scene instance
+	var root = node
+
+	while root.get_parent():
+		if root.get_parent().name == "game":
+			root = root.get_parent()
+
+			break
+		root = root.get_parent()
+
+	return root
 	

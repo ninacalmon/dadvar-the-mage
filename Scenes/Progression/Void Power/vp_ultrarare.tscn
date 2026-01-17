@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://cnifl2hunxyar"]
+
+[ext_resource type="Script" uid="uid://batn40bypr162" path="res://Scenes/Progression/Void Power/vp.gd" id="1_1ih8d"]
+[ext_resource type="Texture2D" uid="uid://81jt40epx6uf" path="res://Sprites/xp.png" id="2_1muo0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uy6jv"]
+radius = 4.0
+
+[node name="xp" type="Area2D"]
+modulate = Color(0.3924328, 0.029090425, 0.049820937, 1)
+scale = Vector2(5, 5)
+collision_layer = 128
+collision_mask = 128
+script = ExtResource("1_1ih8d")
+vp_amount = 100
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_uy6jv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_1muo0")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

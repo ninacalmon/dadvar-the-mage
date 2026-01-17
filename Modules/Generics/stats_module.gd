@@ -63,7 +63,7 @@ func add_experience(experience_to_add: float):
 	var old_level: int = level
 	self.experience += experience_to_add
 	var new_level: int = self.get_level()
-
+	
 	if not old_level == new_level:
 		self.level = new_level
 		self.level_up.emit(self.get_level())
@@ -71,7 +71,7 @@ func add_experience(experience_to_add: float):
 		# recalculate_stats()
 	
 func get_level():
-	return floor(max(1.0, sqrt(self.experience / BASE_XP) + 0.5))
+	return floor(max(1.0, (pow(self.experience / BASE_XP, 1/1.1) + 0.5) + 1)) 
 	
 func add_modifier(modifier: StatModifier) -> void:
 	self.stat_modifiers.append(modifier)

@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://c3ueu20cyo6w8"]
 
 [ext_resource type="Texture2D" uid="uid://ctdd6fo4ug2b6" path="res://Sprites/bullet_big.png" id="1_net0e"]
-[ext_resource type="Script" uid="uid://cprifh28l01vd" path="res://Scenes/Player/Spells/mob_projectile.gd" id="2_net0e"]
+[ext_resource type="Script" uid="uid://cprifh28l01vd" path="res://Scenes/Bosses/MegaCerberus/mob_projectile.gd" id="2_net0e"]
 [ext_resource type="PackedScene" uid="uid://bhhkmo6wlsiqg" path="res://Modules/Bullet/bullet_module.tscn" id="3_qcanf"]
 [ext_resource type="AudioStream" uid="uid://j7hlt3p0fhem" path="res://Sounds/city-castle-398832.mp3" id="4_2mbk1"]
 
@@ -26,7 +26,7 @@ bullet_module = NodePath("bullet_module")
 collision_layer = 4
 collision_mask = 1
 lifetime = 5.0
-damage = 10.0
+damage = 5.0
 bullet_speed = 500.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="bullet_module"]

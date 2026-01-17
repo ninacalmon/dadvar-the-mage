@@ -1,4 +1,5 @@
 extends Area2D
+class_name Player
 signal player_death
 
 const WAND_TIP_POSITION_X_ABSOLUTE = 63
@@ -100,6 +101,7 @@ func find_root_node(node: Node) -> Node:
 		## If scene tree only has root node, the root node returned is game
 		## which should not happen. When scene tree has more than one node
 		## it returns correctly the root node for the scene
+		## NEED TO FIX IT LATER! UNTIL THEN, DO NOT USE AREA2D AS ROOT NODE
 		#print("root:", root, "owner:", root.get_owner(), "parent owner:", root.get_parent().get_owner())
 
 		if root.get_parent().get_owner() != root.get_owner():
