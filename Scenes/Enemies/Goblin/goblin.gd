@@ -7,7 +7,6 @@ var implements = [Interface.Mob, Interface.Damageable]
 
 @onready var hit_flash_animation = $HitFlashAnimPlayer
 
-
 ## Pick random animation (used as variations of Goblins).
 func _ready() -> void:
 	var goblin_types = Array($AnimatedSprite2D.sprite_frames.get_animation_names())
@@ -26,7 +25,6 @@ func take_damage(damage: float):
 	behaviour_module.handle_take_damage(damage)
 
 func _on_goblin_health_module_health_depleted() -> void:
-	var tween = get_tree().create_tween()
 	$CollisionShape2D.set_deferred("disabled", true)
 	$BloodParticles.emitting = true
 	hit_flash_animation.connect("animation_finished", die_after_anim_finished)

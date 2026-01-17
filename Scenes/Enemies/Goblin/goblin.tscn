@@ -88,8 +88,7 @@ hit_flash_shader = SubResource("ShaderMaterial_xpyb8")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_u8yfu")
 position = Vector2(-3, -32)
-rotation = -3.1415927
-scale = Vector2(1, -1)
+scale = Vector2(-1, 1)
 sprite_frames = SubResource("SpriteFrames_q0u7v")
 animation = &"goblin1"
 
@@ -113,7 +112,6 @@ mob_sprite = NodePath("../../AnimatedSprite2D")
 
 [node name="HealthModule" type="Node" parent="Behaviour" groups=["HealthModuleGroup"]]
 script = ExtResource("6_u8yfu")
-max_health = 20.0
 metadata/_custom_type_script = "uid://ckp8nqvjgsevu"
 
 [node name="HitFlashAnimPlayer" type="AnimationPlayer" parent="."]

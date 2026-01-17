@@ -5,13 +5,16 @@ signal health_changed(diff: float)
 signal max_health_changed(diff: float)
 signal health_depleted
 
-
 @export var max_health: float
 @export var immortality: bool = false
 
 var immortality_timer: Timer = null
 
 @onready var health: float = max_health
+
+func _ready():
+	if immortality:
+		print("IMMORTALITY ON")
 
 func set_max_health(health_value: float) -> void:
 	if not health_value == max_health:

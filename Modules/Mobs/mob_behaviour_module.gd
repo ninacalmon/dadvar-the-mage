@@ -37,19 +37,6 @@ func _on_health_module_health_depleted() -> void:
 	assert(vp_orb_scene != null, "Mob does not have a VP orb to drop defined")
 	var vp_orb = vp_orb_scene.instantiate()
 	vp_orb.position = get_parent().get_parent().position
-	find_main_game_node(self).add_child(vp_orb)
-	
-## PUT THIS 0N A SEPARATE FILE FOR UTILS
-func find_main_game_node(node: Node) -> Node:
-	# Find topmost parent of this scene instance
-	var root = node
+	var game_node = get_tree().get_current_scene()
 
-	while root.get_parent():
-		if root.get_parent().name == "game":
-			root = root.get_parent()
-
-			break
-		root = root.get_parent()
-
-	return root
-	
+	game_node.add_child(vp_orb)

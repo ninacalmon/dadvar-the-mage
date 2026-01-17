@@ -4,12 +4,19 @@ signal player_death
 
 const WAND_TIP_POSITION_X_ABSOLUTE = 63
 
+@export_group("Modules")
 @export var stats_module: StatsModule
-
 @export var health_module: HealthModule
+
+@export_group("Local Variables")
 @export var speed = 400
 @export var bullet: PackedScene
 @export var player_shoot_cooldown: float
+
+@export_subgroup("Wobble")
+@export var frequency := 1.0
+@export var amplitude := PI * 0.25
+
 var shoot_cooldown = 0
 
 var audio_track: AudioStream = preload("res://Sounds/retro-game-shot-2-152053.mp3")
@@ -19,8 +26,7 @@ func start(pos):
 	show()
 	$CollisionShape2D.disabled = false
 	
-@export var frequency := 1.0
-@export var amplitude := PI * 0.25
+## PUT THIS IN UTILS LATER!!!
 func wobble():
 	$AnimatedSprite2D.rotation = sin(Time.get_ticks_msec() * frequency) * amplitude
 			
