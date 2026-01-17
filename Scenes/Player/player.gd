@@ -3,6 +3,8 @@ signal player_death
 
 const WAND_TIP_POSITION_X_ABSOLUTE = 63
 
+@export var stats_module: StatsModule
+
 @export var health_module: HealthModule
 @export var speed = 400
 @export var bullet: PackedScene
@@ -24,10 +26,10 @@ func wobble():
 func _physics_process(delta: float) -> void:
 	shoot_cooldown = max(shoot_cooldown - delta, 0)
 	if Input.is_action_just_pressed("shoot") and shoot_cooldown <= 0:
-		var bullet = bullet.instantiate()
-		bullet.global_position = $WandTip.global_position
+		var bullet_instance = self.bullet.instantiate()
+		bullet_instance.global_position = $WandTip.global_position
 
-		get_parent().add_child(bullet)
+		get_parent().add_child(bullet_instance)
 		shoot_cooldown = player_shoot_cooldown
 
 func _process(delta: float) -> void:
@@ -47,7 +49,7 @@ func _process(delta: float) -> void:
 
 		$WandTip.position.x = -WAND_TIP_POSITION_X_ABSOLUTE if velocity.x < 0 else WAND_TIP_POSITION_X_ABSOLUTE
 		wobble()
-		velocity = velocity.normalized() * speed
+		velocity = velocity.normalized() * stats_module.current_move_speed
 	else:
 		$AnimatedSprite2D.animation = "idle"
 		$AnimatedSprite2D.rotation = 0
@@ -63,13 +65,18 @@ func _on_body_entered(body: Node2D) -> void:
 		health_module.set_health(current_health - behaviour.damage)
 
 func _on_area_entered(area: Area2D) -> void:
-	var area_parent = area.get_parent()
-	var is_mob_projectile = Interface.node_implements_interface(area_parent, Interface.MobProjectile)
+	var node_mob_projectile = Interface.is_any_interface_implements_node(find_root_node(area), Interface.MobProjectile)
+	var node_stat_modifier = Interface.is_any_interface_implements_node(find_root_node(area), Interface.StatsModifiers)
 
-	if is_mob_projectile == true:
-		var bullet_module: BulletModule = area_parent.bullet_module
+	if node_mob_projectile != null:
+		var bullet_module: BulletModule = node_mob_projectile.bullet_module
 		var current_health = health_module.get_health()
 		health_module.set_health(current_health - bullet_module.damage)
+
+	if node_stat_modifier != null:
+		var stat_modifier: StatBuff = node_stat_modifier.stat_buff
+		stats_module.add_buff(stat_modifier)
+
 
 func _on_player_health_health_depleted() -> void:
 	## GAMBIARRA
@@ -82,3 +89,21 @@ func _on_player_health_health_depleted() -> void:
 	hide()
 	$CollisionShape2D.set_deferred("disabled", true)
 	player_death.emit()
+
+## Helper to find root of the node passed in
+func find_root_node(node: Node) -> Node:
+	# Find topmost parent of this scene instance
+	var root = node
+
+	while root.get_parent():
+		## If scene tree only has root node, the root node returned is game
+		## which should not happen. When scene tree has more than one node
+		## it returns correctly the root node for the scene
+		#print("root:", root, "owner:", root.get_owner(), "parent owner:", root.get_parent().get_owner())
+
+		if root.get_parent().get_owner() != root.get_owner():
+			root = root.get_parent()
+			break
+		root = root.get_parent()
+
+	return root

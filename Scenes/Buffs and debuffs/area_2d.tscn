@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=3 uid="uid://co5mwj7ly4qfc"]
+
+[ext_resource type="Script" uid="uid://3yxb7fu8ijfi" path="res://Scenes/Buffs and debuffs/area_2d_test.gd" id="1_e8w1x"]
+[ext_resource type="Script" uid="uid://fv63okyk3uos" path="res://Modules/Generics/stat_buff.gd" id="2_6labp"]
+[ext_resource type="Texture2D" uid="uid://c4gpo77f05q0l" path="res://Sprites/enemySwimming_2.png" id="3_yjchi"]
+
+[sub_resource type="Resource" id="Resource_qpajc"]
+script = ExtResource("2_6labp")
+buff_amount = 1200.0
+metadata/_custom_type_script = "uid://fv63okyk3uos"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_65ayv"]
+size = Vector2(144, 96)
+
+[node name="Area2D" type="Area2D"]
+collision_layer = 2048
+script = ExtResource("1_e8w1x")
+stat_buff = SubResource("Resource_qpajc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_65ayv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_yjchi")

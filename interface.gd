@@ -35,6 +35,9 @@ class Mob:
 class MobProjectile:
 	var bullet_module: BulletModule
 
+class StatsModifiers:
+	var stat_buff: StatBuff
+
 ## Takes a node and an interface, and returns true if the given node
 ## implements the given interface, and false if it does not
 func node_implements_interface(node_to_check:Node, interface) -> bool:
@@ -51,6 +54,18 @@ func node_implements_interface(node_to_check:Node, interface) -> bool:
 		
 	return false
 
+## Iterate (recursive) through given node to look on its scne if any of the nodes
+## implements the interface passed in
+func is_any_interface_implements_node(node: Node, interface) -> Node:
+	if Interface.node_implements_interface(node, interface):
+		return node
+
+	for child in node.get_children():
+		var result := is_any_interface_implements_node(child, interface)
+		if result:
+			return result
+
+	return null
 
 ## Get an array of all the descendants of the given node, and includes the given node
 func _get_all_descendants(node:Node) -> Array:
@@ -61,8 +76,6 @@ func _get_all_descendants(node:Node) -> Array:
 		all_descendants.append_array(_get_all_descendants(child))
 
 	return all_descendants
-	
-
 
 func _ready():
 	var all_the_darn_nodes = _get_all_descendants(get_tree().current_scene)
