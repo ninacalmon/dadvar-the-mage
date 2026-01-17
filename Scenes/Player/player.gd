@@ -74,8 +74,9 @@ func _on_area_entered(area: Area2D) -> void:
 		health_module.set_health(current_health - bullet_module.damage)
 
 	if node_stat_modifier != null:
-		var stat_modifier: StatBuff = node_stat_modifier.stat_buff
-		stats_module.add_buff(stat_modifier)
+		var stat_modifier: StatModifier = node_stat_modifier.stat_modifier
+		assert(stat_modifier is StatModifier, "Stat modifier received is invalid. Check if the stat modifier is correctly defined on the entity instance")
+		stats_module.add_modifier(stat_modifier)
 
 
 func _on_player_health_health_depleted() -> void:

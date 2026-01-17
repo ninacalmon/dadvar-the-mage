@@ -1,14 +1,14 @@
 extends Resource
-class_name StatBuff
+class_name StatModifier
 
-enum BuffType {
+enum ModifierType {
 	ADD,
 	MULTIPLY
 }
 
-@export var stat: StatsModule.BuffableStats
-@export var buff_amount: float
-@export var buff_type: BuffType
+@export var stat: StatsModule.ModifiableStats
+@export var modifier_amount: float
+@export var modifier_type: ModifierType
 
  #if we have a constructor, some weird things happen when you define
  #in the inspector.

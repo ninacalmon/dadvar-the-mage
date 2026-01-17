@@ -1,4 +1,4 @@
 extends Area2D
 var implements = Interface.StatsModifiers
 
-@export var stat_buff: StatBuff
+@export var stat_modifier: StatModifier

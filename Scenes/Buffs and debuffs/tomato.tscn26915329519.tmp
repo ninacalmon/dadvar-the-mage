@@ -6,8 +6,6 @@
 
 [sub_resource type="Resource" id="Resource_pyx8k"]
 script = ExtResource("2_d44wd")
-modifier_amount = -0.2
-modifier_type = 1
 metadata/_custom_type_script = "uid://fv63okyk3uos"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pyx8k"]
@@ -17,7 +15,7 @@ radius = 8.0
 modulate = Color(1, 0, 0, 1)
 texture = ExtResource("3_pyx8k")
 script = ExtResource("1_kn8xb")
-stat_modifier = SubResource("Resource_pyx8k")
+stat_buff = SubResource("Resource_pyx8k")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 2048

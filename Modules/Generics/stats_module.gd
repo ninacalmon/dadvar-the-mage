@@ -2,7 +2,7 @@ extends Resource
 class_name StatsModule
 signal level_up(level: int)
 
-enum BuffableStats {
+enum ModifiableStats {
 	MOVE_SPEED
 }
 
@@ -13,7 +13,7 @@ const BASE_XP: float = 100.0
 var experience: float = 0
 var level: int = 1
 
-var stat_buffs: Array[StatBuff]
+var stat_modifiers: Array[StatModifier]
 
 func _setup_local_to_scene() -> void:
 	## Initialize the current values with the base values
@@ -25,39 +25,39 @@ func _setup_local_to_scene() -> void:
 func recalculate_stats():
 	var stat_multipliers: Dictionary = {}
 	var stat_addends: Dictionary = {}
-	
-	for buff in self.stat_buffs:
-		var stat_name: String = (BuffableStats.keys()[buff.stat]).to_lower()
-		
-		match buff.buff_type:
-			StatBuff.BuffType.MULTIPLY:
+
+	for modifier in self.stat_modifiers:
+		var stat_name: String = (ModifiableStats.keys()[modifier.stat]).to_lower()
+
+		match modifier.modifier_type:
+			StatModifier.ModifierType.MULTIPLY:
 				if not stat_multipliers.has(stat_name):
-					stat_multipliers[stat_name] = 0.0
-				stat_multipliers[stat_name] += buff.buff_amount
+					stat_multipliers[stat_name] = 1.0
+				stat_multipliers[stat_name] += modifier.modifier_amount
 
 				## Avoid negative multipliers to be added
-				if stat_multipliers[stat_name] <= 0.0:
-					stat_multipliers[stat_name] = 1.0
-			StatBuff.BuffType.ADD:
+				#if stat_multipliers[stat_name] <= 0.0:
+					#stat_multipliers[stat_name] = 1.0
+			StatModifier.ModifierType.ADD:
 				if not stat_addends.has(stat_name):
 					stat_addends[stat_name] = 0.0
-				stat_addends[stat_name] += buff.buff_amount
-	
+				stat_addends[stat_name] += modifier.modifier_amount
+
 	for stat_name in stat_multipliers:
 		var current_property_name: String = String("current_" + stat_name)
 		var current_property_value = self.get(current_property_name) 
 
-		var buffed_value = current_property_value * stat_multipliers[stat_name]
+		var modify_applied_value = current_property_value * stat_multipliers[stat_name]
 
-		self.set(current_property_name, buffed_value)
+		self.set(current_property_name, modify_applied_value)
 	
 	for stat_name in stat_addends:
 		var current_property_name: String = String("current_" + stat_name)
 		var current_property_value = self.get(current_property_name) 
 
-		var buffed_value = current_property_value + stat_addends[stat_name]
+		var modify_applied_value = current_property_value + stat_addends[stat_name]
 
-		self.set(current_property_name, buffed_value)
+		self.set(current_property_name, modify_applied_value)
 
 func add_experience(experience_to_add: float):
 	var old_level: int = level
@@ -73,10 +73,10 @@ func add_experience(experience_to_add: float):
 func get_level():
 	return floor(max(1.0, sqrt(self.experience / BASE_XP) + 0.5))
 	
-func add_buff(buff: StatBuff) -> void:
-	self.stat_buffs.append(buff)
+func add_modifier(modifier: StatModifier) -> void:
+	self.stat_modifiers.append(modifier)
 	self.recalculate_stats.call_deferred()
 	
-func remove_buff(buff: StatBuff) -> void:
-	self.stat_buffs.erase(buff)
+func remove_modifier(modifier: StatModifier) -> void:
+	self.stat_modifiers.erase(modifier)
 	self.recalculate_stats.call_deferred()

@@ -36,7 +36,7 @@ class MobProjectile:
 	var bullet_module: BulletModule
 
 class StatsModifiers:
-	var stat_buff: StatBuff
+	var stat_modifier: StatModifier
 
 ## Takes a node and an interface, and returns true if the given node
 ## implements the given interface, and false if it does not
