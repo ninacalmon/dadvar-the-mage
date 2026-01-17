@@ -22,7 +22,7 @@ func _setup_local_to_scene() -> void:
 	self.current_move_speed = self.base_move_speed
 
 
-func recalculate_stats():	
+func recalculate_stats():
 	var stat_multipliers: Dictionary = {}
 	var stat_addends: Dictionary = {}
 	
@@ -59,11 +59,13 @@ func recalculate_stats():
 
 		self.set(current_property_name, buffed_value)
 
-func set_experience(experience_to_add: float):
+func add_experience(experience_to_add: float):
 	var old_level: int = level
 	self.experience += experience_to_add
-	
-	if not old_level == self.get_level():
+	var new_level: int = self.get_level()
+
+	if not old_level == new_level:
+		self.level = new_level
 		self.level_up.emit(self.get_level())
 		## Not needed as we will not upgrade our stats on level up (only with buffs)
 		# recalculate_stats()

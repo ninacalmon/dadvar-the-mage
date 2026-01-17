@@ -10,12 +10,8 @@ enum BuffType {
 @export var buff_amount: float
 @export var buff_type: BuffType
 
-# Constructor to create new stat buffs
-func _init(
-	_stat: StatsModule.BuffableStats, 
-	_buff_amount: float, 
-	_buff_type: StatBuff.BuffType
-	):
-		stat = _stat
-		buff_amount = _buff_amount
-		buff_type = _buff_type
+ #if we have a constructor, some weird things happen when you define
+ #in the inspector.
+# (Because Godot does not know what to pass in the constructor when instantiating,
+# and the export variables are assigned only after _init, which is the constructor)
+# To instantiate through code we will need an static factory function
