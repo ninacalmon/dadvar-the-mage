@@ -18,7 +18,7 @@ const WAND_TIP_POSITION_X_ABSOLUTE = 63
 @export var amplitude := PI * 0.25
 
 @export_subgroup("Spells and upgrades")
-@export var bullet_habilities: Array[BulletHability]
+@export var projectile_spells: Array[EventSpell.ProjectileSpell]
 ## MAYBE HAVE HERE A SPELL UPGRADES OR SOMETHING LIKE THIS WHICH ARE UPGRADES THAT
 ## ARE NOT EFFECTS ON THE BULLET
 
@@ -48,25 +48,24 @@ func _physics_process(delta: float) -> void:
 		var bullet_instance = self.bullet.instantiate()
 		var bullet_module = bullet_instance.bullet_module
 		bullet_instance.global_position = $WandTip.global_position
-		## IMPORTANT
-		## We need a way to add the habilities, maybe the player will hold a reference to
-		## the habilities he has and then we add the related resources to the
-		## bullet habilities arary on bullet module
-		var habilities_on_spawn: Array[BulletHability] = self.bullet_habilities.filter(
-			func(hability: BulletHability):
-				return hability.hability_type == BulletHability.HabilityType.ON_SPAWN
-		)
+		## INSTANTIATING MANUALLY EVERY PROJECTILE SPELL AND PUTTING INTO THE CORRET ARRAY
+		if projectile_spells.size() == 0:
+			var soul_piercer_2 = SoulPiercer.new()
+			soul_piercer_2.pierce_count = 2
+			projectile_spells.append(soul_piercer_2)
+			var soul_pierecer_4 = SoulPiercer.new()
+			soul_pierecer_4.pierce_count = 4
+			projectile_spells.append(soul_pierecer_4)
 
-		for hability in habilities_on_spawn:
-			hability.apply_hability(bullet_instance)
+		var spell_context = SpellContext.new()
 
-		for i in range(bullet_module.spawn_amount):
-			print("CREATING COPY")
-			var copy = bullet_instance.duplicate()
-			## NEED A WAY TO ADJUST THE POSITION OR DIRECTION IT WILL BE SPAWNED
-			copy.global_position = $WandTip.global_position + Vector2(0 + i*30, 0 + i*30)
-			get_parent().add_child(copy)
-	
+		spell_context.bullet_module = bullet_module
+
+		for projectile_spell in projectile_spells:
+			projectile_spell.apply_spell(spell_context)
+
+		get_parent().add_child(bullet_instance)
+
 		shoot_cooldown = player_shoot_cooldown
 
 func _process(delta: float) -> void:

@@ -39,9 +39,9 @@ class StatsModifiers:
 	var stat_modifier: StatModifier
 
 class BulletHabilities:
-	var hability_type: BulletHability.HabilityType
+	var hability_type: EventSpell.EventSpellType
 
-	func apply_hability(_bullet: BulletModule):
+	func apply_hability():
 		pass
 
 ## Takes a node and an interface, and returns true if the given node
