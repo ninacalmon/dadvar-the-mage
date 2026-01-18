@@ -35,7 +35,7 @@ radius = 24.0
 height = 96.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dd0ac"]
-radius = 112.0
+radius = 144.22205
 
 [sub_resource type="Animation" id="Animation_xpyb8"]
 length = 0.2
@@ -117,7 +117,6 @@ collision_layer = 128
 collision_mask = 128
 
 [node name="range" type="CollisionShape2D" parent="vp_collector"]
-visible = false
 position = Vector2(0, 24)
 shape = SubResource("CircleShape2D_dd0ac")
 
