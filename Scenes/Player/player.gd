@@ -17,6 +17,11 @@ const WAND_TIP_POSITION_X_ABSOLUTE = 63
 @export var frequency := 1.0
 @export var amplitude := PI * 0.25
 
+@export_subgroup("Spells and upgrades")
+@export var bullet_habilities: Array[BulletHability]
+## MAYBE HAVE HERE A SPELL UPGRADES OR SOMETHING LIKE THIS WHICH ARE UPGRADES THAT
+## ARE NOT EFFECTS ON THE BULLET
+
 var shoot_cooldown = 0
 
 @onready var hit_flash_animation = $HitFlashAnimPlayer
@@ -41,9 +46,27 @@ func _physics_process(delta: float) -> void:
 	shoot_cooldown = max(shoot_cooldown - delta, 0)
 	if Input.is_action_just_pressed("shoot") and shoot_cooldown <= 0:
 		var bullet_instance = self.bullet.instantiate()
+		var bullet_module = bullet_instance.bullet_module
 		bullet_instance.global_position = $WandTip.global_position
+		## IMPORTANT
+		## We need a way to add the habilities, maybe the player will hold a reference to
+		## the habilities he has and then we add the related resources to the
+		## bullet habilities arary on bullet module
+		var habilities_on_spawn: Array[BulletHability] = self.bullet_habilities.filter(
+			func(hability: BulletHability):
+				return hability.hability_type == BulletHability.HabilityType.ON_SPAWN
+		)
 
-		get_parent().add_child(bullet_instance)
+		for hability in habilities_on_spawn:
+			hability.apply_hability(bullet_instance)
+
+		for i in range(bullet_module.spawn_amount):
+			print("CREATING COPY")
+			var copy = bullet_instance.duplicate()
+			## NEED A WAY TO ADJUST THE POSITION OR DIRECTION IT WILL BE SPAWNED
+			copy.global_position = $WandTip.global_position + Vector2(0 + i*30, 0 + i*30)
+			get_parent().add_child(copy)
+	
 		shoot_cooldown = player_shoot_cooldown
 
 func _process(delta: float) -> void:

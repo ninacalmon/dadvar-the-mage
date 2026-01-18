@@ -35,7 +35,6 @@ texture = ExtResource("4_7jktm")
 
 [node name="player" parent="." instance=ExtResource("1_80nbo")]
 stats_module = SubResource("Resource_e8heu")
-player_shoot_cooldown = 0.2
 
 [node name="Camera2D" type="Camera2D" parent="player"]
 position_smoothing_enabled = true

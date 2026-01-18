@@ -15,7 +15,7 @@ func _ready():
 	stream_player.volume_db = -16
 	stream_player.stream = audio_track
 	stream_player.autoplay = true
-	get_parent().add_child(stream_player)
+	self.get_parent().add_child(stream_player)
 	
 	direction = bullet_module.get_bullet_move_direction(self.position, get_global_mouse_position())
 

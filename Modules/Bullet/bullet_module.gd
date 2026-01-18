@@ -4,6 +4,7 @@ class_name BulletModule
 @export var lifetime: float
 @export var damage: float
 @export var bullet_speed: float
+@export var spawn_amount: int = 1
 
 ## Look at target and return the Vector2D pointing torwards it.
 func get_bullet_move_direction(start_position: Vector2, target_position: Vector2) -> Vector2:
