@@ -17,6 +17,11 @@ const WAND_TIP_POSITION_X_ABSOLUTE = 63
 @export var frequency := 1.0
 @export var amplitude := PI * 0.25
 
+@export_subgroup("Spells and upgrades")
+@export var projectile_spells: Array[EventSpell.ProjectileSpell]
+## MAYBE HAVE HERE A SPELL UPGRADES OR SOMETHING LIKE THIS WHICH ARE UPGRADES THAT
+## ARE NOT EFFECTS ON THE BULLET
+
 var shoot_cooldown = 0
 
 @onready var hit_flash_animation = $HitFlashAnimPlayer
@@ -41,9 +46,26 @@ func _physics_process(delta: float) -> void:
 	shoot_cooldown = max(shoot_cooldown - delta, 0)
 	if Input.is_action_just_pressed("shoot") and shoot_cooldown <= 0:
 		var bullet_instance = self.bullet.instantiate()
+		var bullet_module = bullet_instance.bullet_module
 		bullet_instance.global_position = $WandTip.global_position
+		## INSTANTIATING MANUALLY EVERY PROJECTILE SPELL AND PUTTING INTO THE CORRET ARRAY
+		if projectile_spells.size() == 0:
+			var soul_piercer_2 = SoulPiercer.new()
+			soul_piercer_2.pierce_count = 2
+			projectile_spells.append(soul_piercer_2)
+			var soul_pierecer_4 = SoulPiercer.new()
+			soul_pierecer_4.pierce_count = 4
+			projectile_spells.append(soul_pierecer_4)
+
+		var spell_context = SpellContext.new()
+
+		spell_context.bullet_module = bullet_module
+
+		for projectile_spell in projectile_spells:
+			projectile_spell.apply_spell(spell_context)
 
 		get_parent().add_child(bullet_instance)
+
 		shoot_cooldown = player_shoot_cooldown
 
 func _process(delta: float) -> void:

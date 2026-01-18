@@ -1,9 +1,13 @@
 extends Area2D
 class_name BulletModule
+signal enemy_hit(enemy: Node2D)
 
 @export var lifetime: float
 @export var damage: float
 @export var bullet_speed: float
+@export var spawn_amount: int = 1
+
+@onready var on_hit_events_connected = enemy_hit.get_connections().size()
 
 ## Look at target and return the Vector2D pointing torwards it.
 func get_bullet_move_direction(start_position: Vector2, target_position: Vector2) -> Vector2:
@@ -24,5 +28,11 @@ func update_lifetime(delta: float) -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if Interface.node_implements_interface(body, Interface.Damageable):
 		body.take_damage(self.damage)
+		enemy_hit.emit(body)
+
+func destroy():
+	on_hit_events_connected -= 1
+	if on_hit_events_connected > 0:
+		return
 
 	get_parent().queue_free()
