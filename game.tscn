@@ -262,6 +262,7 @@ score_timer = NodePath("../../ScoreTimer")
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer2"]
+visible = false
 position = Vector2(576, 520)
 scale = Vector2(1.2, 1.2)
 sprite_frames = SubResource("SpriteFrames_eu6ph")

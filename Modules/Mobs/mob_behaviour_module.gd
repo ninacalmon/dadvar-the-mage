@@ -34,6 +34,7 @@ func handle_take_damage(damage_to_receive: float) -> void:
 	
 # drops xp orb
 func _on_health_module_health_depleted() -> void:
+	EventBus.enemy_died.emit(self)
 	assert(vp_orb_scene != null, "Mob does not have a VP orb to drop defined")
 	var vp_orb = vp_orb_scene.instantiate()
 	vp_orb.position = get_parent().get_parent().position

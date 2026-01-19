@@ -4,7 +4,8 @@ extends Resource
 
 enum EventSpellType {
 	PROJECTILE,
-	ACTIVATION
+	ACTIVATION,
+	ENEMY_ACTION
 }
 
 ## Each class that inherits this will need to implement apply hability,
@@ -19,3 +20,14 @@ class ProjectileSpell extends EventSpell:
 	var already_emitted = false
 	func validate(spell_context: SpellContext):
 			assert(spell_context.bullet_module != null, "Projectile spell needs bullet module to apply effect")
+
+@abstract
+class EnemyActionSpell extends EventSpell:
+	var event_spell_type = EventSpellType.ENEMY_ACTION
+
+	func validate(spell_context: SpellContext):
+			assert(spell_context.player != null, "Enemy action spell needs player node to apply effect")
+			assert(
+				spell_context.player is Player,
+				"Player provided to EnemyActionSpell is invalid"
+			)

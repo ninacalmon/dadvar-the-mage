@@ -33,10 +33,14 @@ func set_health(health_value: float):
 		return
 	
 	if not health_value == health:
-		var difference = health_value - health
-		health = health_value
+		## If health value passed in is greater than max health,
+		## then the player/mob has healed more than the max_health, therefore we just set
+		## its current health as max_health
+		var health_value_capped = min(health_value, max_health)
+		var difference = health_value_capped - health
+		health = health_value_capped
 		health_changed.emit(difference)
-		
+
 		if health <= 0:
 			health_depleted.emit()
 

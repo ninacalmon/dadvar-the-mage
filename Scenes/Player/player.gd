@@ -18,7 +18,8 @@ const WAND_TIP_POSITION_X_ABSOLUTE = 63
 @export var amplitude := PI * 0.25
 
 @export_subgroup("Spells and upgrades")
-@export var projectile_spells: Array[EventSpell.ProjectileSpell]
+@export var projectile_spells: Array[EventSpell.ProjectileSpell] = [SoulPiercer.new()]
+@export var enemy_action_spells: Array[EventSpell.EnemyActionSpell] = [VampiricGoblet.new()]
 ## MAYBE HAVE HERE A SPELL UPGRADES OR SOMETHING LIKE THIS WHICH ARE UPGRADES THAT
 ## ARE NOT EFFECTS ON THE BULLET
 
@@ -31,6 +32,11 @@ func start(pos):
 	position = pos
 	show()
 	$CollisionShape2D.disabled = false
+	var spell_context = SpellContext.new()
+
+	spell_context.player = self
+	for enemy_action_spell in enemy_action_spells:
+		enemy_action_spell.apply_spell(spell_context)
 	
 
 ## PUT THIS IN UTILS LATER!!!
@@ -48,14 +54,6 @@ func _physics_process(delta: float) -> void:
 		var bullet_instance = self.bullet.instantiate()
 		var bullet_module = bullet_instance.bullet_module
 		bullet_instance.global_position = $WandTip.global_position
-		## INSTANTIATING MANUALLY EVERY PROJECTILE SPELL AND PUTTING INTO THE CORRET ARRAY
-		if projectile_spells.size() == 0:
-			var soul_piercer_2 = SoulPiercer.new()
-			soul_piercer_2.pierce_count = 2
-			projectile_spells.append(soul_piercer_2)
-			var soul_pierecer_4 = SoulPiercer.new()
-			soul_pierecer_4.pierce_count = 4
-			projectile_spells.append(soul_pierecer_4)
 
 		var spell_context = SpellContext.new()
 
