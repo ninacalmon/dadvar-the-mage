@@ -30,6 +30,9 @@ func _on_body_entered(body: Node2D) -> void:
 		body.take_damage(self.damage)
 		enemy_hit.emit(body)
 
+	if on_hit_events_connected <= 0:
+		destroy()
+
 func destroy():
 	on_hit_events_connected -= 1
 	if on_hit_events_connected > 0:
