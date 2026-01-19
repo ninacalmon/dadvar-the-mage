@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://qinxn2c2shu7"]
+[gd_scene load_steps=46 format=3 uid="uid://qinxn2c2shu7"]
 
 [ext_resource type="PackedScene" uid="uid://d2c1s3qmdi4ti" path="res://Scenes/Player/player.tscn" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://g1vr201lpslj" path="res://game.gd" id="1_feb5d"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://c5ihdsyvgtjgo" path="res://Sprites/bookTileset.png" id="9_215e1"]
 [ext_resource type="PackedScene" uid="uid://ck5sefsx2pmdk" path="res://Scenes/Bosses/MegaCerberus/Mega_Cerberus.tscn" id="9_hve3p"]
 [ext_resource type="PackedScene" uid="uid://jsquw55fm4an" path="res://Scenes/Enemies/Cerberus/cerberus.tscn" id="9_vef74"]
+[ext_resource type="Theme" uid="uid://0e7pvovb4qnk" path="res://UI/Text Themes/title_test.tres" id="10_7sc4i"]
 [ext_resource type="AudioStream" uid="uid://dx7wroe4ywihq" path="res://Sounds/a time long forgotten (80's dark fantasy playlist)_compressed.mp3" id="11_mfdv2"]
 [ext_resource type="Script" uid="uid://bicyw5i7xjom1" path="res://game_manager.gd" id="13_lc2xo"]
 
@@ -129,6 +130,10 @@ region = Rect2(1070, 4080, 1070, 1020)
 atlas = ExtResource("9_215e1")
 region = Rect2(2140, 4080, 1070, 1020)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_215e1"]
+atlas = ExtResource("9_215e1")
+region = Rect2(2140, 4080, 1070, 1020)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_eu6ph"]
 animations = [{
 "frames": [{
@@ -216,6 +221,14 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 24.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_215e1")
+}],
+"loop": true,
+"name": &"open",
+"speed": 5.0
 }]
 
 [node name="game" type="Node" node_paths=PackedStringArray("player")]
@@ -243,6 +256,15 @@ autostart = true
 [node name="StartPosition" type="Marker2D" parent="."]
 position = Vector2(240, 450)
 
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer2"]
+position = Vector2(576, 520)
+scale = Vector2(1.2, 1.2)
+sprite_frames = SubResource("SpriteFrames_eu6ph")
+animation = &"open"
+autoplay = "default"
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="ScoreLabel" type="RichTextLabel" parent="CanvasLayer" node_paths=PackedStringArray("score_timer")]
@@ -259,15 +281,110 @@ vertical_alignment = 1
 script = ExtResource("7_eow3j")
 score_timer = NodePath("../../ScoreTimer")
 
-[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -304.0
+offset_top = -212.0
+offset_right = 312.0
+offset_bottom = 196.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer2"]
-visible = false
-position = Vector2(576, 520)
-scale = Vector2(1.2, 1.2)
-sprite_frames = SubResource("SpriteFrames_eu6ph")
-autoplay = "default"
-frame_progress = 0.11708633
+[node name="Control2" type="Control" parent="CanvasLayer/CenterContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(610, 410)
+layout_mode = 2
+
+[node name="HBox Sprite" type="HBoxContainer" parent="CanvasLayer/CenterContainer/Control2"]
+layout_mode = 0
+offset_left = 29.0
+offset_top = 41.0
+offset_right = 589.0
+offset_bottom = 211.0
+theme_override_constants/separation = 154
+alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/CenterContainer/Control2/HBox Sprite"]
+custom_minimum_size = Vector2(170, 170)
+layout_mode = 2
+color = Color(0.7712704, 0, 0.21825823, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer/CenterContainer/Control2/HBox Sprite"]
+custom_minimum_size = Vector2(170, 170)
+layout_mode = 2
+color = Color(0.7712704, 0, 0.21825823, 1)
+
+[node name="HBox Title" type="HBoxContainer" parent="CanvasLayer/CenterContainer/Control2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -284.0
+offset_top = 6.0
+offset_right = 284.0
+offset_bottom = 46.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 124
+alignment = 1
+
+[node name="Title L" type="RichTextLabel" parent="CanvasLayer/CenterContainer/Control2/HBox Title"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme = ExtResource("10_7sc4i")
+theme_override_colors/default_color = Color(0.6745098, 0, 0.25882354, 1)
+theme_override_font_sizes/normal_font_size = 18
+text = "Habilidade Legal"
+horizontal_alignment = 1
+
+[node name="Title R" type="RichTextLabel" parent="CanvasLayer/CenterContainer/Control2/HBox Title"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme = ExtResource("10_7sc4i")
+theme_override_colors/default_color = Color(0.6745098, 0, 0.25882354, 1)
+theme_override_font_sizes/normal_font_size = 18
+text = "Habilidade Foda"
+horizontal_alignment = 1
+
+[node name="HBox Description" type="HBoxContainer" parent="CanvasLayer/CenterContainer/Control2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -284.0
+offset_top = 60.0
+offset_right = 284.0
+offset_bottom = 180.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 119
+alignment = 1
+
+[node name="Desc L" type="RichTextLabel" parent="CanvasLayer/CenterContainer/Control2/HBox Description"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 12
+text = "Habilidade que faz com que o usuário roube vida do inimigo.
+Bla bla bla bla foda legal."
+horizontal_alignment = 1
+
+[node name="Desc R" type="RichTextLabel" parent="CanvasLayer/CenterContainer/Control2/HBox Description"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 12
+text = "Habilidade que faz com que o usuário roube vida do inimigo.
+Hehehehehehehe muito top."
+horizontal_alignment = 1
 
 [node name="WavesSystem" type="Node" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("8_j5wjh")
