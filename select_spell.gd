@@ -1,6 +1,7 @@
 extends CenterContainer
 
 @onready var book_animation: AnimatedSprite2D = %BookAnimation
+var current_animation_frame = 0
 var opening_book_sound = preload("res://Sounds/book-turn-page-2-92381.mp3")
 var closing_book_sound = preload("res://Sounds/book-closing-466850.mp3")
 var stream_player
@@ -26,15 +27,16 @@ func _ready():
 	EventBus.player_level_up.connect(_on_player_level_up)
 	choice_l.pressed.connect(_on_choice_l_pressed)
 	choice_r.pressed.connect(_on_choice_r_pressed)
+	book_animation.frame_changed.connect(_on_book_animation_frame_changed)
 	self.hide()
 	
 	stream_player = AudioStreamPlayer.new()
-	stream_player.pitch_scale = 0.5
+	stream_player.pitch_scale = 1.3
 	stream_player.stream = opening_book_sound
 	book_animation.add_child(stream_player)
 	
 	stream_player2 = AudioStreamPlayer.new()
-	stream_player.stream = closing_book_sound
+	stream_player2.stream = closing_book_sound
 	book_animation.add_child(stream_player2)
 
 func _on_choice_l_pressed() -> void:
@@ -84,19 +86,26 @@ func _on_player_level_up(_level: int):
 	## DO SOMETHING WHEN THERE ARE NOT TWO OPTIONS OF SPELLS TO CHOOSE
 	## TELL PLAYER OR SOMETHING
 	book_animation.play()
-	#stream_player.play()
+	stream_player.play()
 	book_animation.animation_finished.connect(_on_book_animation_finished)
 
 func _on_book_animation_finished():
 	if !is_animation_backwards:
 		self.visible = !self.visible
+		current_animation_frame = 0
 	else:
 		get_tree().paused = false
+
+func _on_book_animation_frame_changed():
+	current_animation_frame += 1
+	## VERIFY IF THERE IS A BETTER WAY TO DEFINE WHICH FRAME THIS SOUND NEEDS TO PLAY
+	## CURRENTLY IT IS HARD CODED HERE
+	if current_animation_frame == 14:
+		stream_player2.play()
 
 func on_selected_choice(spell_not_chosen: EventSpell):
 	if spell_not_chosen != null:
 		possible_spell_options.append(spell_not_chosen)
 	self.hide() 
 	book_animation.play_backwards()
-	#stream_player2.play()
 	is_animation_backwards = true
