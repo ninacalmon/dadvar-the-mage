@@ -8,8 +8,8 @@ enum ModifiableStats {
 @export var base_move_speed: float
 var current_move_speed: float
 
-const BASE_XP: float = 100.0
-var experience: float = 0
+const BASE_VP: float = 100.0
+var void_power: float = 0
 var level: int = 1
 
 var stat_modifiers: Array[StatModifier]
@@ -58,9 +58,9 @@ func recalculate_stats():
 
 		self.set(current_property_name, modify_applied_value)
 
-func add_experience(experience_to_add: float):
+func add_void_power(void_power_to_add: float):
 	var old_level: int = level
-	self.experience += experience_to_add
+	self.void_power += void_power_to_add
 	var new_level: int = self.get_level()
 	
 	if not old_level == new_level:
@@ -73,7 +73,7 @@ func add_experience(experience_to_add: float):
 		# recalculate_stats()
 	
 func get_level():
-	return floor(max(1.0, (pow(self.experience / BASE_XP, 1/1.1) + 0.5) + 1)) 
+	return floor(max(1.0, (pow(self.void_power / BASE_VP, 1/1.1) + 0.5) + 1)) 
 	
 func add_modifier(modifier: StatModifier) -> void:
 	self.stat_modifiers.append(modifier)

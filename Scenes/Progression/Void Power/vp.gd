@@ -22,5 +22,5 @@ func _process(delta: float) -> void:
 		collect()
 		
 func collect():
-	player.stats_module.add_experience(vp_amount)
+	player.stats_module.add_void_power(vp_amount)
 	queue_free()
