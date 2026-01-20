@@ -20,3 +20,6 @@ func steal_health(mob_behaviour: MobBehaviourModule):
 	var health_to_add = (percentage_health_steal/100) * enemy_health.get_max_health()
 
 	player.health_module.set_health(player_current_health + health_to_add)
+
+func get_event_spell_description() -> String:
+	return "Allows the user to steal blood from enemies on their death."

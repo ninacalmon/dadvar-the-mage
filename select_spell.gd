@@ -3,6 +3,10 @@ extends CenterContainer
 @onready var book_animation: AnimatedSprite2D = %BookAnimation
 @onready var choice_l: Button = %ChoiceL
 @onready var choice_r: Button = %ChoiceR
+@onready var desc_l: RichTextLabel = %"Desc L"
+@onready var desc_r: RichTextLabel = %"Desc R"
+@onready var title_l: RichTextLabel = %"Title L"
+@onready var title_r: RichTextLabel = %"Title R"
 
 var possible_spell_options: Array[EventSpell] = [SoulPiercer.new(), VampiricGoblet.new()]
 var spell_left: EventSpell
@@ -36,16 +40,19 @@ func _on_player_level_up(_level: int):
 		var random_num_array_bound_left = randi() % possible_spell_options.size()
 		spell_left = possible_spell_options.get(random_num_array_bound_left)
 		possible_spell_options.remove_at(random_num_array_bound_left)
+		desc_l.text = spell_left.get_event_spell_description()
+		title_l.text = spell_left.get_event_spell_title()
 		choice_l.show()
 	else:
 		spell_left = null
 		choice_l.hide()
-		
 
 	if possible_spell_options.size() != 0:
 		var random_num_array_bound_right = randi() % possible_spell_options.size()
 		spell_right = possible_spell_options.get(random_num_array_bound_right)
 		possible_spell_options.remove_at(random_num_array_bound_right)
+		desc_r.text = spell_right.get_event_spell_description()
+		title_r.text = spell_right.get_event_spell_title()
 		choice_r.show()
 	else:
 		spell_right = null

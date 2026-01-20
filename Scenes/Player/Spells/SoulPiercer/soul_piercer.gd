@@ -25,3 +25,6 @@ func pierce_enemy(_enemy):
 		destroy.emit()
 		## already_emitted comes from parent ProjectileSpell
 		self.already_emitted = true
+		
+func get_event_spell_description() -> String:
+	return "Allows the user to fire piercing projectiles. Pierces 3 enemies max."

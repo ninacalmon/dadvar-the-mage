@@ -12,6 +12,14 @@ enum EventSpellType {
 func get_event_spell_type() -> EventSpellType:
 	push_error("get_my_property() must be implemented")
 	return EventSpellType.INVALID
+
+func get_event_spell_description() -> String:
+	push_error("get_event_spell_description() must be implemented")
+	return ""
+
+func get_event_spell_title() -> String:
+	return self.get_script().get_global_name()
+
 ## Each class that inherits this will need to implement apply hability,
 ## which is unique for each class.
 @abstract func apply_spell(spell_context: SpellContext)
