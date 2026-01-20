@@ -316,10 +316,12 @@ alignment = 1
 script = ExtResource("10_80cx4")
 
 [node name="ChoiceL" type="Button" parent="CanvasLayer/CenterContainer/Control2/HBox Sprite"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(170, 170)
 layout_mode = 2
 
 [node name="ChoiceR" type="Button" parent="CanvasLayer/CenterContainer/Control2/HBox Sprite"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(170, 170)
 layout_mode = 2
 
