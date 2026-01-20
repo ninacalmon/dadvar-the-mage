@@ -1,7 +1,5 @@
-extends HBoxContainer
+extends CenterContainer
 
-@onready var canvas_layer: CanvasLayer = %CanvasLayer
-@onready var animation_canvas_layer: CanvasLayer = %AnimationCanvasLayer
 @onready var book_animation: AnimatedSprite2D = %BookAnimation
 @onready var choice_l: Button = %ChoiceL
 @onready var choice_r: Button = %ChoiceR
@@ -14,6 +12,8 @@ var is_animation_backwards = false
 
 func _ready():
 	EventBus.player_level_up.connect(_on_player_level_up)
+	choice_l.pressed.connect(_on_choice_l_pressed)
+	choice_r.pressed.connect(_on_choice_r_pressed)
 
 func _on_choice_l_pressed() -> void:
 	if self.spell_left != null:
@@ -54,19 +54,17 @@ func _on_player_level_up(_level: int):
 	## REALLY IMPORTANT!!!!!!!!!!!!!!!!!!!! OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
 	## DO SOMETHING WHEN THERE ARE NOT TWO OPTIONS OF SPELLS TO CHOOSE
 	## TELL PLAYER OR SOMETHING
-	animation_canvas_layer.show()
 	book_animation.play()
 	book_animation.animation_finished.connect(_on_book_animation_finished)
 
 func _on_book_animation_finished():
 	if !is_animation_backwards:
-		canvas_layer.visible = !canvas_layer.visible
+		self.visible = !self.visible
 	else:
-		animation_canvas_layer.hide()
 		get_tree().paused = false
 
 func on_selected_choice(spell_not_chosen: EventSpell):
 	possible_spell_options.append(spell_not_chosen)
-	canvas_layer.hide() 
+	self.hide() 
 	book_animation.play_backwards()
 	is_animation_backwards = true

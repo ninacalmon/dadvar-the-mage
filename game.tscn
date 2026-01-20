@@ -258,30 +258,15 @@ autostart = true
 [node name="StartPosition" type="Marker2D" parent="."]
 position = Vector2(240, 450)
 
-[node name="AnimationCanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
-process_mode = 3
 
-[node name="BookAnimation" type="AnimatedSprite2D" parent="AnimationCanvasLayer"]
+[node name="BookAnimation" type="AnimatedSprite2D" parent="CanvasLayer"]
 unique_name_in_owner = true
 process_mode = 3
 position = Vector2(576, 520)
 scale = Vector2(1.2, 1.2)
 sprite_frames = SubResource("SpriteFrames_eu6ph")
-
-[node name="VpBar" type="ProgressBar" parent="AnimationCanvasLayer" node_paths=PackedStringArray("player")]
-modulate = Color(0.37919992, 0.31599998, 0.79, 1)
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 8.0
-grow_horizontal = 2
-show_percentage = false
-script = ExtResource("12_e8heu")
-player = NodePath("../../player")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-unique_name_in_owner = true
-visible = false
 
 [node name="ScoreLabel" type="RichTextLabel" parent="CanvasLayer" node_paths=PackedStringArray("score_timer")]
 anchors_preset = 1
@@ -298,6 +283,8 @@ script = ExtResource("7_eow3j")
 score_timer = NodePath("../../ScoreTimer")
 
 [node name="CenterContainer" type="CenterContainer" parent="CanvasLayer"]
+process_mode = 3
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -309,8 +296,10 @@ offset_right = 312.0
 offset_bottom = 196.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("10_80cx4")
 
 [node name="Control2" type="Control" parent="CanvasLayer/CenterContainer"]
+process_mode = 3
 clip_contents = true
 custom_minimum_size = Vector2(610, 410)
 layout_mode = 2
@@ -324,7 +313,6 @@ offset_right = 589.0
 offset_bottom = 211.0
 theme_override_constants/separation = 154
 alignment = 1
-script = ExtResource("10_80cx4")
 
 [node name="ChoiceL" type="Button" parent="CanvasLayer/CenterContainer/Control2/HBox Sprite"]
 unique_name_in_owner = true
@@ -404,6 +392,16 @@ text = "Habilidade que faz com que o usuário roube vida do inimigo.
 Hehehehehehehe muito top."
 horizontal_alignment = 1
 
+[node name="VpBar" type="ProgressBar" parent="CanvasLayer" node_paths=PackedStringArray("player")]
+modulate = Color(0.37919992, 0.31599998, 0.79, 1)
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 8.0
+grow_horizontal = 2
+show_percentage = false
+script = ExtResource("12_e8heu")
+player = NodePath("../../player")
+
 [node name="WavesSystem" type="Node" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("8_j5wjh")
 ghost = ExtResource("2_fc0e3")
@@ -441,8 +439,6 @@ script = ExtResource("13_lc2xo")
 
 [connection signal="player_death" from="player" to="." method="_on_player_player_death"]
 [connection signal="player_death" from="player" to="WavesSystem" method="_on_player_player_death"]
-[connection signal="pressed" from="CanvasLayer/CenterContainer/Control2/HBox Sprite/ChoiceL" to="CanvasLayer/CenterContainer/Control2/HBox Sprite" method="_on_choice_l_pressed"]
-[connection signal="pressed" from="CanvasLayer/CenterContainer/Control2/HBox Sprite/ChoiceR" to="CanvasLayer/CenterContainer/Control2/HBox Sprite" method="_on_choice_r_pressed"]
 [connection signal="timeout" from="WavesSystem/WaveTimer" to="WavesSystem" method="_on_wave_timer_timeout"]
 [connection signal="timeout" from="WavesSystem/GhostSpawnRate" to="WavesSystem" method="_on_ghost_spawn_rate_timeout"]
 [connection signal="timeout" from="WavesSystem/GoblinSpawnRate" to="WavesSystem" method="_on_goblin_spawn_rate_timeout"]
