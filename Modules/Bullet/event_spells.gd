@@ -3,11 +3,15 @@ class_name EventSpell
 extends Resource
 
 enum EventSpellType {
+	INVALID,
 	PROJECTILE,
 	ACTIVATION,
 	ENEMY_ACTION
 }
 
+func get_event_spell_type() -> EventSpellType:
+	push_error("get_my_property() must be implemented")
+	return EventSpellType.INVALID
 ## Each class that inherits this will need to implement apply hability,
 ## which is unique for each class.
 @abstract func apply_spell(spell_context: SpellContext)
@@ -15,8 +19,12 @@ enum EventSpellType {
 @abstract
 class ProjectileSpell extends EventSpell:
 	signal destroy
-	
+
 	var event_spell_type = EventSpellType.PROJECTILE
+
+	func get_event_spell_type() -> EventSpellType:
+		return EventSpellType.PROJECTILE
+
 	var already_emitted = false
 	func validate(spell_context: SpellContext):
 			assert(spell_context.bullet_module != null, "Projectile spell needs bullet module to apply effect")
@@ -24,6 +32,9 @@ class ProjectileSpell extends EventSpell:
 @abstract
 class EnemyActionSpell extends EventSpell:
 	var event_spell_type = EventSpellType.ENEMY_ACTION
+
+	func get_event_spell_type() -> EventSpellType:
+		return EventSpellType.ENEMY_ACTION
 
 	func validate(spell_context: SpellContext):
 			assert(spell_context.player != null, "Enemy action spell needs player node to apply effect")

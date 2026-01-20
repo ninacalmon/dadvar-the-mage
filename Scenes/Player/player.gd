@@ -18,8 +18,8 @@ const WAND_TIP_POSITION_X_ABSOLUTE = 63
 @export var amplitude := PI * 0.25
 
 @export_subgroup("Spells and upgrades")
-@export var projectile_spells: Array[EventSpell.ProjectileSpell] = [SoulPiercer.new()]
-@export var enemy_action_spells: Array[EventSpell.EnemyActionSpell] = [VampiricGoblet.new()]
+@export var projectile_spells: Array[EventSpell.ProjectileSpell] = []
+@export var enemy_action_spells: Array[EventSpell.EnemyActionSpell] = []
 ## MAYBE HAVE HERE A SPELL UPGRADES OR SOMETHING LIKE THIS WHICH ARE UPGRADES THAT
 ## ARE NOT EFFECTS ON THE BULLET
 
@@ -32,12 +32,9 @@ func start(pos):
 	position = pos
 	show()
 	$CollisionShape2D.disabled = false
-	var spell_context = SpellContext.new()
-
-	spell_context.player = self
-	for enemy_action_spell in enemy_action_spells:
-		enemy_action_spell.apply_spell(spell_context)
 	
+	EventBus.new_spell_added.connect(add_new_spell)
+
 
 ## PUT THIS IN UTILS LATER!!!
 func wobble():
@@ -143,3 +140,15 @@ func find_root_node(node: Node) -> Node:
 		root = root.get_parent()
 
 	return root
+
+func add_new_spell(spell: EventSpell):
+	match spell.get_event_spell_type():
+		EventSpell.EventSpellType.PROJECTILE:
+			self.projectile_spells.append(spell)
+		EventSpell.EventSpellType.ENEMY_ACTION:
+			self.enemy_action_spells.append(spell)
+
+			var spell_context = SpellContext.new()
+			spell_context.player = self
+
+			spell.apply_spell(spell_context)

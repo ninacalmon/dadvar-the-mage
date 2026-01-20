@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://qinxn2c2shu7"]
+[gd_scene load_steps=47 format=3 uid="uid://qinxn2c2shu7"]
 
 [ext_resource type="PackedScene" uid="uid://d2c1s3qmdi4ti" path="res://Scenes/Player/player.tscn" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://g1vr201lpslj" path="res://game.gd" id="1_feb5d"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://ck5sefsx2pmdk" path="res://Scenes/Bosses/MegaCerberus/Mega_Cerberus.tscn" id="9_hve3p"]
 [ext_resource type="PackedScene" uid="uid://jsquw55fm4an" path="res://Scenes/Enemies/Cerberus/cerberus.tscn" id="9_vef74"]
 [ext_resource type="Theme" uid="uid://0e7pvovb4qnk" path="res://UI/Text Themes/title_test.tres" id="10_7sc4i"]
+[ext_resource type="Script" uid="uid://bt50uc7j2w3fj" path="res://select_spell.gd" id="10_80cx4"]
 [ext_resource type="AudioStream" uid="uid://dx7wroe4ywihq" path="res://Sounds/a time long forgotten (80's dark fantasy playlist)_compressed.mp3" id="11_mfdv2"]
 [ext_resource type="Script" uid="uid://bicyw5i7xjom1" path="res://game_manager.gd" id="13_lc2xo"]
 
@@ -218,7 +219,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_klri6")
 }],
-"loop": true,
+"loop": false,
 "name": &"default",
 "speed": 24.0
 }, {
@@ -256,16 +257,20 @@ autostart = true
 [node name="StartPosition" type="Marker2D" parent="."]
 position = Vector2(240, 450)
 
-[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+[node name="AnimationCanvasLayer" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+process_mode = 3
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer2"]
+[node name="BookAnimation" type="AnimatedSprite2D" parent="AnimationCanvasLayer"]
+unique_name_in_owner = true
+process_mode = 3
 position = Vector2(576, 520)
 scale = Vector2(1.2, 1.2)
 sprite_frames = SubResource("SpriteFrames_eu6ph")
-animation = &"open"
-autoplay = "default"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+visible = false
 
 [node name="ScoreLabel" type="RichTextLabel" parent="CanvasLayer" node_paths=PackedStringArray("score_timer")]
 anchors_preset = 1
@@ -300,6 +305,7 @@ custom_minimum_size = Vector2(610, 410)
 layout_mode = 2
 
 [node name="HBox Sprite" type="HBoxContainer" parent="CanvasLayer/CenterContainer/Control2"]
+process_mode = 3
 layout_mode = 0
 offset_left = 29.0
 offset_top = 41.0
@@ -307,16 +313,15 @@ offset_right = 589.0
 offset_bottom = 211.0
 theme_override_constants/separation = 154
 alignment = 1
+script = ExtResource("10_80cx4")
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/CenterContainer/Control2/HBox Sprite"]
+[node name="ChoiceL" type="Button" parent="CanvasLayer/CenterContainer/Control2/HBox Sprite"]
 custom_minimum_size = Vector2(170, 170)
 layout_mode = 2
-color = Color(0.7712704, 0, 0.21825823, 1)
 
-[node name="ColorRect2" type="ColorRect" parent="CanvasLayer/CenterContainer/Control2/HBox Sprite"]
+[node name="ChoiceR" type="Button" parent="CanvasLayer/CenterContainer/Control2/HBox Sprite"]
 custom_minimum_size = Vector2(170, 170)
 layout_mode = 2
-color = Color(0.7712704, 0, 0.21825823, 1)
 
 [node name="HBox Title" type="HBoxContainer" parent="CanvasLayer/CenterContainer/Control2"]
 layout_mode = 1
@@ -412,6 +417,7 @@ wait_time = 0.5
 one_shot = true
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer" parent="."]
+process_mode = 3
 stream = ExtResource("11_mfdv2")
 volume_db = -12.0
 autoplay = true
@@ -422,6 +428,8 @@ script = ExtResource("13_lc2xo")
 
 [connection signal="player_death" from="player" to="." method="_on_player_player_death"]
 [connection signal="player_death" from="player" to="WavesSystem" method="_on_player_player_death"]
+[connection signal="pressed" from="CanvasLayer/CenterContainer/Control2/HBox Sprite/ChoiceL" to="CanvasLayer/CenterContainer/Control2/HBox Sprite" method="_on_choice_l_pressed"]
+[connection signal="pressed" from="CanvasLayer/CenterContainer/Control2/HBox Sprite/ChoiceR" to="CanvasLayer/CenterContainer/Control2/HBox Sprite" method="_on_choice_r_pressed"]
 [connection signal="timeout" from="WavesSystem/WaveTimer" to="WavesSystem" method="_on_wave_timer_timeout"]
 [connection signal="timeout" from="WavesSystem/GhostSpawnRate" to="WavesSystem" method="_on_ghost_spawn_rate_timeout"]
 [connection signal="timeout" from="WavesSystem/GoblinSpawnRate" to="WavesSystem" method="_on_goblin_spawn_rate_timeout"]

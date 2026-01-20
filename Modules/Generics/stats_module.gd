@@ -1,6 +1,5 @@
 extends Resource
 class_name StatsModule
-signal level_up(level: int)
 
 enum ModifiableStats {
 	MOVE_SPEED
@@ -65,8 +64,11 @@ func add_experience(experience_to_add: float):
 	var new_level: int = self.get_level()
 	
 	if not old_level == new_level:
+		print("LELVE UPPPPPPPPPPPPPPPPP")
+		## SEND LEVEL DIFFERENCE AS WELL IN ORDER TO AVOID PLAYER LEVELING UP
+		## TWICE AND GETTIN ONLY ONE SPELL AS REWARD
 		self.level = new_level
-		self.level_up.emit(self.get_level())
+		EventBus.player_level_up.emit(self.get_level())
 		## Not needed as we will not upgrade our stats on level up (only with buffs)
 		# recalculate_stats()
 	
