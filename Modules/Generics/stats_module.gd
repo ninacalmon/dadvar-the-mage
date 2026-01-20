@@ -8,9 +8,11 @@ enum ModifiableStats {
 @export var base_move_speed: float
 var current_move_speed: float
 
-const BASE_VP: float = 100.0
+#const BASE_VP: float = 100.0
+const PROGRESS_DIFFICULTY = 1.6
 var void_power: float = 0
-var level: int = 1
+var current_level: int = 1
+var vp_needed: float = 150
 
 var stat_modifiers: Array[StatModifier]
 
@@ -59,21 +61,27 @@ func recalculate_stats():
 		self.set(current_property_name, modify_applied_value)
 
 func add_void_power(void_power_to_add: float):
-	var old_level: int = level
+	#var old_level: int = current_level
 	self.void_power += void_power_to_add
-	var new_level: int = self.get_level()
-	
-	if not old_level == new_level:
-		print("LELVE UPPPPPPPPPPPPPPPPP")
+	print(void_power)
+	if self.void_power >= vp_needed:
+		self.current_level += 1
+		print("LEVEL UPPPPPPPPPPPPPPPPP")
 		## SEND LEVEL DIFFERENCE AS WELL IN ORDER TO AVOID PLAYER LEVELING UP
 		## TWICE AND GETTIN ONLY ONE SPELL AS REWARD
-		self.level = new_level
-		EventBus.player_level_up.emit(self.get_level())
+		vp_needed = self.get_vp_needed_to_next_level()
+		EventBus.player_level_up.emit(self.current_level)
+	EventBus.vp_changed.emit(self.void_power)
 		## Not needed as we will not upgrade our stats on level up (only with buffs)
 		# recalculate_stats()
 	
-func get_level():
-	return floor(max(1.0, (pow(self.void_power / BASE_VP, 1/1.1) + 0.5) + 1)) 
+#func get_level():
+	##return floor(max(1.0, (pow(self.void_power / BASE_VP, 1/1.1) + 0.5) + 1)) 
+	#return pow(self.get_vp_needed_to_next_level() / 150, )
+
+func get_vp_needed_to_next_level() -> float:
+	#return pow(self.BASE_VP*(self.get_level() - 0.5), 1.1)
+	return 150 * pow(self.current_level, PROGRESS_DIFFICULTY)
 	
 func add_modifier(modifier: StatModifier) -> void:
 	self.stat_modifiers.append(modifier)

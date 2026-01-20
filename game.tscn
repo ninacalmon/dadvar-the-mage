@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://qinxn2c2shu7"]
+[gd_scene load_steps=48 format=3 uid="uid://qinxn2c2shu7"]
 
 [ext_resource type="PackedScene" uid="uid://d2c1s3qmdi4ti" path="res://Scenes/Player/player.tscn" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://g1vr201lpslj" path="res://game.gd" id="1_feb5d"]
@@ -15,6 +15,7 @@
 [ext_resource type="Theme" uid="uid://0e7pvovb4qnk" path="res://UI/Text Themes/title_test.tres" id="10_7sc4i"]
 [ext_resource type="Script" uid="uid://bt50uc7j2w3fj" path="res://select_spell.gd" id="10_80cx4"]
 [ext_resource type="AudioStream" uid="uid://dx7wroe4ywihq" path="res://Sounds/a time long forgotten (80's dark fantasy playlist)_compressed.mp3" id="11_mfdv2"]
+[ext_resource type="Script" uid="uid://ctfef58tirius" path="res://UI/vp_bar.gd" id="12_e8heu"]
 [ext_resource type="Script" uid="uid://bicyw5i7xjom1" path="res://game_manager.gd" id="13_lc2xo"]
 
 [sub_resource type="Resource" id="Resource_e8heu"]
@@ -221,7 +222,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"default",
-"speed": 24.0
+"speed": 30.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -267,6 +268,16 @@ process_mode = 3
 position = Vector2(576, 520)
 scale = Vector2(1.2, 1.2)
 sprite_frames = SubResource("SpriteFrames_eu6ph")
+
+[node name="VpBar" type="ProgressBar" parent="AnimationCanvasLayer" node_paths=PackedStringArray("player")]
+modulate = Color(0.37919992, 0.31599998, 0.79, 1)
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 8.0
+grow_horizontal = 2
+show_percentage = false
+script = ExtResource("12_e8heu")
+player = NodePath("../../player")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
