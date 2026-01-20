@@ -22,4 +22,7 @@ func steal_health(mob_behaviour: MobBehaviourModule):
 	player.health_module.set_health(player_current_health + health_to_add)
 
 func get_event_spell_description() -> String:
-	return "Allows the user to steal blood from enemies on their death."
+	return "[b]Allows the user to draw blood from enemies upon their death.[/b]
+	
+	'The chalice resonates with fading vitality.
+What remains seeks a new bearer.'"

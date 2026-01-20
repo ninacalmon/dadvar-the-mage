@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://qinxn2c2shu7"]
+[gd_scene load_steps=51 format=3 uid="uid://qinxn2c2shu7"]
 
 [ext_resource type="PackedScene" uid="uid://d2c1s3qmdi4ti" path="res://Scenes/Player/player.tscn" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://g1vr201lpslj" path="res://game.gd" id="1_feb5d"]
@@ -15,8 +15,11 @@
 [ext_resource type="Theme" uid="uid://0e7pvovb4qnk" path="res://UI/Text Themes/title_test.tres" id="10_7sc4i"]
 [ext_resource type="Script" uid="uid://bt50uc7j2w3fj" path="res://select_spell.gd" id="10_80cx4"]
 [ext_resource type="AudioStream" uid="uid://dx7wroe4ywihq" path="res://Sounds/a time long forgotten (80's dark fantasy playlist)_compressed.mp3" id="11_mfdv2"]
+[ext_resource type="FontFile" uid="uid://b0c3mgf46t565" path="res://Fonts/Alagard/alagard.ttf" id="12_boyg6"]
 [ext_resource type="Script" uid="uid://ctfef58tirius" path="res://UI/vp_bar.gd" id="12_e8heu"]
+[ext_resource type="FontFile" uid="uid://stdwsoetsw4q" path="res://Fonts/Pixel_Operator/PixelOperatorHB.ttf" id="13_e36ub"]
 [ext_resource type="Script" uid="uid://bicyw5i7xjom1" path="res://game_manager.gd" id="13_lc2xo"]
+[ext_resource type="FontFile" uid="uid://kp6id4btpstd" path="res://Fonts/Pixel_Operator/PixelOperator8-Bold.ttf" id="14_e36ub"]
 
 [sub_resource type="Resource" id="Resource_e8heu"]
 resource_local_to_scene = true
@@ -273,9 +276,13 @@ anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -56.0
+offset_top = 8.0
 offset_right = -16.0
-offset_bottom = 40.0
+offset_bottom = 48.0
 grow_horizontal = 0
+theme_override_colors/default_color = Color(0.5686275, 0.07450981, 0.11372549, 1)
+theme_override_fonts/normal_font = ExtResource("12_boyg6")
+theme_override_font_sizes/normal_font_size = 36
 text = "0"
 horizontal_alignment = 2
 vertical_alignment = 1
@@ -284,7 +291,6 @@ score_timer = NodePath("../../ScoreTimer")
 
 [node name="CenterContainer" type="CenterContainer" parent="CanvasLayer"]
 process_mode = 3
-visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -332,9 +338,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -284.0
-offset_top = 6.0
+offset_top = 12.0
 offset_right = 284.0
-offset_bottom = 46.0
+offset_bottom = 52.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 124
@@ -345,8 +351,10 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme = ExtResource("10_7sc4i")
-theme_override_colors/default_color = Color(0.6745098, 0, 0.25882354, 1)
-theme_override_font_sizes/normal_font_size = 18
+theme_override_colors/default_color = Color(0.57, 0.074099995, 0.11542506, 1)
+theme_override_fonts/normal_font = ExtResource("12_boyg6")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
 text = "Habilidade Legal"
 horizontal_alignment = 1
 
@@ -355,8 +363,10 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme = ExtResource("10_7sc4i")
-theme_override_colors/default_color = Color(0.6745098, 0, 0.25882354, 1)
-theme_override_font_sizes/normal_font_size = 18
+theme_override_colors/default_color = Color(0.57, 0.074099995, 0.11542506, 1)
+theme_override_fonts/normal_font = ExtResource("12_boyg6")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
 text = "Habilidade Foda"
 horizontal_alignment = 1
 
@@ -368,9 +378,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -284.0
-offset_top = 60.0
+offset_top = 44.0
 offset_right = 284.0
-offset_bottom = 180.0
+offset_bottom = 164.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 119
@@ -381,7 +391,11 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/normal_font_size = 12
+theme_override_fonts/normal_font = ExtResource("13_e36ub")
+theme_override_fonts/bold_font = ExtResource("14_e36ub")
+theme_override_font_sizes/normal_font_size = 14
+theme_override_font_sizes/bold_font_size = 9
+bbcode_enabled = true
 text = "Habilidade que faz com que o usuário roube vida do inimigo.
 Bla bla bla bla foda legal."
 horizontal_alignment = 1
@@ -391,7 +405,11 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/normal_font_size = 12
+theme_override_fonts/normal_font = ExtResource("13_e36ub")
+theme_override_fonts/bold_font = ExtResource("14_e36ub")
+theme_override_font_sizes/normal_font_size = 14
+theme_override_font_sizes/bold_font_size = 9
+bbcode_enabled = true
 text = "Habilidade que faz com que o usuário roube vida do inimigo.
 Hehehehehehehe muito top."
 horizontal_alignment = 1

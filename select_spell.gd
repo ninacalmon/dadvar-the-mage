@@ -18,6 +18,7 @@ func _ready():
 	EventBus.player_level_up.connect(_on_player_level_up)
 	choice_l.pressed.connect(_on_choice_l_pressed)
 	choice_r.pressed.connect(_on_choice_r_pressed)
+	self.hide()
 
 func _on_choice_l_pressed() -> void:
 	if self.spell_left != null:
@@ -45,7 +46,8 @@ func _on_player_level_up(_level: int):
 		choice_l.show()
 	else:
 		spell_left = null
-		choice_l.hide()
+		## NEED TO DO SOMETHING WHEN THERE ARE NO OPTIONS LEFT
+		#choice_l.hide()
 
 	if possible_spell_options.size() != 0:
 		var random_num_array_bound_right = randi() % possible_spell_options.size()
@@ -56,7 +58,8 @@ func _on_player_level_up(_level: int):
 		choice_r.show()
 	else:
 		spell_right = null
-		choice_r.hide()
+		## NEED TO DO SOMETHING WHEN THERE ARE NO OPTIONS LEFT
+		#choice_r.hide()
 
 	## REALLY IMPORTANT!!!!!!!!!!!!!!!!!!!! OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
 	## DO SOMETHING WHEN THERE ARE NOT TWO OPTIONS OF SPELLS TO CHOOSE
@@ -71,7 +74,8 @@ func _on_book_animation_finished():
 		get_tree().paused = false
 
 func on_selected_choice(spell_not_chosen: EventSpell):
-	possible_spell_options.append(spell_not_chosen)
+	if spell_not_chosen != null:
+		possible_spell_options.append(spell_not_chosen)
 	self.hide() 
 	book_animation.play_backwards()
 	is_animation_backwards = true

@@ -27,4 +27,7 @@ func pierce_enemy(_enemy):
 		self.already_emitted = true
 		
 func get_event_spell_description() -> String:
-	return "Allows the user to fire piercing projectiles. Pierces 3 enemies max."
+	return "[b]Allows projectiles to pierce through up to 3 enemies.[/b]
+	
+	'Magic sharpens the will into a perfect line.
+No soul stands untouched in its path.'"
