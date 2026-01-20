@@ -45,6 +45,8 @@ class BulletHabilities:
 		pass
 	func get_event_spell_description():
 		pass
+	func get_event_spell_sprite_texture():
+		pass
 
 ## Takes a node and an interface, and returns true if the given node
 ## implements the given interface, and false if it does not

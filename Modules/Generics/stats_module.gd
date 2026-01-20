@@ -8,11 +8,10 @@ enum ModifiableStats {
 @export var base_move_speed: float
 var current_move_speed: float
 
-#const BASE_VP: float = 100.0
-const PROGRESS_DIFFICULTY = 1.6
+const PROGRESS_DIFFICULTY = 2
 var void_power: float = 0
 var current_level: int = 1
-var vp_needed: float = 150
+var vp_needed: float = 350
 
 var stat_modifiers: Array[StatModifier]
 
@@ -74,13 +73,8 @@ func add_void_power(void_power_to_add: float):
 	EventBus.vp_changed.emit(self.void_power)
 		## Not needed as we will not upgrade our stats on level up (only with buffs)
 		# recalculate_stats()
-	
-#func get_level():
-	##return floor(max(1.0, (pow(self.void_power / BASE_VP, 1/1.1) + 0.5) + 1)) 
-	#return pow(self.get_vp_needed_to_next_level() / 150, )
 
 func get_vp_needed_to_next_level() -> float:
-	#return pow(self.BASE_VP*(self.get_level() - 0.5), 1.1)
 	return 150 * pow(self.current_level, PROGRESS_DIFFICULTY)
 	
 func add_modifier(modifier: StatModifier) -> void:

@@ -7,7 +7,7 @@
 radius = 4.0
 
 [node name="xp" type="Area2D"]
-modulate = Color(1, 0.14117648, 0.34901962, 1)
+modulate = Color(1, 0.13999999, 0.81366664, 1)
 scale = Vector2(3.5, 3.5)
 collision_layer = 128
 collision_mask = 128

@@ -7,12 +7,12 @@
 radius = 4.0
 
 [node name="xp" type="Area2D"]
-modulate = Color(0.3924328, 0.029090425, 0.049820937, 1)
+modulate = Color(0.24313751, 0.13090521, 0.37682188, 1)
 scale = Vector2(5, 5)
 collision_layer = 128
 collision_mask = 128
 script = ExtResource("1_1ih8d")
-vp_amount = 100
+vp_amount = 600
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_uy6jv")

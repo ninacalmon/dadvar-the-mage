@@ -102,6 +102,8 @@ func _on_area_entered(area: Area2D) -> void:
 		var bullet_module: BulletModule = node_mob_projectile.bullet_module
 		var current_health = health_module.get_health()
 		health_module.set_health(current_health - bullet_module.damage)
+		hit_flash_animation.play("hit_flash")
+
 
 	if node_stat_modifier != null:
 		var stat_modifier: StatModifier = node_stat_modifier.stat_modifier

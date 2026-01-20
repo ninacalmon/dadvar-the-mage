@@ -1,8 +1,15 @@
 extends CenterContainer
 
 @onready var book_animation: AnimatedSprite2D = %BookAnimation
+var opening_book_sound = preload("res://Sounds/book-turn-page-2-92381.mp3")
+var closing_book_sound = preload("res://Sounds/book-closing-466850.mp3")
+var stream_player
+var stream_player2
+
 @onready var choice_l: Button = %ChoiceL
 @onready var choice_r: Button = %ChoiceR
+@onready var sprite_l: Sprite2D = %SpriteL
+@onready var sprite_r: Sprite2D = %SpriteR
 @onready var desc_l: RichTextLabel = %"Desc L"
 @onready var desc_r: RichTextLabel = %"Desc R"
 @onready var title_l: RichTextLabel = %"Title L"
@@ -12,6 +19,7 @@ var possible_spell_options: Array[EventSpell] = [SoulPiercer.new(), VampiricGobl
 var spell_left: EventSpell
 var spell_right: EventSpell
 
+
 var is_animation_backwards = false
 
 func _ready():
@@ -19,6 +27,15 @@ func _ready():
 	choice_l.pressed.connect(_on_choice_l_pressed)
 	choice_r.pressed.connect(_on_choice_r_pressed)
 	self.hide()
+	
+	stream_player = AudioStreamPlayer.new()
+	stream_player.pitch_scale = 0.5
+	stream_player.stream = opening_book_sound
+	book_animation.add_child(stream_player)
+	
+	stream_player2 = AudioStreamPlayer.new()
+	stream_player.stream = closing_book_sound
+	book_animation.add_child(stream_player2)
 
 func _on_choice_l_pressed() -> void:
 	if self.spell_left != null:
@@ -41,6 +58,7 @@ func _on_player_level_up(_level: int):
 		var random_num_array_bound_left = randi() % possible_spell_options.size()
 		spell_left = possible_spell_options.get(random_num_array_bound_left)
 		possible_spell_options.remove_at(random_num_array_bound_left)
+		sprite_l.texture = spell_left.get_event_spell_sprite_texture()
 		desc_l.text = spell_left.get_event_spell_description()
 		title_l.text = spell_left.get_event_spell_title()
 		choice_l.show()
@@ -53,6 +71,7 @@ func _on_player_level_up(_level: int):
 		var random_num_array_bound_right = randi() % possible_spell_options.size()
 		spell_right = possible_spell_options.get(random_num_array_bound_right)
 		possible_spell_options.remove_at(random_num_array_bound_right)
+		sprite_r.texture = spell_right.get_event_spell_sprite_texture()
 		desc_r.text = spell_right.get_event_spell_description()
 		title_r.text = spell_right.get_event_spell_title()
 		choice_r.show()
@@ -65,6 +84,7 @@ func _on_player_level_up(_level: int):
 	## DO SOMETHING WHEN THERE ARE NOT TWO OPTIONS OF SPELLS TO CHOOSE
 	## TELL PLAYER OR SOMETHING
 	book_animation.play()
+	#stream_player.play()
 	book_animation.animation_finished.connect(_on_book_animation_finished)
 
 func _on_book_animation_finished():
@@ -78,4 +98,5 @@ func on_selected_choice(spell_not_chosen: EventSpell):
 		possible_spell_options.append(spell_not_chosen)
 	self.hide() 
 	book_animation.play_backwards()
+	#stream_player2.play()
 	is_animation_backwards = true

@@ -2,6 +2,8 @@
 class_name EventSpell
 extends Resource
 
+var placeholder_texture = preload("res://Sprites/Spell Sprites/Placeholder.png")
+
 enum EventSpellType {
 	INVALID,
 	PROJECTILE,
@@ -19,6 +21,9 @@ func get_event_spell_description() -> String:
 
 func get_event_spell_title() -> String:
 	return self.get_script().get_global_name()
+
+func get_event_spell_sprite_texture() -> Texture:
+	return placeholder_texture
 
 ## Each class that inherits this will need to implement apply hability,
 ## which is unique for each class.

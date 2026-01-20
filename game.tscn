@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://qinxn2c2shu7"]
+[gd_scene load_steps=57 format=3 uid="uid://qinxn2c2shu7"]
 
 [ext_resource type="PackedScene" uid="uid://d2c1s3qmdi4ti" path="res://Scenes/Player/player.tscn" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://g1vr201lpslj" path="res://game.gd" id="1_feb5d"]
@@ -17,6 +17,7 @@
 [ext_resource type="AudioStream" uid="uid://dx7wroe4ywihq" path="res://Sounds/a time long forgotten (80's dark fantasy playlist)_compressed.mp3" id="11_mfdv2"]
 [ext_resource type="FontFile" uid="uid://b0c3mgf46t565" path="res://Fonts/Alagard/alagard.ttf" id="12_boyg6"]
 [ext_resource type="Script" uid="uid://ctfef58tirius" path="res://UI/vp_bar.gd" id="12_e8heu"]
+[ext_resource type="Texture2D" uid="uid://u0nob4ja1i7q" path="res://Sprites/Spell Sprites/Placeholder.png" id="12_hb5m1"]
 [ext_resource type="FontFile" uid="uid://stdwsoetsw4q" path="res://Fonts/Pixel_Operator/PixelOperatorHB.ttf" id="13_e36ub"]
 [ext_resource type="Script" uid="uid://bicyw5i7xjom1" path="res://game_manager.gd" id="13_lc2xo"]
 [ext_resource type="FontFile" uid="uid://kp6id4btpstd" path="res://Fonts/Pixel_Operator/PixelOperator8-Bold.ttf" id="14_e36ub"]
@@ -236,6 +237,21 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x5p1p"]
+bg_color = Color(0.17254902, 0.14117648, 0.3882353, 0.25882354)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qhcbd"]
+bg_color = Color(0.17367996, 0.1404, 0.39, 0.8392157)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f1jbl"]
+bg_color = Color(0.17367996, 0.1404, 0.39, 0.7058824)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hb5m1"]
+bg_color = Color(0, 0, 0, 0.7529412)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e36ub"]
+bg_color = Color(0.17367996, 0.1404, 0.39, 0.7529412)
+
 [node name="game" type="Node" node_paths=PackedStringArray("player")]
 script = ExtResource("1_feb5d")
 mob_scene = ExtResource("2_fc0e3")
@@ -275,12 +291,12 @@ sprite_frames = SubResource("SpriteFrames_eu6ph")
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -56.0
-offset_top = 8.0
+offset_left = -104.0
+offset_top = 16.0
 offset_right = -16.0
-offset_bottom = 48.0
+offset_bottom = 56.0
 grow_horizontal = 0
-theme_override_colors/default_color = Color(0.5686275, 0.07450981, 0.11372549, 1)
+theme_override_colors/default_color = Color(0.4117647, 0.105882354, 0.13333334, 1)
 theme_override_fonts/normal_font = ExtResource("12_boyg6")
 theme_override_font_sizes/normal_font_size = 36
 text = "0"
@@ -324,11 +340,27 @@ alignment = 1
 unique_name_in_owner = true
 custom_minimum_size = Vector2(170, 170)
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_x5p1p")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_qhcbd")
+theme_override_styles/hover = SubResource("StyleBoxFlat_f1jbl")
+
+[node name="SpriteL" type="Sprite2D" parent="CanvasLayer/CenterContainer/Control2/HBox Sprite/ChoiceL"]
+unique_name_in_owner = true
+position = Vector2(85, 85)
+texture = ExtResource("12_hb5m1")
 
 [node name="ChoiceR" type="Button" parent="CanvasLayer/CenterContainer/Control2/HBox Sprite"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(170, 170)
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_x5p1p")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_qhcbd")
+theme_override_styles/hover = SubResource("StyleBoxFlat_f1jbl")
+
+[node name="SpriteR" type="Sprite2D" parent="CanvasLayer/CenterContainer/Control2/HBox Sprite/ChoiceR"]
+unique_name_in_owner = true
+position = Vector2(85, 85)
+texture = ExtResource("12_hb5m1")
 
 [node name="HBox Title" type="HBoxContainer" parent="CanvasLayer/CenterContainer/Control2"]
 layout_mode = 1
@@ -415,14 +447,34 @@ Hehehehehehehe muito top."
 horizontal_alignment = 1
 
 [node name="VpBar" type="ProgressBar" parent="CanvasLayer" node_paths=PackedStringArray("player")]
-modulate = Color(0.37919992, 0.31599998, 0.79, 1)
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 8.0
+offset_bottom = 16.0
 grow_horizontal = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_hb5m1")
+theme_override_styles/fill = SubResource("StyleBoxFlat_e36ub")
 show_percentage = false
 script = ExtResource("12_e8heu")
 player = NodePath("../../player")
+
+[node name="LevelLabel" type="RichTextLabel" parent="CanvasLayer/VpBar"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -44.0
+offset_top = -5.0
+offset_right = 44.0
+offset_bottom = 24.0
+grow_horizontal = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_fonts/normal_font = ExtResource("13_e36ub")
+theme_override_font_sizes/normal_font_size = 24
+text = "lvl 1"
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+horizontal_alignment = 1
 
 [node name="WavesSystem" type="Node" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("8_j5wjh")

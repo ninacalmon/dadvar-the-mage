@@ -2,6 +2,8 @@ class_name SoulPiercer extends EventSpell.ProjectileSpell
 ## This abstract class implements the interface in order to have a verification on itself
 var implements = Interface.BulletHabilities
 
+var sprite_texture = preload("res://Sprites/Spell Sprites/SoulPiercer.png")
+
 @export var pierce_count = 3
 var remaining_pierces
 
@@ -31,3 +33,6 @@ func get_event_spell_description() -> String:
 	
 	'Magic sharpens the will into a perfect line.
 No soul stands untouched in its path.'"
+
+func get_event_spell_sprite_texture() -> Texture:
+	return sprite_texture
