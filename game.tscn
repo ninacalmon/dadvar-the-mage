@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://ck5sefsx2pmdk" path="res://Scenes/Bosses/MegaCerberus/Mega_Cerberus.tscn" id="9_hve3p"]
 [ext_resource type="PackedScene" uid="uid://jsquw55fm4an" path="res://Scenes/Enemies/Cerberus/cerberus.tscn" id="9_vef74"]
 [ext_resource type="Theme" uid="uid://0e7pvovb4qnk" path="res://UI/Text Themes/title_test.tres" id="10_7sc4i"]
-[ext_resource type="Script" uid="uid://bt50uc7j2w3fj" path="res://select_spell.gd" id="10_80cx4"]
+[ext_resource type="Script" uid="uid://bt50uc7j2w3fj" path="res://UI/select_spell.gd" id="10_80cx4"]
 [ext_resource type="AudioStream" uid="uid://dx7wroe4ywihq" path="res://Sounds/a time long forgotten (80's dark fantasy playlist)_compressed.mp3" id="11_mfdv2"]
 [ext_resource type="FontFile" uid="uid://b0c3mgf46t565" path="res://Fonts/Alagard/alagard.ttf" id="12_boyg6"]
 [ext_resource type="Script" uid="uid://ctfef58tirius" path="res://UI/vp_bar.gd" id="12_e8heu"]
