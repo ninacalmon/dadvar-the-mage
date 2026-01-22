@@ -17,6 +17,7 @@ var stream_player2
 @onready var title_r: RichTextLabel = %"Title R"
 
 var possible_spell_options: Array[EventSpell] = [SoulPiercer.new(), VampiricGoblet.new()]
+var placeholder_spell = SpellWaste.new()
 var spell_left: EventSpell
 var spell_right: EventSpell
 
@@ -42,49 +43,26 @@ func _ready():
 func _on_choice_l_pressed() -> void:
 	if self.spell_left != null:
 		EventBus.new_spell_added.emit(self.spell_left)
-	## APPEND OPTION NOT CHOSEN TO POSSIBLE SPELL OPTIONS ARRAY AGAIN
-	on_selected_choice(self.spell_right)
 
+	self.on_selected_choice(self.spell_right)
 
 func _on_choice_r_pressed() -> void:
 	if self.spell_right != null:
 		EventBus.new_spell_added.emit(self.spell_right)
-	## APPEND OPTION NOT CHOSEN TO POSSIBLE SPELL OPTIONS ARRAY AGAIN
-	on_selected_choice(self.spell_left)
+
+	self.on_selected_choice(self.spell_left)
 
 func _on_player_level_up(_level: int):
 	is_animation_backwards = false
 	get_tree().paused = true
 
-	if possible_spell_options.size() != 0:
-		var random_num_array_bound_left = randi() % possible_spell_options.size()
-		spell_left = possible_spell_options.get(random_num_array_bound_left)
-		possible_spell_options.remove_at(random_num_array_bound_left)
-		sprite_l.texture = spell_left.get_event_spell_sprite_texture()
-		desc_l.text = spell_left.get_event_spell_description()
-		title_l.text = spell_left.get_event_spell_title()
-		choice_l.show()
-	else:
-		spell_left = null
-		## NEED TO DO SOMETHING WHEN THERE ARE NO OPTIONS LEFT
-		#choice_l.hide()
+	self.spell_left = self.select_random_spell(self.possible_spell_options, self.placeholder_spell)
+	self.spell_right = self.select_random_spell(self.possible_spell_options, self.placeholder_spell)
+	## SPELL LEFT
+	self.show_spell_on_ui(self.spell_left, self.sprite_l, self.desc_l, self.title_l, self.choice_l)
+	## SPELL RIGHT
+	self.show_spell_on_ui(self.spell_right, self.sprite_r, self.desc_r, self.title_r, self.choice_r)
 
-	if possible_spell_options.size() != 0:
-		var random_num_array_bound_right = randi() % possible_spell_options.size()
-		spell_right = possible_spell_options.get(random_num_array_bound_right)
-		possible_spell_options.remove_at(random_num_array_bound_right)
-		sprite_r.texture = spell_right.get_event_spell_sprite_texture()
-		desc_r.text = spell_right.get_event_spell_description()
-		title_r.text = spell_right.get_event_spell_title()
-		choice_r.show()
-	else:
-		spell_right = null
-		## NEED TO DO SOMETHING WHEN THERE ARE NO OPTIONS LEFT
-		#choice_r.hide()
-
-	## REALLY IMPORTANT!!!!!!!!!!!!!!!!!!!! OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-	## DO SOMETHING WHEN THERE ARE NOT TWO OPTIONS OF SPELLS TO CHOOSE
-	## TELL PLAYER OR SOMETHING
 	book_animation.play()
 	stream_player.play()
 	book_animation.animation_finished.connect(_on_book_animation_finished)
@@ -104,8 +82,29 @@ func _on_book_animation_frame_changed():
 		stream_player2.play()
 
 func on_selected_choice(spell_not_chosen: EventSpell):
-	if spell_not_chosen != null:
+	if spell_not_chosen != null and spell_not_chosen != self.placeholder_spell:
+		## APPEND OPTION NOT CHOSEN TO POSSIBLE SPELL OPTIONS ARRAY AGAIN
 		possible_spell_options.append(spell_not_chosen)
+
 	self.hide() 
 	book_animation.play_backwards()
 	is_animation_backwards = true
+
+func select_random_spell(options: Array, fallback):
+	if options.is_empty():
+		return fallback
+
+	var index := randi() % options.size()
+	return options.pop_at(index)
+
+func show_spell_on_ui(
+	spell: EventSpell,
+	sprite: Sprite2D,
+	description: RichTextLabel,
+	title: RichTextLabel,
+	choice: Button
+	) -> void:
+	sprite.texture = spell.get_event_spell_sprite_texture()
+	description.text = spell.get_event_spell_description()
+	title.text = spell.get_event_spell_title()
+	choice.show()
