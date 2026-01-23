@@ -26,3 +26,6 @@ The wearer endures beyond mortal limits.'"
 
 func get_event_spell_sprite_texture() -> Texture:
 	return sprite_texture
+
+func get_event_spell_title() -> String:
+	return "Titan's skin"

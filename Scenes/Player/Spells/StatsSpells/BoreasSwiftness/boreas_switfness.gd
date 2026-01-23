@@ -26,3 +26,6 @@ Speed follows every motion.'"
 
 func get_event_spell_sprite_texture() -> Texture:
 	return sprite_texture
+
+func get_event_spell_title() -> String:
+	return "Borea's Swiftness"
