@@ -11,7 +11,7 @@ const WAND_TIP_POSITION_X_ABSOLUTE = 63
 @export_group("Local Variables")
 @export var speed = 400
 @export var bullet: PackedScene
-@export var player_shoot_cooldown: float
+var cast_cooldown = 0
 
 @export_subgroup("Wobble")
 @export var frequency := 1.0
@@ -23,8 +23,6 @@ const WAND_TIP_POSITION_X_ABSOLUTE = 63
 @export var stats_spells: Array[EventSpell.StatsSpell] = []
 ## MAYBE HAVE HERE A SPELL UPGRADES OR SOMETHING LIKE THIS WHICH ARE UPGRADES THAT
 ## ARE NOT EFFECTS ON THE BULLET
-
-var shoot_cooldown = 0
 
 @onready var hit_flash_animation = $HitFlashAnimPlayer
 var audio_track: AudioStream = preload("res://Sounds/retro-game-shot-2-152053.mp3")
@@ -52,8 +50,8 @@ func take_damage(mob_behaviour: MobBehaviourModule = null, bullet_module: Bullet
 	self.health_module.set_health(current_health - damage_to_take)
 
 func _physics_process(delta: float) -> void:
-	shoot_cooldown = max(shoot_cooldown - delta, 0)
-	if Input.is_action_just_pressed("shoot") and shoot_cooldown <= 0:
+	cast_cooldown = max(cast_cooldown - delta, 0)
+	if Input.is_action_just_pressed("shoot") and cast_cooldown <= 0:
 		var bullet_instance = self.bullet.instantiate()
 		var bullet_module = bullet_instance.bullet_module
 		bullet_instance.global_position = $WandTip.global_position
@@ -67,7 +65,7 @@ func _physics_process(delta: float) -> void:
 
 		get_parent().add_child(bullet_instance)
 
-		shoot_cooldown = player_shoot_cooldown
+		cast_cooldown = self.stats_module.current_cast_cooldown
 
 func _process(delta: float) -> void:
 	var velocity = Vector2.ZERO

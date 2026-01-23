@@ -4,13 +4,16 @@ class_name StatsModule
 enum ModifiableStats {
 	MOVE_SPEED,
 	DEFENSE,
-	MAX_HEALTH
+	MAX_HEALTH,
+	CAST_COOLDOWN
 }
 
 @export var base_move_speed: float
 var current_move_speed: float
 @export var base_defense: float
 var current_defense: float
+@export var base_cast_cooldown: float
+var current_cast_cooldown: float
 
 const PROGRESS_DIFFICULTY = 2
 var void_power: float = 0
@@ -24,6 +27,8 @@ func _setup_local_to_scene() -> void:
 	## it is needed to do in here because the _init runs before the
 	## @export variables are assigned, so we need to call this within setup_local_to_scene
 	self.current_move_speed = self.base_move_speed
+	self.current_defense = self.base_defense
+	self.current_cast_cooldown = self.base_cast_cooldown
 
 
 func recalculate_stats():
@@ -36,12 +41,12 @@ func recalculate_stats():
 		match modifier.modifier_type:
 			StatModifier.ModifierType.MULTIPLY:
 				if not stat_multipliers.has(stat_name):
-					stat_multipliers[stat_name] = 1.0
+					stat_multipliers[stat_name] = 0
 				stat_multipliers[stat_name] += modifier.modifier_amount
 
 				## Avoid negative multipliers to be added
-				#if stat_multipliers[stat_name] <= 0.0:
-					#stat_multipliers[stat_name] = 1.0
+				if stat_multipliers[stat_name] <= 0.0:
+					stat_multipliers[stat_name] = 1.0
 			StatModifier.ModifierType.ADD:
 				if not stat_addends.has(stat_name):
 					stat_addends[stat_name] = 0.0

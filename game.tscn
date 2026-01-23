@@ -26,6 +26,7 @@
 resource_local_to_scene = true
 script = ExtResource("7_215e1")
 base_move_speed = 400.0
+base_cast_cooldown = 0.2
 metadata/_custom_type_script = "uid://cx1bveptsnmc"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7sc4i"]
