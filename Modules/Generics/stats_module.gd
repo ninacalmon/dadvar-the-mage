@@ -2,11 +2,14 @@ extends Resource
 class_name StatsModule
 
 enum ModifiableStats {
-	MOVE_SPEED
+	MOVE_SPEED,
+	DEFENSE
 }
 
 @export var base_move_speed: float
 var current_move_speed: float
+@export var base_defense: float
+var current_defense: float
 
 const PROGRESS_DIFFICULTY = 2
 var void_power: float = 0

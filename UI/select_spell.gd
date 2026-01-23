@@ -16,7 +16,11 @@ var stream_player2
 @onready var title_l: RichTextLabel = %"Title L"
 @onready var title_r: RichTextLabel = %"Title R"
 
-var possible_spell_options: Array[EventSpell] = [SoulPiercer.new(), VampiricGoblet.new()]
+var possible_spell_options: Array[EventSpell] = [
+	SoulPiercer.new(),
+	VampiricGoblet.new(),
+	TitansSkin.new()
+]
 var placeholder_spell = SpellWaste.new()
 var spell_left: EventSpell
 var spell_right: EventSpell

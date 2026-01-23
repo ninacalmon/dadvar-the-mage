@@ -7,8 +7,8 @@ var placeholder_texture = preload("res://Sprites/Spell Sprites/Placeholder.png")
 enum EventSpellType {
 	INVALID,
 	PROJECTILE,
-	ACTIVATION,
-	ENEMY_ACTION
+	ENEMY_ACTION,
+	STATS_SPELL
 }
 
 func get_event_spell_type() -> EventSpellType:
@@ -55,3 +55,19 @@ class EnemyActionSpell extends EventSpell:
 				spell_context.player is Player,
 				"Player provided to EnemyActionSpell is invalid"
 			)
+
+@abstract
+class StatsSpell extends EventSpell:
+	var event_spell_type = EventSpellType.STATS_SPELL
+	var stat_modifier: StatModifier
+
+	func get_event_spell_type() -> EventSpellType:
+		return EventSpellType.STATS_SPELL
+
+	func validate(spell_context: SpellContext):
+		assert(spell_context.stats_module != null, "StatsSpell needs Stats Module to apply effect")
+		assert(
+			spell_context.stats_module is StatsModule,
+			"Stats Module provided to StatsSpell is invalid"
+		)
+		assert(stat_modifier != null, "StatsSpell needs a stat modifier defined to apply effect")

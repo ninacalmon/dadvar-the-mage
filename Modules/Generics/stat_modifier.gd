@@ -15,3 +15,15 @@ enum ModifierType {
 # (Because Godot does not know what to pass in the constructor when instantiating,
 # and the export variables are assigned only after _init, which is the constructor)
 # To instantiate through code we will need an static factory function
+
+static func CreateStatModifier(
+	stat_to_modify: StatsModule.ModifiableStats,
+	modify_amount: float,
+	modify_type: ModifierType
+	):
+		var modifier := StatModifier.new()
+		modifier.stat = stat_to_modify
+		modifier.modifier_amount = modify_amount
+		modifier.modifier_type = modify_type
+
+		return modifier

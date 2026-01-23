@@ -20,6 +20,7 @@ const WAND_TIP_POSITION_X_ABSOLUTE = 63
 @export_subgroup("Spells and upgrades")
 @export var projectile_spells: Array[EventSpell.ProjectileSpell] = []
 @export var enemy_action_spells: Array[EventSpell.EnemyActionSpell] = []
+@export var stats_spells: Array[EventSpell.StatsSpell] = []
 ## MAYBE HAVE HERE A SPELL UPGRADES OR SOMETHING LIKE THIS WHICH ARE UPGRADES THAT
 ## ARE NOT EFFECTS ON THE BULLET
 
@@ -152,5 +153,12 @@ func add_new_spell(spell: EventSpell):
 
 			var spell_context = SpellContext.new()
 			spell_context.player = self
+
+			spell.apply_spell(spell_context)
+		EventSpell.EventSpellType.STATS_SPELL:
+			self.stats_spells.append(spell)
+
+			var spell_context = SpellContext.new()
+			spell_context.stats_module = self.stats_module
 
 			spell.apply_spell(spell_context)
