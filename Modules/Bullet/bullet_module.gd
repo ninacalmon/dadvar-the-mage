@@ -1,5 +1,7 @@
 extends Area2D
 class_name BulletModule
+## THIS SIGNAL HERE MAY BE BETTER EXISTING ON THE EVENT BUS, THEN ALL WAYS OF HITING
+## ENEMIES WILL EMIT
 signal enemy_hit(enemy: Node2D)
 
 @export var lifetime: float

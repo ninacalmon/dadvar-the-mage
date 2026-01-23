@@ -21,6 +21,7 @@ var cast_cooldown = 0
 @export var projectile_spells: Array[EventSpell.ProjectileSpell] = []
 @export var enemy_action_spells: Array[EventSpell.EnemyActionSpell] = []
 @export var stats_spells: Array[EventSpell.StatsSpell] = []
+@export var node_spells: Array[EventSpell.NodeSpell] = []
 ## MAYBE HAVE HERE A SPELL UPGRADES OR SOMETHING LIKE THIS WHICH ARE UPGRADES THAT
 ## ARE NOT EFFECTS ON THE BULLET
 
@@ -161,5 +162,12 @@ func add_new_spell(spell: EventSpell):
 			var spell_context = SpellContext.new()
 			spell_context.stats_module = self.stats_module
 			spell_context.health_module = self.health_module
+
+			spell.apply_spell(spell_context)
+		EventSpell.EventSpellType.NODE_SPELL:
+			self.node_spells.append(spell)
+
+			var spell_context = SpellContext.new()
+			spell_context.player = self
 
 			spell.apply_spell(spell_context)

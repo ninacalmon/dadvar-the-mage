@@ -21,7 +21,8 @@ var possible_spell_options: Array[EventSpell] = [
 	VampiricGoblet.new(),
 	TitansSkin.new(),
 	YggdrasilTea.new(),
-	BoreasSwiftness.new()
+	BoreasSwiftness.new(),
+	OgresScent.new()
 ]
 var placeholder_spell = SpellWaste.new()
 var spell_left: EventSpell

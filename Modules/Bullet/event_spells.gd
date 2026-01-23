@@ -8,7 +8,8 @@ enum EventSpellType {
 	INVALID,
 	PROJECTILE,
 	ENEMY_ACTION,
-	STATS_SPELL
+	STATS_SPELL,
+	NODE_SPELL
 }
 
 func get_event_spell_type() -> EventSpellType:
@@ -38,32 +39,32 @@ func prettify_class_name(name: String) -> String:
 class ProjectileSpell extends EventSpell:
 	signal destroy
 
-	var event_spell_type = EventSpellType.PROJECTILE
+	var event_spell_type: EventSpellType = EventSpellType.PROJECTILE
 
 	func get_event_spell_type() -> EventSpellType:
 		return EventSpellType.PROJECTILE
 
 	var already_emitted = false
 	func validate(spell_context: SpellContext):
-			assert(spell_context.bullet_module != null, "Projectile spell needs bullet module to apply effect")
+			assert(spell_context.bullet_module != null, "Projectile spell %s needs bullet module to apply effect" % self.get_script().get_global_name())
 
 @abstract
 class EnemyActionSpell extends EventSpell:
-	var event_spell_type = EventSpellType.ENEMY_ACTION
+	var event_spell_type: EventSpellType = EventSpellType.ENEMY_ACTION
 
 	func get_event_spell_type() -> EventSpellType:
 		return EventSpellType.ENEMY_ACTION
 
 	func validate(spell_context: SpellContext):
-			assert(spell_context.player != null, "Enemy action spell needs player node to apply effect")
+			assert(spell_context.player != null, "Enemy action spell %s needs player node to apply effect" % self.get_script().get_global_name())
 			assert(
 				spell_context.player is Player,
-				"Player provided to EnemyActionSpell is invalid"
+				"Player provided to EnemyActionSpell %s is invalid" % self.get_script().get_global_name()
 			)
 
 @abstract
 class StatsSpell extends EventSpell:
-	var event_spell_type = EventSpellType.STATS_SPELL
+	var event_spell_type: EventSpellType = EventSpellType.STATS_SPELL
 	var stat_modifier: StatModifier
 
 	func get_event_spell_type() -> EventSpellType:
@@ -72,10 +73,26 @@ class StatsSpell extends EventSpell:
 	func validate(spell_context: SpellContext):
 		assert(
 			spell_context.stats_module != null
-			and spell_context.health_module != null, "StatsSpell needs Stats Module OR Health Module to apply effect")
+			and spell_context.health_module != null, "StatsSpell %s needs Stats Module OR Health Module to apply effect" % self.get_script().get_global_name())
 		assert(
 			spell_context.stats_module is StatsModule
 			or spell_context.health_module is HealthModule,
-			"Stats Module OR Health Module provided to StatsSpell is invalid"
+			"Stats Module OR Health Module provided to StatsSpell %s is invalid" % self.get_script().get_global_name()
 		)
-		assert(stat_modifier != null, "StatsSpell needs a stat modifier defined to apply effect")
+		assert(stat_modifier != null, "StatsSpell %s needs a stat modifier defined to apply effect" % self.get_script().get_global_name())
+
+@abstract
+class NodeSpell extends EventSpell:
+	var event_spell_type: EventSpellType = EventSpellType.NODE_SPELL
+	var scene: PackedScene
+
+	func get_event_spell_type() -> EventSpellType:
+		return EventSpellType.NODE_SPELL
+
+	func validate(spell_context: SpellContext):
+		assert(spell_context.player != null, "Node spell %s needs player node to apply effect" % self.get_script().get_global_name())
+		assert(
+			spell_context.player is Player,
+			"Player provided to NodeSpell %s is invalid" % self.get_script().get_global_name()
+		)
+		assert(scene != null, "NodeSpell %s needs a scene defined to apply effect" % self.get_script().get_global_name())
