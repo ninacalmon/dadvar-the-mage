@@ -41,10 +41,15 @@ func start(pos):
 func wobble():
 	$AnimatedSprite2D.rotation = sin(Time.get_ticks_msec() * frequency) * amplitude
 
-func take_damage(mob_behaviour: MobBehaviourModule):
-	hit_flash_animation.play("hit_flash")
+func take_damage(mob_behaviour: MobBehaviourModule = null, bullet_module: BulletModule = null):
+	self.hit_flash_animation.play("hit_flash")
 	var current_health = health_module.get_health()
-	health_module.set_health(current_health - mob_behaviour.damage)
+
+	var damage_received = mob_behaviour.damage if mob_behaviour != null else bullet_module.damage
+
+	var damage_to_take = damage_received * (100/(100 + self.stats_module.current_defense))
+
+	self.health_module.set_health(current_health - damage_to_take)
 
 func _physics_process(delta: float) -> void:
 	shoot_cooldown = max(shoot_cooldown - delta, 0)
@@ -93,7 +98,7 @@ func _on_body_entered(body: Node2D) -> void:
 	var is_mob = Interface.node_implements_interface(body, Interface.Mob)
 	if is_mob == true:
 		var behaviour: MobBehaviourModule = body.behaviour_module
-		take_damage(behaviour)
+		self.take_damage(behaviour)
 
 func _on_area_entered(area: Area2D) -> void:
 	var node_mob_projectile = Interface.is_any_interface_implements_node(find_root_node(area), Interface.MobProjectile)
@@ -101,10 +106,7 @@ func _on_area_entered(area: Area2D) -> void:
 
 	if node_mob_projectile != null:
 		var bullet_module: BulletModule = node_mob_projectile.bullet_module
-		var current_health = health_module.get_health()
-		health_module.set_health(current_health - bullet_module.damage)
-		hit_flash_animation.play("hit_flash")
-
+		self.take_damage(null, bullet_module)
 
 	if node_stat_modifier != null:
 		var stat_modifier: StatModifier = node_stat_modifier.stat_modifier
@@ -160,5 +162,6 @@ func add_new_spell(spell: EventSpell):
 
 			var spell_context = SpellContext.new()
 			spell_context.stats_module = self.stats_module
+			spell_context.health_module = self.health_module
 
 			spell.apply_spell(spell_context)

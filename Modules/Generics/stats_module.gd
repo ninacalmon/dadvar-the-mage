@@ -3,7 +3,8 @@ class_name StatsModule
 
 enum ModifiableStats {
 	MOVE_SPEED,
-	DEFENSE
+	DEFENSE,
+	MAX_HEALTH
 }
 
 @export var base_move_speed: float

@@ -19,7 +19,8 @@ var stream_player2
 var possible_spell_options: Array[EventSpell] = [
 	SoulPiercer.new(),
 	VampiricGoblet.new(),
-	TitansSkin.new()
+	TitansSkin.new(),
+	YggdrasilEssence.new()
 ]
 var placeholder_spell = SpellWaste.new()
 var spell_left: EventSpell

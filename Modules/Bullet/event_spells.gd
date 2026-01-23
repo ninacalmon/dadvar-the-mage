@@ -65,9 +65,12 @@ class StatsSpell extends EventSpell:
 		return EventSpellType.STATS_SPELL
 
 	func validate(spell_context: SpellContext):
-		assert(spell_context.stats_module != null, "StatsSpell needs Stats Module to apply effect")
 		assert(
-			spell_context.stats_module is StatsModule,
-			"Stats Module provided to StatsSpell is invalid"
+			spell_context.stats_module != null
+			and spell_context.health_module != null, "StatsSpell needs Stats Module OR Health Module to apply effect")
+		assert(
+			spell_context.stats_module is StatsModule
+			or spell_context.health_module is HealthModule,
+			"Stats Module OR Health Module provided to StatsSpell is invalid"
 		)
 		assert(stat_modifier != null, "StatsSpell needs a stat modifier defined to apply effect")
