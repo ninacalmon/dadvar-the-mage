@@ -6,7 +6,7 @@ var sprite_texture = preload("res://Sprites/Spell Sprites/VampiricGoblet.png")
 
 var hability_type: EventSpell.EventSpellType = EventSpell.EventSpellType.ENEMY_ACTION
 
-@export var percentage_health_steal: float = 1
+@export var percentage_health_steal: float = 5
 var player: Player
 
 func apply_spell(spell_context: SpellContext):
