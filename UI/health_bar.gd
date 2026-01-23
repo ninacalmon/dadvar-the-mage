@@ -14,7 +14,16 @@ func _ready() -> void:
 	self.health.max_health_changed.connect(_update_max_bar_value)
 
 func _update_bar(_diff: float) -> void:
-	value = health.get_health()
+	var tween = create_tween()
+	tween.set_trans(Tween.TRANS_SINE)
+	tween.set_ease(Tween.EASE_OUT)
+
+	tween.tween_property(
+		self,
+		"value",
+		health.get_health(),
+		0.3
+		)
 
 func _update_max_bar_value(_diff: float) -> void:
 	self.max_value = self.health.get_max_health()

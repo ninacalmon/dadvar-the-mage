@@ -36,7 +36,7 @@ radius = 24.0
 height = 96.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dd0ac"]
-radius = 144.22205
+radius = 144.0
 
 [sub_resource type="Animation" id="Animation_xpyb8"]
 length = 0.2
@@ -81,7 +81,6 @@ script = ExtResource("1_fkybt")
 stats_module = SubResource("Resource_dd0ac")
 health_module = NodePath("HealthModule")
 bullet = ExtResource("2_xpcdj")
-player_shoot_cooldown = 0.2
 frequency = 0.02
 amplitude = 0.1
 

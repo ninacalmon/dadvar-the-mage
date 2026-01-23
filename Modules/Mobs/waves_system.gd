@@ -10,9 +10,9 @@ extends Node
 var mob = null
 var wave_count = 1
 
-var wave1_duration = 25
-var wave2_duration = 30
-var wave3_duration = 35
+var wave1_duration = 35
+var wave2_duration = 40
+var wave3_duration = 40
 var wave4_duration = 5000
 
 @onready var main_soundtrack: AudioStreamPlayer = $"../AudioStreamPlayer2D"

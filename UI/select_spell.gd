@@ -20,7 +20,7 @@ var possible_spell_options: Array[EventSpell] = [
 	SoulPiercer.new(),
 	VampiricGoblet.new(),
 	TitansSkin.new(),
-	YggdrasilEssence.new(),
+	YggdrasilTea.new(),
 	BoreasSwiftness.new()
 ]
 var placeholder_spell = SpellWaste.new()

@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://r1rufctix7bt"]
+
+[ext_resource type="Script" uid="uid://4atf3o83ofr1" path="res://Scenes/Progression/Consumables/vp_magnet.gd" id="1_mfr74"]
+[ext_resource type="Texture2D" uid="uid://do6dcovo4sp3u" path="res://Sprites/vp_magnet.png" id="2_mfr74"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ymt51"]
+radius = 7.0
+
+[node name="Area2D" type="Area2D"]
+scale = Vector2(1.5, 1.5)
+collision_layer = 0
+script = ExtResource("1_mfr74")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ymt51")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_mfr74")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

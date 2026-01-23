@@ -2,7 +2,7 @@ class_name BoreasSwiftness extends EventSpell.StatsSpell
 ## This abstract class implements the interface in order to have a verification on itself
 var implements = Interface.BulletHabilities
 
-var sprite_texture = preload("res://Sprites/Spell Sprites/Placeholder.png")
+var sprite_texture = preload("res://Sprites/Spell Sprites/BoreasSwiftness.png")
 
 var hability_type: EventSpell.EventSpellType = EventSpell.EventSpellType.STATS_SPELL
 

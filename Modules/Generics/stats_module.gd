@@ -18,7 +18,7 @@ var current_cast_cooldown: float
 const PROGRESS_DIFFICULTY = 2
 var void_power: float = 0
 var current_level: int = 1
-var vp_needed: float = 350
+var vp_needed: float = 150
 
 var stat_modifiers: Array[StatModifier]
 
@@ -74,7 +74,6 @@ func add_void_power(void_power_to_add: float):
 	print(void_power)
 	if self.void_power >= vp_needed:
 		self.current_level += 1
-		print("LEVEL UPPPPPPPPPPPPPPPPP")
 		## SEND LEVEL DIFFERENCE AS WELL IN ORDER TO AVOID PLAYER LEVELING UP
 		## TWICE AND GETTIN ONLY ONE SPELL AS REWARD
 		vp_needed = self.get_vp_needed_to_next_level()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://qinxn2c2shu7"]
+[gd_scene load_steps=60 format=3 uid="uid://qinxn2c2shu7"]
 
 [ext_resource type="PackedScene" uid="uid://d2c1s3qmdi4ti" path="res://Scenes/Player/player.tscn" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://g1vr201lpslj" path="res://game.gd" id="1_feb5d"]
@@ -21,6 +21,9 @@
 [ext_resource type="FontFile" uid="uid://stdwsoetsw4q" path="res://Fonts/Pixel_Operator/PixelOperatorHB.ttf" id="13_e36ub"]
 [ext_resource type="Script" uid="uid://bicyw5i7xjom1" path="res://game_manager.gd" id="13_lc2xo"]
 [ext_resource type="FontFile" uid="uid://kp6id4btpstd" path="res://Fonts/Pixel_Operator/PixelOperator8-Bold.ttf" id="14_e36ub"]
+[ext_resource type="Script" uid="uid://brrt48yngfmq3" path="res://Scenes/Progression/Consumables/consumables_system.gd" id="17_f1jbl"]
+[ext_resource type="PackedScene" uid="uid://r1rufctix7bt" path="res://Scenes/Progression/Consumables/vp_magnet.tscn" id="18_vaj68"]
+[ext_resource type="PackedScene" uid="uid://bknxikea76lkg" path="res://Scenes/Progression/Consumables/food.tscn" id="19_i2p71"]
 
 [sub_resource type="Resource" id="Resource_e8heu"]
 resource_local_to_scene = true
@@ -477,6 +480,16 @@ scroll_active = false
 autowrap_mode = 2
 horizontal_alignment = 1
 
+[node name="Consumables" type="Node" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("17_f1jbl")
+consumable1 = ExtResource("18_vaj68")
+consumable2 = ExtResource("19_i2p71")
+player = NodePath("../player")
+
+[node name="ConsumableSpawnTimer" type="Timer" parent="Consumables"]
+wait_time = 10.0
+autostart = true
+
 [node name="WavesSystem" type="Node" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("8_j5wjh")
 ghost = ExtResource("2_fc0e3")
@@ -514,6 +527,7 @@ script = ExtResource("13_lc2xo")
 
 [connection signal="player_death" from="player" to="." method="_on_player_player_death"]
 [connection signal="player_death" from="player" to="WavesSystem" method="_on_player_player_death"]
+[connection signal="timeout" from="Consumables/ConsumableSpawnTimer" to="Consumables" method="_on_consumable_spawn_timer_timeout"]
 [connection signal="timeout" from="WavesSystem/WaveTimer" to="WavesSystem" method="_on_wave_timer_timeout"]
 [connection signal="timeout" from="WavesSystem/GhostSpawnRate" to="WavesSystem" method="_on_ghost_spawn_rate_timeout"]
 [connection signal="timeout" from="WavesSystem/GoblinSpawnRate" to="WavesSystem" method="_on_goblin_spawn_rate_timeout"]
