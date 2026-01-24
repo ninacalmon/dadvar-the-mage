@@ -53,7 +53,7 @@ rect = Rect2(-45, -39, 77, 75)
 
 [node name="HealthModule" type="Node" parent="Behaviour" groups=["HealthModuleGroup"]]
 script = ExtResource("4_3fldh")
-max_health = 1.0
+max_health = 10.0
 metadata/_custom_type_script = "uid://ckp8nqvjgsevu"
 
 [node name="MobBehaviour" parent="Behaviour" node_paths=PackedStringArray("health_module", "mob", "mob_sprite") instance=ExtResource("7_o80aq")]

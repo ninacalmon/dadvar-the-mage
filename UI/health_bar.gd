@@ -1,5 +1,5 @@
 extends TextureProgressBar
-#
+
 @export var character: Area2D
 
 @onready var health: HealthModule = character.find_children("*", "HealthModule")[0]
@@ -14,17 +14,21 @@ func _ready() -> void:
 	self.health.max_health_changed.connect(_update_max_bar_value)
 
 func _update_bar(_diff: float) -> void:
+	self.ease_tween_health_bar("value", self.health.get_health, 0.3)
+
+func _update_max_bar_value(_diff: float) -> void:
+	self.value = self.health.get_health()
+
+	self.ease_tween_health_bar("max_value", self.health.get_max_health, 0.3)
+
+func ease_tween_health_bar(property: String, end_value: Callable, ease_time: float):
 	var tween = create_tween()
 	tween.set_trans(Tween.TRANS_SINE)
 	tween.set_ease(Tween.EASE_OUT)
 
 	tween.tween_property(
 		self,
-		"value",
-		health.get_health(),
-		0.3
-		)
-
-func _update_max_bar_value(_diff: float) -> void:
-	self.max_value = self.health.get_max_health()
-	self.value = self.health.get_health()
+		property,
+		end_value.call(),
+		ease_time
+	)
