@@ -270,7 +270,6 @@ scale = Vector2(356.1, 356.1)
 texture = ExtResource("4_7jktm")
 
 [node name="player" parent="." instance=ExtResource("1_80nbo")]
-unique_name_in_owner = true
 stats_module = SubResource("Resource_e8heu")
 
 [node name="Camera2D" type="Camera2D" parent="player"]

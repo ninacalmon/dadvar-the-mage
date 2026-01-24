@@ -77,6 +77,23 @@ func is_any_interface_implements_node(node: Node, interface) -> Node:
 
 	return null
 
+func get_all_nodes_implements_interface_bfs(node: Node, interface) -> Array[Node]:
+	var queue: Array[Node] = [node]
+	var result: Array[Node] = []
+
+	while queue.size() > 0:
+		## Note: pop_front() is O(n). For huge trees, it may be better to keep an index
+		## count and get the current like queue[i]
+		var current_node: Node = queue.pop_front()
+
+		if Interface.node_implements_interface(current_node, interface):
+			result.append(current_node)
+
+		for child in current_node.get_children():
+			queue.append(child)
+
+	return result
+
 ## Get an array of all the descendants of the given node, and includes the given node
 func _get_all_descendants(node:Node) -> Array:
 	var all_descendants = [node]

@@ -256,7 +256,7 @@ bg_color = Color(0, 0, 0, 0.7529412)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e36ub"]
 bg_color = Color(0.17367996, 0.1404, 0.39, 0.7529412)
 
-[node name="game" type="Node" node_paths=PackedStringArray("player") groups=["Main"]]
+[node name="game" type="Node" node_paths=PackedStringArray("player")]
 script = ExtResource("1_feb5d")
 mob_scene = ExtResource("2_fc0e3")
 mob_scene2 = ExtResource("3_eow3j")
@@ -270,7 +270,6 @@ scale = Vector2(356.1, 356.1)
 texture = ExtResource("4_7jktm")
 
 [node name="player" parent="." instance=ExtResource("1_80nbo")]
-unique_name_in_owner = true
 stats_module = SubResource("Resource_e8heu")
 
 [node name="Camera2D" type="Camera2D" parent="player"]
@@ -490,6 +489,15 @@ player = NodePath("../player")
 [node name="ConsumableSpawnTimer" type="Timer" parent="Consumables"]
 wait_time = 10.0
 autostart = true
+
+[node name="Ghost" parent="Consumables" instance=ExtResource("2_fc0e3")]
+position = Vector2(177, 92)
+
+[node name="Ghost2" parent="Consumables" instance=ExtResource("2_fc0e3")]
+position = Vector2(300, 92)
+
+[node name="Ghost3" parent="Consumables" instance=ExtResource("2_fc0e3")]
+position = Vector2(417, 92)
 
 [node name="WavesSystem" type="Node" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("8_j5wjh")

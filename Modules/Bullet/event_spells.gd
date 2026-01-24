@@ -1,3 +1,6 @@
+## SOME SPELLS HERE MAY BENEFIT FROM HAVING A NODE EXECUTOR AS CHILD OF THE PLAYER.
+## THEN, INSTEAD OF THE RESOURCE HAVING TO INSTANTIATE NODES AS CHILD OF THE PLAYER,
+## THE EXECUTOR DOES THIS WITH THE SPELL DATA COMING FROM THE RESOURCE.
 @abstract
 class_name EventSpell
 extends Resource
@@ -9,7 +12,8 @@ enum EventSpellType {
 	PROJECTILE,
 	ENEMY_ACTION,
 	STATS_SPELL,
-	NODE_SPELL
+	NODE_SPELL,
+	TIMER_SPELL
 }
 
 func get_event_spell_type() -> EventSpellType:
@@ -96,3 +100,17 @@ class NodeSpell extends EventSpell:
 			"Player provided to NodeSpell %s is invalid" % self.get_script().get_global_name()
 		)
 		assert(scene != null, "NodeSpell %s needs a scene defined to apply effect" % self.get_script().get_global_name())
+
+@abstract
+class TimerSpell extends EventSpell:
+	var event_spell_type: EventSpellType = EventSpellType.TIMER_SPELL
+
+	func get_event_spell_type() -> EventSpellType:
+		return EventSpellType.TIMER_SPELL
+
+	func validate(spell_context: SpellContext):
+		assert(spell_context.player != null, "Timer spell %s needs player node to apply effect" % self.get_script().get_global_name())
+		assert(
+			spell_context.player is Player,
+			"Player provided to TimerSpell %s is invalid" % self.get_script().get_global_name()
+		)
