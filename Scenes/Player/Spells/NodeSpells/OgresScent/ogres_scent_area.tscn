@@ -1,13 +1,35 @@
-[gd_scene load_steps=3 format=3 uid="uid://butv0gsjj8yp1"]
+[gd_scene load_steps=6 format=3 uid="uid://butv0gsjj8yp1"]
 
 [ext_resource type="Script" uid="uid://pxu4mfc8mj2k" path="res://Scenes/Player/Spells/NodeSpells/OgresScent/ogres_scent_area.gd" id="1_txhwb"]
+[ext_resource type="Texture2D" uid="uid://ba0gu7heh81o2" path="res://Sprites/Spell Sprites/ogresScent.png" id="2_344yl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_txhwb"]
+
+[sub_resource type="Gradient" id="Gradient_txhwb"]
+offsets = PackedFloat32Array(0.3138686, 0.6167883, 0.7116788)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_344yl"]
+gradient = SubResource("Gradient_txhwb")
+width = 70
+height = 70
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
 [node name="OgresScentArea" type="Area2D"]
 collision_layer = 6
 collision_mask = 6
 script = ExtResource("1_txhwb")
 
+[node name="OgresScent" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_344yl")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(3.5, 3.5)
 shape = SubResource("CircleShape2D_txhwb")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0.11953335, 0.2, 0.058000006, 1)
+blend_mode = 1
+texture = SubResource("GradientTexture2D_344yl")

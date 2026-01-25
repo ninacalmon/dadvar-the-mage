@@ -10,7 +10,18 @@ func _ready():
 	EventBus.player_level_up.connect(update_maxmin_values)
 
 func update_current_vp(_current_player_vp: float):
-	self.value = player.stats_module.void_power
+	const EASE_TIME = 0.3
+
+	var tween = create_tween()
+	tween.set_trans(Tween.TRANS_SINE)
+	tween.set_ease(Tween.EASE_OUT)
+
+	tween.tween_property(
+		self,
+		"value",
+		player.stats_module.void_power,
+		EASE_TIME
+	)
 
 func update_maxmin_values(level: int):
 	self.max_value = player.stats_module.vp_needed

@@ -274,6 +274,7 @@ unique_name_in_owner = true
 stats_module = SubResource("Resource_e8heu")
 
 [node name="Camera2D" type="Camera2D" parent="player"]
+zoom = Vector2(0.9, 0.9)
 position_smoothing_enabled = true
 
 [node name="ScoreTimer" type="Timer" parent="."]

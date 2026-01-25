@@ -17,8 +17,12 @@ func _on_body_entered(body: Node2D):
 func _on_body_exited(body: Node2D):
 	targets_in_range.erase(body)
 
-func setup_scent_area(damage: float, tick: float, radius: float):
-	$CollisionShape2D.shape.radius = radius
+func setup_scent_area(damage: float, tick: float, area_scale: Vector2):
+	
+	const POINT_LIGHT_SHAPE_RATIO = 3.5
+	$CollisionShape2D.scale = area_scale
+	$PointLight2D.scale = area_scale / POINT_LIGHT_SHAPE_RATIO
+	
 
 	damage_per_tick = damage
 	tick_rate = tick
