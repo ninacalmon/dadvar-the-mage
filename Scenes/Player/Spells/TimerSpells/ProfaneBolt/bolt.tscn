@@ -1,7 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://c0av4g5wn7o16"]
+[gd_scene load_steps=9 format=3 uid="uid://c0av4g5wn7o16"]
 
 [ext_resource type="Texture2D" uid="uid://bjmvy1eoishrn" path="res://Sprites/lightning.png" id="1_0wdvf"]
 [ext_resource type="Script" uid="uid://djkghjjtpd61" path="res://Scenes/Player/Spells/TimerSpells/ProfaneBolt/bolt.gd" id="1_ua6wf"]
+[ext_resource type="AudioStream" uid="uid://34k8561ncgh5" path="res://Sounds/thunder1.mp3" id="3_2fpkh"]
+[ext_resource type="AudioStream" uid="uid://cu3q4nci03d8w" path="res://Sounds/thunder2.mp3" id="4_1d2fa"]
+[ext_resource type="AudioStream" uid="uid://n15xse7f2w0v" path="res://Sounds/thunder3.mp3" id="5_yr23l"]
 
 [sub_resource type="Curve" id="Curve_7hmyb"]
 _limits = [0.0, 100.0, 0.0, 1.0]
@@ -13,6 +16,13 @@ metadata/_snap_count = 50
 [sub_resource type="Gradient" id="Gradient_0wdvf"]
 offsets = PackedFloat32Array(0, 0.7)
 colors = PackedColorArray(1, 1, 1, 0.52156866, 1, 1, 1, 0)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_uhsa6"]
+random_pitch = 2.0
+streams_count = 3
+stream_0/stream = ExtResource("3_2fpkh")
+stream_1/stream = ExtResource("4_1d2fa")
+stream_2/stream = ExtResource("5_yr23l")
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_ua6wf")
@@ -46,3 +56,9 @@ color_ramp = SubResource("Gradient_0wdvf")
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
 energy = 0.08
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_uhsa6")
+volume_db = -13.0
+autoplay = true
+bus = &"SoundEffects"

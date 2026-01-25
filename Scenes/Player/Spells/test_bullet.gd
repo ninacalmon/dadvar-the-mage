@@ -16,7 +16,9 @@ func _ready():
 	stream_player.stream = audio_track
 	stream_player.autoplay = true
 	self.get_parent().add_child(stream_player)
-	
+
+	CameraShake.apply_shake(2, 10)
+
 	direction = bullet_module.get_bullet_move_direction(self.position, get_global_mouse_position())
 
 func _physics_process(delta: float) -> void:

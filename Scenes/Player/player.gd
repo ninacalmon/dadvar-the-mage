@@ -35,7 +35,7 @@ func start(pos):
 	$CollisionShape2D.disabled = false
 
 	EventBus.new_spell_added.connect(add_new_spell)
-	#self.add_new_spell(OgresScent.new())
+	#self.add_new_spell(ProfaneBolt.new())
 
 ## PUT THIS IN UTILS LATER!!!
 func wobble():
