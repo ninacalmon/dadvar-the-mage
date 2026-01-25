@@ -1,6 +1,6 @@
 extends Node
 
-
+@export var ghost_curve: Curve
 @export var ghost: PackedScene
 @export var goblin: PackedScene
 @export var goblin_boss: PackedScene
@@ -10,7 +10,6 @@ extends Node
 
 var mob = null
 var wave_count = 1
-
 var wave1_duration = 35
 var wave2_duration = 40
 var wave3_duration = 40
@@ -19,6 +18,9 @@ var wave4_duration = 5000
 @onready var main_soundtrack: AudioStreamPlayer = $"../AudioStreamPlayer2D"
 
 func _ready() -> void:
+
+	#print("GHOST CURVE ", ghost_curve.sample(0.5))
+
 	if wave_count == 1:
 		print(wave_count)
 		$WaveTimer.wait_time = wave1_duration

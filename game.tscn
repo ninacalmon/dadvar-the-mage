@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://qinxn2c2shu7"]
+[gd_scene load_steps=62 format=3 uid="uid://qinxn2c2shu7"]
 
 [ext_resource type="PackedScene" uid="uid://d2c1s3qmdi4ti" path="res://Scenes/Player/player.tscn" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://g1vr201lpslj" path="res://game.gd" id="1_feb5d"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://cx1bveptsnmc" path="res://Modules/Generics/stats_module.gd" id="7_215e1"]
 [ext_resource type="Script" uid="uid://bex5kwk08q0b1" path="res://UI/current_time.gd" id="7_eow3j"]
 [ext_resource type="Script" uid="uid://bsuq0i7drsn7h" path="res://Modules/Mobs/waves_system.gd" id="8_j5wjh"]
+[ext_resource type="Script" uid="uid://foerhlanp1l" path="res://main_camera.gd" id="8_vaj68"]
 [ext_resource type="Texture2D" uid="uid://c5ihdsyvgtjgo" path="res://Sprites/bookTileset.png" id="9_215e1"]
 [ext_resource type="PackedScene" uid="uid://ck5sefsx2pmdk" path="res://Scenes/Bosses/MegaCerberus/Mega_Cerberus.tscn" id="9_hve3p"]
 [ext_resource type="PackedScene" uid="uid://jsquw55fm4an" path="res://Scenes/Enemies/Cerberus/cerberus.tscn" id="9_vef74"]
@@ -256,6 +257,10 @@ bg_color = Color(0, 0, 0, 0.7529412)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e36ub"]
 bg_color = Color(0.17367996, 0.1404, 0.39, 0.7529412)
 
+[sub_resource type="Curve" id="Curve_f1jbl"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [node name="game" type="Node" node_paths=PackedStringArray("player") groups=["Main"]]
 script = ExtResource("1_feb5d")
 mob_scene = ExtResource("2_fc0e3")
@@ -276,6 +281,7 @@ stats_module = SubResource("Resource_e8heu")
 [node name="Camera2D" type="Camera2D" parent="player"]
 zoom = Vector2(0.9, 0.9)
 position_smoothing_enabled = true
+script = ExtResource("8_vaj68")
 
 [node name="ScoreTimer" type="Timer" parent="."]
 autostart = true
@@ -494,6 +500,7 @@ autostart = true
 
 [node name="WavesSystem" type="Node" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("8_j5wjh")
+ghost_curve = SubResource("Curve_f1jbl")
 ghost = ExtResource("2_fc0e3")
 goblin = ExtResource("3_eow3j")
 goblin_boss = ExtResource("4_ryrav")

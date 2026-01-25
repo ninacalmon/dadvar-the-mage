@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 Interface="*res://interface.gd"
 EventBus="*res://event_bus.gd"
 Global="*res://global.gd"
+CameraShake="*res://camera_shake.gd"
 
 [display]
 
