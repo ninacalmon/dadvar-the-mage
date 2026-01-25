@@ -2,13 +2,13 @@ class_name ProfaneBolt extends EventSpell.TimerSpell
 ## This abstract class implements the interface in order to have a verification on itself
 var implements = Interface.BulletHabilities
 
-var sprite_texture = preload("uid://u0nob4ja1i7q")
+var sprite_texture = preload("res://Sprites/Spell Sprites/Placeholder.png")
 
 var hability_type: EventSpell.EventSpellType = EventSpell.EventSpellType.TIMER_SPELL
 
-	## Here add the bolt texture
-@export var texture_to_spawn: CompressedTexture2D = preload("uid://u0nob4ja1i7q")
-@export var damage: float = 10
+## Here add the bolt texture
+@export var bolt_vfx: PackedScene = preload("res://Scenes/Player/Spells/TimerSpells/ProfaneBolt/bolt.tscn")
+@export var damage: float = 20
 @export var tick: float = 2
 var light_bolt_screen_time = 0.1
 
@@ -25,16 +25,15 @@ func apply_spell(spell_context: SpellContext):
 	lightning_timer.autostart = true
 	lightning_timer.one_shot = false
 
-	lightning_timer.timeout.connect(emit_lightning.bind(main_scene_node, self.texture_to_spawn))
+	lightning_timer.timeout.connect(emit_lightning.bind(main_scene_node, self.bolt_vfx))
 
 	player.add_child(lightning_timer)
 
-func emit_lightning(main_scene_node: Node, lightning_sprite_texture: CompressedTexture2D):
+func emit_lightning(main_scene_node: Node, bolt_scene: PackedScene):
 	var nearest_enemy: Node = self.get_nearest_enemy_to_player(main_scene_node)
 
 	if nearest_enemy:
-		var visual_effect = Sprite2D.new()
-		visual_effect.texture = lightning_sprite_texture
+		var visual_effect = bolt_scene.instantiate()
 
 		nearest_enemy.take_damage(damage)
 		nearest_enemy.add_child(visual_effect)

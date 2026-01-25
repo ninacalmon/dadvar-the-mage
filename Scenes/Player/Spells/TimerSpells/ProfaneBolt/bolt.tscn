@@ -1,0 +1,48 @@
+[gd_scene load_steps=5 format=3 uid="uid://c0av4g5wn7o16"]
+
+[ext_resource type="Texture2D" uid="uid://bjmvy1eoishrn" path="res://Sprites/lightning.png" id="1_0wdvf"]
+[ext_resource type="Script" uid="uid://djkghjjtpd61" path="res://Scenes/Player/Spells/TimerSpells/ProfaneBolt/bolt.gd" id="1_ua6wf"]
+
+[sub_resource type="Curve" id="Curve_7hmyb"]
+_limits = [0.0, 100.0, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.76, 50), 0.0, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+metadata/_snap_count = 50
+
+[sub_resource type="Gradient" id="Gradient_0wdvf"]
+offsets = PackedFloat32Array(0, 0.7)
+colors = PackedColorArray(1, 1, 1, 0.52156866, 1, 1, 1, 0)
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_ua6wf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -464)
+texture = ExtResource("1_0wdvf")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 300
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+lifetime_randomness = 1.0
+emission_shape = 1
+emission_sphere_radius = 66.39
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 276.73
+initial_velocity_max = 295.6
+linear_accel_min = 39.63
+linear_accel_max = 100.0
+damping_min = 100.0
+damping_max = 100.0
+damping_curve = SubResource("Curve_7hmyb")
+scale_amount_min = 2.0
+scale_amount_max = 3.0
+color_ramp = SubResource("Gradient_0wdvf")
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+energy = 0.05
