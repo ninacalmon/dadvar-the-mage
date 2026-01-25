@@ -7,6 +7,7 @@ extends Node
 var consumable_options: Array[PackedScene] = [consumable1, consumable2]
 
 func _ready() -> void:
+	$ConsumableSpawnTimer.wait_time = 10
 	$ConsumableSpawnTimer.start()
 	
 func _on_consumable_spawn_timer_timeout() -> void:

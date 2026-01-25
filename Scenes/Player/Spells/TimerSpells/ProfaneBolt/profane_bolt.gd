@@ -2,7 +2,7 @@ class_name ProfaneBolt extends EventSpell.TimerSpell
 ## This abstract class implements the interface in order to have a verification on itself
 var implements = Interface.BulletHabilities
 
-var sprite_texture = preload("res://Sprites/Spell Sprites/Placeholder.png")
+var sprite_texture = preload("res://Sprites/Spell Sprites/ProfaneBolt.png")
 
 var hability_type: EventSpell.EventSpellType = EventSpell.EventSpellType.TIMER_SPELL
 

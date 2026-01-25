@@ -1,5 +1,6 @@
 extends Node
 
+
 @export var ghost: PackedScene
 @export var goblin: PackedScene
 @export var goblin_boss: PackedScene
