@@ -22,5 +22,11 @@ func _process(delta: float) -> void:
 		collect()
 		
 func collect():
+	var stream_player = $collect_sound
+	stream_player.play()
+	stream_player.reparent(get_tree().get_first_node_in_group("Main"))
+	stream_player.finished.connect(func ():
+		stream_player.queue_free()
+	)
 	player.stats_module.add_void_power(vp_amount)
 	queue_free()

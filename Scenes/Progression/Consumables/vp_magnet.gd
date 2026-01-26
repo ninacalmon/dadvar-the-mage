@@ -3,7 +3,7 @@ extends Area2D
 var range_circle: CollisionShape2D
 
 var original_range_scale: Vector2 = Vector2(1, 1)
-var temporary_range_scale: Vector2 = Vector2(15, 15)
+var temporary_range_scale: Vector2 = Vector2(50, 50)
 
 func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("PlayerGroup"):

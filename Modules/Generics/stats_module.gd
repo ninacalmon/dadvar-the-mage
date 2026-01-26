@@ -71,7 +71,7 @@ func recalculate_stats():
 func add_void_power(void_power_to_add: float):
 	#var old_level: int = current_level
 	self.void_power += void_power_to_add
-	print(void_power)
+
 	if self.void_power >= vp_needed:
 		self.current_level += 1
 		## SEND LEVEL DIFFERENCE AS WELL IN ORDER TO AVOID PLAYER LEVELING UP

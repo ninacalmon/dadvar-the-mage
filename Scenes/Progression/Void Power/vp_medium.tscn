@@ -1,10 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://uuumpego8dr7"]
+[gd_scene load_steps=6 format=3 uid="uid://uuumpego8dr7"]
 
 [ext_resource type="Script" uid="uid://batn40bypr162" path="res://Scenes/Progression/Void Power/vp.gd" id="1_dp0xo"]
 [ext_resource type="Texture2D" uid="uid://81jt40epx6uf" path="res://Sprites/xp.png" id="2_wlfx4"]
+[ext_resource type="AudioStream" uid="uid://bnobvx3diwy5x" path="res://Sounds/orb.mp3" id="3_wlfx4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uy6jv"]
 radius = 4.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_hnaf4"]
+random_pitch = 1.5
+streams_count = 1
+stream_0/stream = ExtResource("3_wlfx4")
 
 [node name="xp" type="Area2D"]
 modulate = Color(0.4612115, 0.856827, 0.13421473, 1)
@@ -19,5 +25,9 @@ shape = SubResource("CircleShape2D_uy6jv")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_wlfx4")
+
+[node name="collect_sound" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_hnaf4")
+volume_db = -8.0
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

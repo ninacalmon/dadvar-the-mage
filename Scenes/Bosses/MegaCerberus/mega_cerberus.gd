@@ -46,6 +46,7 @@ func _on_cerberus_health_module_health_depleted() -> void:
 	$BloodParticles.emitting = true
 	hit_flash_animation.connect("animation_finished", die_after_anim_finished)
 	hit_flash_animation.play_backwards("hit_flash")
+	EventBus.mega_cerberus_is_dead.emit()
 
 func die_after_anim_finished(_anim_name):
 	queue_free()

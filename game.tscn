@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://qinxn2c2shu7"]
+[gd_scene load_steps=66 format=3 uid="uid://qinxn2c2shu7"]
 
 [ext_resource type="PackedScene" uid="uid://d2c1s3qmdi4ti" path="res://Scenes/Player/player.tscn" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://g1vr201lpslj" path="res://game.gd" id="1_feb5d"]
@@ -25,6 +25,7 @@
 [ext_resource type="Script" uid="uid://brrt48yngfmq3" path="res://Scenes/Progression/Consumables/consumables_system.gd" id="17_f1jbl"]
 [ext_resource type="PackedScene" uid="uid://r1rufctix7bt" path="res://Scenes/Progression/Consumables/vp_magnet.tscn" id="18_vaj68"]
 [ext_resource type="PackedScene" uid="uid://bknxikea76lkg" path="res://Scenes/Progression/Consumables/food.tscn" id="19_i2p71"]
+[ext_resource type="Script" uid="uid://ia4f2b8ismcl" path="res://Sounds/Scripts/music_system.gd" id="25_i2p71"]
 
 [sub_resource type="Resource" id="Resource_e8heu"]
 resource_local_to_scene = true
@@ -258,8 +259,30 @@ bg_color = Color(0, 0, 0, 0.7529412)
 bg_color = Color(0.17367996, 0.1404, 0.39, 0.7529412)
 
 [sub_resource type="Curve" id="Curve_f1jbl"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
+_limits = [0.0, 10.0, 0.0, 2.0]
+_data = [Vector2(0, 2.4), 0.0, 13.0, 0, 1, Vector2(0.19999999, 5), 0.18850781, 0.18850781, 0, 0, Vector2(0.34, 5), 0.0, 0.0, 0, 0, Vector2(0.64, 0), 0.0, 0.0, 0, 0, Vector2(1.05, 0), 0.0, 0.0, 0, 0, Vector2(1.15, 5), 0.0, 0.0, 0, 0]
+point_count = 6
+metadata/_snap_count = 100
+metadata/_snap_enabled = true
+
+[sub_resource type="Curve" id="Curve_vaj68"]
+_limits = [0.0, 10.0, 0.0, 2.0]
+_data = [Vector2(0.29999998, 0), 0.0, 0.0, 0, 0, Vector2(0.53999996, 3), 0.0, 0.0, 0, 0, Vector2(0.76, 3.1000001), 0.0, 0.0, 0, 0, Vector2(1.14, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+metadata/_snap_enabled = true
+metadata/_snap_count = 100
+
+[sub_resource type="Curve" id="Curve_i2p71"]
+_limits = [0.0, 10.0, 0.0, 2.0]
+_data = [Vector2(0.6980609, 0.059653282), 0.0, 0.0, 0, 0, Vector2(0.9529086, 2.0336227), 0.0, 0.0, 0, 0, Vector2(1.301939, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_xa8c5"]
+_limits = [0.0, 10.0, 0.0, 2.0]
+_data = [Vector2(0.54847646, 0), 0.0, 0.0, 0, 0, Vector2(0.7, 1), 0.0, 0.0, 0, 0, Vector2(0.97999996, 1), 0.0, 0.0, 0, 0, Vector2(1.14, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+metadata/_snap_enabled = true
+metadata/_snap_count = 100
 
 [node name="game" type="Node" node_paths=PackedStringArray("player") groups=["Main"]]
 script = ExtResource("1_feb5d")
@@ -498,9 +521,13 @@ player = NodePath("../player")
 wait_time = 10.0
 autostart = true
 
-[node name="WavesSystem" type="Node" parent="." node_paths=PackedStringArray("player")]
+[node name="WavesSystem" type="Node" parent="." node_paths=PackedStringArray("score_timer", "player")]
 script = ExtResource("8_j5wjh")
+score_timer = NodePath("../ScoreTimer")
 ghost_curve = SubResource("Curve_f1jbl")
+goblin_curve = SubResource("Curve_vaj68")
+cerberus_curve = SubResource("Curve_i2p71")
+goblin_boss_curve = SubResource("Curve_xa8c5")
 ghost = ExtResource("2_fc0e3")
 goblin = ExtResource("3_eow3j")
 goblin_boss = ExtResource("4_ryrav")
@@ -524,20 +551,27 @@ player = NodePath("../player")
 wait_time = 0.5
 one_shot = true
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer" parent="."]
+[node name="GameManager" type="Node" parent="."]
+process_mode = 3
+script = ExtResource("13_lc2xo")
+
+[node name="MusicSystem" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("25_i2p71")
+
+[node name="MainGameStreamPlayer" type="AudioStreamPlayer" parent="MusicSystem"]
+unique_name_in_owner = true
 process_mode = 3
 stream = ExtResource("11_mfdv2")
 volume_db = -12.0
 autoplay = true
 
-[node name="GameManager" type="Node" parent="."]
-process_mode = 3
-script = ExtResource("13_lc2xo")
+[node name="BossFightStreamPlayer" type="AudioStreamPlayer" parent="MusicSystem"]
+unique_name_in_owner = true
 
 [connection signal="player_death" from="player" to="." method="_on_player_player_death"]
 [connection signal="player_death" from="player" to="WavesSystem" method="_on_player_player_death"]
 [connection signal="timeout" from="Consumables/ConsumableSpawnTimer" to="Consumables" method="_on_consumable_spawn_timer_timeout"]
-[connection signal="timeout" from="WavesSystem/WaveTimer" to="WavesSystem" method="_on_wave_timer_timeout"]
 [connection signal="timeout" from="WavesSystem/GhostSpawnRate" to="WavesSystem" method="_on_ghost_spawn_rate_timeout"]
 [connection signal="timeout" from="WavesSystem/GoblinSpawnRate" to="WavesSystem" method="_on_goblin_spawn_rate_timeout"]
 [connection signal="timeout" from="WavesSystem/CerberusSpawnRate" to="WavesSystem" method="_on_cerberus_spawn_rate_timeout"]
