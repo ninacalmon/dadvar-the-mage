@@ -12,25 +12,22 @@ var hability_type: EventSpell.EventSpellType = EventSpell.EventSpellType.TIMER_S
 @export var tick: float = 2
 var light_bolt_screen_time = 0.1
 
-var player: Player
-
 func apply_spell(spell_context: SpellContext):
-	self.player = spell_context.player
 	self.validate(spell_context)
 
-	var main_scene_node = self.player.get_tree().get_first_node_in_group(Global.GROUPS_DIC[Global.Groups.MAIN])
+	var main_scene_node = spell_context.player.get_tree().get_first_node_in_group('Main')
 
 	var lightning_timer = Timer.new()
 	lightning_timer.wait_time = self.tick
 	lightning_timer.autostart = true
 	lightning_timer.one_shot = false
 
-	lightning_timer.timeout.connect(emit_lightning.bind(main_scene_node, self.bolt_vfx))
+	lightning_timer.timeout.connect(emit_lightning.bind(main_scene_node, self.bolt_vfx, spell_context.player))
 
-	player.add_child(lightning_timer)
+	spell_context.player.add_child(lightning_timer)
 
-func emit_lightning(main_scene_node: Node, bolt_scene: PackedScene):
-	var nearest_enemy: Node = self.get_nearest_enemy_to_player(main_scene_node)
+func emit_lightning(main_scene_node: Node, bolt_scene: PackedScene, caster: Node):
+	var nearest_enemy: Node = self.get_nearest_enemy_to_caster(main_scene_node, caster)
 
 	if nearest_enemy:
 		var visual_effect = bolt_scene.instantiate()
@@ -40,7 +37,7 @@ func emit_lightning(main_scene_node: Node, bolt_scene: PackedScene):
 		main_scene_node.get_tree().create_timer(light_bolt_screen_time).timeout.connect(visual_effect.queue_free)
 
 ## THIS HERE MAY TURN INTO A TIMER SPELL CLASS FUNCTION INSTEAD
-func get_nearest_enemy_to_player(starting_node: Node) -> Node:
+func get_nearest_enemy_to_caster(starting_node: Node, caster: Node) -> Node:
 	var min_distance = INF
 	var nearest_node = null
 
@@ -48,7 +45,7 @@ func get_nearest_enemy_to_player(starting_node: Node) -> Node:
 	.get_all_nodes_implements_interface_bfs(starting_node, Interface.Damageable)
 	
 	for node in damageable_nodes:
-		var distance_to_caster = self.player.global_position.distance_squared_to(node.global_position)
+		var distance_to_caster = caster.global_position.distance_squared_to(node.global_position)
 		
 		if distance_to_caster < min_distance:
 			min_distance = distance_to_caster

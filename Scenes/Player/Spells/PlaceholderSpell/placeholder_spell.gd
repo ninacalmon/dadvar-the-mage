@@ -4,9 +4,6 @@ var implements = Interface.BulletHabilities
 
 var sprite_texture = preload("res://Sprites/Spell Sprites/Placeholder.png")
 
-@export var pierce_count = 3
-var remaining_pierces
-
 var hability_type: EventSpell.EventSpellType = EventSpell.EventSpellType.PROJECTILE
 
 func apply_spell(_spell_context: SpellContext):

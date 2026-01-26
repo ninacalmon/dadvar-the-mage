@@ -9,21 +9,19 @@ var hability_type: EventSpell.EventSpellType = EventSpell.EventSpellType.NODE_SP
 @export var damage: float = 5
 @export var tick: float = 2
 @export var area_scale: Vector2 = Vector2(18, 18)
-var player: Player
 
 func apply_spell(spell_context: SpellContext):
-	self.player = spell_context.player
 	## Here add the scent scene
 	self.scene = preload("uid://butv0gsjj8yp1")
 
 	self.validate(spell_context)
-	self.exhale_scent(self.scene)
+	self.exhale_scent(self.scene, spell_context.player)
 	
-func exhale_scent(scent_scene: PackedScene):
+func exhale_scent(scent_scene: PackedScene, spell_caster: Node):
 	var scent_instance: OgresScentArea = scent_scene.instantiate()
 	scent_instance.setup_scent_area(self.damage, self.tick, area_scale)
 
-	self.player.add_child(scent_instance)
+	spell_caster.add_child(scent_instance)
 
 func get_event_spell_description() -> String:
 	return "[b]Emits a putrid scent that continuously damages enemies who draw near.[/b]
