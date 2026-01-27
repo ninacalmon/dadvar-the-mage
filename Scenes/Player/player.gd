@@ -26,11 +26,14 @@ var cast_cooldown = 0
 ## MAYBE HAVE HERE A SPELL UPGRADES OR SOMETHING LIKE THIS WHICH ARE UPGRADES THAT
 ## ARE NOT EFFECTS ON THE BULLET
 
+@onready var hit_flash_material: ShaderMaterial = $AnimatedSprite2D.material
+
 @onready var hit_flash_animation = $HitFlashAnimPlayer
 var audio_track: AudioStream = preload("res://Sounds/retro-game-shot-2-152053.mp3")
 
 func start(pos):
 	position = pos
+	hit_flash_animation.play("hit_flash")
 	show()
 	$CollisionShape2D.disabled = false
 
@@ -115,17 +118,21 @@ func _on_area_entered(area: Area2D) -> void:
 
 
 func _on_player_health_health_depleted() -> void:
-	## GAMBIARRA e não funciona ainda por causa da "morte" do player, mas será ajustado quando
-	## a morte não resultar mais em restart instantaneo.
 	var stream_player = AudioStreamPlayer.new()
 	stream_player.stream = audio_track
-	stream_player.pitch_scale = randf_range(0.8, 1.2)
-	stream_player.autoplay = true
+	stream_player.pitch_scale = randf_range(0.2, 0.3)
+
 	get_parent().add_child(stream_player)
-	
-	hide()
+
+	var tween = get_tree().create_tween()
 	$CollisionShape2D.set_deferred("disabled", true)
-	player_death.emit()
+
+	self.hit_flash_animation.play_backwards("hit_flash")
+	tween.tween_callback(stream_player.play)
+	tween.parallel().tween_property($AnimatedSprite2D, "position", Vector2($AnimatedSprite2D.position.x, 68), 1)
+	tween.parallel().tween_property($AnimatedSprite2D, "scale", Vector2(1, 0.06), 1)
+
+	tween.tween_callback(player_death.emit)
 
 ## Helper to find root of the node passed in
 func find_root_node(node: Node) -> Node:

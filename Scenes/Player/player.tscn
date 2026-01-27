@@ -1,9 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://d2c1s3qmdi4ti"]
+[gd_scene load_steps=15 format=3 uid="uid://d2c1s3qmdi4ti"]
 
 [ext_resource type="Script" uid="uid://ddcjyfv6u117d" path="res://Scenes/Player/player.gd" id="1_fkybt"]
 [ext_resource type="Texture2D" uid="uid://dqqxlre8b55bg" path="res://Sprites/TheMage.png" id="2_a3d8c"]
 [ext_resource type="PackedScene" uid="uid://73ai3a0wwokb" path="res://Scenes/Player/Spells/test_bullet.tscn" id="2_xpcdj"]
-[ext_resource type="Shader" uid="uid://mm42ofpnqd40" path="res://Shaders/hit_flash.tres" id="4_0u5uq"]
+[ext_resource type="Material" uid="uid://c82ra02rrx3gv" path="res://Shaders/material.tres" id="4_0u5uq"]
 [ext_resource type="Script" uid="uid://cx1bveptsnmc" path="res://Modules/Generics/stats_module.gd" id="4_dd0ac"]
 [ext_resource type="Script" uid="uid://ckp8nqvjgsevu" path="res://Modules/Generics/health_module.gd" id="4_mtuoh"]
 [ext_resource type="PackedScene" uid="uid://cxyeuoba4nxrv" path="res://UI/health_bar.tscn" id="5_htcer"]
@@ -14,11 +14,6 @@ script = ExtResource("4_dd0ac")
 base_move_speed = 400.0
 base_cast_cooldown = 0.2
 metadata/_custom_type_script = "uid://cx1bveptsnmc"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jlvik"]
-shader = ExtResource("4_0u5uq")
-shader_parameter/enable = false
-shader_parameter/ColorParameter = Color(0.364706, 0, 0, 1)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_tx1dd"]
 animations = [{
@@ -86,7 +81,7 @@ amplitude = 0.1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-material = SubResource("ShaderMaterial_jlvik")
+material = ExtResource("4_0u5uq")
 position = Vector2(0.6100901, -6.973363)
 sprite_frames = SubResource("SpriteFrames_tx1dd")
 animation = &"idle"

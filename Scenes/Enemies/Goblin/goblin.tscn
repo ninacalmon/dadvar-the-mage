@@ -98,7 +98,7 @@ rotation = 1.5707964
 shape = SubResource("RectangleShape2D_u8yfu")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-rect = Rect2(-35, -34, 70, 79)
+rect = Rect2(-900, -900, 1800, 1800)
 
 [node name="Behaviour" type="Node" parent="."]
 

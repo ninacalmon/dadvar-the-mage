@@ -259,8 +259,8 @@ bg_color = Color(0, 0, 0, 0.7529412)
 bg_color = Color(0.17367996, 0.1404, 0.39, 0.7529412)
 
 [sub_resource type="Curve" id="Curve_f1jbl"]
-_limits = [0.0, 10.0, 0.0, 2.0]
-_data = [Vector2(0, 2.4), 0.0, 13.0, 0, 1, Vector2(0.19999999, 5), 0.18850781, 0.18850781, 0, 0, Vector2(0.34, 5), 0.0, 0.0, 0, 0, Vector2(0.64, 0), 0.0, 0.0, 0, 0, Vector2(1.05, 0), 0.0, 0.0, 0, 0, Vector2(1.15, 5), 0.0, 0.0, 0, 0]
+_limits = [0.0, 20.0, 0.0, 2.0]
+_data = [Vector2(0, 2.8), 0.0, 6.0000005, 0, 1, Vector2(0.19999999, 4), 0.18850781, 0.18850781, 0, 0, Vector2(0.35999998, 4), 0.0, 0.0, 0, 0, Vector2(0.64, 0), 0.0, 0.0, 0, 0, Vector2(1.05, 0), 0.0, 0.0, 0, 0, Vector2(1.15, 5), 0.0, 0.0, 0, 0]
 point_count = 6
 metadata/_snap_count = 100
 metadata/_snap_enabled = true
@@ -563,7 +563,7 @@ script = ExtResource("25_i2p71")
 unique_name_in_owner = true
 process_mode = 3
 stream = ExtResource("11_mfdv2")
-volume_db = -12.0
+volume_db = -25.0
 autoplay = true
 
 [node name="BossFightStreamPlayer" type="AudioStreamPlayer" parent="MusicSystem"]

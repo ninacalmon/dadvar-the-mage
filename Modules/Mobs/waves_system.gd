@@ -80,12 +80,15 @@ func _on_mega_cerberus_spawn_rate_timeout() -> void:
 	
 
 func spawn_mob(mob_to_spawn):
+	if Global.CURRENT_MOBS_SPAWNED >= Global.MAXIMUM_MOBS_TO_SPAWN:
+		return
 	mob = mob_to_spawn.instantiate()
 	mob.position = get_random_spawn_position()
 	add_child(mob)
+	Global.CURRENT_MOBS_SPAWNED += 1
 
 func get_random_spawn_position() -> Vector2:
-	const OFFSET_TO_OUT_OF_VIEWPORT = 1.3
+	const OFFSET_TO_OUT_OF_VIEWPORT = 1.5
 	var random_offset = randf_range(1.2, 1.8)
 	var viewport = Vector2(get_viewport().size * OFFSET_TO_OUT_OF_VIEWPORT) + Vector2(random_offset, random_offset)
 

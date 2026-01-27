@@ -26,9 +26,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6mdp7"]
-radius = 22.0
-height = 76.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vdney"]
+size = Vector2(41, 63)
 
 [node name="Ghost" type="CharacterBody2D" node_paths=PackedStringArray("behaviour_module")]
 collision_layer = 4
@@ -43,11 +42,11 @@ sprite_frames = SubResource("SpriteFrames_o80aq")
 animation = &"ghost1"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(6, 0)
-shape = SubResource("CapsuleShape2D_6mdp7")
+position = Vector2(6.5, 1.5)
+shape = SubResource("RectangleShape2D_vdney")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-rect = Rect2(-45, -39, 77, 75)
+rect = Rect2(-900, -900, 1800, 1800)
 
 [node name="Behaviour" type="Node" parent="."]
 

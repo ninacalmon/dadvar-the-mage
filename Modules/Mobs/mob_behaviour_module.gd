@@ -12,10 +12,16 @@ class_name MobBehaviourModule
 ## THE HEALTH MODULE NEEDS TO BE SIBLING TO THE MOB BEHAVIOUR
 ## NOT THE BEST WAY TO DO THIS, MAYBE IMPROVE LATER
 @onready var health_module_node = get_parent().get_node("HealthModule")
+@onready var mob_screen_notifier = mob.get_node("VisibleOnScreenNotifier2D")
 
 ## ASSERT VARIABLES ON READY TO AVOID GETTING ERRORS THAT ARE NONSENSE
 func _ready():
 	health_module_node.connect("health_depleted", _on_health_module_health_depleted)
+	mob_screen_notifier.screen_exited.connect(_on_screen_exited)
+
+func _on_screen_exited():
+	mob.queue_free()
+	Global.CURRENT_MOBS_SPAWNED -= 1
 
 func handle_movement() -> void:
 	# point to Player and move towards it.
@@ -35,6 +41,7 @@ func handle_take_damage(damage_to_receive: float) -> void:
 # drops xp orb
 func _on_health_module_health_depleted() -> void:
 	EventBus.enemy_died.emit(self)
+	Global.CURRENT_MOBS_SPAWNED -= 1
 	assert(vp_orb_scene != null, "Mob does not have a VP orb to drop defined")
 	var vp_orb = vp_orb_scene.instantiate()
 	vp_orb.position = get_parent().get_parent().position

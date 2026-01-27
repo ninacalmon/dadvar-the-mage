@@ -1,7 +1,7 @@
 extends Node
 
 const DEFAULT_LOW_VOLUME_DB_FADE = -40
-const DEFAULT_MAIN_TRACK_VOLUME_DB = -12
+const DEFAULT_MAIN_TRACK_VOLUME_DB = -25
 var time_main_track_stopped
 
 @onready var main_soundtrack: AudioStreamPlayer = %MainGameStreamPlayer
