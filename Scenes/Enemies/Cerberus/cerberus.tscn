@@ -89,7 +89,7 @@ rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_p4grk")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-rect = Rect2(-900, -900, 1800, 1800)
+rect = Rect2(-650, -650, 1300, 1300)
 
 [node name="Behaviour" type="Node" parent="."]
 

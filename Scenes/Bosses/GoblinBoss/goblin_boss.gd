@@ -16,6 +16,8 @@ func _process(_delta: float) -> void:
 func take_damage(damage: float):
 	$BloodParticles.emitting = true
 	hit_flash_animation.play("hit_flash")
+	behaviour_module.damage_squish(0.2, 0.1, Tween.TRANS_BOUNCE)
+	behaviour_module.damage_knockback(25)
 	behaviour_module.handle_take_damage(damage)
 
 func _on_goblin_boss_health_module_health_depleted() -> void:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://lo1aexwurrqg"]
+[gd_scene load_steps=14 format=3 uid="uid://lo1aexwurrqg"]
 
 [ext_resource type="Script" uid="uid://66e13ckj7aom" path="res://Scenes/Enemies/Goblin/goblin.gd" id="1_v3txi"]
 [ext_resource type="Texture2D" uid="uid://mxpku1fk6108" path="res://Sprites/Goblin-2.png" id="2_v3txi"]
@@ -8,16 +8,11 @@
 [ext_resource type="Script" uid="uid://ckp8nqvjgsevu" path="res://Modules/Generics/health_module.gd" id="6_u8yfu"]
 [ext_resource type="PackedScene" uid="uid://074u46307g8r" path="res://Scenes/Progression/Void Power/vp_common.tscn" id="6_xpmg4"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xpyb8"]
-shader = ExtResource("2_xpyb8")
-shader_parameter/enable = false
-shader_parameter/ColorParameter = Color(1, 1, 1, 1)
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_u8yfu"]
 resource_local_to_scene = true
 shader = ExtResource("2_xpyb8")
 shader_parameter/enable = false
-shader_parameter/ColorParameter = Color(0.364706, 0, 0, 1)
+shader_parameter/ColorParameter = Color(1, 1, 1, 1)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_q0u7v"]
 animations = [{
@@ -39,7 +34,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u8yfu"]
-size = Vector2(78, 61)
+size = Vector2(69, 51)
 
 [sub_resource type="Animation" id="Animation_xpyb8"]
 length = 0.001
@@ -83,22 +78,20 @@ collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_v3txi")
 behaviour_module = NodePath("Behaviour/MobBehaviour")
-hit_flash_shader = SubResource("ShaderMaterial_xpyb8")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_u8yfu")
-position = Vector2(-3, -32)
-scale = Vector2(-1, 1)
+position = Vector2(-1, -6)
 sprite_frames = SubResource("SpriteFrames_q0u7v")
 animation = &"goblin1"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(3.4999998, 6)
+position = Vector2(2.9999998, 5)
 rotation = 1.5707964
 shape = SubResource("RectangleShape2D_u8yfu")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-rect = Rect2(-900, -900, 1800, 1800)
+rect = Rect2(-650, -650, 1300, 1300)
 
 [node name="Behaviour" type="Node" parent="."]
 
@@ -112,7 +105,7 @@ mob_sprite = NodePath("../../AnimatedSprite2D")
 
 [node name="HealthModule" type="Node" parent="Behaviour" groups=["HealthModuleGroup"]]
 script = ExtResource("6_u8yfu")
-max_health = 20.0
+max_health = 25.0
 metadata/_custom_type_script = "uid://ckp8nqvjgsevu"
 
 [node name="HitFlashAnimPlayer" type="AnimationPlayer" parent="."]

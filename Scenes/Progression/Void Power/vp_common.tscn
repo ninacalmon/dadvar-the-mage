@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://074u46307g8r"]
+[gd_scene load_steps=10 format=3 uid="uid://074u46307g8r"]
 
 [ext_resource type="Script" uid="uid://batn40bypr162" path="res://Scenes/Progression/Void Power/vp.gd" id="1_vlhbo"]
 [ext_resource type="Texture2D" uid="uid://81jt40epx6uf" path="res://Sprites/xp.png" id="2_h3dir"]
@@ -12,6 +12,29 @@ random_pitch = 1.5
 streams_count = 1
 stream_0/stream = ExtResource("3_h3dir")
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ls5y7"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_h3dir"]
+offsets = PackedFloat32Array(0, 0.05102041, 0.17687075, 0.4829932)
+colors = PackedColorArray(0.18, 0.18, 0.18, 1, 0.07, 0.07, 0.07, 1, 0.02, 0.02, 0.02, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5wa2e"]
+gradient = SubResource("Gradient_h3dir")
+width = 256
+height = 256
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.512, 0.512)
+fill_to = Vector2(1, 1)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_buo6v"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+scale_min = 0.29999998
+scale_max = 0.29999998
+color = Color(0.39618018, 0.22719999, 0.71, 1)
+
 [node name="xp" type="Area2D"]
 scale = Vector2(2, 2)
 collision_layer = 128
@@ -20,6 +43,8 @@ script = ExtResource("1_vlhbo")
 vp_amount = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(-0.5, 0)
 shape = SubResource("CircleShape2D_uy6jv")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -28,5 +53,15 @@ texture = ExtResource("2_h3dir")
 [node name="collect_sound" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamRandomizer_5wa2e")
 volume_db = -9.0
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_ls5y7")
+amount = 9
+texture = SubResource("GradientTexture2D_5wa2e")
+lifetime = 0.01
+use_fixed_seed = true
+seed = 3778826197
+interpolate = false
+process_material = SubResource("ParticleProcessMaterial_buo6v")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

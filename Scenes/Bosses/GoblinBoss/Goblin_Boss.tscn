@@ -80,7 +80,7 @@ behaviour_module = NodePath("Behaviour/MobBehaviour")
 texture_filter = 1
 material = SubResource("ShaderMaterial_jbg4a")
 position = Vector2(-8, 0)
-scale = Vector2(-1.5, 1.5)
+scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_q0u7v")
 animation = &"GoblinBoss"
 
@@ -92,7 +92,7 @@ shape = SubResource("RectangleShape2D_u8yfu")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 scale = Vector2(1.5, 1.5)
-rect = Rect2(-48, -56, 80, 136)
+rect = Rect2(-650, -650, 1300, 1300)
 
 [node name="Behaviour" type="Node" parent="."]
 

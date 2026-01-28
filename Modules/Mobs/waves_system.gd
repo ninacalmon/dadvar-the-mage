@@ -82,6 +82,7 @@ func _on_mega_cerberus_spawn_rate_timeout() -> void:
 func spawn_mob(mob_to_spawn):
 	if Global.CURRENT_MOBS_SPAWNED >= Global.MAXIMUM_MOBS_TO_SPAWN:
 		return
+
 	mob = mob_to_spawn.instantiate()
 	mob.position = get_random_spawn_position()
 	add_child(mob)

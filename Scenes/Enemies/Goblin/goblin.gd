@@ -3,7 +3,6 @@ extends CharacterBody2D
 var implements = [Interface.Mob, Interface.Damageable]
 
 @export var behaviour_module: MobBehaviourModule
-@export var hit_flash_shader: ShaderMaterial
 
 @onready var hit_flash_animation = $HitFlashAnimPlayer
 
@@ -22,7 +21,10 @@ func _process(_delta: float) -> void:
 func take_damage(damage: float):
 	$BloodParticles.emitting = true
 	hit_flash_animation.play("hit_flash")
+	behaviour_module.damage_squish(0.2, 0.1, Tween.TRANS_BOUNCE)
+	behaviour_module.damage_knockback(25)
 	behaviour_module.handle_take_damage(damage)
+	
 
 func _on_goblin_health_module_health_depleted() -> void:
 	$CollisionShape2D.set_deferred("disabled", true)

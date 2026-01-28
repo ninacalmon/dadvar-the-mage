@@ -17,11 +17,13 @@ class_name MobBehaviourModule
 ## ASSERT VARIABLES ON READY TO AVOID GETTING ERRORS THAT ARE NONSENSE
 func _ready():
 	health_module_node.connect("health_depleted", _on_health_module_health_depleted)
-	mob_screen_notifier.screen_exited.connect(_on_screen_exited)
+	if mob_screen_notifier:
+		mob_screen_notifier.screen_exited.connect(_on_screen_exited)
 
 func _on_screen_exited():
 	mob.queue_free()
 	Global.CURRENT_MOBS_SPAWNED -= 1
+	print("SCREEN EXITED!", Global.CURRENT_MOBS_SPAWNED)
 
 func handle_movement() -> void:
 	# point to Player and move towards it.
@@ -32,6 +34,8 @@ func handle_movement() -> void:
 func handle_sprite_flip() -> void:
 	## Important to always reference the mob variable before, if not, Godot will understand that this is referencing the
 	## Behaviour node position! (Which does not moves at all)
+	#### CHAAAANGE THAT IS WRONG!!! This only flips the sprite, causing collision shape to me missaligned.
+	#### We need to flip the whole mob node.
 	mob_sprite.flip_h =  mob.global_position.x > player.global_position.x
 
 func handle_take_damage(damage_to_receive: float) -> void:
@@ -48,3 +52,15 @@ func _on_health_module_health_depleted() -> void:
 	var game_node = get_tree().get_current_scene()
 
 	game_node.add_child(vp_orb)
+
+func damage_squish(amount, duration, ease_mode):
+	var original_scale_x = self.mob_sprite.scale.x
+	var original_scale_y = self.mob_sprite.scale.y
+	var squish_tween = get_tree().create_tween()
+	squish_tween.tween_property(self.mob_sprite, "scale:x", original_scale_x - amount, duration).set_trans(ease_mode)
+	squish_tween.parallel().tween_property(self.mob_sprite, "scale:y", original_scale_y + amount/3, duration).set_trans(ease_mode)
+	squish_tween.tween_property(self.mob_sprite, "scale:x", original_scale_x, duration).set_trans(ease_mode)
+	squish_tween.parallel().tween_property(self.mob_sprite, "scale:y", original_scale_y, duration).set_trans(ease_mode)
+
+func damage_knockback(amount):
+	mob.global_position = mob.global_position - mob.global_position.direction_to(player.global_position) * amount

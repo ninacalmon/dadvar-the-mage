@@ -21,6 +21,7 @@ Interface="*res://interface.gd"
 EventBus="*res://event_bus.gd"
 Global="*res://global.gd"
 CameraShake="*res://camera_shake.gd"
+NodeShake="*res://node_shake.gd"
 
 [display]
 
@@ -74,6 +75,8 @@ Restart={
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+viewport/hdr_2d=true
+limits/opengl/max_renderable_lights=256
 environment/defaults/default_clear_color=Color(0.06053035, 0.06053035, 0.060530342, 1)
 2d/snap/snap_2d_transforms_to_pixel=true
 2d/snap/snap_2d_vertices_to_pixel=true

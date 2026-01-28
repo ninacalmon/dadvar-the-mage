@@ -31,9 +31,11 @@ func emit_lightning(main_scene_node: Node, bolt_scene: PackedScene, caster: Node
 
 	if nearest_enemy:
 		var visual_effect = bolt_scene.instantiate()
-
 		nearest_enemy.take_damage(damage)
-		nearest_enemy.add_child(visual_effect)
+		
+		visual_effect.global_position = nearest_enemy.global_position
+		main_scene_node.add_child(visual_effect)
+
 		main_scene_node.get_tree().create_timer(light_bolt_screen_time).timeout.connect(visual_effect.queue_free)
 
 ## THIS HERE MAY TURN INTO A TIMER SPELL CLASS FUNCTION INSTEAD

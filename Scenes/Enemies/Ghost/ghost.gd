@@ -17,10 +17,12 @@ func _process(_delta: float) -> void:
 	behaviour_module.handle_sprite_flip()
 
 func take_damage(damage: float):
+	$BloodParticles.emitting = true
+	behaviour_module.damage_squish(0.2, 0.2, Tween.TRANS_BOUNCE)
+	behaviour_module.damage_knockback(25)
 	behaviour_module.handle_take_damage(damage)
 
 func _on_ghost_health_module_health_depleted() -> void:
-	var tween = get_tree().create_tween()
+	$BloodParticles.emitting = true
 	$CollisionShape2D.set_deferred("disabled", true)
-	tween.tween_property($AnimatedSprite2D, "modulate", Color(1, 1, 1, 0), 0.2)
-	tween.tween_callback(self.queue_free)
+	self.queue_free()

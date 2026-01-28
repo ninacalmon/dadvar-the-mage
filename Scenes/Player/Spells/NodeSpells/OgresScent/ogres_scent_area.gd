@@ -11,7 +11,6 @@ func _ready():
 
 func _on_body_entered(body: Node2D):
 	if Interface.node_implements_interface(body, Interface.Damageable):
-		body.take_damage(self.damage_per_tick)
 		targets_in_range.append(body)
 
 func _on_body_exited(body: Node2D):

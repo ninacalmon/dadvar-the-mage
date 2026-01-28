@@ -39,6 +39,7 @@ func start(pos):
 
 	EventBus.new_spell_added.connect(add_new_spell)
 	#self.add_new_spell(ProfaneBolt.new())
+	#self.add_new_spell(OgresScent.new())
 
 ## PUT THIS IN UTILS LATER!!!
 func wobble():
@@ -68,9 +69,19 @@ func _physics_process(delta: float) -> void:
 		for projectile_spell in projectile_spells:
 			projectile_spell.apply_spell(spell_context)
 
+		NodeShake.apply_shake($AnimatedSprite2D, 5, 20)
+		
+		$MagicLight.position = $WandTip.position 
+		$MagicLight.texture_scale = randf_range(2.5, 3)
+		$MagicLight.energy = randf_range(9, 13)
+		$MagicLight.enabled = true
+	
+		var light_tween = get_tree().create_tween()
+		light_tween.tween_property($MagicLight, "energy", 0, stats_module.base_cast_cooldown)
+		light_tween.parallel().tween_property($MagicLight, "texture_scale", 0.8, stats_module.base_cast_cooldown)
 		get_parent().add_child(bullet_instance)
-
 		cast_cooldown = self.stats_module.current_cast_cooldown
+	
 
 func _process(delta: float) -> void:
 	var velocity = Vector2.ZERO

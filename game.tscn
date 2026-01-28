@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://qinxn2c2shu7"]
+[gd_scene load_steps=67 format=3 uid="uid://qinxn2c2shu7"]
 
 [ext_resource type="PackedScene" uid="uid://d2c1s3qmdi4ti" path="res://Scenes/Player/player.tscn" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://g1vr201lpslj" path="res://game.gd" id="1_feb5d"]
@@ -26,6 +26,19 @@
 [ext_resource type="PackedScene" uid="uid://r1rufctix7bt" path="res://Scenes/Progression/Consumables/vp_magnet.tscn" id="18_vaj68"]
 [ext_resource type="PackedScene" uid="uid://bknxikea76lkg" path="res://Scenes/Progression/Consumables/food.tscn" id="19_i2p71"]
 [ext_resource type="Script" uid="uid://ia4f2b8ismcl" path="res://Sounds/Scripts/music_system.gd" id="25_i2p71"]
+
+[sub_resource type="Environment" id="Environment_xa8c5"]
+background_mode = 3
+tonemap_mode = 2
+glow_enabled = true
+glow_levels/1 = 2.6
+glow_levels/2 = 2.5
+glow_levels/3 = 2.3
+glow_levels/4 = 0.6
+glow_levels/5 = 0.0
+glow_strength = 2.0
+glow_bloom = 0.43
+glow_blend_mode = 1
 
 [sub_resource type="Resource" id="Resource_e8heu"]
 resource_local_to_scene = true
@@ -260,15 +273,15 @@ bg_color = Color(0.17367996, 0.1404, 0.39, 0.7529412)
 
 [sub_resource type="Curve" id="Curve_f1jbl"]
 _limits = [0.0, 20.0, 0.0, 2.0]
-_data = [Vector2(0, 2.8), 0.0, 6.0000005, 0, 1, Vector2(0.19999999, 4), 0.18850781, 0.18850781, 0, 0, Vector2(0.35999998, 4), 0.0, 0.0, 0, 0, Vector2(0.64, 0), 0.0, 0.0, 0, 0, Vector2(1.05, 0), 0.0, 0.0, 0, 0, Vector2(1.15, 5), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 4), 0.0, 7.4999995, 0, 0, Vector2(0.32, 7.2000003), 0.18850781, 0.18850781, 0, 0, Vector2(0.48, 7.2000003), 0.0, 0.0, 0, 0, Vector2(0.64, 0), 0.0, 0.0, 0, 0, Vector2(1.05, 0), 0.0, 0.0, 0, 0, Vector2(1.15, 5), 0.0, 0.0, 0, 0]
 point_count = 6
 metadata/_snap_count = 100
 metadata/_snap_enabled = true
 
 [sub_resource type="Curve" id="Curve_vaj68"]
 _limits = [0.0, 10.0, 0.0, 2.0]
-_data = [Vector2(0.29999998, 0), 0.0, 0.0, 0, 0, Vector2(0.53999996, 3), 0.0, 0.0, 0, 0, Vector2(0.76, 3.1000001), 0.0, 0.0, 0, 0, Vector2(1.14, 0), 0.0, 0.0, 0, 0]
-point_count = 4
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.29999998, 0), 0.0, 0.0, 0, 0, Vector2(0.56, 5), 0.0, 0.0, 0, 0, Vector2(0.78, 5), 0.0, 0.0, 0, 0, Vector2(1.14, 0), 0.0, 0.0, 0, 0]
+point_count = 5
 metadata/_snap_enabled = true
 metadata/_snap_count = 100
 
@@ -297,8 +310,25 @@ player = NodePath("player")
 scale = Vector2(356.1, 356.1)
 texture = ExtResource("4_7jktm")
 
+[node name="Ghost" parent="Bg & Borders" instance=ExtResource("2_fc0e3")]
+position = Vector2(-384, 142)
+
+[node name="AmbientLight" type="Node" parent="."]
+
+[node name="CanvasModulate" type="CanvasModulate" parent="AmbientLight"]
+scale = Vector2(100000, 100000)
+color = Color(0.18239999, 0.18239999, 0.32, 1)
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="AmbientLight"]
+color = Color(0.6117647, 0.6117647, 0.7294118, 1)
+energy = 0.6
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="AmbientLight"]
+environment = SubResource("Environment_xa8c5")
+
 [node name="player" parent="." instance=ExtResource("1_80nbo")]
 unique_name_in_owner = true
+position = Vector2(-201, 122)
 stats_module = SubResource("Resource_e8heu")
 
 [node name="Camera2D" type="Camera2D" parent="player"]
@@ -310,7 +340,6 @@ script = ExtResource("8_vaj68")
 autostart = true
 
 [node name="StartPosition" type="Marker2D" parent="."]
-position = Vector2(240, 450)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
@@ -568,6 +597,8 @@ autoplay = true
 
 [node name="BossFightStreamPlayer" type="AudioStreamPlayer" parent="MusicSystem"]
 unique_name_in_owner = true
+
+[node name="Test Mobs" type="Node" parent="."]
 
 [connection signal="player_death" from="player" to="." method="_on_player_player_death"]
 [connection signal="player_death" from="player" to="WavesSystem" method="_on_player_player_death"]
