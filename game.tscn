@@ -42,7 +42,7 @@ glow_strength = 2.0
 glow_bloom = 0.43
 glow_blend_mode = 1
 
-[sub_resource type="Resource" id="Resource_e8heu"]
+[sub_resource type="Resource" id="Resource_5b14r"]
 resource_local_to_scene = true
 script = ExtResource("7_215e1")
 base_move_speed = 400.0
@@ -1502,12 +1502,11 @@ bg_color = Color(0, 0, 0, 0.7529412)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e36ub"]
 bg_color = Color(0.17367996, 0.1404, 0.39, 0.7529412)
 
-[node name="game" type="Node" node_paths=PackedStringArray("player") groups=["Main"]]
+[node name="game" type="Node" groups=["Main"]]
 script = ExtResource("1_feb5d")
 mob_scene = ExtResource("2_fc0e3")
 mob_scene2 = ExtResource("3_eow3j")
 mob_scene3 = ExtResource("4_ryrav")
-player = NodePath("y Sorted Layer/player")
 
 [node name="Bg & Borders" type="Node" parent="."]
 
@@ -1534,9 +1533,10 @@ y_sort_enabled = true
 [node name="player" parent="y Sorted Layer" instance=ExtResource("1_80nbo")]
 unique_name_in_owner = true
 position = Vector2(-201, 122)
-stats_module = SubResource("Resource_e8heu")
+stats_module = SubResource("Resource_5b14r")
 
 [node name="Camera2D" type="Camera2D" parent="y Sorted Layer/player"]
+offset = Vector2(0, -65)
 zoom = Vector2(0.9, 0.9)
 position_smoothing_enabled = true
 script = ExtResource("8_vaj68")
@@ -1554,7 +1554,7 @@ goblin = ExtResource("3_eow3j")
 goblin_boss = ExtResource("4_ryrav")
 cerberus = ExtResource("9_vef74")
 mega_cerberus = ExtResource("9_hve3p")
-player = NodePath("../player")
+player = NodePath("../player/PlayerArea")
 
 [node name="WaveTimer" type="Timer" parent="y Sorted Layer/WavesSystem"]
 
@@ -1572,7 +1572,7 @@ player = NodePath("../player")
 script = ExtResource("17_f1jbl")
 consumable1 = ExtResource("18_vaj68")
 consumable2 = ExtResource("19_i2p71")
-player = NodePath("../player")
+player = NodePath("../player/PlayerArea")
 
 [node name="ConsumableSpawnTimer" type="Timer" parent="y Sorted Layer/Consumables"]
 wait_time = 10.0
@@ -1762,7 +1762,7 @@ theme_override_styles/background = SubResource("StyleBoxFlat_hb5m1")
 theme_override_styles/fill = SubResource("StyleBoxFlat_e36ub")
 show_percentage = false
 script = ExtResource("12_e8heu")
-player = NodePath("../../y Sorted Layer/player")
+player = NodePath("../../y Sorted Layer/player/PlayerArea")
 
 [node name="LevelLabel" type="RichTextLabel" parent="CanvasLayer/VpBar"]
 layout_mode = 1
@@ -1809,8 +1809,6 @@ autostart = true
 
 [node name="StartPosition" type="Marker2D" parent="."]
 
-[connection signal="player_death" from="y Sorted Layer/player" to="." method="_on_player_player_death"]
-[connection signal="player_death" from="y Sorted Layer/player" to="y Sorted Layer/WavesSystem" method="_on_player_player_death"]
 [connection signal="timeout" from="y Sorted Layer/WavesSystem/GhostSpawnRate" to="y Sorted Layer/WavesSystem" method="_on_ghost_spawn_rate_timeout"]
 [connection signal="timeout" from="y Sorted Layer/WavesSystem/GoblinSpawnRate" to="y Sorted Layer/WavesSystem" method="_on_goblin_spawn_rate_timeout"]
 [connection signal="timeout" from="y Sorted Layer/WavesSystem/CerberusSpawnRate" to="y Sorted Layer/WavesSystem" method="_on_cerberus_spawn_rate_timeout"]

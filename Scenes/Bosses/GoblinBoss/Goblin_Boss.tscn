@@ -12,7 +12,7 @@
 resource_local_to_scene = true
 shader = ExtResource("2_hxret")
 shader_parameter/enable = false
-shader_parameter/ColorParameter = Color(0.364706, 0, 0, 1)
+shader_parameter/ColorParameter = Color(1, 1, 1, 1)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_q0u7v"]
 animations = [{
@@ -79,40 +79,27 @@ safe_margin = 0.001
 script = ExtResource("1_bs2mh")
 behaviour_module = NodePath("Behaviour/MobBehaviour")
 
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+visible = false
+scale = Vector2(1.5, 1.5)
+rect = Rect2(-450, -450, 900, 900)
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 material = SubResource("ShaderMaterial_jbg4a")
-position = Vector2(-8, 0)
+position = Vector2(-8, -112)
 scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_q0u7v")
 animation = &"GoblinBoss"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-4, 7.9999995)
+position = Vector2(-4, -104)
 rotation = 1.5707964
 scale = Vector2(1.5, 1.5)
 shape = SubResource("RectangleShape2D_u8yfu")
 
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-scale = Vector2(1.5, 1.5)
-rect = Rect2(-450, -450, 900, 900)
-
-[node name="Behaviour" type="Node" parent="."]
-
-[node name="MobBehaviour" parent="Behaviour" node_paths=PackedStringArray("health_module", "mob", "mob_sprite") instance=ExtResource("3_1lps0")]
-movement_speed = 45
-damage = 20.0
-health_module = NodePath("../HealthModule")
-vp_orb_scene = ExtResource("5_1p0cp")
-mob = NodePath("../..")
-mob_sprite = NodePath("../../AnimatedSprite2D")
-
-[node name="HealthModule" type="Node" parent="Behaviour"]
-script = ExtResource("4_4f2ww")
-max_health = 100.0
-metadata/_custom_type_script = "uid://ckp8nqvjgsevu"
-
 [node name="BloodParticles" type="CPUParticles2D" parent="."]
+position = Vector2(0, -112)
 emitting = false
 amount = 30
 lifetime = 0.5
@@ -130,6 +117,21 @@ initial_velocity_max = 100.0
 scale_amount_min = 3.0
 scale_amount_max = 6.0
 color = Color(0.28235295, 0, 0, 1)
+
+[node name="Behaviour" type="Node" parent="."]
+
+[node name="MobBehaviour" parent="Behaviour" node_paths=PackedStringArray("health_module", "mob", "mob_sprite") instance=ExtResource("3_1lps0")]
+movement_speed = 45
+damage = 20.0
+health_module = NodePath("../HealthModule")
+vp_orb_scene = ExtResource("5_1p0cp")
+mob = NodePath("../..")
+mob_sprite = NodePath("../../AnimatedSprite2D")
+
+[node name="HealthModule" type="Node" parent="Behaviour"]
+script = ExtResource("4_4f2ww")
+max_health = 100.0
+metadata/_custom_type_script = "uid://ckp8nqvjgsevu"
 
 [node name="HitFlashAnimPlayer" type="AnimationPlayer" parent="."]
 libraries = {

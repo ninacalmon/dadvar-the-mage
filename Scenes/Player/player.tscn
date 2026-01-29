@@ -1,20 +1,16 @@
 [gd_scene load_steps=17 format=3 uid="uid://d2c1s3qmdi4ti"]
 
 [ext_resource type="Script" uid="uid://ddcjyfv6u117d" path="res://Scenes/Player/player.gd" id="1_fkybt"]
+[ext_resource type="Script" uid="uid://cnihm64tdxf10" path="res://Scenes/Player/player_body_2d.gd" id="1_gk6dx"]
 [ext_resource type="Texture2D" uid="uid://dqqxlre8b55bg" path="res://Sprites/TheMage.png" id="2_a3d8c"]
+[ext_resource type="Resource" uid="uid://ck06bs0575e8p" path="res://Scenes/Player/Resources_modules/player_stats_module.tres" id="2_gk6dx"]
 [ext_resource type="PackedScene" uid="uid://73ai3a0wwokb" path="res://Scenes/Player/Spells/test_bullet.tscn" id="2_xpcdj"]
 [ext_resource type="Material" uid="uid://c82ra02rrx3gv" path="res://Shaders/material.tres" id="4_0u5uq"]
-[ext_resource type="Script" uid="uid://cx1bveptsnmc" path="res://Modules/Generics/stats_module.gd" id="4_dd0ac"]
 [ext_resource type="Script" uid="uid://ckp8nqvjgsevu" path="res://Modules/Generics/health_module.gd" id="4_mtuoh"]
 [ext_resource type="PackedScene" uid="uid://cxyeuoba4nxrv" path="res://UI/health_bar.tscn" id="5_htcer"]
 [ext_resource type="Texture2D" uid="uid://b37tdqau44es0" path="res://Sprites/soft_gradient.tres" id="8_jlvik"]
 
-[sub_resource type="Resource" id="Resource_dd0ac"]
-resource_local_to_scene = true
-script = ExtResource("4_dd0ac")
-base_move_speed = 400.0
-base_cast_cooldown = 0.2
-metadata/_custom_type_script = "uid://cx1bveptsnmc"
+[sub_resource type="CircleShape2D" id="CircleShape2D_jlvik"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_tx1dd"]
 animations = [{
@@ -26,8 +22,6 @@ animations = [{
 "name": &"idle",
 "speed": 5.0
 }]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_jlvik"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a3d8c"]
 radius = 24.0
@@ -73,18 +67,29 @@ _data = {
 &"hit_flash": SubResource("Animation_u8yfu")
 }
 
-[node name="Player" type="Area2D" node_paths=PackedStringArray("health_module") groups=["PlayerGroup"]]
+[node name="PlayerBody2d" type="CharacterBody2D"]
+script = ExtResource("1_gk6dx")
+stats_module = ExtResource("2_gk6dx")
+frequency = 20.0
+amplitude = 0.1
+
+[node name="HitBox" type="CollisionShape2D" parent="."]
+position = Vector2(-8, -12)
+shape = SubResource("CircleShape2D_jlvik")
+
+[node name="WandTip" type="Node2D" parent="."]
+position = Vector2(64, -96)
+
+[node name="PlayerArea" type="Area2D" parent="." node_paths=PackedStringArray("health_module") groups=["PlayerGroup"]]
 y_sort_enabled = true
 collision_layer = 524289
 collision_mask = 526342
 script = ExtResource("1_fkybt")
-stats_module = SubResource("Resource_dd0ac")
+stats_module = ExtResource("2_gk6dx")
 health_module = NodePath("HealthModule")
 bullet = ExtResource("2_xpcdj")
-frequency = 0.02
-amplitude = 0.1
 
-[node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
+[node name="PlayerSprite" type="AnimatedSprite2D" parent="PlayerArea"]
 y_sort_enabled = true
 texture_filter = 1
 material = ExtResource("4_0u5uq")
@@ -93,49 +98,41 @@ sprite_frames = SubResource("SpriteFrames_tx1dd")
 animation = &"idle"
 offset = Vector2(0, -65)
 
-[node name="HitBox" type="CollisionShape2D" parent="."]
-position = Vector2(-8, -12)
-shape = SubResource("CircleShape2D_jlvik")
-
-[node name="HurtBox" type="CollisionShape2D" parent="."]
+[node name="HurtBox" type="CollisionShape2D" parent="PlayerArea"]
 position = Vector2(0, -56)
 shape = SubResource("CapsuleShape2D_a3d8c")
 
-[node name="WandTip" type="Node2D" parent="."]
-position = Vector2(64, -96)
-
-[node name="VpCollector" type="Area2D" parent="."]
-visible = false
+[node name="VpCollector" type="Area2D" parent="PlayerArea"]
 collision_layer = 128
 collision_mask = 128
 
-[node name="VpRange" type="CollisionShape2D" parent="VpCollector"]
-position = Vector2(-1, 18)
+[node name="VpRange" type="CollisionShape2D" parent="PlayerArea/VpCollector"]
+position = Vector2(-1, -56)
 shape = SubResource("CircleShape2D_dd0ac")
 
-[node name="HitFlashAnimPlayer" type="AnimationPlayer" parent="."]
+[node name="HitFlashAnimPlayer" type="AnimationPlayer" parent="PlayerArea"]
 libraries = {
 &"": SubResource("AnimationLibrary_xpmg4")
 }
 
-[node name="MagicLight" type="PointLight2D" parent="."]
+[node name="MagicLight" type="PointLight2D" parent="PlayerArea"]
 enabled = false
 color = Color(1.5040725, 0.42287806, 1.0896149, 1)
 texture = ExtResource("8_jlvik")
 texture_scale = 1.5
 
-[node name="HealthModule" type="Node" parent="."]
+[node name="HealthModule" type="Node" parent="PlayerArea"]
 script = ExtResource("4_mtuoh")
 max_health = 100.0
 metadata/_custom_type_script = "uid://ckp8nqvjgsevu"
 
-[node name="HealthBar" parent="." node_paths=PackedStringArray("character") instance=ExtResource("5_htcer")]
+[node name="HealthBar" parent="PlayerArea" node_paths=PackedStringArray("character") instance=ExtResource("5_htcer")]
 offset_left = -52.0
 offset_top = 8.0
 offset_right = 44.0
 offset_bottom = 24.0
 character = NodePath("..")
 
-[connection signal="area_entered" from="." to="." method="_on_area_entered"]
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="health_depleted" from="HealthModule" to="." method="_on_player_health_health_depleted"]
+[connection signal="area_entered" from="PlayerArea" to="PlayerArea" method="_on_area_entered"]
+[connection signal="body_entered" from="PlayerArea" to="PlayerArea" method="_on_body_entered"]
+[connection signal="health_depleted" from="PlayerArea/HealthModule" to="PlayerArea" method="_on_player_health_health_depleted"]

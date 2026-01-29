@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bkxqp8mj6ayjy"]
+[gd_scene load_steps=12 format=3 uid="uid://bkxqp8mj6ayjy"]
 
 [ext_resource type="Script" uid="uid://dx3yt7m6kh8kw" path="res://Scenes/Enemies/Ghost/ghost.gd" id="1_o80aq"]
 [ext_resource type="Shader" uid="uid://wy13ds7hgyp" path="res://Shaders/glowing.gdshader" id="2_jdkul"]
@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://bvdgk8bgex13u" path="res://Sprites/Ghost2.png" id="3_jpmw3"]
 [ext_resource type="Script" uid="uid://ckp8nqvjgsevu" path="res://Modules/Generics/health_module.gd" id="4_3fldh"]
 [ext_resource type="PackedScene" uid="uid://dnr2fm6mdvs2" path="res://Modules/Mobs/mob_behaviour_module.tscn" id="7_o80aq"]
-[ext_resource type="Texture2D" uid="uid://da8x1y5keqxed" path="res://Sprites/test_glow.png" id="8_xflh7"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jdkul"]
 resource_local_to_scene = true
@@ -42,27 +41,6 @@ size = Vector2(41, 63)
 offsets = PackedFloat32Array(0.4413793, 1)
 colors = PackedColorArray(0.66937786, 1.0570047, 1.3171228, 0.5294118, 1, 1, 1, 0)
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_dcsc0"]
-blend_mode = 1
-
-[sub_resource type="Gradient" id="Gradient_58v6q"]
-colors = PackedColorArray(0, 18.892157, 18.892157, 1, 0, 18.892157, 18.892157, 0)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_w4443"]
-gradient = SubResource("Gradient_58v6q")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vacdd"]
-particle_flag_disable_z = true
-emission_shape = 2
-emission_sphere_radius = 19.0
-spread = 180.0
-initial_velocity_min = 50.0
-initial_velocity_max = 100.0
-gravity = Vector3(0, 200, 0)
-scale_min = 0.19999999
-scale_max = 0.29999998
-color_ramp = SubResource("GradientTexture1D_w4443")
-
 [node name="Ghost" type="CharacterBody2D" node_paths=PackedStringArray("behaviour_module")]
 y_sort_enabled = true
 collision_layer = 4
@@ -78,9 +56,9 @@ modulate = Color(1, 1, 1, 0.30980393)
 y_sort_enabled = true
 texture_filter = 1
 material = SubResource("ShaderMaterial_jdkul")
-position = Vector2(0, -37)
 sprite_frames = SubResource("SpriteFrames_o80aq")
 animation = &"ghost1"
+offset = Vector2(0, -37)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 y_sort_enabled = true
@@ -89,23 +67,7 @@ shape = SubResource("RectangleShape2D_vdney")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 visible = false
-rect = Rect2(-450, -450, 900, 900)
-
-[node name="Behaviour" type="Node" parent="."]
-
-[node name="HealthModule" type="Node" parent="Behaviour" groups=["HealthModuleGroup"]]
-script = ExtResource("4_3fldh")
-max_health = 15.0
-metadata/_custom_type_script = "uid://ckp8nqvjgsevu"
-
-[node name="MobBehaviour" parent="Behaviour" node_paths=PackedStringArray("health_module", "mob", "mob_sprite") instance=ExtResource("7_o80aq")]
-y_sort_enabled = true
-movement_speed = 90
-damage = 5.0
-health_module = NodePath("../HealthModule")
-vp_orb_scene = ExtResource("2_vdney")
-mob = NodePath("../..")
-mob_sprite = NodePath("../../AnimatedSprite2D")
+rect = Rect2(-450, -487, 900, 900)
 
 [node name="BloodParticles" type="CPUParticles2D" parent="."]
 y_sort_enabled = true
@@ -129,16 +91,20 @@ scale_amount_max = 6.0
 color = Color(0.36354694, 2.3832016, 4.1503997, 1)
 color_ramp = SubResource("Gradient_jdkul")
 
-[node name="BloodParticles2" type="GPUParticles2D" parent="."]
-visible = false
-material = SubResource("CanvasItemMaterial_dcsc0")
-emitting = false
-amount = 30
-texture = ExtResource("8_xflh7")
-lifetime = 0.5
-one_shot = true
-explosiveness = 1.0
-randomness = 1.0
-process_material = SubResource("ParticleProcessMaterial_vacdd")
+[node name="Behaviour" type="Node" parent="."]
+
+[node name="HealthModule" type="Node" parent="Behaviour" groups=["HealthModuleGroup"]]
+script = ExtResource("4_3fldh")
+max_health = 15.0
+metadata/_custom_type_script = "uid://ckp8nqvjgsevu"
+
+[node name="MobBehaviour" parent="Behaviour" node_paths=PackedStringArray("health_module", "mob", "mob_sprite") instance=ExtResource("7_o80aq")]
+y_sort_enabled = true
+movement_speed = 90
+damage = 5.0
+health_module = NodePath("../HealthModule")
+vp_orb_scene = ExtResource("2_vdney")
+mob = NodePath("../..")
+mob_sprite = NodePath("../../AnimatedSprite2D")
 
 [connection signal="health_depleted" from="Behaviour/HealthModule" to="." method="_on_ghost_health_module_health_depleted"]

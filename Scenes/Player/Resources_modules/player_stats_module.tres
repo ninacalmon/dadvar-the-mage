@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="StatsModule" load_steps=2 format=3 uid="uid://ck06bs0575e8p"]
+
+[ext_resource type="Script" uid="uid://cx1bveptsnmc" path="res://Modules/Generics/stats_module.gd" id="1_h7v50"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_h7v50")
+base_move_speed = 400.0
+base_cast_cooldown = 0.2
+metadata/_custom_type_script = "uid://cx1bveptsnmc"

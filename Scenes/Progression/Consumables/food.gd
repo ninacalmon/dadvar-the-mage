@@ -8,6 +8,12 @@ func _on_area_entered(area: Area2D) -> void:
 		var player: Player = area
 		$CollisionShape2D.set_deferred("disabled", true)
 		self.hide()
+		var stream_player = $collect_sound
+		stream_player.play()
+		stream_player.reparent(get_tree().get_first_node_in_group("Main"))
+		stream_player.finished.connect(func ():
+			stream_player.queue_free()
+		)
 		
 		var current_health = player.health_module.get_health()
 		var max_health = player.health_module.get_max_health()

@@ -40,12 +40,7 @@ func _on_score_timer_timeout() -> void:
 		#Goblin Boss
 		$GoblinBossSpawnRate.wait_time = 1 / goblin_boss_curve.sample(time_count_normalized)
 		$GoblinBossSpawnRate.start()
-
-func _ready() -> void:
-	EventBus.mega_cerberus_is_dead.connect(on_mega_cerberus_death)
-	score_timer.connect("timeout", _on_score_timer_timeout)
-
-func _process(_delta: float) -> void:
+		
 	if time_count == 125:
 		
 		if has_megacerberus_spawned == false:
@@ -59,6 +54,25 @@ func _process(_delta: float) -> void:
 			$MegaCerberusSpawnRate.one_shot = true
 			$MegaCerberusSpawnRate.start()
 			has_megacerberus_spawned = true
+
+func _ready() -> void:
+	EventBus.mega_cerberus_is_dead.connect(on_mega_cerberus_death)
+	score_timer.connect("timeout", _on_score_timer_timeout)
+
+#func _process(_delta: float) -> void:
+	#if time_count == 125:
+		#
+		#if has_megacerberus_spawned == false:
+			#self.music_system.start_boss_track(
+				#preload("res://Sounds/Vordt of the Boreal Valley.mp3"),
+				#2, # last song playing fade out time
+				#-10, # volume_db to play
+			#)
+#
+			#$MegaCerberusSpawnRate.wait_time = 3
+			#$MegaCerberusSpawnRate.one_shot = true
+			#$MegaCerberusSpawnRate.start()
+			#has_megacerberus_spawned = true
 
 func on_mega_cerberus_death():
 	self.music_system.start_main_track(2)

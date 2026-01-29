@@ -17,7 +17,7 @@ shader_parameter/ColorParameter = Color(0.364706, 0, 0, 1)
 resource_local_to_scene = true
 shader = ExtResource("2_4khvt")
 shader_parameter/enable = false
-shader_parameter/ColorParameter = Color(0.364706, 0, 0, 1)
+shader_parameter/ColorParameter = Color(1, 1, 1, 1)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8ig6l"]
 animations = [{
@@ -30,9 +30,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p4grk"]
-radius = 43.0
-height = 128.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d02t7"]
+size = Vector2(80, 126)
 
 [sub_resource type="Animation" id="Animation_xpyb8"]
 length = 0.001
@@ -74,7 +73,7 @@ _data = {
 [node name="Mega Cerberus" type="CharacterBody2D" node_paths=PackedStringArray("behaviour_module")]
 scale = Vector2(4, 4)
 collision_layer = 4
-collision_mask = 3
+collision_mask = 2
 motion_mode = 1
 platform_floor_layers = 4278190080
 safe_margin = 0.001
@@ -86,13 +85,43 @@ bullet = ExtResource("6_4khvt")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 modulate = Color(0.9226216, 0.703447, 0.703447, 1)
 material = SubResource("ShaderMaterial_u8yfu")
+position = Vector2(0, -66)
 sprite_frames = SubResource("SpriteFrames_8ig6l")
 animation = &"MegaCerberus"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, 10)
+position = Vector2(-0.99999994, -50)
 rotation = 1.5707964
-shape = SubResource("CapsuleShape2D_p4grk")
+shape = SubResource("RectangleShape2D_d02t7")
+
+[node name="BloodParticles" type="CPUParticles2D" parent="."]
+position = Vector2(0, -66)
+emitting = false
+amount = 30
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+lifetime_randomness = 1.0
+emission_shape = 2
+emission_sphere_radius = 19.74
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 200)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+scale_amount_min = 3.0
+scale_amount_max = 6.0
+color = Color(0.28235295, 0, 0, 1)
+
+[node name="Head1" type="Node2D" parent="."]
+position = Vector2(54, -50)
+
+[node name="Head2" type="Node2D" parent="."]
+position = Vector2(46, -82)
+
+[node name="Head3" type="Node2D" parent="."]
+position = Vector2(10, -96)
 
 [node name="Behaviour" type="Node" parent="."]
 
@@ -114,37 +143,9 @@ libraries = {
 &"": SubResource("AnimationLibrary_xpmg4")
 }
 
-[node name="BloodParticles" type="CPUParticles2D" parent="."]
-emitting = false
-amount = 30
-lifetime = 0.5
-one_shot = true
-explosiveness = 1.0
-randomness = 1.0
-lifetime_randomness = 1.0
-emission_shape = 2
-emission_sphere_radius = 19.74
-direction = Vector2(0, 0)
-spread = 180.0
-gravity = Vector2(0, 200)
-initial_velocity_min = 50.0
-initial_velocity_max = 100.0
-scale_amount_min = 3.0
-scale_amount_max = 6.0
-color = Color(0.28235295, 0, 0, 1)
-
 [node name="MobCooldown" type="Timer" parent="."]
 wait_time = 0.5
 autostart = true
-
-[node name="Head1" type="Node2D" parent="."]
-position = Vector2(54, 16)
-
-[node name="Head2" type="Node2D" parent="."]
-position = Vector2(46, -16)
-
-[node name="Head3" type="Node2D" parent="."]
-position = Vector2(10, -30)
 
 [connection signal="health_depleted" from="Behaviour/HealthModule" to="." method="_on_cerberus_health_module_health_depleted"]
 [connection signal="timeout" from="MobCooldown" to="." method="_on_mob_cooldown_timeout"]

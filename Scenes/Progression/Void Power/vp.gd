@@ -23,16 +23,15 @@ func _ready():
 func _on_area_entered(area: Area2D) -> void:
 	if area.name == "VpCollector":
 		player = area.get_parent()
-		print(player)
 		following = true
 		
 func _process(delta: float) -> void:
 	if not following or player == null:
 		return
-	var direction = (player.global_position - self.global_position).normalized()
+	var direction = (player.global_position + Vector2(0, Global.PLAYER_Y_SPRITE_OFFSET) - self.global_position).normalized()
 	self.global_position += direction * player.stats_module.current_move_speed * speed_extra * delta
 	
-	if self.global_position.distance_to(player.global_position) <= collect_offset:
+	if self.global_position.distance_to(player.global_position + Vector2(0, Global.PLAYER_Y_SPRITE_OFFSET)) <= collect_offset:
 		collect()
 		
 func collect():

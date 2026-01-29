@@ -2,7 +2,6 @@
 
 [sub_resource type="VisualShaderNodeBooleanParameter" id="VisualShaderNodeBooleanParameter_8wjly"]
 parameter_name = "enable"
-default_value_enabled = true
 
 [sub_resource type="VisualShaderNodeIf" id="VisualShaderNodeIf_6wogf"]
 default_input_values = [0, 0.0, 1, 1.0, 2, 1e-05, 3, Vector3(0, 0, 0), 4, Vector3(0, 0, 0), 5, Vector3(0, 0, 0)]
@@ -10,7 +9,6 @@ default_input_values = [0, 0.0, 1, 1.0, 2, 1e-05, 3, Vector3(0, 0, 0), 4, Vector
 [sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_fxlho"]
 parameter_name = "ColorParameter"
 default_value_enabled = true
-default_value = Color(0.3647059, 0, 0, 1)
 
 [sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_raoc3"]
 input_name = "color"
@@ -20,8 +18,8 @@ resource_local_to_scene = true
 code = "shader_type canvas_item;
 render_mode blend_mix;
 
-uniform bool enable = false;
-uniform vec4 ColorParameter : source_color = vec4(0.364706, 0.000000, 0.000000, 1.000000);
+uniform bool enable;
+uniform vec4 ColorParameter : source_color = vec4(1.000000, 1.000000, 1.000000, 1.000000);
 
 
 
@@ -72,4 +70,4 @@ nodes/fragment/4/node = SubResource("VisualShaderNodeColorParameter_fxlho")
 nodes/fragment/4/position = Vector2(-420, 360)
 nodes/fragment/5/node = SubResource("VisualShaderNodeInput_raoc3")
 nodes/fragment/5/position = Vector2(-460, 600)
-nodes/fragment/connections = PackedInt32Array(2, 0, 3, 0, 5, 0, 3, 4, 5, 0, 3, 5, 4, 0, 3, 3, 3, 0, 0, 0)
+nodes/fragment/connections = PackedInt32Array(2, 0, 3, 0, 4, 0, 3, 3, 3, 0, 0, 0, 5, 0, 3, 4, 5, 0, 3, 5)

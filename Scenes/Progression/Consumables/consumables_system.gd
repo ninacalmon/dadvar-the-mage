@@ -11,7 +11,7 @@ func _ready() -> void:
 	$ConsumableSpawnTimer.start()
 	
 func _on_consumable_spawn_timer_timeout() -> void:
-	var chance = randi_range(1, 5)
+	var chance = randi_range(1, 4)
 	print(chance)
 	if chance == 1:
 		var chosen_consumable = [consumable1, consumable2].pick_random()

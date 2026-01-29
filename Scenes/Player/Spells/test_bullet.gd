@@ -17,7 +17,7 @@ func _ready():
 	stream_player.autoplay = true
 	self.get_parent().add_child(stream_player)
 
-	direction = bullet_module.get_bullet_move_direction(self.position, get_global_mouse_position())
+	direction = bullet_module.get_bullet_move_direction(self.global_position, get_global_mouse_position())
 
 func _physics_process(delta: float) -> void:
 	bullet_module.update_bullet_position(self, direction, delta)

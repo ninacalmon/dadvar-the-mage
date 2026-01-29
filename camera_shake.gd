@@ -25,5 +25,5 @@ func _process(delta: float):
 func get_random_offset():
 	return Vector2(
 		rng.randf_range(-self.shake_strength, self.shake_strength), 
-		rng.randf_range(-self.shake_strength, self.shake_strength)
+		rng.randf_range(-self.shake_strength + Global.PLAYER_Y_SPRITE_OFFSET, self.shake_strength + Global.PLAYER_Y_SPRITE_OFFSET)
 	)

@@ -5,4 +5,4 @@
 [resource]
 shader = ExtResource("1_qounh")
 shader_parameter/enable = false
-shader_parameter/ColorParameter = Color(0.364706, 0, 0, 1)
+shader_parameter/ColorParameter = Color(1, 1, 1, 1)

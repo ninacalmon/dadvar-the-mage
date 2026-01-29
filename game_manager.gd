@@ -1,7 +1,7 @@
 extends Node
 
 var is_player_dead = false
-@onready var player: Player = %player
+@onready var player: Player = %player/PlayerArea
 
 
 func _ready() -> void:
