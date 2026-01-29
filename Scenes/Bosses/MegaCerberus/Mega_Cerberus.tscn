@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dnr2fm6mdvs2" path="res://Modules/Mobs/mob_behaviour_module.tscn" id="4_0n0sj"]
 [ext_resource type="Script" uid="uid://ckp8nqvjgsevu" path="res://Modules/Generics/health_module.gd" id="5_clmh5"]
 [ext_resource type="PackedScene" uid="uid://c3ueu20cyo6w8" path="res://Scenes/Bosses/MegaCerberus/mob_projectile.tscn" id="6_4khvt"]
-[ext_resource type="PackedScene" uid="uid://cnifl2hunxyar" path="res://Scenes/Progression/Void Power/vp_ultrarare.tscn" id="6_d02t7"]
+[ext_resource type="PackedScene" uid="uid://074u46307g8r" path="res://Scenes/Progression/Void Power/vp.tscn" id="6_d02t7"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_40f5u"]
 shader = ExtResource("2_4khvt")

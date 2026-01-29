@@ -1,8 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://074u46307g8r"]
+[gd_scene load_steps=12 format=3 uid="uid://074u46307g8r"]
 
-[ext_resource type="Script" uid="uid://batn40bypr162" path="res://Scenes/Progression/Void Power/vp.gd" id="1_vlhbo"]
-[ext_resource type="Texture2D" uid="uid://81jt40epx6uf" path="res://Sprites/xp.png" id="2_h3dir"]
-[ext_resource type="AudioStream" uid="uid://bnobvx3diwy5x" path="res://Sounds/orb.mp3" id="3_h3dir"]
+[ext_resource type="Script" uid="uid://batn40bypr162" path="res://Scenes/Progression/Void Power/vp.gd" id="1_gwjwb"]
+[ext_resource type="Texture2D" uid="uid://81jt40epx6uf" path="res://Sprites/xp.png" id="2_d0ety"]
+[ext_resource type="AudioStream" uid="uid://bnobvx3diwy5x" path="res://Sounds/orb.mp3" id="3_6svl1"]
+
+[sub_resource type="Gradient" id="Gradient_gwjwb"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.08278146, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.44250005, 0.22200002, 0.6, 1, 0.22, 0.048400007, 0.21713996, 1)
+metadata/_snap_count = 2
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uy6jv"]
 radius = 4.0
@@ -10,7 +16,7 @@ radius = 4.0
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_5wa2e"]
 random_pitch = 1.5
 streams_count = 1
-stream_0/stream = ExtResource("3_h3dir")
+stream_0/stream = ExtResource("3_6svl1")
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ls5y7"]
 blend_mode = 1
@@ -35,12 +41,15 @@ scale_min = 0.29999998
 scale_max = 0.29999998
 color = Color(0.39618018, 0.22719999, 0.71, 1)
 
-[node name="xp" type="Area2D"]
-scale = Vector2(2, 2)
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_d0ety"]
+gradient = SubResource("Gradient_gwjwb")
+
+[node name="vp" type="Area2D"]
 collision_layer = 128
 collision_mask = 128
-script = ExtResource("1_vlhbo")
+script = ExtResource("1_gwjwb")
 vp_amount = 5
+gradient = SubResource("Gradient_gwjwb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -48,7 +57,8 @@ position = Vector2(-0.5, 0)
 shape = SubResource("CircleShape2D_uy6jv")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_h3dir")
+scale = Vector2(2, 2)
+texture = ExtResource("2_d0ety")
 
 [node name="collect_sound" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamRandomizer_5wa2e")
@@ -63,5 +73,11 @@ use_fixed_seed = true
 seed = 3778826197
 interpolate = false
 process_material = SubResource("ParticleProcessMaterial_buo6v")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("GradientTexture1D_d0ety")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

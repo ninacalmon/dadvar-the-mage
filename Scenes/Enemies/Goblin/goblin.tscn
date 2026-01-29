@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://yx74icg37doa" path="res://Sprites/Goblin-3.png" id="3_xpyb8"]
 [ext_resource type="PackedScene" uid="uid://dnr2fm6mdvs2" path="res://Modules/Mobs/mob_behaviour_module.tscn" id="4_xpyb8"]
 [ext_resource type="Script" uid="uid://ckp8nqvjgsevu" path="res://Modules/Generics/health_module.gd" id="6_u8yfu"]
-[ext_resource type="PackedScene" uid="uid://074u46307g8r" path="res://Scenes/Progression/Void Power/vp_common.tscn" id="6_xpmg4"]
+[ext_resource type="PackedScene" uid="uid://074u46307g8r" path="res://Scenes/Progression/Void Power/vp.tscn" id="6_xpmg4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_u8yfu"]
 resource_local_to_scene = true
@@ -91,7 +91,7 @@ rotation = 1.5707964
 shape = SubResource("RectangleShape2D_u8yfu")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-rect = Rect2(-650, -650, 1300, 1300)
+rect = Rect2(-450, -450, 900, 900)
 
 [node name="Behaviour" type="Node" parent="."]
 

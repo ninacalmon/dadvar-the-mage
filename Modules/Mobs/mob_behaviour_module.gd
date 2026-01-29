@@ -49,6 +49,7 @@ func _on_health_module_health_depleted() -> void:
 	assert(vp_orb_scene != null, "Mob does not have a VP orb to drop defined")
 	var vp_orb = vp_orb_scene.instantiate()
 	vp_orb.position = get_parent().get_parent().position
+	vp_orb.mob_hp = self.health_module.max_health
 	var game_node = get_tree().get_current_scene()
 
 	game_node.add_child(vp_orb)

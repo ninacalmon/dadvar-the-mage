@@ -5,7 +5,7 @@
 [ext_resource type="Shader" uid="uid://mm42ofpnqd40" path="res://Shaders/hit_flash.tres" id="2_hxret"]
 [ext_resource type="PackedScene" uid="uid://dnr2fm6mdvs2" path="res://Modules/Mobs/mob_behaviour_module.tscn" id="3_1lps0"]
 [ext_resource type="Script" uid="uid://ckp8nqvjgsevu" path="res://Modules/Generics/health_module.gd" id="4_4f2ww"]
-[ext_resource type="PackedScene" uid="uid://d048m6awnu3o7" path="res://Scenes/Progression/Void Power/vp_rare.tscn" id="5_1p0cp"]
+[ext_resource type="PackedScene" uid="uid://074u46307g8r" path="res://Scenes/Progression/Void Power/vp.tscn" id="5_1p0cp"]
 [ext_resource type="AudioStream" uid="uid://b66t5o1p1hh8k" path="res://Sounds/witch-laugh-256450.mp3" id="6_jbg4a"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jbg4a"]
@@ -92,7 +92,7 @@ shape = SubResource("RectangleShape2D_u8yfu")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 scale = Vector2(1.5, 1.5)
-rect = Rect2(-650, -650, 1300, 1300)
+rect = Rect2(-450, -450, 900, 900)
 
 [node name="Behaviour" type="Node" parent="."]
 

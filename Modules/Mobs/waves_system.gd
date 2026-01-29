@@ -59,34 +59,48 @@ func _process(_delta: float) -> void:
 			$MegaCerberusSpawnRate.one_shot = true
 			$MegaCerberusSpawnRate.start()
 			has_megacerberus_spawned = true
-			
+
 func on_mega_cerberus_death():
 	self.music_system.start_main_track(2)
 
 func _on_ghost_spawn_rate_timeout() -> void:
-	spawn_mob(ghost)
+	var spawn_position = self.get_random_spawn_position()
+	var spawn_quantity = randi() % 3 + 1
+	
+	for _sp in range(spawn_quantity):
+		spawn_mob(ghost, spawn_position + Vector2(2 * _sp, 2 * _sp))
 	
 func _on_goblin_spawn_rate_timeout() -> void:
-	spawn_mob(goblin)
+	var spawn_position = self.get_random_spawn_position()
+	var spawn_quantity = randi() % 3 + 1
+	
+	for _sp in range(spawn_quantity):
+		spawn_mob(goblin, spawn_position + Vector2(10 * _sp, 10 * _sp))
 	
 func _on_cerberus_spawn_rate_timeout() -> void:
-	spawn_mob(cerberus)
+	var spawn_position = self.get_random_spawn_position()
+	spawn_mob(cerberus, spawn_position)
 	
 func _on_goblin_boss_spawn_rate_timeout() -> void:
-	spawn_mob(goblin_boss)
+	var spawn_position = self.get_random_spawn_position()
+
+	spawn_mob(goblin_boss, spawn_position)
 	
 func _on_mega_cerberus_spawn_rate_timeout() -> void:
-	spawn_mob(mega_cerberus)
+	var spawn_position = get_random_spawn_position()
+	spawn_mob(mega_cerberus, spawn_position)
 	
 
-func spawn_mob(mob_to_spawn):
+func spawn_mob(mob_to_spawn, spawn_position):
 	if Global.CURRENT_MOBS_SPAWNED >= Global.MAXIMUM_MOBS_TO_SPAWN:
 		return
 
 	mob = mob_to_spawn.instantiate()
-	mob.position = get_random_spawn_position()
+	mob.position = spawn_position
 	add_child(mob)
+
 	Global.CURRENT_MOBS_SPAWNED += 1
+
 
 func get_random_spawn_position() -> Vector2:
 	const OFFSET_TO_OUT_OF_VIEWPORT = 1.5
