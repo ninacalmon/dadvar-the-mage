@@ -117,7 +117,7 @@ libraries = {
 
 [node name="MagicLight" type="PointLight2D" parent="PlayerArea"]
 enabled = false
-color = Color(1.5040725, 0.42287806, 1.0896149, 1)
+color = Color(0.69, 0.32430002, 0.64124006, 1)
 texture = ExtResource("8_jlvik")
 texture_scale = 1.5
 

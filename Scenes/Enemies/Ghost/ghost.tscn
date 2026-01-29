@@ -13,7 +13,7 @@ resource_local_to_scene = true
 shader = ExtResource("2_jdkul")
 shader_parameter/glow_color = Color(0.5, 0.8, 1, 1)
 shader_parameter/radius = 10.0
-shader_parameter/intensity = 3.3
+shader_parameter/intensity = 3.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_o80aq"]
 animations = [{
@@ -74,7 +74,7 @@ y_sort_enabled = true
 position = Vector2(0, -37)
 emitting = false
 amount = 30
-lifetime = 0.5
+lifetime = 0.3
 one_shot = true
 explosiveness = 1.0
 randomness = 1.0
@@ -88,7 +88,7 @@ initial_velocity_min = 50.0
 initial_velocity_max = 100.0
 scale_amount_min = 3.0
 scale_amount_max = 6.0
-color = Color(0.36354694, 2.3832016, 4.1503997, 1)
+color = Color(0, 8.718037, 8.718037, 1)
 color_ramp = SubResource("Gradient_jdkul")
 
 [node name="Behaviour" type="Node" parent="."]

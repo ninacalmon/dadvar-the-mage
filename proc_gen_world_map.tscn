@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://d2m611min6s2q"]
+
+[ext_resource type="Script" uid="uid://dnsf3xlgjatbv" path="res://proc_gen_world_map.gd" id="1_cqrbp"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_hxdyw"]
+noise_type = 0
+frequency = 1.0
+fractal_weighted_strength = 0.25
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0qxnv"]
+noise = SubResource("FastNoiseLite_hxdyw")
+
+[node name="ProcGenWorldMap" type="Node2D"]
+script = ExtResource("1_cqrbp")
+noise_woods_texture = SubResource("NoiseTexture2D_0qxnv")

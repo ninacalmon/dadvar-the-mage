@@ -6,7 +6,7 @@ uniform float radius = 10.0;
 uniform float intensity = 3.3;
 
 void fragment() {
-    vec4 base = texture(TEXTURE, UV);
+    vec4 base = texture(TEXTURE, UV) * COLOR;
 
     float glow = 0.0;
 
