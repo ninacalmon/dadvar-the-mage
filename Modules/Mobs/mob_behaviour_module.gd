@@ -14,6 +14,7 @@ class_name MobBehaviourModule
 @onready var health_module_node = get_parent().get_node("HealthModule")
 @onready var mob_screen_notifier = mob.get_node("VisibleOnScreenNotifier2D")
 
+var tick = 0
 ## ASSERT VARIABLES ON READY TO AVOID GETTING ERRORS THAT ARE NONSENSE
 func _ready():
 	health_module_node.connect("health_depleted", _on_health_module_health_depleted)
@@ -25,11 +26,26 @@ func _on_screen_exited():
 	Global.CURRENT_MOBS_SPAWNED -= 1
 	print("SCREEN EXITED!", Global.CURRENT_MOBS_SPAWNED)
 
+
 func handle_movement() -> void:
 	# point to Player and move towards it.
 	var direction = mob.global_position.direction_to(player.global_position)
 	mob.velocity = direction * movement_speed
 	mob.move_and_slide()
+		
+## This one works way better, but it does not check collisions because it is not using move_and_slide physics
+## performance got from ~11ms to 0.79 ms on this method. Probably will have to work on this
+## to handle mobs
+#func handle_movement(delta) -> void:
+	## point to Player and move towards it.
+	#tick += 1
+#
+	#if tick % 6 == 0:
+		#var direction = player.global_position - mob.global_position
+		##var direction = mob.global_position.direction_to(player.global_position)
+		#mob.velocity = direction.normalized() * movement_speed
+	#
+	#mob.position += mob.velocity * delta
 	
 func handle_sprite_flip() -> void:
 	## Important to always reference the mob variable before, if not, Godot will understand that this is referencing the

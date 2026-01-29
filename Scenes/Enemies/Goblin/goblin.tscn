@@ -86,7 +86,7 @@ behaviour_module = NodePath("Behaviour/MobBehaviour")
 material = SubResource("ShaderMaterial_u8yfu")
 position = Vector2(-1, -6)
 sprite_frames = SubResource("SpriteFrames_q0u7v")
-animation = &"goblin1"
+animation = &"goblin2"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2.9999998, 5)
@@ -94,6 +94,7 @@ rotation = 1.5707964
 shape = SubResource("RectangleShape2D_u8yfu")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+visible = false
 rect = Rect2(-450, -450, 900, 900)
 
 [node name="Behaviour" type="Node" parent="."]

@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 var time_count: float = 0
 @export var score_timer: Timer
@@ -65,18 +65,24 @@ func on_mega_cerberus_death():
 
 func _on_ghost_spawn_rate_timeout() -> void:
 	var spawn_position = self.get_random_spawn_position()
-	var spawn_quantity = randi() % 3 + 1
-	
-	for _sp in range(spawn_quantity):
-		spawn_mob(ghost, spawn_position + Vector2(2 * _sp, 2 * _sp))
+	var horde_chance = randi_range(1, 10)
+	if horde_chance == 1:
+		var spawn_quantity = randi_range(3, 5)
+		for _sp in range(spawn_quantity):
+			spawn_mob(ghost, spawn_position + Vector2(10 * _sp, 10 * _sp))
+	else:
+		spawn_mob(ghost, spawn_position)
 	
 func _on_goblin_spawn_rate_timeout() -> void:
 	var spawn_position = self.get_random_spawn_position()
-	var spawn_quantity = randi() % 3 + 1
-	
-	for _sp in range(spawn_quantity):
-		spawn_mob(goblin, spawn_position + Vector2(10 * _sp, 10 * _sp))
-	
+	var horde_chance = randi_range(1, 10)
+	if horde_chance == 1:
+		var spawn_quantity = randi_range(3, 5)
+		for _sp in range(spawn_quantity):
+			spawn_mob(goblin, spawn_position + Vector2(10 * _sp, 10 * _sp))
+	else:
+		spawn_mob(goblin, spawn_position)
+
 func _on_cerberus_spawn_rate_timeout() -> void:
 	var spawn_position = self.get_random_spawn_position()
 	spawn_mob(cerberus, spawn_position)

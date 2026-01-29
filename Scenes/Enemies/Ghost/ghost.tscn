@@ -64,6 +64,7 @@ scale_max = 0.29999998
 color_ramp = SubResource("GradientTexture1D_w4443")
 
 [node name="Ghost" type="CharacterBody2D" node_paths=PackedStringArray("behaviour_module")]
+y_sort_enabled = true
 collision_layer = 4
 collision_mask = 4
 motion_mode = 1
@@ -74,14 +75,16 @@ behaviour_module = NodePath("Behaviour/MobBehaviour")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.30980393)
+y_sort_enabled = true
 texture_filter = 1
 material = SubResource("ShaderMaterial_jdkul")
+position = Vector2(0, -37)
 sprite_frames = SubResource("SpriteFrames_o80aq")
 animation = &"ghost1"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(6.5, 1.5)
+y_sort_enabled = true
+position = Vector2(6.5, -35.5)
 shape = SubResource("RectangleShape2D_vdney")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
@@ -96,6 +99,7 @@ max_health = 15.0
 metadata/_custom_type_script = "uid://ckp8nqvjgsevu"
 
 [node name="MobBehaviour" parent="Behaviour" node_paths=PackedStringArray("health_module", "mob", "mob_sprite") instance=ExtResource("7_o80aq")]
+y_sort_enabled = true
 movement_speed = 90
 damage = 5.0
 health_module = NodePath("../HealthModule")
@@ -104,6 +108,8 @@ mob = NodePath("../..")
 mob_sprite = NodePath("../../AnimatedSprite2D")
 
 [node name="BloodParticles" type="CPUParticles2D" parent="."]
+y_sort_enabled = true
+position = Vector2(0, -37)
 emitting = false
 amount = 30
 lifetime = 0.5

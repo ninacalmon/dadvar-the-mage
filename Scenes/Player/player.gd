@@ -2,8 +2,7 @@ extends Area2D
 class_name Player
 signal player_death
 
-const WAND_TIP_POSITION_X_ABSOLUTE = 63
-
+#region Exports
 @export_group("Modules")
 @export var stats_module: StatsModule
 @export var health_module: HealthModule
@@ -16,7 +15,9 @@ var cast_cooldown = 0
 @export_subgroup("Wobble")
 @export var frequency := 1.0
 @export var amplitude := PI * 0.25
+#endregion
 
+#region Spells and Upgrades
 @export_subgroup("Spells and upgrades")
 @export var projectile_spells: Array[EventSpell.ProjectileSpell] = []
 @export var enemy_action_spells: Array[EventSpell.EnemyActionSpell] = []
@@ -25,25 +26,43 @@ var cast_cooldown = 0
 @export var timer_spells: Array[EventSpell.TimerSpell] = []
 ## MAYBE HAVE HERE A SPELL UPGRADES OR SOMETHING LIKE THIS WHICH ARE UPGRADES THAT
 ## ARE NOT EFFECTS ON THE BULLET
+#endregion
 
-@onready var hit_flash_material: ShaderMaterial = $AnimatedSprite2D.material
+#region On Ready Vars
 
-@onready var hit_flash_animation = $HitFlashAnimPlayer
+@onready var player_sprite: AnimatedSprite2D = $PlayerSprite
+@onready var hurt_box: CollisionShape2D = $HurtBox
+@onready var wand_tip: Node2D = $WandTip
+@onready var health_bar: TextureProgressBar = $HealthBar
+@onready var vp_collector: Area2D = $VpCollector
+@onready var vp_range: CollisionShape2D = $VpCollector/VpRange
+@onready var hit_flash_animation: AnimationPlayer = $HitFlashAnimPlayer
+@onready var magic_light: PointLight2D = $MagicLight
+@onready var hit_flash_material: ShaderMaterial = player_sprite.material
+
+#endregion
+
 var audio_track: AudioStream = preload("res://Sounds/retro-game-shot-2-152053.mp3")
+const WAND_TIP_POSITION_X_ABSOLUTE = 63
 
 func start(pos):
 	position = pos
 	hit_flash_animation.play("hit_flash")
 	show()
-	$CollisionShape2D.disabled = false
+	hurt_box.disabled = false
 
 	EventBus.new_spell_added.connect(add_new_spell)
-	#self.add_new_spell(ProfaneBolt.new())
-	#self.add_new_spell(OgresScent.new())
+	self.add_new_spell(ProfaneBolt.new())
+	self.add_new_spell(OgresScent.new())
+	self.add_new_spell(VampiricGoblet.new())
+	self.add_new_spell(BoreasSwiftness.new())
+	self.add_new_spell(TitansSkin.new())
+	self.add_new_spell(YggdrasilTea.new())
+	self.add_new_spell(SoulPiercer.new())
 
 ## PUT THIS IN UTILS LATER!!!
 func wobble():
-	$AnimatedSprite2D.rotation = sin(Time.get_ticks_msec() * frequency) * amplitude
+	player_sprite.rotation = sin(Time.get_ticks_msec() * frequency) * amplitude
 
 func take_damage(mob_behaviour: MobBehaviourModule = null, bullet_module: BulletModule = null):
 	self.hit_flash_animation.play("hit_flash")
@@ -60,7 +79,7 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("shoot") and cast_cooldown <= 0:
 		var bullet_instance = self.bullet.instantiate()
 		var bullet_module = bullet_instance.bullet_module
-		bullet_instance.global_position = $WandTip.global_position
+		bullet_instance.global_position = wand_tip.global_position
 
 		var spell_context = SpellContext.new()
 
@@ -69,16 +88,16 @@ func _physics_process(delta: float) -> void:
 		for projectile_spell in projectile_spells:
 			projectile_spell.apply_spell(spell_context)
 
-		NodeShake.apply_shake($AnimatedSprite2D, 5, 20)
+		NodeShake.apply_shake(player_sprite, 5, 20)
 		
-		$MagicLight.position = $WandTip.position 
-		$MagicLight.texture_scale = randf_range(2.5, 3)
-		$MagicLight.energy = randf_range(9, 13)
-		$MagicLight.enabled = true
+		magic_light.position = wand_tip.position 
+		magic_light.texture_scale = randf_range(2.5, 3)
+		magic_light.energy = randf_range(9, 13)
+		magic_light.enabled = true
 	
 		var light_tween = get_tree().create_tween()
-		light_tween.tween_property($MagicLight, "energy", 0, stats_module.base_cast_cooldown)
-		light_tween.parallel().tween_property($MagicLight, "texture_scale", 0.8, stats_module.base_cast_cooldown)
+		light_tween.tween_property(magic_light, "energy", 0, stats_module.base_cast_cooldown)
+		light_tween.parallel().tween_property(magic_light, "texture_scale", 0.8, stats_module.base_cast_cooldown)
 		get_parent().add_child(bullet_instance)
 		cast_cooldown = self.stats_module.current_cast_cooldown
 	
@@ -95,15 +114,15 @@ func _process(delta: float) -> void:
 		velocity.y -= 1
 
 	if velocity.length() > 0:
-		$AnimatedSprite2D.animation = "idle"
-		$AnimatedSprite2D.flip_h = velocity.x < 0
+		player_sprite.animation = "idle"
+		player_sprite.flip_h = velocity.x < 0
 
-		$WandTip.position.x = -WAND_TIP_POSITION_X_ABSOLUTE if velocity.x < 0 else WAND_TIP_POSITION_X_ABSOLUTE
+		wand_tip.position.x = -WAND_TIP_POSITION_X_ABSOLUTE if velocity.x < 0 else WAND_TIP_POSITION_X_ABSOLUTE
 		wobble()
 		velocity = velocity.normalized() * stats_module.current_move_speed
 	else:
-		$AnimatedSprite2D.animation = "idle"
-		$AnimatedSprite2D.rotation = 0
+		player_sprite.animation = "idle"
+		player_sprite.rotation = 0
 		
 	position += velocity * delta # updating position.
 
@@ -136,12 +155,12 @@ func _on_player_health_health_depleted() -> void:
 	get_parent().add_child(stream_player)
 
 	var tween = get_tree().create_tween()
-	$CollisionShape2D.set_deferred("disabled", true)
+	hurt_box.set_deferred("disabled", true)
 
 	self.hit_flash_animation.play_backwards("hit_flash")
 	tween.tween_callback(stream_player.play)
-	tween.parallel().tween_property($AnimatedSprite2D, "position", Vector2($AnimatedSprite2D.position.x, 68), 1)
-	tween.parallel().tween_property($AnimatedSprite2D, "scale", Vector2(1, 0.06), 1)
+	tween.parallel().tween_property(player_sprite, "position", Vector2(player_sprite.position.x, 68), 1)
+	tween.parallel().tween_property(player_sprite, "scale", Vector2(1, 0.06), 1)
 
 	tween.tween_callback(player_death.emit)
 

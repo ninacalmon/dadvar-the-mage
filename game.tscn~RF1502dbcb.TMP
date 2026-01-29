@@ -27,7 +27,7 @@
 [ext_resource type="PackedScene" uid="uid://bknxikea76lkg" path="res://Scenes/Progression/Consumables/food.tscn" id="19_i2p71"]
 [ext_resource type="Curve" uid="uid://balli3kxs211y" path="res://Resources/ghost_curve.tres" id="22_xa8c5"]
 [ext_resource type="Script" uid="uid://ia4f2b8ismcl" path="res://Sounds/Scripts/music_system.gd" id="25_i2p71"]
-[ext_resource type="Texture2D" uid="uid://qw2aghf2ng0i" path="res://Sprites/OuterTileset.png" id="28_5b14r"]
+[ext_resource type="Texture2D" uid="uid://qw2aghf2ng0i" path="res://Sprites/Spell Sprites/OuterTileset.png" id="28_5b14r"]
 
 [sub_resource type="Environment" id="Environment_xa8c5"]
 background_mode = 3

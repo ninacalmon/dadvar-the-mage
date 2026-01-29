@@ -9,8 +9,8 @@ func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("PlayerGroup"):
 		$CollisionShape2D.set_deferred("disabled", true)
 		self.hide()
-		var vp_collector = area.get_node("vp_collector")
-		self.range_circle = vp_collector.get_node("range")
+		var vp_collector = area.get_node("VpCollector")
+		self.range_circle = vp_collector.get_node("VpRange")
 		self.original_range_scale = self.range_circle.scale
 		print(original_range_scale)
 		start_magnet()

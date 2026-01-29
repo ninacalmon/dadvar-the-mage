@@ -21,8 +21,9 @@ func _ready():
 
 
 func _on_area_entered(area: Area2D) -> void:
-	if area.name == "vp_collector":
+	if area.name == "VpCollector":
 		player = area.get_parent()
+		print(player)
 		following = true
 		
 func _process(delta: float) -> void:

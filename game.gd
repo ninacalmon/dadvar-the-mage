@@ -13,10 +13,10 @@ func _ready() -> void:
 func new_game():
 	get_tree().paused = false
 	time_count = 0
-	$player.start($StartPosition.position)
-	$StartTimer.start()
+	%player.start($StartPosition.position)
+	#$StartTimer.start()
 
 ## Prepares and set for reload.
 func _on_player_player_death() -> void:
 	%player.hide()
-	$ScoreTimer.stop()
+	%ScoreTimer.stop()

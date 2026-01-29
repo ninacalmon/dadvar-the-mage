@@ -45,6 +45,7 @@ color = Color(0.39618018, 0.22719999, 0.71, 1)
 gradient = SubResource("Gradient_gwjwb")
 
 [node name="vp" type="Area2D"]
+y_sort_enabled = true
 collision_layer = 128
 collision_mask = 128
 script = ExtResource("1_gwjwb")
@@ -52,7 +53,6 @@ vp_amount = 5
 gradient = SubResource("Gradient_gwjwb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(-0.5, 0)
 shape = SubResource("CircleShape2D_uy6jv")
 
