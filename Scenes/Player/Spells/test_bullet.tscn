@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://73ai3a0wwokb"]
+[gd_scene load_steps=11 format=3 uid="uid://73ai3a0wwokb"]
 
 [ext_resource type="Texture2D" uid="uid://c2ldsx1wks0tc" path="res://Sprites/bullet1.png" id="1_5fyw6"]
 [ext_resource type="Script" uid="uid://wg664yw4jx2m" path="res://Scenes/Player/Spells/test_bullet.gd" id="2_5mxg8"]
 [ext_resource type="PackedScene" uid="uid://bhhkmo6wlsiqg" path="res://Modules/Bullet/bullet_module.tscn" id="3_bosj0"]
 [ext_resource type="AudioStream" uid="uid://j7hlt3p0fhem" path="res://Sounds/city-castle-398832.mp3" id="4_humpc"]
+[ext_resource type="Texture2D" uid="uid://b37tdqau44es0" path="res://Sprites/soft_gradient.tres" id="5_ne7aq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_humpc"]
 radius = 8.0
@@ -68,3 +69,10 @@ hue_variation_max = 0.54
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_humpc")
 volume_db = -16.0
+
+[node name="StrongLightOnEnemies" type="PointLight2D" parent="."]
+color = Color(0.32156864, 0, 0.99607843, 1)
+energy = 16.0
+range_item_cull_mask = 8
+texture = ExtResource("5_ne7aq")
+texture_scale = 1.5

@@ -80,6 +80,7 @@ behaviour_module = NodePath("Behaviour/MobBehaviour")
 hit_flash_shader = SubResource("ShaderMaterial_7fo7v")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+light_mask = 9
 material = SubResource("ShaderMaterial_u8yfu")
 position = Vector2(0, -66)
 sprite_frames = SubResource("SpriteFrames_q0u7v")

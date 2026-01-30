@@ -75,7 +75,7 @@ _data = {
 
 [node name="Goblin" type="CharacterBody2D" node_paths=PackedStringArray("behaviour_module")]
 collision_layer = 2
-collision_mask = 3
+collision_mask = 2
 motion_mode = 1
 platform_floor_layers = 4278190080
 safe_margin = 0.001
@@ -83,6 +83,7 @@ script = ExtResource("1_v3txi")
 behaviour_module = NodePath("Behaviour/MobBehaviour")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+light_mask = 9
 material = SubResource("ShaderMaterial_u8yfu")
 position = Vector2(-1, -49)
 sprite_frames = SubResource("SpriteFrames_q0u7v")

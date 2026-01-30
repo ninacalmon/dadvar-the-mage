@@ -1,8 +1,8 @@
 extends Area2D
 
-var range_circle: CollisionShape2D
+#var range_circle: CollisionShape2D
 
-var original_range_scale: Vector2 = Vector2(1, 1)
+#var original_range_scale: Vector2 = Vector2(1, 1)
 var temporary_range_scale: Vector2 = Vector2(50, 50)
 
 func _on_area_entered(area: Area2D) -> void:
@@ -16,12 +16,14 @@ func _on_area_entered(area: Area2D) -> void:
 			stream_player.queue_free()
 		)
 		var vp_collector = area.get_node("VpCollector")
-		self.range_circle = vp_collector.get_node("VpRange")
-		self.original_range_scale = self.range_circle.scale
-		print(original_range_scale)
-		start_magnet()
+		var vp_range_static = vp_collector.get_node("VpRange")
 
-func start_magnet():
+		var range_circle = vp_collector.get_node("VpRangeModifiable")
+		var original_range_scale = vp_range_static.scale
+
+		start_magnet(range_circle, original_range_scale)
+
+func start_magnet(range_circle: CollisionShape2D, original_range_scale: Vector2):
 	var tween = get_tree().create_tween()
 	tween.tween_property(range_circle, "scale", temporary_range_scale, 2)
 	tween.tween_property(range_circle, "scale", original_range_scale, 1)

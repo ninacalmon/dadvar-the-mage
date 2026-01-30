@@ -7,7 +7,9 @@ var width: float = 500
 var height: float = 500
 var noise_value_arr = []
 
-@onready var tile_map_layer: TileMapLayer = $"../y Sorted Layer/OverTileMapLayer"
+@onready var tile_map_layer_lighted: TileMapLayer = %TileMapLayer_Lighted
+@onready var tile_map_layer_occluded: TileMapLayer = %TileMapLayer_Occluded
+
 var source_id = 1
 var woods_atlas = [Vector2i(3, 2), Vector2i(1, 2), Vector2i(6, 2), Vector2i(10, 2), Vector2i(5, 4)]
 var ground_atlas = [Vector2i(2,0), Vector2i(3, 0), Vector2i(4, 0), Vector2i(5, 0)]
@@ -28,12 +30,13 @@ func generate_world():
 				#print("min ", noise_value_arr.min())
 				if noise_value <= -0.55:
 					# place woods
-					tile_map_layer.set_cell(Vector2(x, y), source_id, woods_atlas.pick_random())
+					tile_map_layer_lighted.set_cell(Vector2(x, y), source_id, woods_atlas.pick_random())
 					
 				elif noise_value > -0.55 and noise_value < -0.45:
 					# place grass / rocks
-					tile_map_layer.set_cell(Vector2(x, y), source_id, ground_atlas.pick_random())
+					tile_map_layer_occluded.set_cell(Vector2(x, y), source_id, ground_atlas.pick_random())
 					
 				elif noise_value > -0.45:
+					pass
 					# place nothing
-					tile_map_layer.set_cell(Vector2(x, y), source_id, blank_atlas)
+					#tile_map_layer_lighted.set_cell(Vector2(x, y), source_id, blank_atlas)

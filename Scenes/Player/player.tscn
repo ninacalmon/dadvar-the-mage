@@ -90,6 +90,7 @@ health_module = NodePath("HealthModule")
 bullet = ExtResource("2_xpcdj")
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="PlayerArea"]
+light_mask = 4
 y_sort_enabled = true
 texture_filter = 1
 material = ExtResource("4_0u5uq")
@@ -110,6 +111,10 @@ collision_mask = 128
 position = Vector2(-1, -56)
 shape = SubResource("CircleShape2D_dd0ac")
 
+[node name="VpRangeModifiable" type="CollisionShape2D" parent="PlayerArea/VpCollector"]
+position = Vector2(-1, -56)
+shape = SubResource("CircleShape2D_dd0ac")
+
 [node name="HitFlashAnimPlayer" type="AnimationPlayer" parent="PlayerArea"]
 libraries = {
 &"": SubResource("AnimationLibrary_xpmg4")
@@ -118,8 +123,9 @@ libraries = {
 [node name="MagicLight" type="PointLight2D" parent="PlayerArea"]
 enabled = false
 color = Color(0.69, 0.32430002, 0.64124006, 1)
+energy = 8.14
+range_item_cull_mask = 4
 texture = ExtResource("8_jlvik")
-texture_scale = 1.5
 
 [node name="HealthModule" type="Node" parent="PlayerArea"]
 script = ExtResource("4_mtuoh")

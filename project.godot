@@ -68,6 +68,7 @@ Restart={
 
 [layer_names]
 
+2d_render/layer_4="BulletLightMask"
 2d_physics/layer_8="xp"
 
 [physics]

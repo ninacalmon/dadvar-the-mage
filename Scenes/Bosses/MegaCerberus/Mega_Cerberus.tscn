@@ -84,6 +84,7 @@ bullet = ExtResource("6_4khvt")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 modulate = Color(0.9226216, 0.703447, 0.703447, 1)
+light_mask = 9
 material = SubResource("ShaderMaterial_u8yfu")
 position = Vector2(0, -66)
 sprite_frames = SubResource("SpriteFrames_8ig6l")

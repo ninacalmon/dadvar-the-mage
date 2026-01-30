@@ -92,7 +92,7 @@ func _physics_process(delta: float) -> void:
 		
 		magic_light.position = wand_tip.position 
 		magic_light.texture_scale = randf_range(2.5, 3)
-		magic_light.energy = randf_range(9, 13)
+		magic_light.energy = randf_range(13, 16)
 		magic_light.enabled = true
 	
 		var light_tween = get_tree().create_tween()

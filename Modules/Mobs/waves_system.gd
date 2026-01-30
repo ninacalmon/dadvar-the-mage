@@ -59,28 +59,13 @@ func _ready() -> void:
 	EventBus.mega_cerberus_is_dead.connect(on_mega_cerberus_death)
 	score_timer.connect("timeout", _on_score_timer_timeout)
 
-#func _process(_delta: float) -> void:
-	#if time_count == 125:
-		#
-		#if has_megacerberus_spawned == false:
-			#self.music_system.start_boss_track(
-				#preload("res://Sounds/Vordt of the Boreal Valley.mp3"),
-				#2, # last song playing fade out time
-				#-10, # volume_db to play
-			#)
-#
-			#$MegaCerberusSpawnRate.wait_time = 3
-			#$MegaCerberusSpawnRate.one_shot = true
-			#$MegaCerberusSpawnRate.start()
-			#has_megacerberus_spawned = true
-
 func on_mega_cerberus_death():
 	self.music_system.start_main_track(2)
 
 func _on_ghost_spawn_rate_timeout() -> void:
 	var spawn_position = self.get_random_spawn_position()
 	var horde_chance = randi_range(1, 10)
-	if horde_chance == 1:
+	if horde_chance <= 2:
 		var spawn_quantity = randi_range(3, 5)
 		for _sp in range(spawn_quantity):
 			spawn_mob(ghost, spawn_position + Vector2(10 * _sp, 10 * _sp))
@@ -90,7 +75,7 @@ func _on_ghost_spawn_rate_timeout() -> void:
 func _on_goblin_spawn_rate_timeout() -> void:
 	var spawn_position = self.get_random_spawn_position()
 	var horde_chance = randi_range(1, 10)
-	if horde_chance == 1:
+	if horde_chance <= 2:
 		var spawn_quantity = randi_range(3, 5)
 		for _sp in range(spawn_quantity):
 			spawn_mob(goblin, spawn_position + Vector2(10 * _sp, 10 * _sp))
