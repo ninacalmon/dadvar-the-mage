@@ -8,7 +8,7 @@ var hability_type: EventSpell.EventSpellType = EventSpell.EventSpellType.TIMER_S
 
 ## Here add the bolt texture
 @export var bolt_vfx: PackedScene = preload("res://Scenes/Player/Spells/TimerSpells/ProfaneBolt/bolt.tscn")
-@export var damage: float = 20
+@export var damage: float = 50
 @export var tick: float = 2
 var light_bolt_screen_time = 0.1
 

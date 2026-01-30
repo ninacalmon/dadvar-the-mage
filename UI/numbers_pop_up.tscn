@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://nftw0v06esfn"]
+
+[ext_resource type="FontFile" uid="uid://x1j3ung4takr" path="res://Fonts/Pixel_Operator/PixelOperatorMono-Bold.ttf" id="1_jhw3e"]
+
+[sub_resource type="Gradient" id="Gradient_jhw3e"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.044827588, 0.12413793, 1)
+colors = PackedColorArray(0.45682666, 0.43660003, 0.74, 1, 0.63, 0.063000016, 0.08189999, 1, 0, 1.416, 3.236, 1, 0, 1.416, 3.236, 1)
+
+[node name="NumbersPopUp" type="RichTextLabel"]
+z_index = 100
+offset_right = 40.0
+offset_bottom = 22.0
+scale = Vector2(1.2, 1.2)
+theme_override_fonts/normal_font = ExtResource("1_jhw3e")
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/Gradient = SubResource("Gradient_jhw3e")

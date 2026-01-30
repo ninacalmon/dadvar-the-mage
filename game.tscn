@@ -372,16 +372,16 @@ player = NodePath("../player/PlayerArea")
 wait_time = 10.0
 autostart = true
 
-[node name="TileMapLayer_Lighted" type="TileMapLayer" parent="y Sorted Layer"]
+[node name="TileMapLayer_Occluded" type="TileMapLayer" parent="y Sorted Layer"]
 unique_name_in_owner = true
-light_mask = 8
+light_mask = 0
 visibility_layer = 0
 y_sort_enabled = true
 tile_set = ExtResource("7_36jdj")
 
-[node name="TileMapLayer_Occluded" type="TileMapLayer" parent="y Sorted Layer"]
+[node name="TileMapLayer_Lighted" type="TileMapLayer" parent="y Sorted Layer"]
 unique_name_in_owner = true
-light_mask = 0
+light_mask = 8
 visibility_layer = 0
 y_sort_enabled = true
 tile_set = ExtResource("7_36jdj")

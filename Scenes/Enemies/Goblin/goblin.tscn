@@ -130,7 +130,7 @@ mob_sprite = NodePath("../../AnimatedSprite2D")
 
 [node name="HealthModule" type="Node" parent="Behaviour" groups=["HealthModuleGroup"]]
 script = ExtResource("6_u8yfu")
-max_health = 25.0
+max_health = 50.0
 metadata/_custom_type_script = "uid://ckp8nqvjgsevu"
 
 [node name="HitFlashAnimPlayer" type="AnimationPlayer" parent="."]

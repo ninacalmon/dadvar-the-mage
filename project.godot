@@ -22,6 +22,7 @@ EventBus="*res://event_bus.gd"
 Global="*res://global.gd"
 CameraShake="*res://camera_shake.gd"
 NodeShake="*res://node_shake.gd"
+NumberPopUp="*res://number_pop_up.gd"
 
 [display]
 

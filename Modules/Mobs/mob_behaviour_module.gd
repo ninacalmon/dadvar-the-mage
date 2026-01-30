@@ -55,6 +55,13 @@ func handle_sprite_flip() -> void:
 	mob_sprite.flip_h =  mob.global_position.x > player.global_position.x
 
 func handle_take_damage(damage_to_receive: float) -> void:
+	var direction = mob.global_position.direction_to(player.global_position)
+	var mob_sprite_first_anim_frame = mob_sprite.sprite_frames.get_animation_names().get(0)
+	var mob_first_anim_frame_texture = mob_sprite.sprite_frames.get_frame_texture(mob_sprite_first_anim_frame, 0)
+	var mob_offset_sprite_y = mob_first_anim_frame_texture.get_size().y
+	var mob_offset_to_front_x = -25 * direction.x
+
+	NumberPopUp.create_number_pop_up(damage_to_receive, mob.global_position - Vector2(mob_offset_to_front_x, mob_offset_sprite_y))
 	var current_health = health_module.get_health()
 	health_module.set_health(current_health - damage_to_receive)
 	

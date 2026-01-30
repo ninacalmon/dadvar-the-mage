@@ -6,7 +6,7 @@ var sprite_texture = preload("res://Sprites/Spell Sprites/ogresScent.png")
 
 var hability_type: EventSpell.EventSpellType = EventSpell.EventSpellType.NODE_SPELL
 
-@export var damage: float = 5
+@export var damage: float = 10
 @export var tick: float = 1.2
 @export var area_scale: Vector2 = Vector2(18, 18)
 

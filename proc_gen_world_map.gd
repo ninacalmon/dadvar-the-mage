@@ -11,12 +11,19 @@ var noise_value_arr = []
 @onready var tile_map_layer_occluded: TileMapLayer = %TileMapLayer_Occluded
 
 var source_id = 1
-var woods_atlas = [Vector2i(3, 2), Vector2i(1, 2), Vector2i(6, 2), Vector2i(10, 2), Vector2i(5, 4)]
-var ground_atlas = [Vector2i(2,0), Vector2i(3, 0), Vector2i(4, 0), Vector2i(5, 0)]
-var blank_atlas = Vector2i(0, 0)
+var woods_atlas = [Vector2i(1, 2), Vector2i(3, 2), Vector2i(5, 4), Vector2i(6, 2), Vector2i(10, 2), Vector2i(14, 2), Vector2i(16, 2), Vector2i(21, 2)]
+var ground_atlas = [Vector2i(2,0), Vector2i(3, 0), Vector2i(4, 0), Vector2i(5, 0), Vector2i(6,0), Vector2i(7, 0), Vector2i(8, 0), Vector2i(9, 0), Vector2i(10, 0), Vector2i(11, 0)]
+
+var approved_seeds = [3019866663, 4037956941, 2924637956]
+
+func new_seed():
+	#randomize()
+	var random_seed = approved_seeds.pick_random()
+	seed(random_seed)
+	return random_seed
 
 func _ready() -> void:
-	randomize()
+	print(new_seed())
 	noise = noise_woods_texture.noise
 	generate_world()
 	
