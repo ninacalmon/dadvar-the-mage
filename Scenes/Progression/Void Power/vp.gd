@@ -17,8 +17,6 @@ func _ready():
 	var new_color = gradient.sample(mob_hp_normalized)
 	$Sprite2D.modulate = new_color
 	print(new_color)
-	
-
 
 func _on_area_entered(area: Area2D) -> void:
 	if area.name == "VpCollector":
