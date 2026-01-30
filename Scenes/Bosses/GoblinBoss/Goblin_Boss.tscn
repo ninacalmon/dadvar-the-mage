@@ -82,7 +82,7 @@ behaviour_module = NodePath("Behaviour/MobBehaviour")
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 visible = false
 scale = Vector2(1.5, 1.5)
-rect = Rect2(-450, -450, 900, 900)
+rect = Rect2(-420, -532, 840, 840)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 light_mask = 9

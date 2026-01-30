@@ -67,8 +67,7 @@ position = Vector2(6.5, -35.5)
 shape = SubResource("RectangleShape2D_vdney")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-visible = false
-rect = Rect2(-450, -487, 900, 900)
+rect = Rect2(-420, -457, 840, 840)
 
 [node name="BloodParticles" type="CPUParticles2D" parent="."]
 y_sort_enabled = true

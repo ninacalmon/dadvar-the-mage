@@ -96,7 +96,7 @@ shape = SubResource("RectangleShape2D_u8yfu")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 visible = false
-rect = Rect2(-450, -450, 900, 900)
+rect = Rect2(-420, -499, 840, 840)
 
 [node name="BloodParticles" type="CPUParticles2D" parent="."]
 position = Vector2(9, -41)
