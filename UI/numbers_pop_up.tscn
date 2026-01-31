@@ -9,11 +9,10 @@ colors = PackedColorArray(0.45682666, 0.43660003, 0.74, 1, 0.63, 0.063000016, 0.
 
 [node name="NumbersPopUp" type="RichTextLabel"]
 z_index = 100
-offset_right = 40.0
-offset_bottom = 22.0
+offset_right = 73.33333
+offset_bottom = 26.666666
 scale = Vector2(1.2, 1.2)
 theme_override_fonts/normal_font = ExtResource("1_jhw3e")
 text = "100"
-horizontal_alignment = 1
 vertical_alignment = 1
 metadata/Gradient = SubResource("Gradient_jhw3e")

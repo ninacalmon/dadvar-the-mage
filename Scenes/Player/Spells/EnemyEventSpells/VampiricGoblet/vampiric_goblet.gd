@@ -21,6 +21,7 @@ func steal_health(mob_behaviour: MobBehaviourModule, caster: Node):
 	var player_current_health = caster.health_module.get_health()
 	var health_to_add = (percentage_health_steal/100) * enemy_health.get_max_health()
 
+	NumberPopUp.create_health_number_pop_up(health_to_add, caster, true)
 	caster.health_module.set_health(player_current_health + health_to_add)
 
 func get_event_spell_description() -> String:

@@ -397,9 +397,6 @@ visibility_layer = 0
 y_sort_enabled = true
 tile_set = ExtResource("7_36jdj")
 
-[node name="GargoyleBody2D" parent="y Sorted Layer" instance=ExtResource("14_36jdj")]
-position = Vector2(-593, 16)
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
 

@@ -66,7 +66,7 @@ func handle_take_damage(damage_to_receive: float) -> void:
 	var mob_offset_sprite_y = mob_first_anim_frame_texture.get_size().y
 	var mob_offset_to_front_x = -25 * direction.x
 
-	NumberPopUp.create_number_pop_up(damage_to_receive, mob.global_position - Vector2(mob_offset_to_front_x, mob_offset_sprite_y))
+	NumberPopUp.create_damage_number_pop_up(damage_to_receive, mob.global_position - Vector2(mob_offset_to_front_x, mob_offset_sprite_y))
 	var current_health = health_module.get_health()
 	health_module.set_health(current_health - damage_to_receive)
 	

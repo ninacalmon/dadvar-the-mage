@@ -104,6 +104,7 @@ position = Vector2(0, -56)
 shape = SubResource("CapsuleShape2D_a3d8c")
 
 [node name="VpCollector" type="Area2D" parent="PlayerArea"]
+visible = false
 collision_layer = 128
 collision_mask = 128
 
@@ -138,6 +139,24 @@ offset_top = 8.0
 offset_right = 44.0
 offset_bottom = 24.0
 character = NodePath("..")
+
+[node name="PopUpPositions" type="Node" parent="PlayerArea"]
+
+[node name="Node2D" type="Node2D" parent="PlayerArea/PopUpPositions"]
+visible = false
+position = Vector2(32, 0)
+
+[node name="Node2D2" type="Node2D" parent="PlayerArea/PopUpPositions"]
+visible = false
+position = Vector2(8, 16)
+
+[node name="Node2D3" type="Node2D" parent="PlayerArea/PopUpPositions"]
+visible = false
+position = Vector2(-40, 0)
+
+[node name="Node2D4" type="Node2D" parent="PlayerArea/PopUpPositions"]
+visible = false
+position = Vector2(-40, 16)
 
 [connection signal="area_entered" from="PlayerArea" to="PlayerArea" method="_on_area_entered"]
 [connection signal="body_entered" from="PlayerArea" to="PlayerArea" method="_on_body_entered"]
