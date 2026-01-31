@@ -78,9 +78,8 @@ shape = SubResource("CircleShape2D_ymt51")
 texture = ExtResource("2_mfr74")
 
 [node name="PointLight2D" type="PointLight2D" parent="Sprite2D"]
-show_behind_parent = true
 scale = Vector2(0.5, 0.5)
-color = Color(0.47843137, 0.45882353, 0.6117647, 1)
+color = Color(0.7647059, 0.2509804, 0.69411767, 1)
 energy = 0.8
 texture = SubResource("GradientTexture2D_ymt51")
 

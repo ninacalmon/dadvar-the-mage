@@ -6,7 +6,7 @@ extends Area2D
 @export var gradient: Gradient
 var player: Player = null
 var following = false
-var minimum_hp = 30.0 # 15 is *currently* the minimum hp value. Not ideal.
+var minimum_hp = 30.0 # 30 is *currently* the minimum hp value. Not ideal.
 var mob_hp: float
 
 func _ready():

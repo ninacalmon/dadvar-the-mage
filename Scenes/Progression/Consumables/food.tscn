@@ -79,9 +79,8 @@ scale = Vector2(1.234375, 1.234375)
 texture = ExtResource("2_lnsa2")
 
 [node name="PointLight2D" type="PointLight2D" parent="Sprite2D"]
-show_behind_parent = true
 scale = Vector2(0.5, 0.5)
-color = Color(0.47843137, 0.45882353, 0.6117647, 1)
+color = Color(0.7647059, 0.2509804, 0.69411767, 1)
 energy = 0.8
 texture = SubResource("GradientTexture2D_a3n4r")
 

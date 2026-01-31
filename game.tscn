@@ -599,6 +599,10 @@ scroll_active = false
 autowrap_mode = 2
 horizontal_alignment = 1
 
+[node name="CanvasLayerModulate" type="CanvasModulate" parent="CanvasLayer"]
+scale = Vector2(100000, 100000)
+color = Color(0.7345116, 0.7672969, 1, 1)
+
 [node name="GameManager" type="Node" parent="."]
 process_mode = 3
 script = ExtResource("13_lc2xo")
