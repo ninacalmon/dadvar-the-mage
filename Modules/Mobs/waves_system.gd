@@ -15,7 +15,9 @@ var time_count: float = 0
 @export var cerberus: PackedScene
 @export var mega_cerberus: PackedScene
 @export var gargoyle: PackedScene
+@export var banshee: PackedScene
 @export var player: Area2D
+
 
 var mob = null
 var has_megacerberus_spawned = false
@@ -46,7 +48,9 @@ func _on_score_timer_timeout() -> void:
 		$GargoyleSpawnRate.wait_time = 1 / gargoyle_curve.sample(time_count_normalized)
 		$GargoyleSpawnRate.start()
 		
-	if time_count == 125:
+	
+		
+	if time_count == 180:
 		
 		if has_megacerberus_spawned == false:
 			self.music_system.start_boss_track(
@@ -98,6 +102,19 @@ func _on_goblin_boss_spawn_rate_timeout() -> void:
 func _on_gargoyle_spawn_rate_timeout() -> void:
 	var spawn_position = self.get_random_spawn_position()
 	spawn_mob(gargoyle, spawn_position)
+	
+func _on_banshee_spawn_rate_timeout() -> void:
+	var horde_chance = randi_range(1, 5)
+	if horde_chance <= 2:
+		var spawn_quantity = randi_range(2, 4)
+		for _sp in range(spawn_quantity):
+			var spawn_position = self.get_random_spawn_position()
+			spawn_mob(banshee, spawn_position + Vector2(10 * _sp, 10 * _sp))
+	else:
+		var spawn_position = self.get_random_spawn_position()
+		spawn_mob(banshee, spawn_position)
+
+	$BansheeSpawnRate.wait_time = randi_range(20, 40)
 
 func _on_mega_cerberus_spawn_rate_timeout() -> void:
 	var spawn_position = get_random_spawn_position()

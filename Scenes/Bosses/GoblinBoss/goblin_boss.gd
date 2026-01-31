@@ -24,6 +24,8 @@ func _on_goblin_boss_health_module_health_depleted() -> void:
 	## GAMBIARRA
 	var stream_player = AudioStreamPlayer.new()
 	stream_player.stream = audio_track
+	stream_player.volume_db = -16
+	stream_player.pitch_scale = randf_range(0.95, 1.1)
 	stream_player.autoplay = true
 	get_parent().add_child(stream_player)
 	# $AudioStreamPlayer.playing = true

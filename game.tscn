@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=3 uid="uid://qinxn2c2shu7"]
+[gd_scene load_steps=72 format=3 uid="uid://qinxn2c2shu7"]
 
 [ext_resource type="PackedScene" uid="uid://d2c1s3qmdi4ti" path="res://Scenes/Player/player.tscn" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://g1vr201lpslj" path="res://game.gd" id="1_feb5d"]
@@ -30,6 +30,7 @@
 [ext_resource type="PackedScene" uid="uid://bknxikea76lkg" path="res://Scenes/Progression/Consumables/food.tscn" id="19_i2p71"]
 [ext_resource type="Curve" uid="uid://balli3kxs211y" path="res://Resources/ghost_curve.tres" id="22_xa8c5"]
 [ext_resource type="Script" uid="uid://ia4f2b8ismcl" path="res://Sounds/Scripts/music_system.gd" id="25_i2p71"]
+[ext_resource type="PackedScene" uid="uid://cakwnh4a4rc4f" path="res://Scenes/Enemies/Banshee/banshee.tscn" id="31_xfvwf"]
 
 [sub_resource type="Environment" id="Environment_xa8c5"]
 background_mode = 3
@@ -52,28 +53,28 @@ base_cast_cooldown = 0.2
 metadata/_custom_type_script = "uid://cx1bveptsnmc"
 
 [sub_resource type="Curve" id="Curve_vaj68"]
-_limits = [0.0, 10.0, 0.0, 2.0]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.29999998, 0), 0.0, 0.0, 0, 0, Vector2(0.56, 3), 0.0, 0.0, 0, 0, Vector2(0.78, 3), 0.0, 0.0, 0, 0, Vector2(1.14, 0), 0.0, 0.0, 0, 0]
+_limits = [0.0, 10.0, 0.0, 3.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.53999996, 0), 0.0, 0.0, 0, 0, Vector2(1.02, 5.2000003), 0.0, 0.0, 0, 0, Vector2(1.62, 0), 0.0, 0.0, 0, 0, Vector2(1.89, 0), 0.0, 0.0, 0, 0]
 point_count = 5
 metadata/_snap_enabled = true
 metadata/_snap_count = 100
 
 [sub_resource type="Curve" id="Curve_i2p71"]
-_limits = [0.0, 10.0, 0.0, 2.0]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.6980609, 0.059653282), 0.0, 0.0, 0, 0, Vector2(0.9529086, 2.0336227), 0.0, 0.0, 0, 0, Vector2(1.301939, 0), 0.0, 0.0, 0, 0]
+_limits = [0.0, 10.0, 0.0, 3.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.78594244, 0), 0.0, 0.0, 0, 0, Vector2(1.2076677, 1.8123398), 0.0, 0.0, 0, 0, Vector2(1.8881788, 0), 0.0, 0.0, 0, 0]
 point_count = 4
 
 [sub_resource type="Curve" id="Curve_xa8c5"]
-_limits = [0.0, 10.0, 0.0, 2.0]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.54847646, 0), 0.0, 0.0, 0, 0, Vector2(0.7, 1), 0.0, 0.0, 0, 0, Vector2(0.97999996, 1), 0.0, 0.0, 0, 0, Vector2(1.14, 0), 0.0, 0.0, 0, 0]
+_limits = [0.0, 10.0, 0.0, 3.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.65999997, 0), 0.0, 0.0, 0, 0, Vector2(1.02, 1.1), 0.0, 0.0, 0, 0, Vector2(1.41, 1.1), 0.0, 0.0, 0, 0, Vector2(1.5899999, 0), 0.0, 0.0, 0, 0]
 point_count = 5
 metadata/_snap_enabled = true
 metadata/_snap_count = 100
 
 [sub_resource type="Curve" id="Curve_bnpwn"]
-_limits = [0.0, 10.0, 0.0, 2.0]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0]
-point_count = 1
+_limits = [0.0, 10.0, 0.0, 3.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(2.1565495, 0), 0.0, 0.0, 0, 0, Vector2(2.4057508, 4.402314), 0.0, 0.0, 0, 0]
+point_count = 3
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7sc4i"]
 atlas = ExtResource("9_215e1")
@@ -357,6 +358,7 @@ goblin_boss = ExtResource("4_ryrav")
 cerberus = ExtResource("9_vef74")
 mega_cerberus = ExtResource("9_hve3p")
 gargoyle = ExtResource("14_36jdj")
+banshee = ExtResource("31_xfvwf")
 player = NodePath("../player/PlayerArea")
 
 [node name="WaveTimer" type="Timer" parent="y Sorted Layer/WavesSystem"]
@@ -372,6 +374,10 @@ player = NodePath("../player/PlayerArea")
 [node name="GargoyleSpawnRate" type="Timer" parent="y Sorted Layer/WavesSystem"]
 
 [node name="MegaCerberusSpawnRate" type="Timer" parent="y Sorted Layer/WavesSystem"]
+
+[node name="BansheeSpawnRate" type="Timer" parent="y Sorted Layer/WavesSystem"]
+wait_time = 30.0
+autostart = true
 
 [node name="Consumables" type="Node" parent="y Sorted Layer" node_paths=PackedStringArray("player")]
 script = ExtResource("17_f1jbl")
@@ -632,4 +638,5 @@ autostart = true
 [connection signal="timeout" from="y Sorted Layer/WavesSystem/GoblinBossSpawnRate" to="y Sorted Layer/WavesSystem" method="_on_goblin_boss_spawn_rate_timeout"]
 [connection signal="timeout" from="y Sorted Layer/WavesSystem/GargoyleSpawnRate" to="y Sorted Layer/WavesSystem" method="_on_gargoyle_spawn_rate_timeout"]
 [connection signal="timeout" from="y Sorted Layer/WavesSystem/MegaCerberusSpawnRate" to="y Sorted Layer/WavesSystem" method="_on_mega_cerberus_spawn_rate_timeout"]
+[connection signal="timeout" from="y Sorted Layer/WavesSystem/BansheeSpawnRate" to="y Sorted Layer/WavesSystem" method="_on_banshee_spawn_rate_timeout"]
 [connection signal="timeout" from="y Sorted Layer/Consumables/ConsumableSpawnTimer" to="y Sorted Layer/Consumables" method="_on_consumable_spawn_timer_timeout"]

@@ -1,6 +1,8 @@
 extends Node2D
 class_name MobBehaviourModule
 
+const HIT_SOUND = preload("uid://2oeqxeyg41fj")
+
 @export var movement_speed: int
 @export var damage: float
 @export var health_module: HealthModule
@@ -57,9 +59,11 @@ func handle_sprite_flip() -> void:
 	## Behaviour node position! (Which does not moves at all)
 	#### CHAAAANGE THAT IS WRONG!!! This only flips the sprite, causing collision shape to me missaligned.
 	#### We need to flip the whole mob node.
-	mob_sprite.flip_h =  mob.global_position.x > player.global_position.x
+	if mob.global_position.distance_squared_to(player.global_position) > 3:
+		mob_sprite.flip_h =  mob.global_position.x >= player.global_position.x
 
 func handle_take_damage(damage_to_receive: float) -> void:
+	
 	var direction = mob.global_position.direction_to(player.global_position)
 	var mob_sprite_first_anim_frame = mob_sprite.sprite_frames.get_animation_names().get(0)
 	var mob_first_anim_frame_texture = mob_sprite.sprite_frames.get_frame_texture(mob_sprite_first_anim_frame, 0)
@@ -69,6 +73,15 @@ func handle_take_damage(damage_to_receive: float) -> void:
 	NumberPopUp.create_damage_number_pop_up(damage_to_receive, mob.global_position - Vector2(mob_offset_to_front_x, mob_offset_sprite_y))
 	var current_health = health_module.get_health()
 	health_module.set_health(current_health - damage_to_receive)
+	
+
+	var audio_player := AudioStreamPlayer.new()
+	audio_player.stream = HIT_SOUND
+	audio_player.volume_db = randf_range(-20, -24)
+	audio_player.pitch_scale = randf_range(-1.4, 1.4)
+
+	get_tree().get_first_node_in_group("Main").add_child(audio_player)
+	audio_player.play()
 	
 # drops xp orb
 func _on_health_module_health_depleted() -> void:

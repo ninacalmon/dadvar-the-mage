@@ -1,0 +1,148 @@
+[gd_scene load_steps=18 format=3 uid="uid://cakwnh4a4rc4f"]
+
+[ext_resource type="Script" uid="uid://b7bvl6gq2fdfg" path="res://Scenes/Enemies/Banshee/banshee.gd" id="1_xrhp3"]
+[ext_resource type="Shader" uid="uid://wy13ds7hgyp" path="res://Shaders/glowing.gdshader" id="2_afmmq"]
+[ext_resource type="Texture2D" uid="uid://darp0g7nxksbp" path="res://Sprites/Banshee.png" id="3_x7efa"]
+[ext_resource type="Script" uid="uid://ckp8nqvjgsevu" path="res://Modules/Generics/health_module.gd" id="5_q384t"]
+[ext_resource type="PackedScene" uid="uid://dnr2fm6mdvs2" path="res://Modules/Mobs/mob_behaviour_module.tscn" id="6_6ylle"]
+[ext_resource type="AudioStream" uid="uid://dlr3qeb4bxkdp" path="res://Sounds/banshee-scream-3s.mp3" id="7_2cwk4"]
+[ext_resource type="PackedScene" uid="uid://074u46307g8r" path="res://Scenes/Progression/Void Power/vp.tscn" id="7_3wn3w"]
+[ext_resource type="AudioStream" uid="uid://cdiqjuit0og4s" path="res://Sounds/explosion-sound.mp3" id="8_mbhbo"]
+[ext_resource type="AudioStream" uid="uid://2oeqxeyg41fj" path="res://Sounds/hit-sound-2.mp3" id="9_ihb8u"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jdkul"]
+resource_local_to_scene = true
+shader = ExtResource("2_afmmq")
+shader_parameter/glow_color = Color(0.5, 0.8, 1, 1)
+shader_parameter/radius = 10.0
+shader_parameter/intensity = 3.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o80aq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_x7efa")
+}],
+"loop": true,
+"name": &"ghost1",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vdney"]
+size = Vector2(8, 112)
+
+[sub_resource type="Gradient" id="Gradient_jdkul"]
+offsets = PackedFloat32Array(0.4413793, 1)
+colors = PackedColorArray(0.66937786, 1.0570047, 1.3171228, 0.5294118, 1, 1, 1, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2cwk4"]
+radius = 83.02409
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_mbhbo"]
+random_pitch = 1.2
+streams_count = 1
+stream_0/stream = ExtResource("7_2cwk4")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_2cwk4"]
+random_pitch = 1.2
+streams_count = 1
+stream_0/stream = ExtResource("8_mbhbo")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_v84ck"]
+random_pitch = 1.4
+streams_count = 1
+stream_0/stream = ExtResource("9_ihb8u")
+
+[node name="Banshee" type="CharacterBody2D" node_paths=PackedStringArray("behaviour_module")]
+y_sort_enabled = true
+collision_layer = 4
+collision_mask = 0
+motion_mode = 1
+platform_floor_layers = 4278190080
+safe_margin = 0.001
+script = ExtResource("1_xrhp3")
+behaviour_module = NodePath("Behaviour/MobBehaviour")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.30980393)
+light_mask = 9
+y_sort_enabled = true
+texture_filter = 1
+material = SubResource("ShaderMaterial_jdkul")
+sprite_frames = SubResource("SpriteFrames_o80aq")
+animation = &"ghost1"
+offset = Vector2(0, -37)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+y_sort_enabled = true
+position = Vector2(12, -41)
+shape = SubResource("RectangleShape2D_vdney")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+visible = false
+rect = Rect2(-420, -457, 840, 840)
+
+[node name="VisibleOnScreenScream" type="VisibleOnScreenNotifier2D" parent="."]
+rect = Rect2(-50, -110, 100, 150)
+
+[node name="BloodParticles" type="CPUParticles2D" parent="."]
+y_sort_enabled = true
+position = Vector2(0, -37)
+emitting = false
+amount = 30
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+lifetime_randomness = 1.0
+emission_shape = 2
+emission_sphere_radius = 19.74
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 200)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+scale_amount_min = 3.0
+scale_amount_max = 6.0
+color = Color(0, 8.718037, 8.718037, 1)
+color_ramp = SubResource("Gradient_jdkul")
+
+[node name="Behaviour" type="Node" parent="."]
+
+[node name="HealthModule" type="Node" parent="Behaviour" groups=["HealthModuleGroup"]]
+script = ExtResource("5_q384t")
+max_health = 20.0
+metadata/_custom_type_script = "uid://ckp8nqvjgsevu"
+
+[node name="MobBehaviour" parent="Behaviour" node_paths=PackedStringArray("health_module", "mob", "mob_sprite") instance=ExtResource("6_6ylle")]
+y_sort_enabled = true
+movement_speed = 420
+health_module = NodePath("../HealthModule")
+vp_orb_scene = ExtResource("7_3wn3w")
+mob = NodePath("../..")
+mob_sprite = NodePath("../../AnimatedSprite2D")
+
+[node name="ExplosionRange" type="Area2D" parent="."]
+
+[node name="ExplosionRangeCollision" type="CollisionShape2D" parent="ExplosionRange"]
+position = Vector2(11, -48)
+shape = SubResource("CircleShape2D_2cwk4")
+
+[node name="ExplosionTimer" type="Timer" parent="."]
+wait_time = 1.2
+one_shot = true
+
+[node name="Audios" type="Node" parent="."]
+
+[node name="AudioScreamPlayer" type="AudioStreamPlayer" parent="Audios"]
+stream = SubResource("AudioStreamRandomizer_mbhbo")
+
+[node name="ExplosionAudioPlayer" type="AudioStreamPlayer" parent="Audios"]
+stream = SubResource("AudioStreamRandomizer_2cwk4")
+volume_db = -7.0
+
+[node name="TES5TE PAUDIO" type="AudioStreamPlayer" parent="Audios"]
+stream = SubResource("AudioStreamRandomizer_v84ck")
+volume_db = -22.0
+
+[connection signal="health_depleted" from="Behaviour/HealthModule" to="." method="_on_ghost_health_module_health_depleted"]

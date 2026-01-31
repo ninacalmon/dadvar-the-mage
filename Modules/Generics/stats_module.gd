@@ -18,7 +18,7 @@ var current_cast_cooldown: float
 const PROGRESS_DIFFICULTY = 2
 var void_power: float = 0
 var current_level: int = 1
-var vp_needed: float = 150
+var vp_needed: float = 250
 
 var stat_modifiers: Array[StatModifier]
 

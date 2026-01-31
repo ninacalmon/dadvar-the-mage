@@ -39,10 +39,12 @@ var cast_cooldown = 0
 @onready var hit_flash_animation: AnimationPlayer = $HitFlashAnimPlayer
 @onready var magic_light: PointLight2D = $MagicLight
 @onready var hit_flash_material: ShaderMaterial = player_sprite.material
+@onready var timer_to_be_hurt: Timer = $"../TimerToBeHurt"
 
 #endregion
 
 var audio_track: AudioStream = preload("res://Sounds/retro-game-shot-2-152053.mp3")
+var mobs_on_damage_range: Array[MobBehaviourModule] = []
 const WAND_TIP_POSITION_X_ABSOLUTE = 63
 
 func start(pos):
@@ -50,8 +52,11 @@ func start(pos):
 	hit_flash_animation.play("hit_flash")
 	show()
 	hurt_box.disabled = false
-
+	self.body_exited.connect(_on_body_exited)
 	EventBus.new_spell_added.connect(add_new_spell)
+
+	timer_to_be_hurt.start()
+	timer_to_be_hurt.timeout.connect(hurt_myself)
 	#self.add_new_spell(ProfaneBolt.new())
 	#self.add_new_spell(OgresScent.new())
 	#self.add_new_spell(VampiricGoblet.new())
@@ -63,6 +68,10 @@ func start(pos):
 ## PUT THIS IN UTILS LATER!!!
 #func wobble():
 	#player_sprite.rotation = sin(Time.get_ticks_msec() * frequency) * amplitude
+	
+func hurt_myself():
+	for mob: MobBehaviourModule in mobs_on_damage_range:
+		self.take_damage(mob)
 
 func take_damage(mob_behaviour: MobBehaviourModule = null, bullet_module: BulletModule = null):
 	self.hit_flash_animation.play("hit_flash")
@@ -129,9 +138,15 @@ func _physics_process(delta: float) -> void:
 	# Collision
 func _on_body_entered(body: Node2D) -> void:
 	var is_mob = Interface.node_implements_interface(body, Interface.Mob)
-	if is_mob == true:
+	if is_mob:
 		var behaviour: MobBehaviourModule = body.behaviour_module
-		self.take_damage(behaviour)
+		mobs_on_damage_range.append(behaviour)
+
+func _on_body_exited(body: Node2D):
+	var is_mob = Interface.node_implements_interface(body, Interface.Mob)
+	if is_mob:
+		var behaviour: MobBehaviourModule = body.behaviour_module
+		mobs_on_damage_range.erase(behaviour)
 
 func _on_area_entered(area: Area2D) -> void:
 	var node_mob_projectile = Interface.is_any_interface_implements_node(find_root_node(area), Interface.MobProjectile)

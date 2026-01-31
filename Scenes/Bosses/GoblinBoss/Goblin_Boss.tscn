@@ -123,7 +123,7 @@ color = Color(0.28235295, 0, 0, 1)
 [node name="Behaviour" type="Node" parent="."]
 
 [node name="MobBehaviour" parent="Behaviour" node_paths=PackedStringArray("health_module", "mob", "mob_sprite") instance=ExtResource("3_1lps0")]
-movement_speed = 45
+movement_speed = 55
 damage = 20.0
 health_module = NodePath("../HealthModule")
 vp_orb_scene = ExtResource("5_1p0cp")
@@ -142,5 +142,6 @@ libraries = {
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_jbg4a")
+volume_db = -14.0
 
 [connection signal="health_depleted" from="Behaviour/HealthModule" to="." method="_on_goblin_boss_health_module_health_depleted"]
