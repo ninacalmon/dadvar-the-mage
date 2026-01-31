@@ -305,6 +305,13 @@ mob_scene = ExtResource("2_fc0e3")
 mob_scene2 = ExtResource("3_eow3j")
 mob_scene3 = ExtResource("4_ryrav")
 
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-201, 122)
+offset = Vector2(0, -65)
+zoom = Vector2(0.9, 0.9)
+position_smoothing_enabled = true
+script = ExtResource("8_vaj68")
+
 [node name="Bg & Borders" type="Node" parent="."]
 
 [node name="Bg" type="Sprite2D" parent="Bg & Borders"]
@@ -334,12 +341,6 @@ y_sort_enabled = true
 unique_name_in_owner = true
 position = Vector2(-201, 122)
 stats_module = SubResource("Resource_5b14r")
-
-[node name="Camera2D" type="Camera2D" parent="y Sorted Layer/player"]
-offset = Vector2(0, -65)
-zoom = Vector2(0.9, 0.9)
-position_smoothing_enabled = true
-script = ExtResource("8_vaj68")
 
 [node name="WavesSystem" type="Node2D" parent="y Sorted Layer" node_paths=PackedStringArray("score_timer", "player")]
 y_sort_enabled = true

@@ -45,7 +45,7 @@ func take_damage(damage: float):
 		2:
 			if animated_sprite_2d.animation != "broken":
 				animated_sprite_2d.play("broken")
-		3:
+		1:
 			if animated_sprite_2d.animation != "broken2":
 				animated_sprite_2d.play("broken2")
 
