@@ -199,6 +199,7 @@ func add_new_spell(spell: EventSpell):
 			var spell_context = SpellContext.new()
 			spell_context.stats_module = self.stats_module
 			spell_context.health_module = self.health_module
+			spell_context.player = self
 
 			spell.apply_spell(spell_context)
 		EventSpell.EventSpellType.NODE_SPELL:

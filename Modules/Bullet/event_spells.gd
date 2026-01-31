@@ -83,6 +83,7 @@ class StatsSpell extends EventSpell:
 			or spell_context.health_module is HealthModule,
 			"Stats Module OR Health Module provided to StatsSpell %s is invalid" % self.get_script().get_global_name()
 		)
+		assert(spell_context.player is Player, "Player provided to StatsSpell %s is invalid" % self.get_script().get_global_name())
 		assert(stat_modifier != null, "StatsSpell %s needs a stat modifier defined to apply effect" % self.get_script().get_global_name())
 
 @abstract
