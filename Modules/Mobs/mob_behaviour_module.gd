@@ -15,8 +15,13 @@ class_name MobBehaviourModule
 @onready var mob_screen_notifier = mob.get_node("VisibleOnScreenNotifier2D")
 
 var tick = 0
+var original_mob_sprite_scale_x
+var original_mob_sprite_scale_y
 ## ASSERT VARIABLES ON READY TO AVOID GETTING ERRORS THAT ARE NONSENSE
 func _ready():
+	self.original_mob_sprite_scale_x = self.mob_sprite.scale.x
+	self.original_mob_sprite_scale_y= self.mob_sprite.scale.y
+
 	health_module_node.connect("health_depleted", _on_health_module_health_depleted)
 	if mob_screen_notifier:
 		mob_screen_notifier.screen_exited.connect(_on_screen_exited)
@@ -78,13 +83,12 @@ func _on_health_module_health_depleted() -> void:
 	game_node.add_child(vp_orb)
 
 func damage_squish(amount, duration, ease_mode):
-	var original_scale_x = self.mob_sprite.scale.x
-	var original_scale_y = self.mob_sprite.scale.y
 	var squish_tween = get_tree().create_tween()
-	squish_tween.tween_property(self.mob_sprite, "scale:x", original_scale_x - amount, duration).set_trans(ease_mode)
-	squish_tween.parallel().tween_property(self.mob_sprite, "scale:y", original_scale_y + amount/3, duration).set_trans(ease_mode)
-	squish_tween.tween_property(self.mob_sprite, "scale:x", original_scale_x, duration).set_trans(ease_mode)
-	squish_tween.parallel().tween_property(self.mob_sprite, "scale:y", original_scale_y, duration).set_trans(ease_mode)
+	squish_tween.tween_property(self.mob_sprite, "scale:x", self.original_mob_sprite_scale_x - amount, duration).set_trans(ease_mode)
+	squish_tween.parallel().tween_property(self.mob_sprite, "scale:y", self.original_mob_sprite_scale_y + amount/3, duration).set_trans(ease_mode)
+	squish_tween.tween_property(self.mob_sprite, "scale:x", self.original_mob_sprite_scale_x, duration).set_trans(ease_mode)
+	squish_tween.parallel().tween_property(self.mob_sprite, "scale:y", self.original_mob_sprite_scale_y, duration).set_trans(ease_mode)
+
 
 func damage_knockback(amount):
 	mob.global_position = mob.global_position - mob.global_position.direction_to(player.global_position) * amount

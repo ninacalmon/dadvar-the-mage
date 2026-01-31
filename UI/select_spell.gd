@@ -29,8 +29,9 @@ var placeholder_spell = SpellWaste.new()
 var spell_left: EventSpell
 var spell_right: EventSpell
 
-
 var is_animation_backwards = false
+
+var cursor_texture: Texture2D
 
 func _ready():
 	EventBus.player_level_up.connect(_on_player_level_up)
@@ -61,6 +62,8 @@ func _on_choice_r_pressed() -> void:
 	self.on_selected_choice(self.spell_left)
 
 func _on_player_level_up(_level: int):
+	cursor_texture = preload("res://Sprites/big_hand_cursor.png")
+	Input.set_custom_mouse_cursor(cursor_texture, Input.CURSOR_ARROW, Vector2(0, 0))
 	is_animation_backwards = false
 	get_tree().paused = true
 
@@ -80,6 +83,8 @@ func _on_book_animation_finished():
 		self.visible = !self.visible
 		current_animation_frame = 0
 	else:
+		cursor_texture = preload("res://Sprites/cursor_hand.png")
+		Input.set_custom_mouse_cursor(cursor_texture, Input.CURSOR_ARROW, Vector2(0, 0))
 		get_tree().paused = false
 
 func _on_book_animation_frame_changed():

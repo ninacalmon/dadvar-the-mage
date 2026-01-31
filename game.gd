@@ -9,6 +9,7 @@ var time_count
 
 func _ready() -> void:
 	new_game()
+	#Engine.time_scale = 0.3
 	
 func new_game():
 	get_tree().paused = false

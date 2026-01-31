@@ -67,6 +67,7 @@ autoplay = true
 bus = &"SoundEffects"
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-energy = 1.5
+energy = 5.0
+range_item_cull_mask = 8
 texture = ExtResource("6_1d2fa")
-texture_scale = 2.5
+texture_scale = 6.5

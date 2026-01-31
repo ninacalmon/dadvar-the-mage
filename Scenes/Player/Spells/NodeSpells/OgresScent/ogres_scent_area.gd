@@ -2,12 +2,31 @@ class_name OgresScentArea extends Area2D
 
 @export var damage_per_tick: float = 1
 @export var tick_rate: float = 1
+@onready var point_light_2d: PointLight2D = $PointLight2D
+
 
 var targets_in_range: Array[Node] = []
+var oscilate_time: float
+var frequency = 4
+var max_oscilate_value = 0.8
+var min_oscilate_value = 0.4
 
 func _ready():
 	self.body_entered.connect(_on_body_entered)
 	self.body_exited.connect(_on_body_exited)
+	
+
+func oscilate_energy(delta: float):
+	var mid_value = (max_oscilate_value + min_oscilate_value) / 2
+	var amplitude = (max_oscilate_value - min_oscilate_value) / 2
+
+	oscilate_time += (delta * TAU) / frequency
+	point_light_2d.energy = sin(oscilate_time) * amplitude + mid_value
+	
+	
+	
+func _process(delta: float) -> void:
+	oscilate_energy(delta)
 
 func _on_body_entered(body: Node2D):
 	if Interface.node_implements_interface(body, Interface.Damageable):

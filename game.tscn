@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://qinxn2c2shu7"]
+[gd_scene load_steps=71 format=3 uid="uid://qinxn2c2shu7"]
 
 [ext_resource type="PackedScene" uid="uid://d2c1s3qmdi4ti" path="res://Scenes/Player/player.tscn" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://g1vr201lpslj" path="res://game.gd" id="1_feb5d"]
@@ -23,6 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://u0nob4ja1i7q" path="res://Sprites/Spell Sprites/Placeholder.png" id="12_hb5m1"]
 [ext_resource type="FontFile" uid="uid://stdwsoetsw4q" path="res://Fonts/Pixel_Operator/PixelOperatorHB.ttf" id="13_e36ub"]
 [ext_resource type="Script" uid="uid://bicyw5i7xjom1" path="res://game_manager.gd" id="13_lc2xo"]
+[ext_resource type="PackedScene" uid="uid://d0kj6ol22kpuh" path="res://Scenes/Enemies/Gargoyle/gargoyle.tscn" id="14_36jdj"]
 [ext_resource type="FontFile" uid="uid://kp6id4btpstd" path="res://Fonts/Pixel_Operator/PixelOperator8-Bold.ttf" id="14_e36ub"]
 [ext_resource type="Script" uid="uid://brrt48yngfmq3" path="res://Scenes/Progression/Consumables/consumables_system.gd" id="17_f1jbl"]
 [ext_resource type="PackedScene" uid="uid://r1rufctix7bt" path="res://Scenes/Progression/Consumables/vp_magnet.tscn" id="18_vaj68"]
@@ -68,6 +69,11 @@ _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.54847646, 0), 0.0, 0.0, 0, 0, 
 point_count = 5
 metadata/_snap_enabled = true
 metadata/_snap_count = 100
+
+[sub_resource type="Curve" id="Curve_bnpwn"]
+_limits = [0.0, 10.0, 0.0, 2.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0]
+point_count = 1
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7sc4i"]
 atlas = ExtResource("9_215e1")
@@ -343,11 +349,13 @@ ghost_curve = ExtResource("22_xa8c5")
 goblin_curve = SubResource("Curve_vaj68")
 cerberus_curve = SubResource("Curve_i2p71")
 goblin_boss_curve = SubResource("Curve_xa8c5")
+gargoyle_curve = SubResource("Curve_bnpwn")
 ghost = ExtResource("2_fc0e3")
 goblin = ExtResource("3_eow3j")
 goblin_boss = ExtResource("4_ryrav")
 cerberus = ExtResource("9_vef74")
 mega_cerberus = ExtResource("9_hve3p")
+gargoyle = ExtResource("14_36jdj")
 player = NodePath("../player/PlayerArea")
 
 [node name="WaveTimer" type="Timer" parent="y Sorted Layer/WavesSystem"]
@@ -359,6 +367,8 @@ player = NodePath("../player/PlayerArea")
 [node name="CerberusSpawnRate" type="Timer" parent="y Sorted Layer/WavesSystem"]
 
 [node name="GoblinBossSpawnRate" type="Timer" parent="y Sorted Layer/WavesSystem"]
+
+[node name="GargoyleSpawnRate" type="Timer" parent="y Sorted Layer/WavesSystem"]
 
 [node name="MegaCerberusSpawnRate" type="Timer" parent="y Sorted Layer/WavesSystem"]
 
@@ -386,8 +396,8 @@ visibility_layer = 0
 y_sort_enabled = true
 tile_set = ExtResource("7_36jdj")
 
-[node name="Goblin" parent="y Sorted Layer" instance=ExtResource("3_eow3j")]
-position = Vector2(50, 192)
+[node name="GargoyleBody2D" parent="y Sorted Layer" instance=ExtResource("14_36jdj")]
+position = Vector2(-593, 16)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
@@ -618,5 +628,6 @@ autostart = true
 [connection signal="timeout" from="y Sorted Layer/WavesSystem/GoblinSpawnRate" to="y Sorted Layer/WavesSystem" method="_on_goblin_spawn_rate_timeout"]
 [connection signal="timeout" from="y Sorted Layer/WavesSystem/CerberusSpawnRate" to="y Sorted Layer/WavesSystem" method="_on_cerberus_spawn_rate_timeout"]
 [connection signal="timeout" from="y Sorted Layer/WavesSystem/GoblinBossSpawnRate" to="y Sorted Layer/WavesSystem" method="_on_goblin_boss_spawn_rate_timeout"]
+[connection signal="timeout" from="y Sorted Layer/WavesSystem/GargoyleSpawnRate" to="y Sorted Layer/WavesSystem" method="_on_gargoyle_spawn_rate_timeout"]
 [connection signal="timeout" from="y Sorted Layer/WavesSystem/MegaCerberusSpawnRate" to="y Sorted Layer/WavesSystem" method="_on_mega_cerberus_spawn_rate_timeout"]
 [connection signal="timeout" from="y Sorted Layer/Consumables/ConsumableSpawnTimer" to="y Sorted Layer/Consumables" method="_on_consumable_spawn_timer_timeout"]

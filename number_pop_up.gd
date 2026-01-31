@@ -17,6 +17,11 @@ func create_number_pop_up(value: float, position: Vector2, show_time: float = 2,
 	number_pop_up.text = str(value)
 	number_pop_up.global_position = position
 	number_pop_up.modulate = color
+	if value >= 40:
+		number_pop_up.scale = Vector2.ONE * 2.0
+		
+	if value <= 10:
+		number_pop_up.scale = Vector2.ONE * 1.0
 	
 	var main_node = get_tree().get_first_node_in_group("Main")
 	var instance_parent = main_node

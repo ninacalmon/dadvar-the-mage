@@ -7,12 +7,14 @@ var time_count: float = 0
 @export var goblin_curve: Curve
 @export var cerberus_curve: Curve
 @export var goblin_boss_curve: Curve
+@export var gargoyle_curve: Curve
 
 @export var ghost: PackedScene
 @export var goblin: PackedScene
 @export var goblin_boss: PackedScene
 @export var cerberus: PackedScene
 @export var mega_cerberus: PackedScene
+@export var gargoyle: PackedScene
 @export var player: Area2D
 
 var mob = null
@@ -40,6 +42,9 @@ func _on_score_timer_timeout() -> void:
 		#Goblin Boss
 		$GoblinBossSpawnRate.wait_time = 1 / goblin_boss_curve.sample(time_count_normalized)
 		$GoblinBossSpawnRate.start()
+		#Gargoyle
+		$GargoyleSpawnRate.wait_time = 1 / gargoyle_curve.sample(time_count_normalized)
+		$GargoyleSpawnRate.start()
 		
 	if time_count == 125:
 		
@@ -85,16 +90,19 @@ func _on_goblin_spawn_rate_timeout() -> void:
 func _on_cerberus_spawn_rate_timeout() -> void:
 	var spawn_position = self.get_random_spawn_position()
 	spawn_mob(cerberus, spawn_position)
-	
+
 func _on_goblin_boss_spawn_rate_timeout() -> void:
 	var spawn_position = self.get_random_spawn_position()
-
 	spawn_mob(goblin_boss, spawn_position)
-	
+
+func _on_gargoyle_spawn_rate_timeout() -> void:
+	var spawn_position = self.get_random_spawn_position()
+	spawn_mob(gargoyle, spawn_position)
+
 func _on_mega_cerberus_spawn_rate_timeout() -> void:
 	var spawn_position = get_random_spawn_position()
 	spawn_mob(mega_cerberus, spawn_position)
-	
+
 
 func spawn_mob(mob_to_spawn, spawn_position):
 	if Global.CURRENT_MOBS_SPAWNED >= Global.MAXIMUM_MOBS_TO_SPAWN:
@@ -147,3 +155,4 @@ func _on_player_player_death() -> void:
 	$GoblinSpawnRate.stop()
 	$CerberusSpawnRate.stop()
 	$GoblinBossSpawnRate.stop()
+	$GargoyleSpawnRate.stop()

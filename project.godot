@@ -27,6 +27,7 @@ NumberPopUp="*res://number_pop_up.gd"
 [display]
 
 window/stretch/mode="canvas_items"
+mouse_cursor/custom_image="uid://bayme6icla0wm"
 
 [global_group]
 
