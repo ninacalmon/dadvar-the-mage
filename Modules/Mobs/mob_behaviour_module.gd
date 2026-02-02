@@ -36,10 +36,13 @@ func _on_screen_exited():
 
 func handle_movement() -> void:
 	# point to Player and move towards it.
+	## Verify if mob in the last X frames moved less than some limit. If this is true, try to move only after
+	## x seconds.
+	## Also, we can change the mob direction after X frames
 	var direction = mob.global_position.direction_to(player.global_position)
 	mob.velocity = direction * movement_speed
 	mob.move_and_slide()
-		
+
 ## This one works way better, but it does not check collisions because it is not using move_and_slide physics
 ## performance got from ~11ms to 0.79 ms on this method. Probably will have to work on this
 ## to handle mobs
@@ -105,3 +108,4 @@ func damage_squish(amount, duration, ease_mode):
 
 func damage_knockback(amount):
 	mob.global_position = mob.global_position - mob.global_position.direction_to(player.global_position) * amount
+	

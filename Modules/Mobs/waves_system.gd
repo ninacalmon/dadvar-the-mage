@@ -130,7 +130,7 @@ func spawn_mob(mob_to_spawn, spawn_position):
 	add_child(mob)
 
 	Global.CURRENT_MOBS_SPAWNED += 1
-
+	print(Global.CURRENT_MOBS_SPAWNED)
 
 func get_random_spawn_position() -> Vector2:
 	const OFFSET_TO_OUT_OF_VIEWPORT = 1.5

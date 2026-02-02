@@ -34,8 +34,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vdney"]
-size = Vector2(41, 63)
+[sub_resource type="CircleShape2D" id="CircleShape2D_jdkul"]
+radius = 26.0
 
 [sub_resource type="Gradient" id="Gradient_jdkul"]
 offsets = PackedFloat32Array(0.4413793, 1)
@@ -58,13 +58,13 @@ y_sort_enabled = true
 texture_filter = 1
 material = SubResource("ShaderMaterial_jdkul")
 sprite_frames = SubResource("SpriteFrames_o80aq")
-animation = &"ghost1"
+animation = &"ghost2"
 offset = Vector2(0, -37)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 y_sort_enabled = true
-position = Vector2(6.5, -35.5)
-shape = SubResource("RectangleShape2D_vdney")
+position = Vector2(7, -40)
+shape = SubResource("CircleShape2D_jdkul")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 visible = false

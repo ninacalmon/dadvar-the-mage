@@ -29,8 +29,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_p4grk"]
-size = Vector2(83, 121)
+[sub_resource type="CircleShape2D" id="CircleShape2D_p4grk"]
+radius = 47.502632
 
 [sub_resource type="Animation" id="Animation_xpyb8"]
 length = 0.001
@@ -89,7 +89,7 @@ animation = &"cerberus"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.49999976, -48.5)
 rotation = 1.5707964
-shape = SubResource("RectangleShape2D_p4grk")
+shape = SubResource("CircleShape2D_p4grk")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 visible = false

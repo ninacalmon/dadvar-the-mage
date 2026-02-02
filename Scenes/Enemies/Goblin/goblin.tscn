@@ -33,8 +33,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_u8yfu"]
-size = Vector2(69, 51)
+[sub_resource type="CircleShape2D" id="CircleShape2D_xpmg4"]
+radius = 30.149628
 
 [sub_resource type="Animation" id="Animation_xpyb8"]
 length = 0.001
@@ -90,11 +90,12 @@ sprite_frames = SubResource("SpriteFrames_q0u7v")
 animation = &"goblin2"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(2.9999998, -38)
+position = Vector2(3, -40)
 rotation = 1.5707964
-shape = SubResource("RectangleShape2D_u8yfu")
+shape = SubResource("CircleShape2D_xpmg4")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+visible = false
 rect = Rect2(-420, -499, 840, 840)
 
 [node name="BloodParticles" type="CPUParticles2D" parent="."]

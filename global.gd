@@ -1,7 +1,7 @@
 extends Node
 
 var CURRENT_MOBS_SPAWNED: int = 0
-var MAXIMUM_MOBS_TO_SPAWN: int = 400
+var MAXIMUM_MOBS_TO_SPAWN: int = 500
 const PLAYER_Y_SPRITE_OFFSET = -65
 
 enum Groups {

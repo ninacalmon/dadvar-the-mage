@@ -31,7 +31,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u8yfu"]
-size = Vector2(128, 72)
+size = Vector2(112, 42.666668)
 
 [sub_resource type="Animation" id="Animation_xpyb8"]
 length = 0.1
@@ -95,7 +95,7 @@ sprite_frames = SubResource("SpriteFrames_q0u7v")
 animation = &"GoblinBoss"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-4, -104)
+position = Vector2(-16, -92)
 rotation = 1.5707964
 scale = Vector2(1.5, 1.5)
 shape = SubResource("RectangleShape2D_u8yfu")

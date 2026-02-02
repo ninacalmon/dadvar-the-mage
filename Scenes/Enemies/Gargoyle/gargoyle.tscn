@@ -45,8 +45,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1fbxh"]
-size = Vector2(112, 104)
+[sub_resource type="CircleShape2D" id="CircleShape2D_31fxy"]
+radius = 51.009804
 
 [sub_resource type="Animation" id="Animation_xpyb8"]
 length = 0.1
@@ -105,12 +105,10 @@ light_mask = 9
 material = SubResource("ShaderMaterial_a3fl6")
 position = Vector2(0, -88)
 sprite_frames = SubResource("SpriteFrames_mtjh4")
-animation = &"broken2"
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(8, -68)
-shape = SubResource("RectangleShape2D_1fbxh")
+position = Vector2(5, -73)
+shape = SubResource("CircleShape2D_31fxy")
 
 [node name="Behaviour" type="Node" parent="."]
 
