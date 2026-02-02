@@ -95,7 +95,7 @@ rotation = 1.5707964
 shape = SubResource("CircleShape2D_xpmg4")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-visible = false
+modulate = Color(0, 0, 0, 1)
 rect = Rect2(-420, -499, 840, 840)
 
 [node name="BloodParticles" type="CPUParticles2D" parent="."]

@@ -81,7 +81,7 @@ script = ExtResource("1_bs2mh")
 behaviour_module = NodePath("Behaviour/MobBehaviour")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-visible = false
+modulate = Color(0, 0, 0, 1)
 scale = Vector2(1.5, 1.5)
 rect = Rect2(-420, -532, 840, 840)
 

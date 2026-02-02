@@ -77,7 +77,7 @@ func _on_ghost_spawn_rate_timeout() -> void:
 	if horde_chance <= 2:
 		var spawn_quantity = randi_range(3, 5)
 		for _sp in range(spawn_quantity):
-			spawn_mob(ghost, spawn_position + Vector2(10 * _sp, 10 * _sp))
+			spawn_mob(ghost, spawn_position + Vector2(randi_range(10, 50), randi_range(10, 50)))
 	else:
 		spawn_mob(ghost, spawn_position)
 	
@@ -87,7 +87,7 @@ func _on_goblin_spawn_rate_timeout() -> void:
 	if horde_chance <= 2:
 		var spawn_quantity = randi_range(3, 5)
 		for _sp in range(spawn_quantity):
-			spawn_mob(goblin, spawn_position + Vector2(10 * _sp, 10 * _sp))
+			spawn_mob(goblin, spawn_position + Vector2(randi_range(10, 50), randi_range(10, 50)))
 	else:
 		spawn_mob(goblin, spawn_position)
 

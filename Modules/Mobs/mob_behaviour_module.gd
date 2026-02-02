@@ -8,6 +8,7 @@ const HIT_SOUND = preload("uid://2oeqxeyg41fj")
 @export var health_module: HealthModule
 @export var vp_orb_scene: PackedScene
 
+
 @export var mob: CharacterBody2D
 @export var mob_sprite: AnimatedSprite2D
 @onready var player =  get_tree().get_first_node_in_group("PlayerGroup")
@@ -15,10 +16,13 @@ const HIT_SOUND = preload("uid://2oeqxeyg41fj")
 ## NOT THE BEST WAY TO DO THIS, MAYBE IMPROVE LATER
 @onready var health_module_node = get_parent().get_node("HealthModule")
 @onready var mob_screen_notifier = mob.get_node("VisibleOnScreenNotifier2D")
+@onready var lifespan_timer: Timer = $LifespanTimer
 
 var tick = 0
 var original_mob_sprite_scale_x
 var original_mob_sprite_scale_y
+var time: int = 0
+
 ## ASSERT VARIABLES ON READY TO AVOID GETTING ERRORS THAT ARE NONSENSE
 func _ready():
 	self.original_mob_sprite_scale_x = self.mob_sprite.scale.x
@@ -27,6 +31,10 @@ func _ready():
 	health_module_node.connect("health_depleted", _on_health_module_health_depleted)
 	if mob_screen_notifier:
 		mob_screen_notifier.screen_exited.connect(_on_screen_exited)
+		
+	lifespan_timer.timeout.connect(self_despawn)
+	lifespan_timer.start()
+
 
 func _on_screen_exited():
 	mob.queue_free()
@@ -105,7 +113,10 @@ func damage_squish(amount, duration, ease_mode):
 	squish_tween.tween_property(self.mob_sprite, "scale:x", self.original_mob_sprite_scale_x, duration).set_trans(ease_mode)
 	squish_tween.parallel().tween_property(self.mob_sprite, "scale:y", self.original_mob_sprite_scale_y, duration).set_trans(ease_mode)
 
-
 func damage_knockback(amount):
 	mob.global_position = mob.global_position - mob.global_position.direction_to(player.global_position) * amount
 	
+func self_despawn():
+	print("TCHAU")
+	Global.CURRENT_MOBS_SPAWNED -= 1
+	mob.queue_free()

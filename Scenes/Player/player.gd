@@ -11,6 +11,7 @@ signal player_death
 @export var speed = 400
 @export var bullet: PackedScene
 var cast_cooldown = 0
+var lazy_cast_cooldown = 0
 
 #@export_subgroup("Wobble")
 #@export var frequency := 1.0
@@ -85,56 +86,41 @@ func take_damage(mob_behaviour: MobBehaviourModule = null, bullet_module: Bullet
 
 func _physics_process(delta: float) -> void:
 	cast_cooldown = max(cast_cooldown - delta, 0)
+	lazy_cast_cooldown = max(lazy_cast_cooldown - delta, 0)
+	
 	if Input.is_action_just_pressed("shoot") and cast_cooldown <= 0:
-		var bullet_instance = self.bullet.instantiate()
-		var bullet_module = bullet_instance.bullet_module
-		bullet_instance.global_position = wand_tip.position
-
-		var spell_context = SpellContext.new()
-
-		spell_context.bullet_module = bullet_module
-
-		for projectile_spell in projectile_spells:
-			projectile_spell.apply_spell(spell_context)
-
-		NodeShake.apply_shake(player_sprite, 5, 20)
+		shoot()
 		
-		magic_light.position = wand_tip.position 
-		magic_light.texture_scale = randf_range(2.5, 3)
-		magic_light.energy = randf_range(13, 16)
-		magic_light.enabled = true
-	
-		var light_tween = get_tree().create_tween()
-		light_tween.tween_property(magic_light, "energy", 0, stats_module.base_cast_cooldown)
-		light_tween.parallel().tween_property(magic_light, "texture_scale", 0.8, stats_module.base_cast_cooldown)
-		get_parent().add_child(bullet_instance)
-		cast_cooldown = self.stats_module.current_cast_cooldown
-	
+	if Input.is_action_pressed("shoot") and lazy_cast_cooldown <= 0:
+		shoot()
 
-#func _process(delta: float) -> void:
-	#var velocity = Vector2.ZERO
-	#if Input.is_action_pressed("Right"):
-		#velocity.x += 1
-	#if Input.is_action_pressed("Left"):
-		#velocity.x -= 1
-	#if Input.is_action_pressed("Down"):
-		#velocity.y += 1
-	#if Input.is_action_pressed("Up"):
-		#velocity.y -= 1
-#
-	#if velocity.length() > 0:
-		#player_sprite.animation = "idle"
-		#player_sprite.flip_h = velocity.x < 0
-#
-		#wand_tip.position.x = -WAND_TIP_POSITION_X_ABSOLUTE if velocity.x < 0 else WAND_TIP_POSITION_X_ABSOLUTE
-		#wobble()
-		#velocity = velocity.normalized() * stats_module.current_move_speed
-	#else:
-		#player_sprite.animation = "idle"
-		#player_sprite.rotation = 0
-		#
-	#position += velocity * delta # updating position.
+func shoot():
+	var bullet_instance = self.bullet.instantiate()
+	var bullet_module = bullet_instance.bullet_module
+	bullet_instance.global_position = wand_tip.position
 
+	var spell_context = SpellContext.new()
+
+	spell_context.bullet_module = bullet_module
+
+	for projectile_spell in projectile_spells:
+		projectile_spell.apply_spell(spell_context)
+
+	NodeShake.apply_shake(player_sprite, 5, 20)
+	
+	magic_light.position = wand_tip.position 
+	magic_light.texture_scale = randf_range(2.5, 3)
+	magic_light.energy = randf_range(13, 16)
+	magic_light.enabled = true
+
+	var light_tween = get_tree().create_tween()
+	light_tween.tween_property(magic_light, "energy", 0, stats_module.base_cast_cooldown)
+	light_tween.parallel().tween_property(magic_light, "texture_scale", 0.8, stats_module.base_cast_cooldown)
+	get_parent().add_child(bullet_instance)
+	cast_cooldown = self.stats_module.current_cast_cooldown
+	lazy_cast_cooldown = self.stats_module.current_cast_cooldown * 2
+	
+	
 	# Collision
 func _on_body_entered(body: Node2D) -> void:
 	var is_mob = Interface.node_implements_interface(body, Interface.Mob)
@@ -231,3 +217,4 @@ func add_new_spell(spell: EventSpell):
 			spell_context.player = self
 
 			spell.apply_spell(spell_context)
+			

@@ -79,7 +79,7 @@ position = Vector2(12, -41)
 shape = SubResource("RectangleShape2D_vdney")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-visible = false
+modulate = Color(0, 0, 0, 1)
 rect = Rect2(-420, -457, 840, 840)
 
 [node name="VisibleOnScreenScream" type="VisibleOnScreenNotifier2D" parent="."]
