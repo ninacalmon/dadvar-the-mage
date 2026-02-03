@@ -7,6 +7,7 @@ var closing_book_sound = preload("res://Sounds/book-closing-466850.mp3")
 var stream_player
 var stream_player2
 
+@onready var control: Control = $Control
 @onready var choice_l: Button = %ChoiceL
 @onready var choice_r: Button = %ChoiceR
 @onready var sprite_l: Sprite2D = %SpriteL
@@ -38,7 +39,7 @@ func _ready():
 	choice_l.pressed.connect(_on_choice_l_pressed)
 	choice_r.pressed.connect(_on_choice_r_pressed)
 	book_animation.frame_changed.connect(_on_book_animation_frame_changed)
-	self.hide()
+	control.hide()
 	
 	stream_player = AudioStreamPlayer.new()
 	stream_player.pitch_scale = 1.3
@@ -74,18 +75,20 @@ func _on_player_level_up(_level: int):
 	## SPELL RIGHT
 	self.show_spell_on_ui(self.spell_right, self.sprite_r, self.desc_r, self.title_r, self.choice_r)
 
+	book_animation.show()
 	book_animation.play()
 	stream_player.play()
 	book_animation.animation_finished.connect(_on_book_animation_finished)
 
 func _on_book_animation_finished():
 	if !is_animation_backwards:
-		self.visible = !self.visible
+		control.visible = !control.visible
 		current_animation_frame = 0
 	else:
 		cursor_texture = preload("res://Sprites/cursor_hand.png")
 		Input.set_custom_mouse_cursor(cursor_texture, Input.CURSOR_ARROW, Vector2(0, 0))
 		get_tree().paused = false
+		book_animation.hide()
 
 func _on_book_animation_frame_changed():
 	current_animation_frame += 1
@@ -99,7 +102,7 @@ func on_selected_choice(spell_not_chosen: EventSpell):
 		## APPEND OPTION NOT CHOSEN TO POSSIBLE SPELL OPTIONS ARRAY AGAIN
 		possible_spell_options.append(spell_not_chosen)
 
-	self.hide() 
+	control.hide() 
 	book_animation.play_backwards()
 	is_animation_backwards = true
 

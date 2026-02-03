@@ -1,18 +1,26 @@
-[gd_scene load_steps=14 format=3 uid="uid://lo1aexwurrqg"]
+[gd_scene load_steps=13 format=3 uid="uid://lo1aexwurrqg"]
 
 [ext_resource type="Script" uid="uid://66e13ckj7aom" path="res://Scenes/Enemies/Goblin/goblin.gd" id="1_v3txi"]
 [ext_resource type="Texture2D" uid="uid://mxpku1fk6108" path="res://Sprites/Goblin-2.png" id="2_v3txi"]
-[ext_resource type="Shader" uid="uid://mm42ofpnqd40" path="res://Shaders/hit_flash.tres" id="2_xpyb8"]
+[ext_resource type="Shader" uid="uid://dvafedygytn42" path="res://Shaders/main_shader.gdshader" id="2_xpmg4"]
 [ext_resource type="Texture2D" uid="uid://yx74icg37doa" path="res://Sprites/Goblin-3.png" id="3_xpyb8"]
 [ext_resource type="PackedScene" uid="uid://dnr2fm6mdvs2" path="res://Modules/Mobs/mob_behaviour_module.tscn" id="4_xpyb8"]
 [ext_resource type="Script" uid="uid://ckp8nqvjgsevu" path="res://Modules/Generics/health_module.gd" id="6_u8yfu"]
 [ext_resource type="PackedScene" uid="uid://074u46307g8r" path="res://Scenes/Progression/Void Power/vp.tscn" id="6_xpmg4"]
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_o4xp5"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6t58p"]
+noise = SubResource("FastNoiseLite_o4xp5")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_u8yfu"]
 resource_local_to_scene = true
-shader = ExtResource("2_xpyb8")
-shader_parameter/enable = false
-shader_parameter/ColorParameter = Color(1, 1, 1, 1)
+shader = ExtResource("2_xpmg4")
+shader_parameter/hit_flash_enabled = false
+shader_parameter/hit_flash_color = Color(1, 1, 1, 1)
+shader_parameter/dissolve_noise = SubResource("NoiseTexture2D_6t58p")
+shader_parameter/dissolve_value = 1.0
+shader_parameter/dissolve_outline_color = Color(0.305882, 0.854902, 0.941176, 1)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_q0u7v"]
 animations = [{
@@ -35,43 +43,6 @@ animations = [{
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xpmg4"]
 radius = 30.149628
-
-[sub_resource type="Animation" id="Animation_xpyb8"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/enable")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="Animation" id="Animation_u8yfu"]
-resource_name = "hit_flash"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/enable")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [true, false]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_xpmg4"]
-_data = {
-&"RESET": SubResource("Animation_xpyb8"),
-&"hit_flash": SubResource("Animation_u8yfu")
-}
 
 [node name="Goblin" type="CharacterBody2D" node_paths=PackedStringArray("behaviour_module")]
 collision_layer = 2
@@ -120,22 +91,16 @@ color = Color(0.28235295, 0, 0, 1)
 
 [node name="Behaviour" type="Node" parent="."]
 
-[node name="MobBehaviour" parent="Behaviour" node_paths=PackedStringArray("health_module", "mob", "mob_sprite") instance=ExtResource("4_xpyb8")]
+[node name="MobBehaviour" parent="Behaviour" node_paths=PackedStringArray("health_module", "mob", "mob_collision_shape", "mob_sprite") instance=ExtResource("4_xpyb8")]
 movement_speed = 50
 damage = 10.0
 health_module = NodePath("../HealthModule")
 vp_orb_scene = ExtResource("6_xpmg4")
 mob = NodePath("../..")
+mob_collision_shape = NodePath("../../CollisionShape2D")
 mob_sprite = NodePath("../../AnimatedSprite2D")
 
 [node name="HealthModule" type="Node" parent="Behaviour" groups=["HealthModuleGroup"]]
 script = ExtResource("6_u8yfu")
 max_health = 50.0
 metadata/_custom_type_script = "uid://ckp8nqvjgsevu"
-
-[node name="HitFlashAnimPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_xpmg4")
-}
-
-[connection signal="health_depleted" from="Behaviour/HealthModule" to="." method="_on_goblin_health_module_health_depleted"]

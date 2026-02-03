@@ -1,9 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://d0kj6ol22kpuh"]
+[gd_scene load_steps=18 format=3 uid="uid://d0kj6ol22kpuh"]
 
 [ext_resource type="Script" uid="uid://bfowbx164eqei" path="res://Scenes/Enemies/Gargoyle/gargoyle.gd" id="1_lnp2y"]
 [ext_resource type="PackedScene" uid="uid://dnr2fm6mdvs2" path="res://Modules/Mobs/mob_behaviour_module.tscn" id="1_sltjp"]
+[ext_resource type="Shader" uid="uid://dvafedygytn42" path="res://Shaders/main_shader.gdshader" id="2_31fxy"]
 [ext_resource type="Texture2D" uid="uid://ctswk26uywcu6" path="res://Sprites/gargoyle.png" id="2_a3fl6"]
-[ext_resource type="Shader" uid="uid://mm42ofpnqd40" path="res://Shaders/hit_flash.tres" id="2_lnp2y"]
 [ext_resource type="PackedScene" uid="uid://074u46307g8r" path="res://Scenes/Progression/Void Power/vp.tscn" id="2_snxcg"]
 [ext_resource type="Texture2D" uid="uid://cql1ksgwmulpy" path="res://Sprites/gargoyle_broken.png" id="3_a3fl6"]
 [ext_resource type="Script" uid="uid://ckp8nqvjgsevu" path="res://Modules/Generics/health_module.gd" id="3_lnp2y"]
@@ -12,11 +12,19 @@
 [ext_resource type="AudioStream" uid="uid://whpnyaraeidj" path="res://Sounds/broken_stone2.mp3" id="10_parks"]
 [ext_resource type="AudioStream" uid="uid://csnyh36wnyibg" path="res://Sounds/broken_stone3.mp3" id="11_vlas6"]
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ib5h1"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fxstd"]
+noise = SubResource("FastNoiseLite_ib5h1")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a3fl6"]
 resource_local_to_scene = true
-shader = ExtResource("2_lnp2y")
-shader_parameter/enable = false
-shader_parameter/ColorParameter = Color(1, 1, 1, 1)
+shader = ExtResource("2_31fxy")
+shader_parameter/hit_flash_enabled = false
+shader_parameter/hit_flash_color = Color(1, 1, 1, 1)
+shader_parameter/dissolve_noise = SubResource("NoiseTexture2D_fxstd")
+shader_parameter/dissolve_value = 1.0
+shader_parameter/dissolve_outline_color = Color(0.305882, 0.854902, 0.941176, 1)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_mtjh4"]
 animations = [{
@@ -48,43 +56,6 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_31fxy"]
 radius = 51.009804
 
-[sub_resource type="Animation" id="Animation_xpyb8"]
-length = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/enable")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="Animation" id="Animation_u8yfu"]
-resource_name = "hit_flash"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/enable")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [true, false]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_xpmg4"]
-_data = {
-&"RESET": SubResource("Animation_xpyb8"),
-&"hit_flash": SubResource("Animation_u8yfu")
-}
-
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_y8c8q"]
 random_pitch = 2.2
 streams_count = 3
@@ -112,23 +83,19 @@ shape = SubResource("CircleShape2D_31fxy")
 
 [node name="Behaviour" type="Node" parent="."]
 
-[node name="MobBehaviour" parent="Behaviour" node_paths=PackedStringArray("health_module", "mob", "mob_sprite") instance=ExtResource("1_sltjp")]
+[node name="MobBehaviour" parent="Behaviour" node_paths=PackedStringArray("health_module", "mob", "mob_collision_shape", "mob_sprite") instance=ExtResource("1_sltjp")]
 movement_speed = 25
 damage = 30.0
 health_module = NodePath("../HealthModule")
 vp_orb_scene = ExtResource("2_snxcg")
 mob = NodePath("../..")
+mob_collision_shape = NodePath("../../Hitbox")
 mob_sprite = NodePath("../../AnimatedSprite2D")
 
 [node name="HealthModule" type="Node" parent="Behaviour"]
 script = ExtResource("3_lnp2y")
 max_health = 240.0
 metadata/_custom_type_script = "uid://ckp8nqvjgsevu"
-
-[node name="HitFlashAnimPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_xpmg4")
-}
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 modulate = Color(0, 0, 0, 1)
@@ -157,5 +124,3 @@ initial_velocity_max = 100.0
 scale_amount_min = 4.0
 scale_amount_max = 7.0
 color = Color(0.088, 0.0976, 0.1, 1)
-
-[connection signal="health_depleted" from="Behaviour/HealthModule" to="." method="_on_gargoyle_health_module_health_depleted"]

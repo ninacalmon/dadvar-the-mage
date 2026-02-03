@@ -1,7 +1,7 @@
-[gd_scene load_steps=18 format=3 uid="uid://cakwnh4a4rc4f"]
+[gd_scene load_steps=20 format=3 uid="uid://cakwnh4a4rc4f"]
 
 [ext_resource type="Script" uid="uid://b7bvl6gq2fdfg" path="res://Scenes/Enemies/Banshee/banshee.gd" id="1_xrhp3"]
-[ext_resource type="Shader" uid="uid://wy13ds7hgyp" path="res://Shaders/glowing.gdshader" id="2_afmmq"]
+[ext_resource type="Shader" uid="uid://cwxvplnqrndsl" path="res://Shaders/main_shader_glow.gdshader" id="2_ihb8u"]
 [ext_resource type="Texture2D" uid="uid://darp0g7nxksbp" path="res://Sprites/Banshee.png" id="3_x7efa"]
 [ext_resource type="Script" uid="uid://ckp8nqvjgsevu" path="res://Modules/Generics/health_module.gd" id="5_q384t"]
 [ext_resource type="PackedScene" uid="uid://dnr2fm6mdvs2" path="res://Modules/Mobs/mob_behaviour_module.tscn" id="6_6ylle"]
@@ -10,12 +10,22 @@
 [ext_resource type="AudioStream" uid="uid://cdiqjuit0og4s" path="res://Sounds/explosion-sound.mp3" id="8_mbhbo"]
 [ext_resource type="AudioStream" uid="uid://2oeqxeyg41fj" path="res://Sounds/hit-sound-2.mp3" id="9_ihb8u"]
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ihb8u"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_v84ck"]
+noise = SubResource("FastNoiseLite_ihb8u")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jdkul"]
 resource_local_to_scene = true
-shader = ExtResource("2_afmmq")
+shader = ExtResource("2_ihb8u")
 shader_parameter/glow_color = Color(0.5, 0.8, 1, 1)
-shader_parameter/radius = 10.0
-shader_parameter/intensity = 3.0
+shader_parameter/glow_radius = 10.0
+shader_parameter/glow_intensity = 3.3
+shader_parameter/hit_flash_enabled = false
+shader_parameter/hit_flash_color = Color(1, 1, 1, 1)
+shader_parameter/dissolve_noise = SubResource("NoiseTexture2D_v84ck")
+shader_parameter/dissolve_value = 1.0
+shader_parameter/dissolve_outline_color = Color(0.305882, 0.854902, 0.941176, 1)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_o80aq"]
 animations = [{
@@ -114,12 +124,13 @@ script = ExtResource("5_q384t")
 max_health = 20.0
 metadata/_custom_type_script = "uid://ckp8nqvjgsevu"
 
-[node name="MobBehaviour" parent="Behaviour" node_paths=PackedStringArray("health_module", "mob", "mob_sprite") instance=ExtResource("6_6ylle")]
+[node name="MobBehaviour" parent="Behaviour" node_paths=PackedStringArray("health_module", "mob", "mob_collision_shape", "mob_sprite") instance=ExtResource("6_6ylle")]
 y_sort_enabled = true
 movement_speed = 420
 health_module = NodePath("../HealthModule")
 vp_orb_scene = ExtResource("7_3wn3w")
 mob = NodePath("../..")
+mob_collision_shape = NodePath("../../CollisionShape2D")
 mob_sprite = NodePath("../../AnimatedSprite2D")
 
 [node name="ExplosionRange" type="Area2D" parent="."]
@@ -144,5 +155,3 @@ volume_db = -7.0
 [node name="TES5TE PAUDIO" type="AudioStreamPlayer" parent="Audios"]
 stream = SubResource("AudioStreamRandomizer_v84ck")
 volume_db = -22.0
-
-[connection signal="health_depleted" from="Behaviour/HealthModule" to="." method="_on_ghost_health_module_health_depleted"]

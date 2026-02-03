@@ -3,12 +3,9 @@ extends CharacterBody2D
 var implements = [Interface.Mob, Interface.Damageable]
 
 @export var behaviour_module: MobBehaviourModule
-@export var hit_flash_shader: ShaderMaterial
 
-@onready var hit_flash_animation = $HitFlashAnimPlayer
 var audio_track: = preload("res://Sounds/dogcrying1.mp3")
 var audio_track2: = preload("res://Sounds/dogcrying2.mp3")
-
 
 var colour0 = Color(1.0, 1.0, 1.0)
 var colour1 = Color(0.7, 0.595, 0.595)
@@ -19,6 +16,7 @@ var colour3 = Color(1.317, 1.317, 1.317)
 func _ready() -> void:
 	var colour_options = [colour0, colour0, colour0, colour1, colour2, colour3]
 	$AnimatedSprite2D.modulate = colour_options.pick_random()
+	EventBus.enemy_died.connect(_on_enemy_died_received)
 
 func _physics_process(_delta: float) -> void:
 	behaviour_module.handle_movement()
@@ -28,16 +26,13 @@ func _process(_delta: float) -> void:
 	
 func take_damage(damage: float):
 	$BloodParticles.emitting = true
-	hit_flash_animation.play("hit_flash")
 	behaviour_module.damage_squish(0.2, 0.1, Tween.TRANS_BOUNCE)
 	behaviour_module.damage_knockback(25)
 	behaviour_module.handle_take_damage(damage)
 
-func _on_cerberus_health_module_health_depleted() -> void:
-	$CollisionShape2D.set_deferred("disabled", true)
-	$BloodParticles.emitting = true
-	hit_flash_animation.connect("animation_finished", die_after_anim_finished)
-	hit_flash_animation.play_backwards("hit_flash")
+func _on_enemy_died_received(_self: MobBehaviourModule) -> void:
+	if self.behaviour_module != _self:
+		return
 
-func die_after_anim_finished(_anim_name):
-	queue_free()
+	$BloodParticles.emitting = true
+	self.queue_free()

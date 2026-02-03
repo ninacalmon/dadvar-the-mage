@@ -1,23 +1,28 @@
-[gd_scene load_steps=15 format=3 uid="uid://ck5sefsx2pmdk"]
+[gd_scene load_steps=16 format=3 uid="uid://ck5sefsx2pmdk"]
 
 [ext_resource type="Script" uid="uid://d2a7beioym84e" path="res://Scenes/Bosses/MegaCerberus/mega_cerberus.gd" id="1_40f5u"]
-[ext_resource type="Shader" uid="uid://mm42ofpnqd40" path="res://Shaders/hit_flash.tres" id="2_4khvt"]
 [ext_resource type="Texture2D" uid="uid://cbu0c86h4sygg" path="res://Sprites/cerberus.png" id="3_d02t7"]
 [ext_resource type="PackedScene" uid="uid://dnr2fm6mdvs2" path="res://Modules/Mobs/mob_behaviour_module.tscn" id="4_0n0sj"]
+[ext_resource type="Shader" uid="uid://dvafedygytn42" path="res://Shaders/main_shader.gdshader" id="4_clmh5"]
 [ext_resource type="Script" uid="uid://ckp8nqvjgsevu" path="res://Modules/Generics/health_module.gd" id="5_clmh5"]
 [ext_resource type="PackedScene" uid="uid://c3ueu20cyo6w8" path="res://Scenes/Bosses/MegaCerberus/mob_projectile.tscn" id="6_4khvt"]
 [ext_resource type="PackedScene" uid="uid://074u46307g8r" path="res://Scenes/Progression/Void Power/vp.tscn" id="6_d02t7"]
+[ext_resource type="AudioStream" uid="uid://cp0spfqjoqdp1" path="res://Sounds/dogcrying1.mp3" id="9_8ig6l"]
+[ext_resource type="AudioStream" uid="uid://df3nlfbays2ir" path="res://Sounds/dogcrying2.mp3" id="10_py3a6"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_40f5u"]
-shader = ExtResource("2_4khvt")
-shader_parameter/enable = false
-shader_parameter/ColorParameter = Color(0.364706, 0, 0, 1)
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_8ig6l"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_py3a6"]
+noise = SubResource("FastNoiseLite_8ig6l")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_u8yfu"]
 resource_local_to_scene = true
-shader = ExtResource("2_4khvt")
-shader_parameter/enable = false
-shader_parameter/ColorParameter = Color(1, 1, 1, 1)
+shader = ExtResource("4_clmh5")
+shader_parameter/hit_flash_enabled = false
+shader_parameter/hit_flash_color = Color(1, 1, 1, 1)
+shader_parameter/dissolve_noise = SubResource("NoiseTexture2D_py3a6")
+shader_parameter/dissolve_value = 1.0
+shader_parameter/dissolve_outline_color = Color(0.305882, 0.854902, 0.941176, 1)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8ig6l"]
 animations = [{
@@ -33,42 +38,10 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d02t7"]
 size = Vector2(80, 126)
 
-[sub_resource type="Animation" id="Animation_xpyb8"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/enable")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="Animation" id="Animation_u8yfu"]
-resource_name = "hit_flash"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/enable")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [true, false]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_xpmg4"]
-_data = {
-&"RESET": SubResource("Animation_xpyb8"),
-&"hit_flash": SubResource("Animation_u8yfu")
-}
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_tmf4s"]
+streams_count = 2
+stream_0/stream = ExtResource("9_8ig6l")
+stream_1/stream = ExtResource("10_py3a6")
 
 [node name="Mega Cerberus" type="CharacterBody2D" node_paths=PackedStringArray("behaviour_module")]
 scale = Vector2(4, 4)
@@ -79,7 +52,6 @@ platform_floor_layers = 4278190080
 safe_margin = 0.001
 script = ExtResource("1_40f5u")
 behaviour_module = NodePath("Behaviour/MobBehaviour")
-hit_flash_shader = SubResource("ShaderMaterial_40f5u")
 bullet = ExtResource("6_4khvt")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -126,12 +98,13 @@ position = Vector2(10, -96)
 
 [node name="Behaviour" type="Node" parent="."]
 
-[node name="MobBehaviour" parent="Behaviour" node_paths=PackedStringArray("health_module", "mob", "mob_sprite") instance=ExtResource("4_0n0sj")]
+[node name="MobBehaviour" parent="Behaviour" node_paths=PackedStringArray("health_module", "mob", "mob_collision_shape", "mob_sprite") instance=ExtResource("4_0n0sj")]
 movement_speed = 70
 damage = 25.0
 health_module = NodePath("../HealthModule")
 vp_orb_scene = ExtResource("6_d02t7")
 mob = NodePath("../..")
+mob_collision_shape = NodePath("../../CollisionShape2D")
 mob_sprite = NodePath("../../AnimatedSprite2D")
 
 [node name="HealthModule" type="Node" parent="Behaviour"]
@@ -139,14 +112,12 @@ script = ExtResource("5_clmh5")
 max_health = 2400.0
 metadata/_custom_type_script = "uid://ckp8nqvjgsevu"
 
-[node name="HitFlashAnimPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_xpmg4")
-}
-
 [node name="MobCooldown" type="Timer" parent="."]
 wait_time = 0.5
 autostart = true
 
-[connection signal="health_depleted" from="Behaviour/HealthModule" to="." method="_on_cerberus_health_module_health_depleted"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_tmf4s")
+volume_db = -10.0
+
 [connection signal="timeout" from="MobCooldown" to="." method="_on_mob_cooldown_timeout"]

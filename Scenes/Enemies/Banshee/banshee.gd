@@ -24,6 +24,7 @@ func _ready() -> void:
 	explosion_range.area_exited.connect(on_banshee_explosion_range_area_exited)
 	explosion_timer.timeout.connect(explode)
 	visible_on_screen_scream.screen_entered.connect(audio_scream_player.play)
+	EventBus.enemy_died.connect(_on_enemy_died_received)
 
 func _physics_process(_delta: float) -> void:
 	behaviour_module.handle_movement()
@@ -37,11 +38,6 @@ func take_damage(damage: float):
 	behaviour_module.damage_knockback(25)
 	behaviour_module.handle_take_damage(damage)
 
-func _on_ghost_health_module_health_depleted() -> void:
-	$BloodParticles.emitting = true
-	$CollisionShape2D.set_deferred("disabled", true)
-	self.queue_free()
-	
 func on_banshee_explosion_range_area_entered(area: Area2D):
 	if area.is_in_group("PlayerGroup"):
 		audio_scream_player.play()
@@ -84,3 +80,10 @@ func spawn_explosion_particles():
 	var main_node = get_tree().get_first_node_in_group("Main")
 	main_node.add_child(explosion_particles)
 	explosion_particles.finished.connect(func(): explosion_particles.queue_free())
+
+func _on_enemy_died_received(_self: MobBehaviourModule) -> void:
+	if self.behaviour_module != _self:
+		return
+
+	$BloodParticles.emitting = true
+	self.queue_free()

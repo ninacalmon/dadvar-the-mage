@@ -408,6 +408,28 @@ visibility_layer = 0
 y_sort_enabled = true
 tile_set = ExtResource("7_36jdj")
 
+[node name="GoblinBoss" parent="y Sorted Layer" instance=ExtResource("4_ryrav")]
+position = Vector2(-386, -103)
+
+[node name="Mega Cerberus" parent="y Sorted Layer" instance=ExtResource("9_hve3p")]
+visible = false
+position = Vector2(-10, -80)
+
+[node name="Banshee" parent="y Sorted Layer" instance=ExtResource("31_xfvwf")]
+position = Vector2(468, -164)
+
+[node name="Cerberus" parent="y Sorted Layer" instance=ExtResource("9_vef74")]
+position = Vector2(458, 169)
+
+[node name="GargoyleBody2D" parent="y Sorted Layer" instance=ExtResource("14_36jdj")]
+position = Vector2(164, 415)
+
+[node name="Ghost" parent="y Sorted Layer" instance=ExtResource("2_fc0e3")]
+position = Vector2(-273, 374)
+
+[node name="Goblin" parent="y Sorted Layer" instance=ExtResource("3_eow3j")]
+position = Vector2(-583, 175)
+
 [node name="MusicSystem" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("25_i2p71")

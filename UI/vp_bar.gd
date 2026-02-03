@@ -4,6 +4,7 @@ extends ProgressBar
 @onready var level_label: RichTextLabel = $LevelLabel
 
 func _ready():
+	self.show()
 	max_value = player.stats_module.vp_needed
 	value = 0
 	EventBus.vp_changed.connect(update_current_vp)
