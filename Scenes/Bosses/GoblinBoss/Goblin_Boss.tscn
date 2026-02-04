@@ -39,10 +39,11 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u8yfu"]
-size = Vector2(112, 42.666668)
+size = Vector2(105.33333, 37.333336)
 
 [node name="GoblinBoss" type="CharacterBody2D" node_paths=PackedStringArray("behaviour_module")]
 y_sort_enabled = true
+scale = Vector2(1.5, 1.5)
 collision_layer = 2
 collision_mask = 2
 motion_mode = 1
@@ -53,22 +54,20 @@ behaviour_module = NodePath("Behaviour/MobBehaviour")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 modulate = Color(0, 0, 0, 1)
-scale = Vector2(1.5, 1.5)
-rect = Rect2(-420, -532, 840, 840)
+position = Vector2(0, -74)
+rect = Rect2(-280, -280, 560, 560)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 light_mask = 9
 texture_filter = 1
 material = SubResource("ShaderMaterial_jbg4a")
-position = Vector2(-8, -112)
-scale = Vector2(1.5, 1.5)
+position = Vector2(0, -74.666664)
 sprite_frames = SubResource("SpriteFrames_q0u7v")
 animation = &"GoblinBoss"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-16, -92)
+position = Vector2(-5.333334, -58)
 rotation = 1.5707964
-scale = Vector2(1.5, 1.5)
 shape = SubResource("RectangleShape2D_u8yfu")
 
 [node name="BloodParticles" type="CPUParticles2D" parent="."]

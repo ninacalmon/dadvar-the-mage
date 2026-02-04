@@ -21,9 +21,6 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	behaviour_module.handle_movement()
 
-func _process(_delta: float) -> void:
-	behaviour_module.handle_sprite_flip()
-	
 func take_damage(damage: float):
 	$BloodParticles.emitting = true
 	behaviour_module.damage_squish(0.2, 0.1, Tween.TRANS_BOUNCE)

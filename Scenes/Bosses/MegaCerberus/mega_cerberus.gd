@@ -21,7 +21,6 @@ func _physics_process(_delta: float) -> void:
 	behaviour_module.handle_movement()
 
 func _process(_delta: float) -> void:
-	behaviour_module.handle_sprite_flip()
 	$Head1.position.x = -HEAD1_POSITION_X_ABSOLUTE if velocity.x < 0 else HEAD1_POSITION_X_ABSOLUTE
 	$Head2.position.x = -HEAD2_POSITION_X_ABSOLUTE if velocity.x < 0 else HEAD2_POSITION_X_ABSOLUTE
 	$Head3.position.x = -HEAD3_POSITION_X_ABSOLUTE if velocity.x < 0 else HEAD3_POSITION_X_ABSOLUTE

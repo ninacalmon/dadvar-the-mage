@@ -4,11 +4,7 @@ var implements = [Interface.Mob, Interface.Damageable]
 
 @export var behaviour_module: MobBehaviourModule
 
-## Pick random animation (used as variations of Goblins).
 func _ready() -> void:
-	var goblin_types = Array($AnimatedSprite2D.sprite_frames.get_animation_names())
-	$AnimatedSprite2D.animation = goblin_types.pick_random()
-	$AnimatedSprite2D.play()
 	EventBus.enemy_died.connect(_on_enemy_died_received)
 
 func _physics_process(_delta: float) -> void:

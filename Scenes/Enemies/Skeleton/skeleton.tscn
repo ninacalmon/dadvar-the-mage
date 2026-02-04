@@ -1,0 +1,314 @@
+[gd_scene load_steps=27 format=3 uid="uid://c1eer3wqp1stk"]
+
+[ext_resource type="Script" uid="uid://dk5t1ep1cawxk" path="res://Scenes/Enemies/Skeleton/skeleton.gd" id="1_mnwpc"]
+[ext_resource type="Shader" uid="uid://dvafedygytn42" path="res://Shaders/main_shader.gdshader" id="2_7nfea"]
+[ext_resource type="Texture2D" uid="uid://bre4u1ttp860k" path="res://Sprites/skeleton2arm1.png" id="3_mjya5"]
+[ext_resource type="Texture2D" uid="uid://fa1tncxhtw2t" path="res://Sprites/skeleton1body.png" id="4_2qfue"]
+[ext_resource type="PackedScene" uid="uid://dnr2fm6mdvs2" path="res://Modules/Mobs/mob_behaviour_module.tscn" id="4_k1ht5"]
+[ext_resource type="Texture2D" uid="uid://cjtwdc4vvn4gl" path="res://Sprites/skeleton2arm2.png" id="5_2j1j4"]
+[ext_resource type="PackedScene" uid="uid://074u46307g8r" path="res://Scenes/Progression/Void Power/vp.tscn" id="5_kq5ko"]
+[ext_resource type="Texture2D" uid="uid://xwg714irrlk0" path="res://Sprites/skeleton3head.png" id="6_qrapg"]
+[ext_resource type="Script" uid="uid://ckp8nqvjgsevu" path="res://Modules/Generics/health_module.gd" id="6_vhglc"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_psqmn"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7555g"]
+noise = SubResource("FastNoiseLite_psqmn")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u8yfu"]
+resource_local_to_scene = true
+shader = ExtResource("2_7nfea")
+shader_parameter/hit_flash_enabled = false
+shader_parameter/hit_flash_color = Color(1, 1, 1, 1)
+shader_parameter/dissolve_noise = SubResource("NoiseTexture2D_7555g")
+shader_parameter/dissolve_value = 1.0
+shader_parameter/dissolve_outline_color = Color(0.305882, 0.854902, 0.941176, 1)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2j1j4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_2qfue")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2qfue"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_mjya5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qrapg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_2j1j4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vy4d1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_qrapg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_p4grk"]
+radius = 30.602287
+
+[sub_resource type="Animation" id="Animation_ws780"]
+resource_name = "Arms"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Body/Arm2:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.99),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.08726646, -0.08726646]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Body/Arm1:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.33333334, 1.3666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.08726646, 0.08726646]
+}
+
+[sub_resource type="Animation" id="Animation_nc3o5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Body/Arm2:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.08726646]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Body/Arm1:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.08726646]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qauuk"]
+_data = {
+&"Arms": SubResource("Animation_ws780"),
+&"RESET": SubResource("Animation_nc3o5")
+}
+
+[sub_resource type="Animation" id="Animation_vy4d1"]
+resource_name = "head"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Body/Head:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8666667, 1.5666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -66), Vector2(-3, -60), Vector2(-8, -68)]
+}
+
+[sub_resource type="Animation" id="Animation_jugge"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Body/Head:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -66)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5lyct"]
+_data = {
+&"RESET": SubResource("Animation_jugge"),
+&"head": SubResource("Animation_vy4d1")
+}
+
+[sub_resource type="Animation" id="Animation_mjya5"]
+resource_name = "body"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Body:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.96666664),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -66), Vector2(0, -68)]
+}
+
+[sub_resource type="Animation" id="Animation_2qfue"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Body:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -66)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2j1j4"]
+_data = {
+&"RESET": SubResource("Animation_2qfue"),
+&"body": SubResource("Animation_mjya5")
+}
+
+[node name="Skeleton" type="CharacterBody2D" node_paths=PackedStringArray("behaviour_module")]
+collision_layer = 4
+collision_mask = 2
+motion_mode = 1
+platform_floor_layers = 4278190080
+safe_margin = 0.001
+script = ExtResource("1_mnwpc")
+behaviour_module = NodePath("Behaviour/MobBehaviour")
+
+[node name="Body" type="AnimatedSprite2D" parent="."]
+light_mask = 9
+material = SubResource("ShaderMaterial_u8yfu")
+position = Vector2(0, -66)
+sprite_frames = SubResource("SpriteFrames_2j1j4")
+
+[node name="Arm1" type="AnimatedSprite2D" parent="Body"]
+light_mask = 9
+material = SubResource("ShaderMaterial_u8yfu")
+position = Vector2(14.999999, -15.258728)
+rotation = -0.08726646
+scale = Vector2(0.9999999, 0.9999999)
+sprite_frames = SubResource("SpriteFrames_2qfue")
+
+[node name="Arm2" type="AnimatedSprite2D" parent="Body"]
+light_mask = 9
+material = SubResource("ShaderMaterial_u8yfu")
+position = Vector2(-13, -31.258728)
+rotation = 0.08726646
+sprite_frames = SubResource("SpriteFrames_qrapg")
+
+[node name="Head" type="AnimatedSprite2D" parent="Body"]
+light_mask = 9
+material = SubResource("ShaderMaterial_u8yfu")
+position = Vector2(0, -66)
+sprite_frames = SubResource("SpriteFrames_vy4d1")
+offset = Vector2(0, 66)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(3, -82)
+rotation = 1.5707964
+shape = SubResource("CircleShape2D_p4grk")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(0, -66)
+rect = Rect2(-420, -516, 840, 840)
+
+[node name="BloodParticles" type="CPUParticles2D" parent="."]
+position = Vector2(0, -66)
+emitting = false
+amount = 30
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+lifetime_randomness = 1.0
+emission_shape = 2
+emission_sphere_radius = 19.74
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 200)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+scale_amount_min = 3.0
+scale_amount_max = 6.0
+color = Color(0.28235295, 0, 0, 1)
+
+[node name="Behaviour" type="Node" parent="."]
+
+[node name="MobBehaviour" parent="Behaviour" node_paths=PackedStringArray("health_module", "mob", "mob_collision_shape", "mob_sprite") instance=ExtResource("4_k1ht5")]
+movement_speed = 90
+damage = 20.0
+health_module = NodePath("../HealthModule")
+vp_orb_scene = ExtResource("5_kq5ko")
+mob = NodePath("../..")
+mob_collision_shape = NodePath("../../CollisionShape2D")
+mob_sprite = NodePath("../../Body")
+
+[node name="HealthModule" type="Node" parent="Behaviour" groups=["HealthModuleGroup"]]
+script = ExtResource("6_vhglc")
+max_health = 120.0
+metadata/_custom_type_script = "uid://ckp8nqvjgsevu"
+
+[node name="ArmsAnim" type="AnimationPlayer" parent="."]
+root_node = NodePath("../HeadAnim")
+libraries = {
+&"": SubResource("AnimationLibrary_qauuk")
+}
+autoplay = "Arms"
+
+[node name="HeadAnim" type="AnimationPlayer" parent="."]
+root_node = NodePath(".")
+libraries = {
+&"": SubResource("AnimationLibrary_5lyct")
+}
+autoplay = "head"
+
+[node name="BodyAnim" type="AnimationPlayer" parent="."]
+root_node = NodePath("../HeadAnim")
+libraries = {
+&"": SubResource("AnimationLibrary_2j1j4")
+}
+autoplay = "body"

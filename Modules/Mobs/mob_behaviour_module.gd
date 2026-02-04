@@ -19,10 +19,11 @@ const HIT_SOUND = preload("uid://2oeqxeyg41fj")
 @onready var mob_screen_notifier = mob.get_node("VisibleOnScreenNotifier2D")
 @onready var lifespan_timer: Timer = $LifespanTimer
 
-var tick = 0
-var original_mob_sprite_scale_x
-var original_mob_sprite_scale_y
+var tick: int = 0
+var original_mob_sprite_scale_x: float
+var original_mob_sprite_scale_y: float
 var time: int = 0
+var direction_normalized_x: float
 
 ## ASSERT VARIABLES ON READY TO AVOID GETTING ERRORS THAT ARE NONSENSE
 func _ready():
@@ -40,8 +41,6 @@ func _ready():
 func _on_screen_exited():
 	mob.queue_free()
 	Global.CURRENT_MOBS_SPAWNED -= 1
-	print("SCREEN EXITED!", Global.CURRENT_MOBS_SPAWNED)
-
 
 func handle_movement() -> void:
 	# point to Player and move towards it.
@@ -50,29 +49,11 @@ func handle_movement() -> void:
 	## Also, we can change the mob direction after X frames
 	var direction = mob.global_position.direction_to(player.global_position)
 	mob.velocity = direction * movement_speed
-	mob.move_and_slide()
-
-## This one works way better, but it does not check collisions because it is not using move_and_slide physics
-## performance got from ~11ms to 0.79 ms on this method. Probably will have to work on this
-## to handle mobs
-#func handle_movement(delta) -> void:
-	## point to Player and move towards it.
-	#tick += 1
-#
-	#if tick % 6 == 0:
-		#var direction = player.global_position - mob.global_position
-		##var direction = mob.global_position.direction_to(player.global_position)
-		#mob.velocity = direction.normalized() * movement_speed
-	#
-	#mob.position += mob.velocity * delta
-	
-func handle_sprite_flip() -> void:
-	## Important to always reference the mob variable before, if not, Godot will understand that this is referencing the
-	## Behaviour node position! (Which does not moves at all)
-	#### CHAAAANGE THAT IS WRONG!!! This only flips the sprite, causing collision shape to me missaligned.
-	#### We need to flip the whole mob node.
+	print(direction)
 	if mob.global_position.distance_squared_to(player.global_position) > 3:
-		mob_sprite.flip_h =  mob.global_position.x >= player.global_position.x
+		self.direction_normalized_x = sign(direction.x) if sign(direction.x) != 0 else 1
+		mob_sprite.scale.x = self.direction_normalized_x
+	mob.move_and_slide()
 
 func handle_take_damage(damage_to_receive: float) -> void:
 	
@@ -111,9 +92,9 @@ func _on_health_module_health_depleted() -> void:
 
 func damage_squish(amount, duration, ease_mode):
 	var squish_tween = get_tree().create_tween()
-	squish_tween.tween_property(self.mob_sprite, "scale:x", self.original_mob_sprite_scale_x - amount, duration).set_trans(ease_mode)
+	squish_tween.tween_property(self.mob_sprite, "scale:x", self.original_mob_sprite_scale_x * self.direction_normalized_x - amount, duration).set_trans(ease_mode)
 	squish_tween.parallel().tween_property(self.mob_sprite, "scale:y", self.original_mob_sprite_scale_y + amount/3, duration).set_trans(ease_mode)
-	squish_tween.tween_property(self.mob_sprite, "scale:x", self.original_mob_sprite_scale_x, duration).set_trans(ease_mode)
+	squish_tween.tween_property(self.mob_sprite, "scale:x", self.original_mob_sprite_scale_x * self.direction_normalized_x, duration).set_trans(ease_mode)
 	squish_tween.parallel().tween_property(self.mob_sprite, "scale:y", self.original_mob_sprite_scale_y, duration).set_trans(ease_mode)
 
 func damage_knockback(amount):

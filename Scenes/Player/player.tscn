@@ -131,7 +131,6 @@ texture = ExtResource("8_jlvik")
 [node name="HealthModule" type="Node" parent="PlayerArea"]
 script = ExtResource("4_mtuoh")
 max_health = 100.0
-immortality = true
 metadata/_custom_type_script = "uid://ckp8nqvjgsevu"
 
 [node name="HealthBar" parent="PlayerArea" node_paths=PackedStringArray("character") instance=ExtResource("5_htcer")]

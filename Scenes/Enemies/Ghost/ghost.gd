@@ -12,13 +12,9 @@ func _ready() -> void:
 	$AnimatedSprite2D.animation = ghost_types.pick_random()
 	$AnimatedSprite2D.play()
 	EventBus.enemy_died.connect(_on_enemy_died_received)
-	#health_module.health_depleted.connect(_on_enemy_died_received)
 
 func _physics_process(_delta: float) -> void:
 	behaviour_module.handle_movement()
-
-func _process(_delta: float) -> void:
-	behaviour_module.handle_sprite_flip()
 
 func take_damage(damage: float):
 	$BloodParticles.emitting = true
