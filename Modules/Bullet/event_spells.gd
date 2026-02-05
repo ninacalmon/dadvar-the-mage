@@ -17,12 +17,24 @@ enum EventSpellType {
 }
 
 func get_event_spell_type() -> EventSpellType:
-	push_error("get_my_property() must be implemented")
+	assert(1 == 2, "get_my_property() must be implemented")
 	return EventSpellType.INVALID
 
 func get_event_spell_description() -> String:
-	push_error("get_event_spell_description() must be implemented")
+	assert(1 == 2, "get_event_spell_description() must be implemented")
 	return ""
+
+func get_event_spell_current_level() -> int:
+	assert(1 == 2, "get_event_spell_current_level() must be implemented")
+	return -1
+
+func get_event_spell_next_level() -> int:
+	assert(1 == 2, "get_event_spell_next_level() must be implemented")
+	return -1
+
+func get_event_spell_max_level() -> int:
+	assert(1 == 2, "get_event_spell_max_level() must be implemented")
+	return -1
 
 func get_event_spell_title() -> String:
 	return prettify_class_name(self.get_script().get_global_name())
