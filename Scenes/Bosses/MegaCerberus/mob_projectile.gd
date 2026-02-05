@@ -12,8 +12,8 @@ func _ready():
 	self.scale = Vector2(0.1, 0.1)
 	# GAMBIARRA
 	var stream_player = AudioStreamPlayer.new()
-	stream_player.pitch_scale = randf_range(0.7, 1.7)
-	stream_player.volume_db = -16
+	stream_player.pitch_scale = randf_range(0.7, 1.4)
+	stream_player.volume_db = randf_range(-20, -22)
 	stream_player.stream = audio_track
 	stream_player.autoplay = true
 	get_parent().add_child(stream_player)

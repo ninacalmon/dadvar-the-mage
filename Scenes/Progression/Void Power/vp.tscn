@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://074u46307g8r"]
+[gd_scene load_steps=11 format=3 uid="uid://074u46307g8r"]
 
 [ext_resource type="Script" uid="uid://batn40bypr162" path="res://Scenes/Progression/Void Power/vp.gd" id="1_gwjwb"]
 [ext_resource type="Texture2D" uid="uid://81jt40epx6uf" path="res://Sprites/xp.png" id="2_d0ety"]
@@ -41,9 +41,6 @@ scale_min = 0.29999998
 scale_max = 0.29999998
 color = Color(0.39618018, 0.22719999, 0.71, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_d0ety"]
-gradient = SubResource("Gradient_gwjwb")
-
 [node name="vp" type="Area2D"]
 y_sort_enabled = true
 collision_layer = 128
@@ -57,6 +54,7 @@ position = Vector2(-0.5, 0)
 shape = SubResource("CircleShape2D_uy6jv")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+y_sort_enabled = true
 scale = Vector2(2, 2)
 texture = ExtResource("2_d0ety")
 
@@ -73,11 +71,5 @@ use_fixed_seed = true
 seed = 3778826197
 interpolate = false
 process_material = SubResource("ParticleProcessMaterial_buo6v")
-
-[node name="TextureRect" type="TextureRect" parent="."]
-visible = false
-offset_right = 40.0
-offset_bottom = 40.0
-texture = SubResource("GradientTexture1D_d0ety")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

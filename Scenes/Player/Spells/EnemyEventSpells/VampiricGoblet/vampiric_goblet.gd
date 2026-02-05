@@ -3,10 +3,12 @@ class_name VampiricGoblet extends EventSpell.EnemyActionSpell
 var implements = Interface.BulletHabilities
 
 var sprite_texture = preload("res://Sprites/Spell Sprites/VampiricGoblet.png")
+var current_level = 0
+var max_level = 1
 
 var hability_type: EventSpell.EventSpellType = EventSpell.EventSpellType.ENEMY_ACTION
 
-@export var percentage_health_steal: float = 2
+@export var percentage_health_steal: float = 1
 
 func apply_spell(spell_context: SpellContext):
 	self.validate(spell_context)
@@ -31,4 +33,13 @@ func get_event_spell_description() -> String:
 What remains seeks a new bearer.'"
 
 func get_event_spell_sprite_texture() -> Texture:
-	return sprite_texture
+	return self.sprite_texture
+
+func get_event_spell_current_level() -> int:
+	return self.current_level
+
+func get_event_spell_next_level() -> int:
+	return self.current_level + 1
+
+func get_event_spell_max_level() -> int:
+	return self.max_level

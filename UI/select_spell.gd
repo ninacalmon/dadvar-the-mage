@@ -16,6 +16,12 @@ var stream_player2
 @onready var desc_r: RichTextLabel = %"Desc R"
 @onready var title_l: RichTextLabel = %"Title L"
 @onready var title_r: RichTextLabel = %"Title R"
+@onready var level_l: RichTextLabel = %"Level L"
+@onready var level_r: RichTextLabel = %"Level R"
+## Level_l and level_r have the same placeholder text
+@onready var level_string_template: String = level_l.text
+
+@onready var player: Player = get_tree().get_first_node_in_group("PlayerGroup")
 
 var possible_spell_options: Array[EventSpell] = [
 	SoulPiercer.new(),
@@ -26,6 +32,7 @@ var possible_spell_options: Array[EventSpell] = [
 	OgresScent.new(),
 	ProfaneBolt.new()
 ]
+
 var placeholder_spell = SpellWaste.new()
 var spell_left: EventSpell
 var spell_right: EventSpell
@@ -52,13 +59,21 @@ func _ready():
 
 func _on_choice_l_pressed() -> void:
 	if self.spell_left != null:
-		EventBus.new_spell_added.emit(self.spell_left)
+		var spell_next_level = self.spell_left.get_event_spell_current_level() + 1
+		EventBus.new_spell_added.emit(self.spell_left, spell_next_level)
+
+		if spell_next_level < self.spell_left.get_event_spell_max_level():
+			possible_spell_options.append(self.spell_left)
 
 	self.on_selected_choice(self.spell_right)
 
 func _on_choice_r_pressed() -> void:
 	if self.spell_right != null:
-		EventBus.new_spell_added.emit(self.spell_right)
+		var spell_next_level = self.spell_right.get_event_spell_current_level() + 1
+		EventBus.new_spell_added.emit(self.spell_right, spell_next_level)
+
+		if spell_next_level < self.spell_right.get_event_spell_max_level():
+			possible_spell_options.append(self.spell_right)
 
 	self.on_selected_choice(self.spell_left)
 
@@ -70,10 +85,11 @@ func _on_player_level_up(_level: int):
 
 	self.spell_left = self.select_random_spell(self.possible_spell_options, self.placeholder_spell)
 	self.spell_right = self.select_random_spell(self.possible_spell_options, self.placeholder_spell)
+
 	## SPELL LEFT
-	self.show_spell_on_ui(self.spell_left, self.sprite_l, self.desc_l, self.title_l, self.choice_l)
+	self.show_spell_on_ui(self.spell_left, self.sprite_l, self.desc_l, self.title_l, self.choice_l, self.level_l)
 	## SPELL RIGHT
-	self.show_spell_on_ui(self.spell_right, self.sprite_r, self.desc_r, self.title_r, self.choice_r)
+	self.show_spell_on_ui(self.spell_right, self.sprite_r, self.desc_r, self.title_r, self.choice_r, self.level_r)
 
 	book_animation.show()
 	book_animation.play()
@@ -107,20 +123,38 @@ func on_selected_choice(spell_not_chosen: EventSpell):
 	is_animation_backwards = true
 
 func select_random_spell(options: Array, fallback):
+	## VERIFICAR COMO FAZER QUANDO NAO TIVER MAIS OPÇOES
 	if options.is_empty():
 		return fallback
-
+	
 	var index := randi() % options.size()
-	return options.pop_at(index)
+	var selected_spell = options.pop_at(index)
+
+	for player_spell in player.spells:
+		if player_spell == selected_spell:
+			selected_spell = player_spell
+
+	return selected_spell
 
 func show_spell_on_ui(
 	spell: EventSpell,
 	sprite: Sprite2D,
 	description: RichTextLabel,
 	title: RichTextLabel,
-	choice: Button
+	choice: Button,
+	level: RichTextLabel
 	) -> void:
 	sprite.texture = spell.get_event_spell_sprite_texture()
 	description.text = spell.get_event_spell_description()
 	title.text = spell.get_event_spell_title()
+
+	var current_level = spell.get_event_spell_current_level()
+	var max_level = spell.get_event_spell_max_level()
+
+	level.bbcode_text = level_string_template.format({
+		"C": current_level,
+		"N": current_level + 1,
+		"M": max_level
+	})
+
 	choice.show()

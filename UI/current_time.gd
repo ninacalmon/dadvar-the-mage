@@ -10,5 +10,3 @@ func _ready():
 func _on_score_timer_timeout() -> void:
 	time_count += 1
 	self.text = str(time_count)
-	
-	

@@ -20,11 +20,7 @@ var lazy_cast_cooldown = 0
 
 #region Spells and Upgrades
 @export_subgroup("Spells and upgrades")
-@export var projectile_spells: Array[EventSpell.ProjectileSpell] = []
-@export var enemy_action_spells: Array[EventSpell.EnemyActionSpell] = []
-@export var stats_spells: Array[EventSpell.StatsSpell] = []
-@export var node_spells: Array[EventSpell.NodeSpell] = []
-@export var timer_spells: Array[EventSpell.TimerSpell] = []
+@export var spells: Array[EventSpell] = []
 ## MAYBE HAVE HERE A SPELL UPGRADES OR SOMETHING LIKE THIS WHICH ARE UPGRADES THAT
 ## ARE NOT EFFECTS ON THE BULLET
 #endregion
@@ -59,7 +55,7 @@ func start(pos):
 	timer_to_be_hurt.start()
 	timer_to_be_hurt.timeout.connect(hurt_myself)
 	#self.add_new_spell(ProfaneBolt.new())
-	#self.add_new_spell(OgresScent.new())
+	#self.add_new_spell(OgresScent.new(), 1)
 	#self.add_new_spell(VampiricGoblet.new())
 	#self.add_new_spell(BoreasSwiftness.new())
 	#self.add_new_spell(TitansSkin.new())
@@ -103,8 +99,9 @@ func shoot():
 
 	spell_context.bullet_module = bullet_module
 
-	for projectile_spell in projectile_spells:
-		projectile_spell.apply_spell(spell_context)
+	for spell in spells:
+		if spell.get_event_spell_type() == EventSpell.EventSpellType.PROJECTILE:
+			spell.apply_spell(spell_context)
 
 	NodeShake.apply_shake(player_sprite, 5, 20)
 	
@@ -117,6 +114,7 @@ func shoot():
 	light_tween.tween_property(magic_light, "energy", 0, stats_module.base_cast_cooldown)
 	light_tween.parallel().tween_property(magic_light, "texture_scale", 0.8, stats_module.base_cast_cooldown)
 	get_parent().add_child(bullet_instance)
+	print("CAST COOLDOOWN ", self.stats_module.current_cast_cooldown)
 	cast_cooldown = self.stats_module.current_cast_cooldown
 	lazy_cast_cooldown = self.stats_module.current_cast_cooldown * 2
 	
@@ -183,20 +181,19 @@ func find_root_node(node: Node) -> Node:
 
 	return root
 
-func add_new_spell(spell: EventSpell):
+func add_new_spell(spell: EventSpell, spell_level: int):
+	self.spells.erase(spell)
+	spell.current_level = spell_level
+
 	match spell.get_event_spell_type():
 		EventSpell.EventSpellType.PROJECTILE:
-			self.projectile_spells.append(spell)
+			pass
 		EventSpell.EventSpellType.ENEMY_ACTION:
-			self.enemy_action_spells.append(spell)
-
 			var spell_context = SpellContext.new()
 			spell_context.player = self
 
 			spell.apply_spell(spell_context)
 		EventSpell.EventSpellType.STATS_SPELL:
-			self.stats_spells.append(spell)
-
 			var spell_context = SpellContext.new()
 			spell_context.stats_module = self.stats_module
 			spell_context.health_module = self.health_module
@@ -204,17 +201,14 @@ func add_new_spell(spell: EventSpell):
 
 			spell.apply_spell(spell_context)
 		EventSpell.EventSpellType.NODE_SPELL:
-			self.node_spells.append(spell)
-
 			var spell_context = SpellContext.new()
 			spell_context.player = self
 
 			spell.apply_spell(spell_context)
 		EventSpell.EventSpellType.TIMER_SPELL:
-			self.timer_spells.append(spell)
-
 			var spell_context = SpellContext.new()
 			spell_context.player = self
 
 			spell.apply_spell(spell_context)
-			
+
+	self.spells.append(spell)

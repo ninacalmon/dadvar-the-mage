@@ -12,7 +12,7 @@ func _ready() -> void:
 	
 func _on_consumable_spawn_timer_timeout() -> void:
 	var chance = randi_range(1, 4)
-	print(chance)
+
 	if chance == 1:
 		var chosen_consumable = [consumable1, consumable2].pick_random()
 		var consumable = chosen_consumable.instantiate()

@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://drrllpdvbctga"]
+[gd_scene load_steps=20 format=3 uid="uid://drrllpdvbctga"]
 
 [ext_resource type="Script" uid="uid://cvh6pdd1cahof" path="res://Scenes/Bosses/GoblinBoss/goblin_boss.gd" id="1_bs2mh"]
 [ext_resource type="Shader" uid="uid://dvafedygytn42" path="res://Shaders/main_shader.gdshader" id="2_1p0cp"]
+[ext_resource type="PackedScene" uid="uid://lo1aexwurrqg" path="res://Scenes/Enemies/Goblin/goblin.tscn" id="2_72co8"]
 [ext_resource type="Texture2D" uid="uid://bgqumwqddncyp" path="res://Sprites/Goblin-1.png" id="2_h2756"]
 [ext_resource type="PackedScene" uid="uid://dnr2fm6mdvs2" path="res://Modules/Mobs/mob_behaviour_module.tscn" id="3_1lps0"]
 [ext_resource type="Script" uid="uid://ckp8nqvjgsevu" path="res://Modules/Generics/health_module.gd" id="4_4f2ww"]
@@ -39,11 +40,32 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u8yfu"]
-size = Vector2(105.33333, 37.333336)
+size = Vector2(55.466675, 37.333336)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_vtwp2"]
+blend_mode = 1
+
+[sub_resource type="Curve" id="Curve_8lcgm"]
+_data = [Vector2(0.16611296, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_5wagp"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="Curve" id="Curve_72co8"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_jgpot"]
+offsets = PackedFloat32Array(0.02173913, 0.18478261)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_72co8"]
+radius = 134.43808
 
 [node name="GoblinBoss" type="CharacterBody2D" node_paths=PackedStringArray("behaviour_module")]
 y_sort_enabled = true
-scale = Vector2(1.5, 1.5)
+scale = Vector2(2.5, 2.5)
 collision_layer = 2
 collision_mask = 2
 motion_mode = 1
@@ -51,6 +73,7 @@ platform_floor_layers = 4278190080
 safe_margin = 0.001
 script = ExtResource("1_bs2mh")
 behaviour_module = NodePath("Behaviour/MobBehaviour")
+goblilings = ExtResource("2_72co8")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 modulate = Color(0, 0, 0, 1)
@@ -65,9 +88,17 @@ position = Vector2(0, -74.666664)
 sprite_frames = SubResource("SpriteFrames_q0u7v")
 animation = &"GoblinBoss"
 
+[node name="Hand1" type="Node2D" parent="AnimatedSprite2D"]
+position = Vector2(0, 10.666662)
+
+[node name="Hand2" type="Node2D" parent="AnimatedSprite2D"]
+visible = false
+position = Vector2(38.399998, 13.866662)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-5.333334, -58)
+position = Vector2(-5.333332, -33.06666)
 rotation = 1.5707964
+scale = Vector2(0.99999976, 0.99999976)
 shape = SubResource("RectangleShape2D_u8yfu")
 
 [node name="BloodParticles" type="CPUParticles2D" parent="."]
@@ -90,10 +121,71 @@ scale_amount_min = 3.0
 scale_amount_max = 6.0
 color = Color(0.28235295, 0, 0, 1)
 
+[node name="GoblinMagicParticles3" type="CPUParticles2D" parent="."]
+visible = false
+material = SubResource("CanvasItemMaterial_vtwp2")
+position = Vector2(0, -112)
+emitting = false
+amount = 30
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+lifetime_randomness = 1.0
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 1000)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+scale_amount_max = 3.0
+scale_amount_curve = SubResource("Curve_8lcgm")
+color = Color(0.47, 0.82, 0.164, 1)
+color_ramp = SubResource("Gradient_5wagp")
+
+[node name="GoblinMagicParticles" type="CPUParticles2D" parent="."]
+y_sort_enabled = true
+scale = Vector2(0.99999994, 0.99999994)
+emitting = false
+amount = 30
+lifetime = 2.0
+one_shot = true
+explosiveness = 0.62
+lifetime_randomness = 1.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+scale_amount_min = 2.0
+scale_amount_max = 4.0
+scale_amount_curve = SubResource("Curve_72co8")
+color = Color(0.47, 0.82, 0.164, 1)
+color_ramp = SubResource("Gradient_jgpot")
+hue_variation_max = 0.54
+
+[node name="GoblinMagicParticles2" type="CPUParticles2D" parent="."]
+y_sort_enabled = true
+scale = Vector2(0.99999994, 0.99999994)
+emitting = false
+amount = 30
+lifetime = 2.0
+one_shot = true
+explosiveness = 0.62
+lifetime_randomness = 1.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+scale_amount_min = 2.0
+scale_amount_max = 4.0
+scale_amount_curve = SubResource("Curve_72co8")
+color = Color(0.47, 0.82, 0.164, 1)
+color_ramp = SubResource("Gradient_jgpot")
+hue_variation_max = 0.54
+
 [node name="Behaviour" type="Node" parent="."]
 
 [node name="MobBehaviour" parent="Behaviour" node_paths=PackedStringArray("health_module", "mob", "mob_collision_shape", "mob_sprite") instance=ExtResource("3_1lps0")]
-movement_speed = 55
+movement_speed = 40
 damage = 20.0
 health_module = NodePath("../HealthModule")
 vp_orb_scene = ExtResource("5_1p0cp")
@@ -109,3 +201,16 @@ metadata/_custom_type_script = "uid://ckp8nqvjgsevu"
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_jbg4a")
 volume_db = -16.0
+
+[node name="SpawnMinionsRate" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="SpawnArea" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 0
+
+[node name="SpawnAreaShape" type="CollisionShape2D" parent="SpawnArea"]
+position = Vector2(0, -57.6)
+shape = SubResource("CircleShape2D_72co8")

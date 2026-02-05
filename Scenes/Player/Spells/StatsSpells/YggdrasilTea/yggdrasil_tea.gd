@@ -5,11 +5,14 @@ var implements = Interface.BulletHabilities
 var sprite_texture = preload("res://Sprites/Spell Sprites/YggdrasilTea.png")
 
 var hability_type: EventSpell.EventSpellType = EventSpell.EventSpellType.STATS_SPELL
+var current_level = 0
+var max_level = 3
+var health_to_add = 30
 
 func apply_spell(spell_context: SpellContext):
 	self.stat_modifier = StatModifier.CreateStatModifier(
 		StatsModule.ModifiableStats.MAX_HEALTH,
-		30,
+		self.health_to_add,
 		StatModifier.ModifierType.ADD
 	)
 	self.validate(spell_context)
@@ -26,10 +29,19 @@ func apply_spell(spell_context: SpellContext):
 	NumberPopUp.create_health_number_pop_up(health_diff, player, true)
 
 func get_event_spell_description() -> String:
-	return "[b]Infuses your essence with the vitality of the World Tree, increasing max health[/b]
+	return "[b]Infuses your essence with the vitality of the World Tree, increasing max health by [color=20877b]%s points[/color][/b]
 	
 	'Life flows from the World Tree itself.
-Its roots strengthen both body and spirit.'"
+Its roots strengthen both body and spirit.'" % self.health_to_add
 
 func get_event_spell_sprite_texture() -> Texture:
 	return sprite_texture
+
+func get_event_spell_current_level() -> int:
+	return self.current_level
+
+func get_event_spell_next_level() -> int:
+	return self.current_level + 1
+
+func get_event_spell_max_level() -> int:
+	return self.max_level

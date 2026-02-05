@@ -49,7 +49,7 @@ func handle_movement() -> void:
 	## Also, we can change the mob direction after X frames
 	var direction = mob.global_position.direction_to(player.global_position)
 	mob.velocity = direction * movement_speed
-	print(direction)
+
 	if mob.global_position.distance_squared_to(player.global_position) > 3:
 		self.direction_normalized_x = sign(direction.x) if sign(direction.x) != 0 else 1
 		mob_sprite.scale.x = self.direction_normalized_x
@@ -86,7 +86,7 @@ func _on_health_module_health_depleted() -> void:
 	var vp_orb = vp_orb_scene.instantiate()
 	vp_orb.position = get_parent().get_parent().position
 	vp_orb.mob_hp = self.health_module.max_health
-	var game_node = get_tree().get_current_scene()
+	var game_node = get_tree().get_first_node_in_group("YSortedLayerGroup")
 
 	game_node.add_child(vp_orb)
 
@@ -101,6 +101,9 @@ func damage_knockback(amount):
 	mob.global_position = mob.global_position - mob.global_position.direction_to(player.global_position) * amount
 	
 func self_despawn():
+	if mob.get("SHOULD_NOT_DESPAWN"):
+		return
+
 	await death_dissolve(0.8).finished
 
 	Global.CURRENT_MOBS_SPAWNED -= 1

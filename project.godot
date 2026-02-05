@@ -34,6 +34,7 @@ mouse_cursor/custom_image="uid://bayme6icla0wm"
 PlayerGroup=""
 HealthModuleGroup=""
 Main="The root node of the game scene"
+YSortedLayerGroup=""
 
 [input]
 

@@ -45,6 +45,7 @@ animations = [{
 radius = 30.149628
 
 [node name="Goblin" type="CharacterBody2D" node_paths=PackedStringArray("behaviour_module")]
+y_sort_enabled = true
 collision_layer = 2
 collision_mask = 2
 motion_mode = 1
@@ -67,6 +68,7 @@ shape = SubResource("CircleShape2D_xpmg4")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 modulate = Color(0, 0, 0, 1)
+position = Vector2(0, 3)
 rect = Rect2(-420, -499, 840, 840)
 
 [node name="BloodParticles" type="CPUParticles2D" parent="."]

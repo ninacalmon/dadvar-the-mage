@@ -6,5 +6,5 @@
 resource_local_to_scene = true
 script = ExtResource("1_h7v50")
 base_move_speed = 400.0
-base_cast_cooldown = 0.2
+base_cast_cooldown = 0.05
 metadata/_custom_type_script = "uid://cx1bveptsnmc"

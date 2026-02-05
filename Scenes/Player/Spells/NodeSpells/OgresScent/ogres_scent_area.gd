@@ -23,8 +23,6 @@ func oscilate_energy(delta: float):
 	oscilate_time += (delta * TAU) / frequency
 	point_light_2d.energy = sin(oscilate_time) * amplitude + mid_value
 	
-	
-	
 func _process(delta: float) -> void:
 	oscilate_energy(delta)
 
@@ -43,6 +41,7 @@ func setup_scent_area(damage: float, tick: float, area_scale: Vector2):
 	
 
 	damage_per_tick = damage
+	print("TICK RECEIGVED ", tick)
 	tick_rate = tick
 
 	var timer = Timer.new()
@@ -50,10 +49,11 @@ func setup_scent_area(damage: float, tick: float, area_scale: Vector2):
 	timer.autostart = true
 	timer.one_shot = false
 	timer.timeout.connect(_on_damage_tick_timeout)
-	
+
 	add_child(timer)
 	
 func _on_damage_tick_timeout():
+	print("TICKKKKKK ", )
 	for target in targets_in_range:
 		if is_instance_valid(target):
 			target.take_damage(self.damage_per_tick)

@@ -4,6 +4,9 @@ var implements = Interface.BulletHabilities
 
 var sprite_texture = preload("res://Sprites/Spell Sprites/Placeholder.png")
 
+var current_level = 0
+var max_level = 2
+
 var hability_type: EventSpell.EventSpellType = EventSpell.EventSpellType.PROJECTILE
 
 func apply_spell(_spell_context: SpellContext):
@@ -16,5 +19,14 @@ func get_event_spell_description() -> String:
 	Its magic faded long ago.
 	No effect remains.'"
 
+func get_event_spell_type() -> EventSpellType:
+	return EventSpellType.INVALID
+
 func get_event_spell_sprite_texture() -> Texture:
 	return sprite_texture
+
+func get_event_spell_current_level() -> int:
+	return self.current_level
+
+func get_event_spell_max_level() -> int:
+	return self.current_level + 1

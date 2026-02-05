@@ -13,6 +13,7 @@ var audio_track2: = preload("res://Sounds/dogcrying2.mp3")
 const HEAD1_POSITION_X_ABSOLUTE = 54
 const HEAD2_POSITION_X_ABSOLUTE = 46
 const HEAD3_POSITION_X_ABSOLUTE = 10
+const SHOULD_NOT_DESPAWN = true
 
 func _ready():
 	EventBus.enemy_died.connect(_on_enemy_died_received)

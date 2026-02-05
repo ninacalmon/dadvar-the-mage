@@ -41,8 +41,8 @@ func recalculate_stats():
 		match modifier.modifier_type:
 			StatModifier.ModifierType.MULTIPLY:
 				if not stat_multipliers.has(stat_name):
-					stat_multipliers[stat_name] = 0
-				stat_multipliers[stat_name] += modifier.modifier_amount
+					stat_multipliers[stat_name] = 1.0
+				stat_multipliers[stat_name] *= modifier.modifier_amount
 
 				## Avoid negative multipliers to be added
 				if stat_multipliers[stat_name] <= 0.0:
