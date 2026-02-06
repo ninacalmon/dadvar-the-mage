@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://7dtno3rgtveo"]
+
+[ext_resource type="FontFile" uid="uid://stdwsoetsw4q" path="res://Fonts/Pixel_Operator/PixelOperatorHB.ttf" id="1_n508f"]
+
+[node name="MaxLevelDeatailsText" type="RichTextLabel"]
+custom_minimum_size = Vector2(130, 20)
+offset_left = 3.0
+offset_right = 133.0
+offset_bottom = 20.0
+mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("1_n508f")
+bbcode_enabled = true
+text = "nothing."
+fit_content = true

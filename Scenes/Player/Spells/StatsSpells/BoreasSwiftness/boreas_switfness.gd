@@ -2,7 +2,7 @@ class_name BoreasSwiftness extends EventSpell.StatsSpell
 ## This abstract class implements the interface in order to have a verification on itself
 var implements = Interface.BulletHabilities
 
-var sprite_texture = preload("res://Sprites/Spell Sprites/BoreasSwiftness.png")
+var sprite_texture = preload("res://Sprites/Spell Sprites/BoreasSwiftness2.png")
 
 var hability_type: EventSpell.EventSpellType = EventSpell.EventSpellType.STATS_SPELL
 var current_level = 0
@@ -40,3 +40,6 @@ func get_event_spell_next_level() -> int:
 
 func get_event_spell_max_level() -> int:
 	return self.max_level
+
+func get_event_spell_max_level_detail() -> String:
+	return "[color=6b0e1d]No cooldown[/color] beetween shots."

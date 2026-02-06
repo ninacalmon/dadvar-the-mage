@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://d2c1s3qmdi4ti"]
+[gd_scene load_steps=15 format=3 uid="uid://d2c1s3qmdi4ti"]
 
 [ext_resource type="Script" uid="uid://ddcjyfv6u117d" path="res://Scenes/Player/player.gd" id="1_fkybt"]
 [ext_resource type="Script" uid="uid://cnihm64tdxf10" path="res://Scenes/Player/player_body_2d.gd" id="1_gk6dx"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://ckp8nqvjgsevu" path="res://Modules/Generics/health_module.gd" id="4_mtuoh"]
 [ext_resource type="PackedScene" uid="uid://cxyeuoba4nxrv" path="res://UI/health_bar.tscn" id="5_htcer"]
 [ext_resource type="Texture2D" uid="uid://b37tdqau44es0" path="res://Sprites/soft_gradient.tres" id="8_jlvik"]
+[ext_resource type="AudioStream" uid="uid://oise8ptm040n" path="res://Sounds/retro-game-shot-2-152053.mp3" id="10_jhyir"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jlvik"]
 
@@ -29,43 +30,6 @@ height = 96.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dd0ac"]
 radius = 160.0
-
-[sub_resource type="Animation" id="Animation_xpyb8"]
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerSprite:material:shader_parameter/enable")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="Animation" id="Animation_u8yfu"]
-resource_name = "hit_flash"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerSprite:material:shader_parameter/enable")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(3.999999, 1),
-"update": 0,
-"values": [true, false]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_xpmg4"]
-_data = {
-&"RESET": SubResource("Animation_xpyb8"),
-&"hit_flash": SubResource("Animation_u8yfu")
-}
 
 [node name="PlayerBody2d" type="CharacterBody2D"]
 script = ExtResource("1_gk6dx")
@@ -116,11 +80,6 @@ shape = SubResource("CircleShape2D_dd0ac")
 position = Vector2(-1, -56)
 shape = SubResource("CircleShape2D_dd0ac")
 
-[node name="HitFlashAnimPlayer" type="AnimationPlayer" parent="PlayerArea"]
-libraries = {
-&"": SubResource("AnimationLibrary_xpmg4")
-}
-
 [node name="MagicLight" type="PointLight2D" parent="PlayerArea"]
 enabled = false
 color = Color(0.69, 0.32430002, 0.64124006, 1)
@@ -131,7 +90,6 @@ texture = ExtResource("8_jlvik")
 [node name="HealthModule" type="Node" parent="PlayerArea"]
 script = ExtResource("4_mtuoh")
 max_health = 100.0
-immortality = true
 metadata/_custom_type_script = "uid://ckp8nqvjgsevu"
 
 [node name="HealthBar" parent="PlayerArea" node_paths=PackedStringArray("character") instance=ExtResource("5_htcer")]
@@ -161,6 +119,10 @@ position = Vector2(-40, 16)
 
 [node name="TimerToBeHurt" type="Timer" parent="."]
 wait_time = 0.2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_jhyir")
+pitch_scale = 0.1
 
 [connection signal="area_entered" from="PlayerArea" to="PlayerArea" method="_on_area_entered"]
 [connection signal="body_entered" from="PlayerArea" to="PlayerArea" method="_on_body_entered"]

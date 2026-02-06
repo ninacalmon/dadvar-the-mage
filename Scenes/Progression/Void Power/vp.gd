@@ -10,7 +10,7 @@ var minimum_hp = 20.0 # 20 is *currently* the minimum hp value. Not ideal.
 var mob_hp: float
 
 func _ready():
-	self.vp_amount = mob_hp / 2
+	self.vp_amount = mob_hp / 1.4
 	var size = pow(mob_hp, 1.0 / 3.0) / pow(minimum_hp, 1.0 / 3.0)
 	self.scale = Vector2.ONE * size
 	var mob_hp_normalized = (mob_hp - 30.0) / (1000.0 - 30.0)

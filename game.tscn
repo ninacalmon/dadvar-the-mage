@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=3 uid="uid://qinxn2c2shu7"]
+[gd_scene load_steps=77 format=3 uid="uid://qinxn2c2shu7"]
 
 [ext_resource type="PackedScene" uid="uid://d2c1s3qmdi4ti" path="res://Scenes/Player/player.tscn" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://g1vr201lpslj" path="res://game.gd" id="1_feb5d"]
@@ -31,7 +31,11 @@
 [ext_resource type="Curve" uid="uid://balli3kxs211y" path="res://Resources/ghost_curve.tres" id="22_xa8c5"]
 [ext_resource type="Script" uid="uid://ia4f2b8ismcl" path="res://Sounds/Scripts/music_system.gd" id="25_i2p71"]
 [ext_resource type="PackedScene" uid="uid://cakwnh4a4rc4f" path="res://Scenes/Enemies/Banshee/banshee.tscn" id="31_xfvwf"]
+[ext_resource type="Texture2D" uid="uid://ccqvdkcj60qw5" path="res://Sprites/testSticker.png" id="32_aa0lp"]
 [ext_resource type="Script" uid="uid://b2b0ps3oonsu7" path="res://restart_overlay.gd" id="32_dhpj7"]
+[ext_resource type="Script" uid="uid://28w07j1ji4ta" path="res://UI/hover_l.gd" id="33_082n1"]
+[ext_resource type="PackedScene" uid="uid://7dtno3rgtveo" path="res://UI/max_details.tscn" id="34_xex6t"]
+[ext_resource type="Script" uid="uid://37glmr03ihcp" path="res://UI/hover_r.gd" id="35_aa0lp"]
 
 [sub_resource type="Environment" id="Environment_xa8c5"]
 background_mode = 3
@@ -67,7 +71,7 @@ point_count = 4
 
 [sub_resource type="Curve" id="Curve_xa8c5"]
 _limits = [0.0, 10.0, 0.0, 3.0]
-_data = [Vector2(0, 4.5), 0.0, 0.0, 0, 0, Vector2(0.75, 0), 0.0, 0.0, 0, 0, Vector2(1, 0.2), 0.0, 0.0, 0, 0, Vector2(1.41, 0.2), 0.0, 0.0, 0, 0, Vector2(1.5899999, 0), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.75, 0), 0.0, 0.0, 0, 0, Vector2(1, 0.2), 0.0, 0.0, 0, 0, Vector2(1.41, 0.2), 0.0, 0.0, 0, 0, Vector2(1.5899999, 0), 0.0, 0.0, 0, 0]
 point_count = 5
 metadata/_snap_enabled = true
 metadata/_snap_count = 100
@@ -501,6 +505,7 @@ script = ExtResource("10_80cx4")
 [node name="BookAnimation" type="AnimatedSprite2D" parent="CanvasLayer/LevelUp"]
 unique_name_in_owner = true
 process_mode = 3
+visible = false
 position = Vector2(304, 409)
 scale = Vector2(1.2, 1.2)
 sprite_frames = SubResource("SpriteFrames_eu6ph")
@@ -672,6 +677,46 @@ bbcode_enabled = true
 text = "[font_size=8][color=20877b67]{C}/{M} > [/color][/font_size]{N}/{M}"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Hover L" type="TextureButton" parent="CanvasLayer/LevelUp/Control"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 180.0
+offset_top = 35.0
+offset_right = 255.0
+offset_bottom = 110.0
+tooltip_text = "Infinite piercing shots"
+texture_normal = ExtResource("32_aa0lp")
+script = ExtResource("33_082n1")
+
+[node name="LMaxDetailsText" parent="CanvasLayer/LevelUp/Control/Hover L" instance=ExtResource("34_xex6t")]
+visible = false
+custom_minimum_size = Vector2(145, 20)
+layout_mode = 0
+offset_left = 626.0
+offset_right = 756.0
+offset_bottom = 89.0
+text = ""
+
+[node name="Hover R" type="TextureButton" parent="CanvasLayer/LevelUp/Control"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 504.0
+offset_top = 35.0
+offset_right = 579.0
+offset_bottom = 110.0
+tooltip_text = "legal"
+texture_normal = ExtResource("32_aa0lp")
+script = ExtResource("35_aa0lp")
+
+[node name="RMaxDetailsText" parent="CanvasLayer/LevelUp/Control/Hover R" instance=ExtResource("34_xex6t")]
+visible = false
+custom_minimum_size = Vector2(145, 20)
+layout_mode = 0
+offset_left = -343.0
+offset_right = -213.0
+text = "
+"
 
 [node name="PausedOverlay" type="Control" parent="CanvasLayer"]
 unique_name_in_owner = true

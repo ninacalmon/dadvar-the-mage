@@ -18,6 +18,12 @@ var stream_player2
 @onready var title_r: RichTextLabel = %"Title R"
 @onready var level_l: RichTextLabel = %"Level L"
 @onready var level_r: RichTextLabel = %"Level R"
+@onready var hover_l: TextureButton = %"Hover L"
+@onready var hover_r: TextureButton = %"Hover R"
+@onready var l_max_details_text: RichTextLabel = $"Control/Hover L/LMaxDetailsText"
+@onready var r_max_details_text: RichTextLabel = $"Control/Hover R/RMaxDetailsText"
+
+
 ## Level_l and level_r have the same placeholder text
 @onready var level_string_template: String = level_l.text
 
@@ -87,9 +93,9 @@ func _on_player_level_up(_level: int):
 	self.spell_right = self.select_random_spell(self.possible_spell_options, self.placeholder_spell)
 
 	## SPELL LEFT
-	self.show_spell_on_ui(self.spell_left, self.sprite_l, self.desc_l, self.title_l, self.choice_l, self.level_l)
+	self.show_spell_on_ui(self.spell_left, self.sprite_l, self.desc_l, self.title_l, self.choice_l, self.level_l, self.hover_l, self.l_max_details_text)
 	## SPELL RIGHT
-	self.show_spell_on_ui(self.spell_right, self.sprite_r, self.desc_r, self.title_r, self.choice_r, self.level_r)
+	self.show_spell_on_ui(self.spell_right, self.sprite_r, self.desc_r, self.title_r, self.choice_r, self.level_r, self.hover_r, self.r_max_details_text)
 
 	book_animation.show()
 	book_animation.play()
@@ -98,6 +104,7 @@ func _on_player_level_up(_level: int):
 
 func _on_book_animation_finished():
 	if !is_animation_backwards:
+		
 		control.visible = !control.visible
 		current_animation_frame = 0
 	else:
@@ -142,12 +149,13 @@ func show_spell_on_ui(
 	description: RichTextLabel,
 	title: RichTextLabel,
 	choice: Button,
-	level: RichTextLabel
+	level: RichTextLabel,
+	hover: TextureButton,
+	max_detail: RichTextLabel
 	) -> void:
 	sprite.texture = spell.get_event_spell_sprite_texture()
 	description.text = spell.get_event_spell_description()
 	title.text = spell.get_event_spell_title()
-
 	var current_level = spell.get_event_spell_current_level()
 	var max_level = spell.get_event_spell_max_level()
 
@@ -156,5 +164,10 @@ func show_spell_on_ui(
 		"N": current_level + 1,
 		"M": max_level
 	})
-
+	if spell.get_event_spell_next_level() == spell.get_event_spell_max_level():
+		max_detail.text = spell.get_event_spell_max_level_detail()
+		hover.show()
+	else:
+		hover.hide()
+	
 	choice.show()

@@ -22,7 +22,7 @@ shader_parameter/hit_flash_enabled = false
 shader_parameter/hit_flash_color = Color(1, 1, 1, 1)
 shader_parameter/dissolve_noise = SubResource("NoiseTexture2D_7555g")
 shader_parameter/dissolve_value = 1.0
-shader_parameter/dissolve_outline_color = Color(0.305882, 0.854902, 0.941176, 1)
+shader_parameter/dissolve_outline_color = Color(0.17254902, 0.14117648, 0.3882353, 1)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2j1j4"]
 animations = [{
@@ -133,6 +133,21 @@ _data = {
 &"RESET": SubResource("Animation_nc3o5")
 }
 
+[sub_resource type="Animation" id="Animation_jugge"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Body/Head:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -66)]
+}
+
 [sub_resource type="Animation" id="Animation_vy4d1"]
 resource_name = "head"
 length = 3.0
@@ -150,12 +165,18 @@ tracks/0/keys = {
 "values": [Vector2(0, -66), Vector2(-3, -60), Vector2(-8, -68)]
 }
 
-[sub_resource type="Animation" id="Animation_jugge"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5lyct"]
+_data = {
+&"RESET": SubResource("Animation_jugge"),
+&"head": SubResource("Animation_vy4d1")
+}
+
+[sub_resource type="Animation" id="Animation_2qfue"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../Body/Head:position")
+tracks/0/path = NodePath("../Body:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -163,12 +184,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, -66)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_5lyct"]
-_data = {
-&"RESET": SubResource("Animation_jugge"),
-&"head": SubResource("Animation_vy4d1")
 }
 
 [sub_resource type="Animation" id="Animation_mjya5"]
@@ -186,21 +201,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(0, -66), Vector2(0, -68)]
-}
-
-[sub_resource type="Animation" id="Animation_2qfue"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../Body:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, -66)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2j1j4"]

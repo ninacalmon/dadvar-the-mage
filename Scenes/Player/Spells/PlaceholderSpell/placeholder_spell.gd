@@ -30,3 +30,9 @@ func get_event_spell_current_level() -> int:
 
 func get_event_spell_max_level() -> int:
 	return self.current_level + 1
+	
+func get_event_spell_next_level() -> int:
+	return self.current_level + 1
+	
+func get_event_spell_max_level_detail() -> String:
+	return "Nothing."

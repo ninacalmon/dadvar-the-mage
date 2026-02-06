@@ -1,8 +1,16 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://c82ra02rrx3gv"]
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://c82ra02rrx3gv"]
 
-[ext_resource type="Shader" uid="uid://mm42ofpnqd40" path="res://Shaders/hit_flash.tres" id="1_qounh"]
+[ext_resource type="Shader" uid="uid://dvafedygytn42" path="res://Shaders/main_shader.gdshader" id="1_qounh"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ysqrm"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fsv6o"]
+noise = SubResource("FastNoiseLite_ysqrm")
 
 [resource]
 shader = ExtResource("1_qounh")
-shader_parameter/enable = false
-shader_parameter/ColorParameter = Color(1, 1, 1, 1)
+shader_parameter/hit_flash_enabled = false
+shader_parameter/hit_flash_color = Color(1, 1, 1, 1)
+shader_parameter/dissolve_noise = SubResource("NoiseTexture2D_fsv6o")
+shader_parameter/dissolve_value = 1.0
+shader_parameter/dissolve_outline_color = Color(0.305882, 0.854902, 0.941176, 1)

@@ -35,6 +35,10 @@ func get_event_spell_next_level() -> int:
 func get_event_spell_max_level() -> int:
 	assert(1 == 2, "get_event_spell_max_level() must be implemented")
 	return -1
+	
+func get_event_spell_max_level_detail() -> String:
+	assert(1 == 2, "get_event_spell_max_level_detail() must be implemented")
+	return ""
 
 func get_event_spell_title() -> String:
 	return prettify_class_name(self.get_script().get_global_name())

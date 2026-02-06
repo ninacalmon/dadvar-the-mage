@@ -33,9 +33,7 @@ var lazy_cast_cooldown = 0
 @onready var health_bar: TextureProgressBar = $HealthBar
 @onready var vp_collector: Area2D = $VpCollector
 @onready var vp_range: CollisionShape2D = $VpCollector/VpRange
-@onready var hit_flash_animation: AnimationPlayer = $HitFlashAnimPlayer
 @onready var magic_light: PointLight2D = $MagicLight
-@onready var hit_flash_material: ShaderMaterial = player_sprite.material
 @onready var timer_to_be_hurt: Timer = $"../TimerToBeHurt"
 
 #endregion
@@ -45,8 +43,8 @@ var mobs_on_damage_range: Array[MobBehaviourModule] = []
 const WAND_TIP_POSITION_X_ABSOLUTE = 63
 
 func start(pos):
+	self.player_sprite.material.set_shader_parameter("dissolve_value", 1.0)
 	position = pos
-	hit_flash_animation.play("hit_flash")
 	show()
 	hurt_box.disabled = false
 	self.body_exited.connect(_on_body_exited)
@@ -69,9 +67,13 @@ func start(pos):
 func hurt_myself():
 	for mob: MobBehaviourModule in mobs_on_damage_range:
 		self.take_damage(mob)
+	
+	if (mobs_on_damage_range.size() == 0):
+		self.player_sprite.material.set_shader_parameter("hit_flash_enabled", false)
 
 func take_damage(mob_behaviour: MobBehaviourModule = null, bullet_module: BulletModule = null):
-	self.hit_flash_animation.play("hit_flash")
+	self.player_sprite.material.set_shader_parameter("hit_flash_enabled", true)
+
 	var current_health = health_module.get_health()
 
 	var damage_received = mob_behaviour.damage if mob_behaviour != null else bullet_module.damage
@@ -149,16 +151,21 @@ func _on_area_entered(area: Area2D) -> void:
 func _on_player_health_health_depleted() -> void:
 	var stream_player = AudioStreamPlayer.new()
 	stream_player.stream = audio_track
-	stream_player.pitch_scale = randf_range(0.2, 0.3)
+	stream_player.pitch_scale = randf_range(0.15, 0.2)
+	stream_player.volume_db = 0
 
 	get_parent().add_child(stream_player)
 
 	var tween = get_tree().create_tween()
 	hurt_box.set_deferred("disabled", true)
-
-	self.hit_flash_animation.play_backwards("hit_flash")
 	tween.tween_callback(stream_player.play)
-	tween.parallel().tween_property(player_sprite, "scale", Vector2(1, 0.06), 1)
+	tween.tween_property(
+		player_sprite.material,
+		"shader_parameter/dissolve_value",
+		0.0,
+		3.5
+	).from(1.0)
+	#tween.parallel().tween_property(player_sprite, "scale", Vector2(1, 0.06), 1)
 
 	tween.tween_callback(player_death.emit)
 

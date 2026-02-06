@@ -97,3 +97,6 @@ func get_event_spell_next_level() -> int:
 
 func get_event_spell_max_level() -> int:
 	return max_level
+
+func get_event_spell_max_level_detail() -> String:
+	return "[color=6b0e1d]Double[/color] bolt casting."

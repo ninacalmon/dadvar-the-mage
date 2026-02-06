@@ -23,7 +23,7 @@ shader_parameter/hit_flash_enabled = false
 shader_parameter/hit_flash_color = Color(1, 1, 1, 1)
 shader_parameter/dissolve_noise = SubResource("NoiseTexture2D_xflh7")
 shader_parameter/dissolve_value = 1.0
-shader_parameter/dissolve_outline_color = Color(0.305882, 0.854902, 0.941176, 1)
+shader_parameter/dissolve_outline_color = Color(0.4366666, 0.35000002, 1, 1)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_o80aq"]
 animations = [{
