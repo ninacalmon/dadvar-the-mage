@@ -36,7 +36,8 @@ var possible_spell_options: Array[EventSpell] = [
 	YggdrasilTea.new(),
 	BoreasSwiftness.new(),
 	OgresScent.new(),
-	ProfaneBolt.new()
+	ProfaneBolt.new(),
+	WrathWand.new()
 ]
 
 var placeholder_spell = SpellWaste.new()

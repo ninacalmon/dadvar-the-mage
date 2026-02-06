@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://d2c1s3qmdi4ti"]
+[gd_scene load_steps=14 format=3 uid="uid://d2c1s3qmdi4ti"]
 
 [ext_resource type="Script" uid="uid://ddcjyfv6u117d" path="res://Scenes/Player/player.gd" id="1_fkybt"]
 [ext_resource type="Script" uid="uid://cnihm64tdxf10" path="res://Scenes/Player/player_body_2d.gd" id="1_gk6dx"]
@@ -9,7 +9,6 @@
 [ext_resource type="Script" uid="uid://ckp8nqvjgsevu" path="res://Modules/Generics/health_module.gd" id="4_mtuoh"]
 [ext_resource type="PackedScene" uid="uid://cxyeuoba4nxrv" path="res://UI/health_bar.tscn" id="5_htcer"]
 [ext_resource type="Texture2D" uid="uid://b37tdqau44es0" path="res://Sprites/soft_gradient.tres" id="8_jlvik"]
-[ext_resource type="AudioStream" uid="uid://oise8ptm040n" path="res://Sounds/retro-game-shot-2-152053.mp3" id="10_jhyir"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jlvik"]
 
@@ -119,10 +118,6 @@ position = Vector2(-40, 16)
 
 [node name="TimerToBeHurt" type="Timer" parent="."]
 wait_time = 0.2
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("10_jhyir")
-pitch_scale = 0.1
 
 [connection signal="area_entered" from="PlayerArea" to="PlayerArea" method="_on_area_entered"]
 [connection signal="body_entered" from="PlayerArea" to="PlayerArea" method="_on_body_entered"]

@@ -58,8 +58,11 @@ func create_damage_number_pop_up(value: float, position: Vector2, show_time: flo
 	number_pop_up.global_position = position
 	number_pop_up.modulate = color
 
-	if value >= 40:
+	if value >= 50:
 		number_pop_up.scale = Vector2.ONE * 2.0
+		
+	if value < 50 and value >= 40:
+		number_pop_up.scale = Vector2.ONE * 1.5
 		
 	if value <= 10:
 		number_pop_up.scale = Vector2.ONE * 1.0

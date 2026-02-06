@@ -21,8 +21,6 @@ var lazy_cast_cooldown = 0
 #region Spells and Upgrades
 @export_subgroup("Spells and upgrades")
 @export var spells: Array[EventSpell] = []
-## MAYBE HAVE HERE A SPELL UPGRADES OR SOMETHING LIKE THIS WHICH ARE UPGRADES THAT
-## ARE NOT EFFECTS ON THE BULLET
 #endregion
 
 #region On Ready Vars
@@ -52,13 +50,14 @@ func start(pos):
 
 	timer_to_be_hurt.start()
 	timer_to_be_hurt.timeout.connect(hurt_myself)
-	#self.add_new_spell(ProfaneBolt.new())
+	#self.add_new_spell(ProfaneBolt.new(), 1)
 	#self.add_new_spell(OgresScent.new(), 1)
-	#self.add_new_spell(VampiricGoblet.new())
-	#self.add_new_spell(BoreasSwiftness.new())
-	#self.add_new_spell(TitansSkin.new())
-	#self.add_new_spell(YggdrasilTea.new())
-	#self.add_new_spell(SoulPiercer.new())
+	#self.add_new_spell(VampiricGoblet.new(), 1)
+	#self.add_new_spell(BoreasSwiftness.new(), 1)
+	#self.add_new_spell(TitansSkin.new(), 1)
+	#self.add_new_spell(YggdrasilTea.new(), 1)
+	#self.add_new_spell(SoulPiercer.new(), 1)
+	#self.add_new_spell(WrathWand.new(), 1)
 
 ## PUT THIS IN UTILS LATER!!!
 #func wobble():
