@@ -41,15 +41,21 @@ var mobs_on_damage_range: Array[MobBehaviourModule] = []
 const WAND_TIP_POSITION_X_ABSOLUTE = 63
 
 func start(pos):
-	self.player_sprite.material.set_shader_parameter("dissolve_value", 1.0)
-	position = pos
-	show()
-	hurt_box.disabled = false
+	var tween = get_tree().create_tween()
+	tween.tween_property(
+		player_sprite.material,
+		"shader_parameter/dissolve_value",
+		1.0,
+		1.0
+	)
+	self.position = pos
+	self.show()
+	self.hurt_box.disabled = false
 	self.body_exited.connect(_on_body_exited)
 	EventBus.new_spell_added.connect(add_new_spell)
 
-	timer_to_be_hurt.start()
-	timer_to_be_hurt.timeout.connect(hurt_myself)
+	self.timer_to_be_hurt.start()
+	self.timer_to_be_hurt.timeout.connect(hurt_myself)
 	#self.add_new_spell(ProfaneBolt.new(), 1)
 	#self.add_new_spell(OgresScent.new(), 1)
 	#self.add_new_spell(VampiricGoblet.new(), 1)
@@ -58,11 +64,8 @@ func start(pos):
 	#self.add_new_spell(YggdrasilTea.new(), 1)
 	#self.add_new_spell(SoulPiercer.new(), 1)
 	#self.add_new_spell(WrathWand.new(), 1)
-
-## PUT THIS IN UTILS LATER!!!
-#func wobble():
-	#player_sprite.rotation = sin(Time.get_ticks_msec() * frequency) * amplitude
 	
+
 func hurt_myself():
 	for mob: MobBehaviourModule in mobs_on_damage_range:
 		self.take_damage(mob)
