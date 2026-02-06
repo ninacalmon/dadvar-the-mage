@@ -46,8 +46,8 @@ func start(pos):
 		player_sprite.material,
 		"shader_parameter/dissolve_value",
 		1.0,
-		1.0
-	)
+		1.4
+	).from(0.0)
 	self.position = pos
 	self.show()
 	self.hurt_box.disabled = false
