@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://7xcjig64pekg"]
+
+[ext_resource type="Script" uid="uid://dm6dae0yldsu3" path="res://Cutscenes/proc_gen_world_map_cutscene.gd" id="1_cc1bj"]
+[ext_resource type="Texture2D" uid="uid://db6bnmtsuq0xk" path="res://Sprites/image.png" id="2_mw47y"]
+
+[node name="ProcGenWorldMap" type="Node2D"]
+script = ExtResource("1_cc1bj")
+noise_woods_texture = ExtResource("2_mw47y")

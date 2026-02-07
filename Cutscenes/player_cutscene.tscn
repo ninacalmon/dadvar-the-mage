@@ -1,0 +1,78 @@
+[gd_scene load_steps=12 format=3 uid="uid://c2vt78nfm0457"]
+
+[ext_resource type="Script" uid="uid://bhegiuyynndtk" path="res://Cutscenes/player_cutscene.gd" id="1_o4map"]
+[ext_resource type="Script" uid="uid://cx1bveptsnmc" path="res://Modules/Generics/stats_module.gd" id="2_4blgn"]
+[ext_resource type="Script" uid="uid://drtjm1qkp2mw3" path="res://Cutscenes/player_area_cutscene.gd" id="3_vw2ak"]
+[ext_resource type="PackedScene" uid="uid://73ai3a0wwokb" path="res://Scenes/Player/Spells/test_bullet.tscn" id="4_4blgn"]
+[ext_resource type="Material" uid="uid://c82ra02rrx3gv" path="res://Shaders/material.tres" id="4_lu0b7"]
+[ext_resource type="Texture2D" uid="uid://dqqxlre8b55bg" path="res://Sprites/TheMage.png" id="5_sdnej"]
+[ext_resource type="Texture2D" uid="uid://b37tdqau44es0" path="res://Sprites/soft_gradient.tres" id="6_jlaia"]
+
+[sub_resource type="Resource" id="Resource_lu0b7"]
+resource_local_to_scene = true
+script = ExtResource("2_4blgn")
+base_move_speed = 150.0
+base_cast_cooldown = 0.3
+metadata/_custom_type_script = "uid://cx1bveptsnmc"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sdnej"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tx1dd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_sdnej")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jlaia"]
+radius = 24.0
+height = 96.0
+
+[node name="PlayerBody2d" type="CharacterBody2D"]
+script = ExtResource("1_o4map")
+stats_module = SubResource("Resource_lu0b7")
+frequency = 10.0
+amplitude = 0.1
+
+[node name="HitBox" type="CollisionShape2D" parent="."]
+position = Vector2(-8, -12)
+shape = SubResource("CircleShape2D_sdnej")
+
+[node name="WandTip" type="Node2D" parent="."]
+position = Vector2(64, -96)
+
+[node name="PlayerArea" type="Area2D" parent="." groups=["PlayerGroup"]]
+y_sort_enabled = true
+collision_layer = 524289
+collision_mask = 526342
+script = ExtResource("3_vw2ak")
+stats_module = SubResource("Resource_lu0b7")
+bullet = ExtResource("4_4blgn")
+
+[node name="PlayerSprite" type="AnimatedSprite2D" parent="PlayerArea"]
+light_mask = 4
+y_sort_enabled = true
+texture_filter = 1
+material = ExtResource("4_lu0b7")
+position = Vector2(0.6100901, -6.973363)
+sprite_frames = SubResource("SpriteFrames_tx1dd")
+animation = &"idle"
+offset = Vector2(0, -65)
+
+[node name="MagicLight" type="PointLight2D" parent="PlayerArea"]
+enabled = false
+color = Color(0.69, 0.32430002, 0.64124006, 1)
+energy = 8.14
+range_item_cull_mask = 4
+texture = ExtResource("6_jlaia")
+
+[node name="HurtBox" type="CollisionShape2D" parent="PlayerArea"]
+position = Vector2(0, -56)
+shape = SubResource("CapsuleShape2D_jlaia")
+
+[connection signal="area_entered" from="PlayerArea" to="PlayerArea" method="_on_area_entered"]
+[connection signal="body_entered" from="PlayerArea" to="PlayerArea" method="_on_body_entered"]

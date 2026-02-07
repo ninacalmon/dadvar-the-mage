@@ -6,8 +6,8 @@
 blend_mode = 1
 
 [sub_resource type="Gradient" id="Gradient_bulik"]
-offsets = PackedFloat32Array(0, 0.07608695, 0.8423913, 1)
-colors = PackedColorArray(0.77, 0.5775, 0, 0, 0.76634103, 0.5808681, 0, 1, 0.9503074, 0.31728265, 0.11820833, 1, 0.84705883, 0.21176471, 0.11764706, 0)
+offsets = PackedFloat32Array(0.05668016, 0.9068826, 1)
+colors = PackedColorArray(0, 0.32966676, 0.43, 1, 0, 0.089999914, 0.54, 1, 0, 0.089999914, 0.54, 0)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_wu4g7"]
 gradient = SubResource("Gradient_bulik")
@@ -25,11 +25,11 @@ initial_velocity_max = 302.63
 angular_velocity_min = -1.6093254e-05
 angular_velocity_max = 99.999985
 gravity = Vector3(0, 0, 0)
-scale_min = 0.19999999
+scale_min = 0.099999994
 scale_max = 0.79999995
 color_ramp = SubResource("GradientTexture1D_wu4g7")
 
-[node name="ExplosionGPUPartcles" type="GPUParticles2D"]
+[node name="FireGPUPartcles" type="GPUParticles2D"]
 material = SubResource("CanvasItemMaterial_3hk24")
 amount = 32
 texture = ExtResource("1_sjvv2")

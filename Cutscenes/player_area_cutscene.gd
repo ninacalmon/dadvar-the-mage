@@ -1,5 +1,4 @@
 extends Area2D
-class_name Player
 signal player_death
 
 #region Exports
@@ -10,8 +9,8 @@ signal player_death
 @export_group("Local Variables")
 @export var speed = 400
 @export var bullet: PackedScene
-var cast_cooldown = 0
-var lazy_cast_cooldown = 0
+var cast_cooldown: float = 0.5
+var lazy_cast_cooldown: float = 2
 
 #@export_subgroup("Wobble")
 #@export var frequency := 1.0
@@ -28,11 +27,7 @@ var lazy_cast_cooldown = 0
 @onready var player_sprite: AnimatedSprite2D = $PlayerSprite
 @onready var hurt_box: CollisionShape2D = $HurtBox
 @onready var wand_tip: Node2D = $"../WandTip"
-@onready var health_bar: TextureProgressBar = $HealthBar
-@onready var vp_collector: Area2D = $VpCollector
-@onready var vp_range: CollisionShape2D = $VpCollector/VpRange
 @onready var magic_light: PointLight2D = $MagicLight
-@onready var timer_to_be_hurt: Timer = $"../TimerToBeHurt"
 
 #endregion
 
@@ -40,23 +35,21 @@ var audio_track: AudioStream = preload("res://Sounds/retro-game-shot-2-152053.mp
 var mobs_on_damage_range: Array[MobBehaviourModule] = []
 const WAND_TIP_POSITION_X_ABSOLUTE = 63
 
-func start(pos):
+func _ready() -> void:
 	var tween = get_tree().create_tween()
 	tween.tween_property(
 		player_sprite.material,
 		"shader_parameter/dissolve_value",
 		1.0,
-		1.4
+		2
 	).from(0.0)
-	self.position = pos
 	self.show()
 	self.hurt_box.disabled = false
 	self.body_exited.connect(_on_body_exited)
 	EventBus.new_spell_added.connect(add_new_spell)
 	magic_light.position = wand_tip.position
 
-	self.timer_to_be_hurt.start()
-	self.timer_to_be_hurt.timeout.connect(hurt_myself)
+	
 	#self.add_new_spell(ProfaneBolt.new(), 1)
 	#self.add_new_spell(OgresScent.new(), 1)
 	#self.add_new_spell(VampiricGoblet.new(), 1)
@@ -88,7 +81,7 @@ func take_damage(mob_behaviour: MobBehaviourModule = null, bullet_module: Bullet
 func _physics_process(delta: float) -> void:
 	cast_cooldown = max(cast_cooldown - delta, 0)
 	lazy_cast_cooldown = max(lazy_cast_cooldown - delta, 0)
-	
+
 	if Input.is_action_just_pressed("shoot") and cast_cooldown <= 0:
 		shoot()
 		
@@ -104,24 +97,24 @@ func shoot():
 
 	spell_context.bullet_module = bullet_module
 
-	for spell in spells:
-		if spell.get_event_spell_type() == EventSpell.EventSpellType.PROJECTILE:
-			spell.apply_spell(spell_context)
+	#for spell in spells:
+		#if spell.get_event_spell_type() == EventSpell.EventSpellType.PROJECTILE:
+			#spell.apply_spell(spell_context)
 
-	NodeShake.apply_shake(player_sprite, 5, 20)
+	#NodeShake.apply_shake(player_sprite, 5, 20)
 	
 	magic_light.position = wand_tip.position 
-	magic_light.texture_scale = randf_range(2.5, 3)
-	magic_light.energy = randf_range(13, 16)
+	magic_light.texture_scale = randf_range(2, 2.8)
+	magic_light.energy = randf_range(16, 18)
 	magic_light.enabled = true
 
 	var light_tween = get_tree().create_tween()
-	light_tween.tween_property(magic_light, "energy", 0, stats_module.base_cast_cooldown)
-	light_tween.parallel().tween_property(magic_light, "texture_scale", 0.8, stats_module.base_cast_cooldown)
+	light_tween.tween_property(magic_light, "energy", 0, cast_cooldown)
+	light_tween.parallel().tween_property(magic_light, "texture_scale", 0.8, cast_cooldown)
 	get_parent().add_child(bullet_instance)
-	print("CAST COOLDOOWN ", self.stats_module.current_cast_cooldown)
-	cast_cooldown = self.stats_module.current_cast_cooldown
-	lazy_cast_cooldown = self.stats_module.current_cast_cooldown * 2
+	cast_cooldown = 0.5
+	lazy_cast_cooldown = 2
+	
 	
 	
 	# Collision
