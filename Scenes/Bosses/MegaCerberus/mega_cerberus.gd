@@ -8,8 +8,6 @@ var implements = [Interface.Mob, Interface.Damageable]
 @onready var heads = [$Head1, $Head2, $Head3]
 @onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
 
-var audio_track: = preload("res://Sounds/dogcrying1.mp3")
-var audio_track2: = preload("res://Sounds/dogcrying2.mp3")
 const HEAD1_POSITION_X_ABSOLUTE = 54
 const HEAD2_POSITION_X_ABSOLUTE = 46
 const HEAD3_POSITION_X_ABSOLUTE = 10

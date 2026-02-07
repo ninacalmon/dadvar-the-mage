@@ -54,14 +54,19 @@ func _ready():
 	choice_r.pressed.connect(_on_choice_r_pressed)
 	book_animation.frame_changed.connect(_on_book_animation_frame_changed)
 	control.hide()
+
+	const audio_bus = Global.AUDIO_BUS_DIC[Global.AudioBus.SOUND_EFFECTS]
 	
+	## DONE AUDIO BUSSSSSSSSS
 	stream_player = AudioStreamPlayer.new()
 	stream_player.pitch_scale = 1.3
 	stream_player.stream = opening_book_sound
+	stream_player.bus = audio_bus
 	book_animation.add_child(stream_player)
-	
+	## DONE AUDIO BUSSSSSSSSS
 	stream_player2 = AudioStreamPlayer.new()
 	stream_player2.stream = closing_book_sound
+	stream_player2.bus = audio_bus
 	book_animation.add_child(stream_player2)
 
 func _on_choice_l_pressed() -> void:

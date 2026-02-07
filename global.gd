@@ -8,5 +8,17 @@ enum Groups {
 	MAIN
 }
 const GROUPS_DIC = {
-	Groups.MAIN: 'Main'
+	Groups.MAIN: "Main"
+}
+
+enum AudioBus {
+	MASTER,
+	MUSIC,
+	SOUND_EFFECTS
+}
+
+const AUDIO_BUS_DIC = {
+	AudioBus.MASTER: "Master",
+	AudioBus.MUSIC: "Music",
+	AudioBus.SOUND_EFFECTS: "SoundEffects"
 }

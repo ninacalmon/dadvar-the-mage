@@ -41,3 +41,4 @@ texture_scale = 2.0
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_2mbk1")
 volume_db = -16.0
+bus = &"SoundEffects"

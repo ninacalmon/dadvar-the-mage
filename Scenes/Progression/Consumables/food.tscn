@@ -93,5 +93,6 @@ autoplay = "float"
 [node name="collect_sound" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamRandomizer_rh5mh")
 volume_db = -5.0
+bus = &"SoundEffects"
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

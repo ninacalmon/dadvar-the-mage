@@ -16,7 +16,6 @@ var implements = [Interface.Mob, Interface.Damageable]
 @onready var player: Area2D = get_tree().get_first_node_in_group("PlayerGroup")
 @onready var spawn_minions_rate: Timer = $SpawnMinionsRate
 @onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
-var audio_track: AudioStream = preload("res://Sounds/witch-laugh-256450.mp3")
 
 var current_angle = 0.0
 var has_spawned: bool = false

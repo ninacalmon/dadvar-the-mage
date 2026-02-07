@@ -205,6 +205,7 @@ metadata/_custom_type_script = "uid://ckp8nqvjgsevu"
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_jbg4a")
 volume_db = -16.0
+bus = &"SoundEffects"
 
 [node name="SpawnMinionsRate" type="Timer" parent="."]
 autostart = true

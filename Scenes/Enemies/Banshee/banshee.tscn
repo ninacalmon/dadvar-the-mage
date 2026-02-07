@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cakwnh4a4rc4f"]
+[gd_scene load_steps=18 format=3 uid="uid://cakwnh4a4rc4f"]
 
 [ext_resource type="Script" uid="uid://b7bvl6gq2fdfg" path="res://Scenes/Enemies/Banshee/banshee.gd" id="1_xrhp3"]
 [ext_resource type="Shader" uid="uid://cwxvplnqrndsl" path="res://Shaders/main_shader_glow.gdshader" id="2_ihb8u"]
@@ -8,7 +8,6 @@
 [ext_resource type="AudioStream" uid="uid://dlr3qeb4bxkdp" path="res://Sounds/banshee-scream-3s.mp3" id="7_2cwk4"]
 [ext_resource type="PackedScene" uid="uid://074u46307g8r" path="res://Scenes/Progression/Void Power/vp.tscn" id="7_3wn3w"]
 [ext_resource type="AudioStream" uid="uid://cdiqjuit0og4s" path="res://Sounds/explosion-sound.mp3" id="8_mbhbo"]
-[ext_resource type="AudioStream" uid="uid://2oeqxeyg41fj" path="res://Sounds/hit-sound-2.mp3" id="9_ihb8u"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_ihb8u"]
 
@@ -57,11 +56,6 @@ stream_0/stream = ExtResource("7_2cwk4")
 random_pitch = 1.2
 streams_count = 1
 stream_0/stream = ExtResource("8_mbhbo")
-
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_v84ck"]
-random_pitch = 1.4
-streams_count = 1
-stream_0/stream = ExtResource("9_ihb8u")
 
 [node name="Banshee" type="CharacterBody2D" node_paths=PackedStringArray("behaviour_module")]
 y_sort_enabled = true
@@ -147,11 +141,9 @@ one_shot = true
 
 [node name="AudioScreamPlayer" type="AudioStreamPlayer" parent="Audios"]
 stream = SubResource("AudioStreamRandomizer_mbhbo")
+bus = &"SoundEffects"
 
 [node name="ExplosionAudioPlayer" type="AudioStreamPlayer" parent="Audios"]
 stream = SubResource("AudioStreamRandomizer_2cwk4")
 volume_db = -7.0
-
-[node name="TES5TE PAUDIO" type="AudioStreamPlayer" parent="Audios"]
-stream = SubResource("AudioStreamRandomizer_v84ck")
-volume_db = -22.0
+bus = &"SoundEffects"

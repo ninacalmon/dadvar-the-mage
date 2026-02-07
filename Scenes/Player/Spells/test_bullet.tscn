@@ -101,6 +101,7 @@ hue_variation_max = 0.54
 stream = ExtResource("4_humpc")
 volume_db = -24.0
 autoplay = true
+bus = &"SoundEffects"
 
 [node name="StrongLightOnEnemies" type="PointLight2D" parent="."]
 color = Color(0.32156864, 0, 0.99607843, 1)

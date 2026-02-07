@@ -61,6 +61,7 @@ texture = ExtResource("2_d0ety")
 [node name="collect_sound" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamRandomizer_5wa2e")
 volume_db = -9.0
+bus = &"SoundEffects"
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 material = SubResource("CanvasItemMaterial_ls5y7")

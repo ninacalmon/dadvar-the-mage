@@ -149,6 +149,7 @@ func _on_player_health_health_depleted() -> void:
 	stream_player.stream = audio_track
 	stream_player.pitch_scale = randf_range(0.15, 0.2)
 	stream_player.volume_db = 0
+	stream_player.bus = Global.AUDIO_BUS_DIC[Global.AudioBus.SOUND_EFFECTS]
 
 	get_parent().add_child(stream_player)
 

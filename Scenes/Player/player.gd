@@ -119,7 +119,7 @@ func shoot():
 	light_tween.tween_property(magic_light, "energy", 0, stats_module.base_cast_cooldown)
 	light_tween.parallel().tween_property(magic_light, "texture_scale", 0.8, stats_module.base_cast_cooldown)
 	get_parent().add_child(bullet_instance)
-	print("CAST COOLDOOWN ", self.stats_module.current_cast_cooldown)
+
 	cast_cooldown = self.stats_module.current_cast_cooldown
 	lazy_cast_cooldown = self.stats_module.current_cast_cooldown * 2
 	
@@ -156,7 +156,7 @@ func _on_player_health_health_depleted() -> void:
 	stream_player.stream = audio_track
 	stream_player.pitch_scale = randf_range(0.15, 0.2)
 	stream_player.volume_db = 0
-
+	stream_player.bus = Global.AUDIO_BUS_DIC[Global.AudioBus.SOUND_EFFECTS]
 	get_parent().add_child(stream_player)
 
 	var tween = get_tree().create_tween()

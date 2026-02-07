@@ -104,6 +104,7 @@ rect = Rect2(-420, -499, 840, 840)
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamRandomizer_y8c8q")
 volume_db = -18.0
+bus = &"SoundEffects"
 
 [node name="StoneParticles" type="CPUParticles2D" parent="."]
 position = Vector2(0, -64)

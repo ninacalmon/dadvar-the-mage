@@ -119,5 +119,6 @@ autostart = true
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamRandomizer_tmf4s")
 volume_db = -10.0
+bus = &"SoundEffects"
 
 [connection signal="timeout" from="MobCooldown" to="." method="_on_mob_cooldown_timeout"]

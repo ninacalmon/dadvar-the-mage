@@ -7,7 +7,6 @@ extends Sprite2D
 @onready var point_light_2d: PointLight2D = $PointLight2D
 
 var direction
-var audio_track = preload("res://Sounds/city-castle-398832.mp3")
 
 func _ready():
 	point_light_2d.energy = 1

@@ -4,9 +4,6 @@ var implements = [Interface.Mob, Interface.Damageable]
 
 @export var behaviour_module: MobBehaviourModule
 
-var audio_track: = preload("res://Sounds/dogcrying1.mp3")
-var audio_track2: = preload("res://Sounds/dogcrying2.mp3")
-
 var colour0 = Color(1.0, 1.0, 1.0)
 var colour1 = Color(0.7, 0.595, 0.595)
 var colour2 = Color(0.923, 0.703, 0.703)

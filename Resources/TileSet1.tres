@@ -99,6 +99,9 @@ texture_region_size = Vector2i(64, 64)
 1:9/0 = 0
 2:9/0 = 0
 3:9/0 = 0
+9:6/size_in_atlas = Vector2i(6, 4)
+9:6/0 = 0
+9:6/0/y_sort_origin = 120
 
 [resource]
 tile_size = Vector2i(32, 32)
