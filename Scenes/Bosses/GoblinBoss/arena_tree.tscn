@@ -1,0 +1,41 @@
+[gd_scene load_steps=9 format=3 uid="uid://b1tq0kskxcfbf"]
+
+[ext_resource type="Script" uid="uid://bp26cioelmwgm" path="res://Scenes/Bosses/GoblinBoss/arena_tree.gd" id="1_rkhxl"]
+[ext_resource type="Shader" uid="uid://dvafedygytn42" path="res://Shaders/main_shader.gdshader" id="2_a4joq"]
+[ext_resource type="Texture2D" uid="uid://cm3q6e0gp4v2u" path="res://Sprites/tree.png" id="3_ekqqr"]
+[ext_resource type="AudioStream" uid="uid://cmi0070c810xn" path="res://Sounds/tree_emerging.mp3" id="4_xlkax"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0ioo4"]
+size = Vector2(46, 44)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_6ytb8"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_5wyek"]
+noise = SubResource("FastNoiseLite_6ytb8")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n3kbg"]
+resource_local_to_scene = true
+shader = ExtResource("2_a4joq")
+shader_parameter/hit_flash_enabled = false
+shader_parameter/hit_flash_color = Color(1, 1, 1, 1)
+shader_parameter/dissolve_noise = SubResource("NoiseTexture2D_5wyek")
+shader_parameter/dissolve_value = 1.0
+shader_parameter/dissolve_outline_color = Color(0.47058824, 0.81960785, 0.16470589, 1)
+
+[node name="Area2D" type="StaticBody2D"]
+collision_layer = 32769
+script = ExtResource("1_rkhxl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -16)
+shape = SubResource("RectangleShape2D_0ioo4")
+
+[node name="TreeSprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_n3kbg")
+texture = ExtResource("3_ekqqr")
+offset = Vector2(-2.995, -90)
+
+[node name="EmergingSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_xlkax")
+volume_db = -6.012
+bus = &"SoundEffects"

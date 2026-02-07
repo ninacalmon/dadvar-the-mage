@@ -420,6 +420,9 @@ visibility_layer = 0
 y_sort_enabled = true
 tile_set = ExtResource("7_36jdj")
 
+[node name="GoblinBoss" parent="y Sorted Layer" instance=ExtResource("4_ryrav")]
+position = Vector2(-682.99994, -148.99997)
+
 [node name="MusicSystem" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("25_i2p71")

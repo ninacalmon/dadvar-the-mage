@@ -66,7 +66,7 @@ stream_2/stream = ExtResource("11_vlas6")
 [node name="GargoyleBody2D" type="CharacterBody2D" node_paths=PackedStringArray("behaviour_module", "health_module")]
 y_sort_enabled = true
 collision_layer = 2
-collision_mask = 2
+collision_mask = 32770
 script = ExtResource("1_lnp2y")
 behaviour_module = NodePath("Behaviour/MobBehaviour")
 health_module = NodePath("Behaviour/HealthModule")

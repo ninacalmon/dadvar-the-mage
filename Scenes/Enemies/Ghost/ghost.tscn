@@ -54,7 +54,7 @@ colors = PackedColorArray(0.66937786, 1.0570047, 1.3171228, 0.5294118, 1, 1, 1, 
 [node name="Ghost" type="CharacterBody2D" node_paths=PackedStringArray("behaviour_module", "health_module")]
 y_sort_enabled = true
 collision_layer = 4
-collision_mask = 4
+collision_mask = 32772
 motion_mode = 1
 platform_floor_layers = 4278190080
 safe_margin = 0.001

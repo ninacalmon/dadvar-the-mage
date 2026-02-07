@@ -1,13 +1,25 @@
-[gd_scene load_steps=20 format=3 uid="uid://drrllpdvbctga"]
+[gd_scene load_steps=18 format=3 uid="uid://drrllpdvbctga"]
 
 [ext_resource type="Script" uid="uid://cvh6pdd1cahof" path="res://Scenes/Bosses/GoblinBoss/goblin_boss.gd" id="1_bs2mh"]
 [ext_resource type="Shader" uid="uid://dvafedygytn42" path="res://Shaders/main_shader.gdshader" id="2_1p0cp"]
 [ext_resource type="PackedScene" uid="uid://lo1aexwurrqg" path="res://Scenes/Enemies/Goblin/goblin.tscn" id="2_72co8"]
 [ext_resource type="Texture2D" uid="uid://bgqumwqddncyp" path="res://Sprites/Goblin-1.png" id="2_h2756"]
 [ext_resource type="PackedScene" uid="uid://dnr2fm6mdvs2" path="res://Modules/Mobs/mob_behaviour_module.tscn" id="3_1lps0"]
+[ext_resource type="PackedScene" uid="uid://b1tq0kskxcfbf" path="res://Scenes/Bosses/GoblinBoss/arena_tree.tscn" id="3_jgpot"]
 [ext_resource type="Script" uid="uid://ckp8nqvjgsevu" path="res://Modules/Generics/health_module.gd" id="4_4f2ww"]
 [ext_resource type="PackedScene" uid="uid://074u46307g8r" path="res://Scenes/Progression/Void Power/vp.tscn" id="5_1p0cp"]
 [ext_resource type="AudioStream" uid="uid://b66t5o1p1hh8k" path="res://Sounds/witch-laugh-256450.mp3" id="6_jbg4a"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_72co8"]
+radius = 134.43808
+
+[sub_resource type="Curve" id="Curve_72co8"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_jgpot"]
+offsets = PackedFloat32Array(0.02173913, 0.26545453)
+colors = PackedColorArray(1, 1, 1, 0.3254902, 1, 1, 1, 0)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_72co8"]
 
@@ -42,43 +54,56 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u8yfu"]
 size = Vector2(55.466675, 37.333336)
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_vtwp2"]
-blend_mode = 1
-
-[sub_resource type="Curve" id="Curve_8lcgm"]
-_data = [Vector2(0.16611296, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="Gradient" id="Gradient_5wagp"]
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
-
-[sub_resource type="Curve" id="Curve_72co8"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="Gradient" id="Gradient_jgpot"]
-offsets = PackedFloat32Array(0.02173913, 0.18478261)
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_72co8"]
-radius = 134.43808
-
 [node name="GoblinBoss" type="CharacterBody2D" node_paths=PackedStringArray("behaviour_module")]
 y_sort_enabled = true
 scale = Vector2(2.5, 2.5)
 collision_layer = 2
-collision_mask = 2
+collision_mask = 32770
 motion_mode = 1
 platform_floor_layers = 4278190080
 safe_margin = 0.001
 script = ExtResource("1_bs2mh")
 behaviour_module = NodePath("Behaviour/MobBehaviour")
 goblilings = ExtResource("2_72co8")
+tree = ExtResource("3_jgpot")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 modulate = Color(0, 0, 0, 1)
 position = Vector2(0, -74)
 rect = Rect2(-280, -280, 560, 560)
+
+[node name="SpawnArea" type="Area2D" parent="."]
+y_sort_enabled = true
+scale = Vector2(0.99999994, 0.99999994)
+collision_layer = 0
+
+[node name="SpawnAreaShape" type="CollisionShape2D" parent="SpawnArea"]
+position = Vector2(0, -57.6)
+shape = SubResource("CircleShape2D_72co8")
+
+[node name="GoblinMagicParticlesGround" type="CPUParticles2D" parent="SpawnArea"]
+z_index = -1
+y_sort_enabled = true
+position = Vector2(0, -57.600002)
+scale = Vector2(0.9999998, 0.9999998)
+emitting = false
+amount = 800
+lifetime = 2.0
+one_shot = true
+explosiveness = 0.62
+lifetime_randomness = 1.0
+emission_shape = 1
+emission_sphere_radius = 68.38
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+scale_amount_min = 2.0
+scale_amount_max = 4.0
+scale_amount_curve = SubResource("Curve_72co8")
+color = Color(0.47, 0.82, 0.164, 1)
+color_ramp = SubResource("Gradient_jgpot")
+hue_variation_max = 0.54
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 light_mask = 9
@@ -120,27 +145,6 @@ initial_velocity_max = 100.0
 scale_amount_min = 3.0
 scale_amount_max = 6.0
 color = Color(0.28235295, 0, 0, 1)
-
-[node name="GoblinMagicParticles3" type="CPUParticles2D" parent="."]
-visible = false
-material = SubResource("CanvasItemMaterial_vtwp2")
-position = Vector2(0, -112)
-emitting = false
-amount = 30
-lifetime = 0.5
-one_shot = true
-explosiveness = 1.0
-randomness = 1.0
-lifetime_randomness = 1.0
-direction = Vector2(0, 0)
-spread = 180.0
-gravity = Vector2(0, 1000)
-initial_velocity_min = 50.0
-initial_velocity_max = 100.0
-scale_amount_max = 3.0
-scale_amount_curve = SubResource("Curve_8lcgm")
-color = Color(0.47, 0.82, 0.164, 1)
-color_ramp = SubResource("Gradient_5wagp")
 
 [node name="GoblinMagicParticles" type="CPUParticles2D" parent="."]
 y_sort_enabled = true
@@ -195,7 +199,7 @@ mob_sprite = NodePath("../../AnimatedSprite2D")
 
 [node name="HealthModule" type="Node" parent="Behaviour"]
 script = ExtResource("4_4f2ww")
-max_health = 200.0
+max_health = 600.0
 metadata/_custom_type_script = "uid://ckp8nqvjgsevu"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
@@ -203,14 +207,4 @@ stream = ExtResource("6_jbg4a")
 volume_db = -16.0
 
 [node name="SpawnMinionsRate" type="Timer" parent="."]
-wait_time = 2.0
 autostart = true
-
-[node name="SpawnArea" type="Area2D" parent="."]
-visible = false
-collision_layer = 0
-collision_mask = 0
-
-[node name="SpawnAreaShape" type="CollisionShape2D" parent="SpawnArea"]
-position = Vector2(0, -57.6)
-shape = SubResource("CircleShape2D_72co8")

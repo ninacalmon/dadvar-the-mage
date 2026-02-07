@@ -37,7 +37,7 @@ radius = 47.502632
 
 [node name="Cerberus" type="CharacterBody2D" node_paths=PackedStringArray("behaviour_module")]
 collision_layer = 4
-collision_mask = 2
+collision_mask = 32770
 motion_mode = 1
 platform_floor_layers = 4278190080
 safe_margin = 0.001
