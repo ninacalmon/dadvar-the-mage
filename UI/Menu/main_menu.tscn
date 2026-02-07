@@ -1,0 +1,158 @@
+[gd_scene load_steps=12 format=3 uid="uid://lrwtrhhdv65l"]
+
+[ext_resource type="FontFile" uid="uid://lyk0q1luk8p3" path="res://Fonts/Pixel_Operator/PixelOperatorHB8.ttf" id="1_o5at2"]
+[ext_resource type="Texture2D" uid="uid://bj31ex7mahex" path="res://Sprites/forest_image_noise.png" id="1_t0n6y"]
+[ext_resource type="Script" uid="uid://c83ieos4hx2rc" path="res://UI/Menu/start.gd" id="2_4hclx"]
+[ext_resource type="Script" uid="uid://h628o40dk2yw" path="res://UI/Menu/exit.gd" id="3_wrubb"]
+[ext_resource type="Texture2D" uid="uid://qrkinbs4m8jj" path="res://Sprites/DadvarTheMage.png" id="4_fmybh"]
+[ext_resource type="Texture2D" uid="uid://ch77qoff4r0gg" path="res://Sprites/fog.png" id="5_khm05"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4hclx"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_khm05"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_khm05"]
+resource_name = "fog"
+length = 4.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/TextureFog:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-10, 0), Vector2(10, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_fp7wp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/TextureFog:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-40, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8610p"]
+_data = {
+&"RESET": SubResource("Animation_fp7wp"),
+&"fog": SubResource("Animation_khm05")
+}
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Background" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_t0n6y")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0.42352942)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+color = Color(0.0627451, 0.101960786, 0.17254902, 1)
+
+[node name="TextureFog" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_right = -40.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_khm05")
+
+[node name="Logo" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -341.0
+offset_top = 56.0
+offset_right = -165.0
+offset_bottom = 120.0
+grow_horizontal = 2
+scale = Vector2(4, 4)
+size_flags_horizontal = 4
+texture = ExtResource("4_fmybh")
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -312.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 34
+
+[node name="Start" type="Button" parent="CanvasLayer/CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 40)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_hover_color = Color(0.17254902, 0.14117648, 0.3882353, 1)
+theme_override_fonts/font = ExtResource("1_o5at2")
+theme_override_styles/normal = SubResource("StyleBoxFlat_4hclx")
+theme_override_styles/hover = SubResource("StyleBoxFlat_khm05")
+text = "START"
+script = ExtResource("2_4hclx")
+
+[node name="Credits" type="Button" parent="CanvasLayer/CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 40)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_hover_color = Color(0.17254902, 0.14117648, 0.3882353, 1)
+theme_override_fonts/font = ExtResource("1_o5at2")
+theme_override_styles/normal = SubResource("StyleBoxFlat_4hclx")
+theme_override_styles/hover = SubResource("StyleBoxFlat_khm05")
+action_mode = 0
+text = "CREDITS"
+
+[node name="Exit" type="Button" parent="CanvasLayer/CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 40)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_hover_color = Color(0.17254902, 0.14117648, 0.3882353, 1)
+theme_override_fonts/font = ExtResource("1_o5at2")
+theme_override_styles/normal = SubResource("StyleBoxFlat_4hclx")
+theme_override_styles/hover = SubResource("StyleBoxFlat_khm05")
+text = "EXIT"
+script = ExtResource("3_wrubb")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_8610p")
+}
+autoplay = "fog"
+playback_auto_capture_transition_type = 6
+playback_auto_capture_ease_type = 2

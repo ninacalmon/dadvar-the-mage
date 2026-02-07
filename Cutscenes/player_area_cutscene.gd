@@ -109,8 +109,8 @@ func shoot():
 	magic_light.enabled = true
 
 	var light_tween = get_tree().create_tween()
-	light_tween.tween_property(magic_light, "energy", 0, cast_cooldown)
-	light_tween.parallel().tween_property(magic_light, "texture_scale", 0.8, cast_cooldown)
+	light_tween.tween_property(magic_light, "energy", 0, 0.2)
+	light_tween.parallel().tween_property(magic_light, "texture_scale", 0.8, 0.2)
 	get_parent().add_child(bullet_instance)
 	cast_cooldown = 0.5
 	lazy_cast_cooldown = 2
