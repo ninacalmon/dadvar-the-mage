@@ -12,8 +12,9 @@ const HIT_SOUND = preload("uid://2oeqxeyg41fj")
 
 
 @export var mob: CharacterBody2D
-@export var mob_collision_shape: CollisionShape2D
+@export var mob_collision_shape_array: Array[CollisionShape2D]
 @export var mob_sprite: AnimatedSprite2D
+
 @onready var player =  get_tree().get_first_node_in_group("PlayerGroup")
 ## THE HEALTH MODULE NEEDS TO BE SIBLING TO THE MOB BEHAVIOUR
 ## NOT THE BEST WAY TO DO THIS, MAYBE IMPROVE LATER
@@ -132,7 +133,9 @@ func get_sprite_texture() -> CompressedTexture2D:
 	return mob_first_anim_frame_texture
 
 func death_dissolve(time_to_disolve: float = 0.4) -> Tween:
-	mob_collision_shape.set_deferred("disabled", true)
+	for mob_collision_shape in self.mob_collision_shape_array:
+		mob_collision_shape.set_deferred("disabled", true)
+
 	var tween = get_tree().create_tween()
 	tween.tween_property(
 		mob_sprite.material,

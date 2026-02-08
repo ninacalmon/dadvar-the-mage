@@ -183,13 +183,13 @@ hue_variation_max = 0.54
 
 [node name="Behaviour" type="Node" parent="."]
 
-[node name="MobBehaviour" parent="Behaviour" node_paths=PackedStringArray("health_module", "mob", "mob_collision_shape", "mob_sprite") instance=ExtResource("3_1lps0")]
+[node name="MobBehaviour" parent="Behaviour" node_paths=PackedStringArray("health_module", "mob", "mob_collision_shape_array", "mob_sprite") instance=ExtResource("3_1lps0")]
 movement_speed = 40
 damage = 20.0
 health_module = NodePath("../HealthModule")
 vp_orb_scene = ExtResource("5_1p0cp")
 mob = NodePath("../..")
-mob_collision_shape = NodePath("../../CollisionShape2D")
+mob_collision_shape_array = [NodePath("../../CollisionShape2D")]
 mob_sprite = NodePath("../../AnimatedSprite2D")
 
 [node name="HealthModule" type="Node" parent="Behaviour"]

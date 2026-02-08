@@ -83,13 +83,13 @@ shape = SubResource("CircleShape2D_31fxy")
 
 [node name="Behaviour" type="Node" parent="."]
 
-[node name="MobBehaviour" parent="Behaviour" node_paths=PackedStringArray("health_module", "mob", "mob_collision_shape", "mob_sprite") instance=ExtResource("1_sltjp")]
+[node name="MobBehaviour" parent="Behaviour" node_paths=PackedStringArray("health_module", "mob", "mob_collision_shape_array", "mob_sprite") instance=ExtResource("1_sltjp")]
 movement_speed = 25
 damage = 30.0
 health_module = NodePath("../HealthModule")
 vp_orb_scene = ExtResource("2_snxcg")
 mob = NodePath("../..")
-mob_collision_shape = NodePath("../../Hitbox")
+mob_collision_shape_array = [NodePath("../../Hitbox")]
 mob_sprite = NodePath("../../AnimatedSprite2D")
 
 [node name="HealthModule" type="Node" parent="Behaviour"]
