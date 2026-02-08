@@ -4,6 +4,7 @@ var implements = [Interface.Mob, Interface.Damageable]
 
 @export var behaviour_module: MobBehaviourModule
 @export var bullet: PackedScene
+@export var house_key: PackedScene
 
 @onready var heads = [$Head1, $Head2, $Head3]
 @onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
@@ -36,12 +37,19 @@ func _on_mob_cooldown_timeout() -> void:
 func _on_enemy_died_received(_self: MobBehaviourModule) -> void:
 	if self.behaviour_module != _self:
 		return
+	
+	var main_node = get_tree().get_first_node_in_group("Main")
 
 	audio_stream_player.pitch_scale = randf_range(0.7, 1.4)
 	audio_stream_player.play()
-	audio_stream_player.reparent(get_tree().get_first_node_in_group("Main"))
+	audio_stream_player.reparent(main_node)
 	audio_stream_player.finished.connect(func():audio_stream_player.queue_free())
 
 	$BloodParticles.emitting = true
 	EventBus.mega_cerberus_is_dead.emit()
+
+	var house_key_instance = house_key.instantiate()
+	house_key_instance.global_position = self.global_position
+	main_node.add_child(house_key_instance)
+
 	self.queue_free()
