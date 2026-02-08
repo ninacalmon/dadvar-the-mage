@@ -67,11 +67,6 @@ behaviour_module = NodePath("Behaviour/MobBehaviour")
 goblilings = ExtResource("2_72co8")
 tree = ExtResource("3_jgpot")
 
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-modulate = Color(0, 0, 0, 1)
-position = Vector2(0, -74)
-rect = Rect2(-280, -280, 560, 560)
-
 [node name="SpawnArea" type="Area2D" parent="."]
 y_sort_enabled = true
 scale = Vector2(0.99999994, 0.99999994)

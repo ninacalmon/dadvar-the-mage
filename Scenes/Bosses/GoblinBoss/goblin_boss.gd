@@ -23,6 +23,8 @@ var implements = [Interface.Mob, Interface.Damageable]
 var current_angle = 0.0
 var has_spawned: bool = false
 
+const SHOULD_NOT_DESPAWN = true
+
 func _ready():
 	var circle: CircleShape2D = spawn_area_shape.shape
 	self.goblin_magic_particles_ground.emission_sphere_radius = circle.radius

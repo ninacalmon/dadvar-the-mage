@@ -50,7 +50,6 @@ func _on_score_timer_timeout() -> void:
 
 
 	if time_count == 180:
-		
 		if has_megacerberus_spawned == false:
 			self.music_system.start_boss_track(
 				preload("res://Sounds/Vordt of the Boreal Valley.mp3"),
