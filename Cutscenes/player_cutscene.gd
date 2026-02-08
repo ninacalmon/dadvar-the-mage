@@ -9,6 +9,7 @@ extends CharacterBody2D
 var wobble_time := 0.0
 
 
+
 @onready var player_sprite: AnimatedSprite2D = $PlayerArea/PlayerSprite
 @onready var wand_tip: Node2D = $WandTip
 

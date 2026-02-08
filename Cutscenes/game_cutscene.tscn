@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://einoml78wvmn"]
+[gd_scene load_steps=16 format=4 uid="uid://einoml78wvmn"]
 
 [ext_resource type="Script" uid="uid://bqpcywm5a5lnq" path="res://Cutscenes/directional_light_2d_cutscene.gd" id="2_eil0i"]
 [ext_resource type="PackedScene" uid="uid://c2vt78nfm0457" path="res://Cutscenes/player_cutscene.tscn" id="3_lgbxn"]
@@ -7,6 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://dvmd0ta88nqi4" path="res://Cutscenes/streetlight.tscn" id="6_3fblr"]
 [ext_resource type="Texture2D" uid="uid://db63gbv5pp4qw" path="res://Sprites/bg.png" id="7_tbhhd"]
 [ext_resource type="Script" uid="uid://cx1bveptsnmc" path="res://Modules/Generics/stats_module.gd" id="10_4pox2"]
+[ext_resource type="FontFile" uid="uid://b0c3mgf46t565" path="res://Fonts/Alagard/alagard.ttf" id="11_6tncm"]
+[ext_resource type="Script" uid="uid://ossaxfnt6owi" path="res://Cutscenes/paused_overlay_cutscene.gd" id="11_j76rb"]
+[ext_resource type="FontFile" uid="uid://lyk0q1luk8p3" path="res://Fonts/Pixel_Operator/PixelOperatorHB8.ttf" id="12_j76rb"]
 [ext_resource type="TileSet" uid="uid://b0lq0cj3rq01q" path="res://Resources/TileSet1.tres" id="20_iawnq"]
 [ext_resource type="Script" uid="uid://ia4f2b8ismcl" path="res://Sounds/Scripts/music_system.gd" id="21_8xv3q"]
 [ext_resource type="AudioStream" uid="uid://dx7wroe4ywihq" path="res://Sounds/a time long forgotten (80's dark fantasy playlist)_compressed.mp3" id="22_8fnuq"]
@@ -58,6 +61,7 @@ environment = SubResource("Environment_xa8c5")
 y_sort_enabled = true
 
 [node name="House" parent="y Sorted Layer" instance=ExtResource("3_vm0yi")]
+unique_name_in_owner = true
 position = Vector2(7, -3230)
 
 [node name="StumpHouseBack" type="Sprite2D" parent="y Sorted Layer"]
@@ -72,16 +76,9 @@ position = Vector2(-148, -3023)
 position = Vector2(181, -3030)
 scale = Vector2(-1, 1)
 
-[node name="Streetlight3" parent="y Sorted Layer" instance=ExtResource("6_3fblr")]
-position = Vector2(-214, 859)
-
-[node name="Streetlight4" parent="y Sorted Layer" instance=ExtResource("6_3fblr")]
-position = Vector2(240, 859)
-scale = Vector2(-1, 1)
-
 [node name="PlayerBody2d" parent="y Sorted Layer" instance=ExtResource("3_lgbxn")]
 unique_name_in_owner = true
-position = Vector2(0, 891)
+position = Vector2(1, 857)
 stats_module = SubResource("Resource_eil0i")
 
 [node name="Camera2D" type="Camera2D" parent="y Sorted Layer/PlayerBody2d"]
@@ -125,3 +122,75 @@ bus = &"Music"
 
 [node name="StartPosition" type="Marker2D" parent="."]
 position = Vector2(0, 891)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PausedOverlay" type="Control" parent="CanvasLayer"]
+unique_name_in_owner = true
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("11_j76rb")
+
+[node name="DarkOverlay" type="ColorRect" parent="CanvasLayer/PausedOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.3137255)
+
+[node name="Control" type="Control" parent="CanvasLayer/PausedOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/PausedOverlay/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -132.0
+offset_top = -20.0
+offset_right = 132.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("11_6tncm")
+theme_override_font_sizes/normal_font_size = 32
+text = "Paused"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DoorTextLabel" type="RichTextLabel" parent="CanvasLayer"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -223.0
+offset_top = -40.0
+offset_right = 223.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/normal_font = ExtResource("12_j76rb")
+fit_content = true
+horizontal_alignment = 1
+
+[node name="DoorTextLabelTimer" type="Timer" parent="CanvasLayer/DoorTextLabel"]
+unique_name_in_owner = true
+wait_time = 2.0
+one_shot = true

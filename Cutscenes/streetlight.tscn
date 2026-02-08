@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://dvmd0ta88nqi4"]
+[gd_scene load_steps=11 format=3 uid="uid://dvmd0ta88nqi4"]
 
 [ext_resource type="Texture2D" uid="uid://8ljw1xvpkpqw" path="res://Sprites/streelight.png" id="1_54tr3"]
 [ext_resource type="Texture2D" uid="uid://b7i3kjatt7kn" path="res://Sprites/lamp.png" id="2_00qqh"]
 [ext_resource type="PackedScene" uid="uid://3m8inrcvk318" path="res://Particles/fire_gpu_particles.tscn" id="3_00qqh"]
 [ext_resource type="Script" uid="uid://cssc2scvt8ndg" path="res://Cutscenes/lamp.gd" id="3_abfc5"]
 [ext_resource type="Texture2D" uid="uid://b37tdqau44es0" path="res://Sprites/soft_gradient.tres" id="4_dcqfg"]
+[ext_resource type="AudioStream" uid="uid://cwo814d16s75h" path="res://Sounds/freesound_community-belt-buckle-103410.mp3" id="6_qay5v"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dcqfg"]
 radius = 5.0
@@ -98,5 +99,11 @@ energy = 0.0
 libraries = {
 &"": SubResource("AnimationLibrary_qay5v")
 }
+
+[node name="ClinkStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_qay5v")
+volume_db = -10.0
+pitch_scale = 0.65
+bus = &"SoundEffects"
 
 [connection signal="area_entered" from="lamp/lampcollision" to="lamp" method="_on_lampcollision_area_entered"]
