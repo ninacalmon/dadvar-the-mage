@@ -41,15 +41,10 @@ func get_event_spell_max_level_detail() -> String:
 	return ""
 
 func get_event_spell_title() -> String:
-	return prettify_class_name(self.get_script().get_global_name())
+	return Global.prettify_class_name(self.get_script().get_global_name())
 
 func get_event_spell_sprite_texture() -> Texture:
 	return placeholder_texture
-
-func prettify_class_name(name: String) -> String:
-	var regex = RegEx.new()
-	regex.compile("([a-z])([A-Z])")
-	return regex.sub(name, "$1 $2", true)
 
 ## Each class that inherits this will need to implement apply hability,
 ## which is unique for each class.

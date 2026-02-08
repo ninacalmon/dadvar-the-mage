@@ -27,8 +27,7 @@ func generate_world():
 			if x % 2 == 0 and y % 2 == 0:
 				var noise_value: float = noise.get_noise_2d(x, y)
 				noise_value_arr.append(noise_value)
-				#print("max ", noise_value_arr.max())
-				#print("min ", noise_value_arr.min())
+
 				if noise_value <= -0.55:
 					# place woods
 					tile_map_layer_lighted.set_cell(Vector2(x, y), source_id, woods_atlas.pick_random())

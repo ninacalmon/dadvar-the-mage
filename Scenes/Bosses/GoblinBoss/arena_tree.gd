@@ -4,7 +4,7 @@ class_name ArenaTree
 @onready var tree_sprite: Sprite2D = $TreeSprite
 @onready var emerging_sound: AudioStreamPlayer = $EmergingSound
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
-const GOBLIN_BOSS = preload("uid://drrllpdvbctga")
+
 @export var reveal_delay := 0.0
 var parent: CharacterBody2D
 
@@ -16,6 +16,8 @@ func _ready() -> void:
 		await get_tree().create_timer(reveal_delay).timeout
 
 	reveal()
+	EventBus.enemy_died.connect(_on_enemy_died_received)
+
 	
 func reveal() -> void:
 	self.tree_sprite.visible = true
@@ -30,8 +32,8 @@ func reveal() -> void:
 		0.1
 		).from(0.0)
 
-func _process(_delta: float) -> void:
-	if !parent:
+func _on_enemy_died_received(enemy_died_mob_behaviour: MobBehaviourModule):
+	if enemy_died_mob_behaviour.mob == parent:
 		kill_myself()
 
 func kill_myself():
@@ -43,5 +45,5 @@ func kill_myself():
 		0.0,
 		1
 		).from(1.0)
+
 	tween.tween_callback(self.queue_free)
-	

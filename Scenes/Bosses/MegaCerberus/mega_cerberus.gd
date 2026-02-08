@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name MegaCerberus
 
 var implements = [Interface.Mob, Interface.Damageable]
 
@@ -6,6 +7,7 @@ var implements = [Interface.Mob, Interface.Damageable]
 @export var bullet: PackedScene
 @export var house_key: PackedScene
 
+@onready var health_module: HealthModule = $Behaviour/HealthModule
 @onready var heads = [$Head1, $Head2, $Head3]
 @onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
 
@@ -14,8 +16,12 @@ const HEAD2_POSITION_X_ABSOLUTE = 46
 const HEAD3_POSITION_X_ABSOLUTE = 10
 const SHOULD_NOT_DESPAWN = true
 
+@onready var boss_health_bar: HealthBar = get_tree().get_first_node_in_group(Global.GROUPS_DIC[Global.Groups.BOSS_HEALTH_BAR])
+
 func _ready():
 	EventBus.enemy_died.connect(_on_enemy_died_received)
+	boss_health_bar.set_health_bar_target(self)
+	boss_health_bar.show()
 
 func _physics_process(_delta: float) -> void:
 	behaviour_module.handle_movement()
@@ -37,7 +43,7 @@ func _on_mob_cooldown_timeout() -> void:
 func _on_enemy_died_received(_self: MobBehaviourModule) -> void:
 	if self.behaviour_module != _self:
 		return
-	
+
 	var main_node = get_tree().get_first_node_in_group("Main")
 
 	audio_stream_player.pitch_scale = randf_range(0.7, 1.4)
@@ -52,4 +58,5 @@ func _on_enemy_died_received(_self: MobBehaviourModule) -> void:
 	house_key_instance.global_position = self.global_position
 	main_node.add_child(house_key_instance)
 
+	boss_health_bar.hide()
 	self.queue_free()

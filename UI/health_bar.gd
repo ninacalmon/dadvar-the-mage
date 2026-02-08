@@ -1,10 +1,17 @@
 extends TextureProgressBar
+class_name HealthBar
 
-@export var character: Area2D
+@onready var health: HealthModule
+@export var custom_label: RichTextLabel
 
-@onready var health: HealthModule = character.find_children("*", "HealthModule")[0]
+func set_health_bar_target(target: Node2D):
+	if custom_label:
+		custom_label.text = Global.prettify_class_name(target.get_script().get_global_name())
 
-func _ready() -> void:
+	var health_mod: HealthModule = target.find_child("HealthModule", true)
+	assert(health_mod != null, "Health bar target passed in do not have a health module as child")
+
+	self.health = health_mod
 	self.max_value = self.health.get_max_health()
 	self.value = self.health.get_health()
 	# This here connects to the health_changed signal emitted by the health module.

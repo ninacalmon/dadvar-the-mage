@@ -37,6 +37,7 @@ PlayerGroup=""
 HealthModuleGroup=""
 Main="The root node of the game scene"
 YSortedLayerGroup=""
+BossHealthBarGroup=""
 
 [input]
 

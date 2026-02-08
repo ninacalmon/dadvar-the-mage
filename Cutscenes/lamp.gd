@@ -10,7 +10,6 @@ extends Sprite2D
 @onready var lights_energy = 3.0
 
 func _on_lampcollision_area_entered(area: Area2D) -> void:
-	print(house)
 	animation_player.stop()
 	animation_player.play("lamp_hit")
 	if area is BulletModule:

@@ -91,12 +91,11 @@ script = ExtResource("4_mtuoh")
 max_health = 100.0
 metadata/_custom_type_script = "uid://ckp8nqvjgsevu"
 
-[node name="HealthBar" parent="PlayerArea" node_paths=PackedStringArray("character") instance=ExtResource("5_htcer")]
+[node name="HealthBar" parent="PlayerArea" instance=ExtResource("5_htcer")]
 offset_left = -52.0
 offset_top = 8.0
 offset_right = 44.0
 offset_bottom = 24.0
-character = NodePath("..")
 
 [node name="PopUpPositions" type="Node" parent="PlayerArea"]
 

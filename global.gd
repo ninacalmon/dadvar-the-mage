@@ -5,10 +5,12 @@ var MAXIMUM_MOBS_TO_SPAWN: int = 500
 const PLAYER_Y_SPRITE_OFFSET = -65
 
 enum Groups {
-	MAIN
+	MAIN,
+	BOSS_HEALTH_BAR
 }
 const GROUPS_DIC = {
-	Groups.MAIN: "Main"
+	Groups.MAIN: "Main",
+	Groups.BOSS_HEALTH_BAR: "BossHealthBarGroup"
 }
 
 enum AudioBus {
@@ -22,3 +24,8 @@ const AUDIO_BUS_DIC = {
 	AudioBus.MUSIC: "Music",
 	AudioBus.SOUND_EFFECTS: "SoundEffects"
 }
+
+func prettify_class_name(name: String) -> String:
+	var regex = RegEx.new()
+	regex.compile("([a-z])([A-Z])")
+	return regex.sub(name, "$1 $2", true)

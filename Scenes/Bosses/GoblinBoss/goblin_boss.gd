@@ -1,10 +1,12 @@
 extends CharacterBody2D
+class_name GoblinBoss
 
 var implements = [Interface.Mob, Interface.Damageable]
 
 @export var behaviour_module: MobBehaviourModule
 @export var goblilings: PackedScene
 @export var tree: PackedScene
+
 @onready var spawn_area: Area2D = $SpawnArea
 @onready var spawn_area_shape: CollisionShape2D = $SpawnArea/SpawnAreaShape
 @onready var goblin_magic_particles: CPUParticles2D = $GoblinMagicParticles
@@ -16,6 +18,7 @@ var implements = [Interface.Mob, Interface.Damageable]
 @onready var player: Area2D = get_tree().get_first_node_in_group("PlayerGroup")
 @onready var spawn_minions_rate: Timer = $SpawnMinionsRate
 @onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
+@onready var boss_health_bar: HealthBar = get_tree().get_first_node_in_group(Global.GROUPS_DIC[Global.Groups.BOSS_HEALTH_BAR])
 
 var current_angle = 0.0
 var has_spawned: bool = false
@@ -27,6 +30,9 @@ func _ready():
 	EventBus.enemy_died.connect(_on_enemy_died_received)
 	spawn_minions_rate.timeout.connect(_on_spawn_minions_timeout)
 	spawn_area.area_entered.connect(tree_spawn_in_circle)
+	
+	boss_health_bar.set_health_bar_target(self)
+	boss_health_bar.show()
 	
 func _on_spawn_minions_timeout():
 	## The offset returned is locally applied because the root node has offset of 1.5
@@ -102,8 +108,6 @@ func tree_spawn_in_circle(area: Area2D) -> void:
 		
 		current_angle += TAU / number_of_spawns
 
-
-
 func _physics_process(_delta: float) -> void:
 	pass
 	behaviour_module.handle_movement()
@@ -125,4 +129,5 @@ func _on_enemy_died_received(_self: MobBehaviourModule) -> void:
 
 	$BloodParticles.emitting = true
 
+	boss_health_bar.hide()
 	self.queue_free()

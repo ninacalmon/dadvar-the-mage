@@ -28,7 +28,7 @@ var lazy_cast_cooldown = 0
 @onready var player_sprite: AnimatedSprite2D = $PlayerSprite
 @onready var hurt_box: CollisionShape2D = $HurtBox
 @onready var wand_tip: Node2D = $"../WandTip"
-@onready var health_bar: TextureProgressBar = $HealthBar
+@onready var health_bar: HealthBar = $HealthBar
 @onready var vp_collector: Area2D = $VpCollector
 @onready var vp_range: CollisionShape2D = $VpCollector/VpRange
 @onready var magic_light: PointLight2D = $MagicLight
@@ -50,6 +50,7 @@ func start(pos):
 	).from(0.0)
 	self.position = pos
 	self.show()
+	health_bar.set_health_bar_target(self)
 	self.hurt_box.disabled = false
 	self.body_exited.connect(_on_body_exited)
 	EventBus.new_spell_added.connect(add_new_spell)

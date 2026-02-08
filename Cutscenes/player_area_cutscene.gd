@@ -37,6 +37,8 @@ var mobs_on_damage_range: Array[MobBehaviourModule] = []
 const WAND_TIP_POSITION_X_ABSOLUTE = 63
 
 func _ready() -> void:
+	self.player_sprite.material.set_shader_parameter("hit_flash_enabled", false)
+
 	var tween = get_tree().create_tween()
 	tween.tween_property(
 		player_sprite.material,

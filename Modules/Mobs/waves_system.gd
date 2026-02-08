@@ -47,9 +47,8 @@ func _on_score_timer_timeout() -> void:
 		#Gargoyle
 		$GargoyleSpawnRate.wait_time = 1 / gargoyle_curve.sample(time_count_normalized)
 		$GargoyleSpawnRate.start()
-		
-	
-		
+
+
 	if time_count == 180:
 		
 		if has_megacerberus_spawned == false:
@@ -130,7 +129,6 @@ func spawn_mob(mob_to_spawn, spawn_position):
 	add_child(mob)
 
 	Global.CURRENT_MOBS_SPAWNED += 1
-	print(Global.CURRENT_MOBS_SPAWNED)
 
 func get_random_spawn_position() -> Vector2:
 	const OFFSET_TO_OUT_OF_VIEWPORT = 1.5

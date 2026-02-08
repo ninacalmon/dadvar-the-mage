@@ -41,7 +41,6 @@ func setup_scent_area(damage: float, tick: float, area_scale: Vector2):
 	
 
 	damage_per_tick = damage
-	print("TICK RECEIGVED ", tick)
 	tick_rate = tick
 
 	var timer = Timer.new()
@@ -53,7 +52,6 @@ func setup_scent_area(damage: float, tick: float, area_scale: Vector2):
 	add_child(timer)
 	
 func _on_damage_tick_timeout():
-	print("TICKKKKKK ", )
 	for target in targets_in_range:
 		if is_instance_valid(target):
 			target.take_damage(self.damage_per_tick)
