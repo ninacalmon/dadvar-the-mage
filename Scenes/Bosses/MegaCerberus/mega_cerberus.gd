@@ -5,7 +5,6 @@ var implements = [Interface.Mob, Interface.Damageable]
 
 @export var behaviour_module: MobBehaviourModule
 @export var bullet: PackedScene
-@export var house_key: PackedScene
 
 @onready var health_module: HealthModule = $Behaviour/HealthModule
 @onready var heads = [$Head1, $Head2, $Head3]
@@ -53,10 +52,6 @@ func _on_enemy_died_received(_self: MobBehaviourModule) -> void:
 
 	$BloodParticles.emitting = true
 	EventBus.mega_cerberus_is_dead.emit()
-
-	var house_key_instance = house_key.instantiate()
-	house_key_instance.global_position = self.global_position
-	main_node.add_child(house_key_instance)
 
 	boss_health_bar.hide()
 	self.queue_free()

@@ -4,6 +4,7 @@ class_name Seraphim
 var implements = [Interface.Mob, Interface.Damageable]
 
 @export var behaviour_module: MobBehaviourModule
+@export var house_key: PackedScene
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var boss_health_bar: HealthBar = get_tree().get_first_node_in_group(Global.GROUPS_DIC[Global.Groups.BOSS_HEALTH_BAR])
@@ -32,4 +33,11 @@ func _on_enemy_died_received(_self: MobBehaviourModule) -> void:
 
 	$BloodParticles.emitting = true
 	boss_health_bar.hide()
+	
+	var main_node = get_tree().get_first_node_in_group("Main")
+
+	var house_key_instance = house_key.instantiate()
+	house_key_instance.global_position = self.global_position
+	main_node.add_child(house_key_instance)
+
 	self.queue_free()
