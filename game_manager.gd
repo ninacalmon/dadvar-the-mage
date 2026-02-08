@@ -18,7 +18,7 @@ func _process(_delta):
 	if Input.is_action_just_pressed("Restart") and is_player_dead == true:
 			get_tree().reload_current_scene()
 			restart_overlay.hide()
-		
+
 func _on_player_player_death() -> void:
 	is_player_dead = true
 	get_tree().paused = !get_tree().paused

@@ -4,6 +4,8 @@ class_name MobBehaviourModule
 const HIT_SOUND = preload("uid://2oeqxeyg41fj")
 
 @export var movement_speed: int
+@export var acceleration: float
+@export var damping: float = 0
 @export var damage: float
 @export var health_module: HealthModule
 @export var vp_orb_scene: PackedScene
@@ -36,23 +38,36 @@ func _ready():
 		
 	lifespan_timer.timeout.connect(self_despawn)
 	lifespan_timer.start()
+	
+	if !acceleration:
+		self.acceleration = self.movement_speed
+	
+	if !damping:
+		self.damping = self.movement_speed
 
 
 func _on_screen_exited():
 	mob.queue_free()
 	Global.CURRENT_MOBS_SPAWNED -= 1
 
-func handle_movement() -> void:
-	# point to Player and move towards it.
+func handle_movement(delta: float) -> void:
 	## Verify if mob in the last X frames moved less than some limit. If this is true, try to move only after
 	## x seconds.
 	## Also, we can change the mob direction after X frames
 	var direction = mob.global_position.direction_to(player.global_position)
-	mob.velocity = direction * movement_speed
+	var target_velocity = direction * movement_speed
+	
+	##Accelerate toward target velocity
+	mob.velocity = mob.velocity.move_toward(target_velocity, acceleration * delta)
+	
+	##Damping when close to target
+	if mob.global_position.distance_squared_to(player.global_position) < 20000:
+		mob.velocity = mob.velocity.move_toward(Vector2.ZERO, damping * delta)
 
 	if mob.global_position.distance_squared_to(player.global_position) > 3:
 		self.direction_normalized_x = sign(direction.x) if sign(direction.x) != 0 else 1
 		mob_sprite.scale.x = self.direction_normalized_x
+
 	mob.move_and_slide()
 
 func handle_take_damage(damage_to_receive: float) -> void:

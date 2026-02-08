@@ -89,6 +89,7 @@ shape = SubResource("CircleShape2D_dd0ac")
 [node name="HealthModule" type="Node" parent="PlayerArea"]
 script = ExtResource("4_mtuoh")
 max_health = 100.0
+immortality = true
 metadata/_custom_type_script = "uid://ckp8nqvjgsevu"
 
 [node name="HealthBar" parent="PlayerArea" instance=ExtResource("5_htcer")]

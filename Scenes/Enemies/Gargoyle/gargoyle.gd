@@ -15,8 +15,8 @@ func _ready() -> void:
 	animated_sprite_2d.play("default")
 	EventBus.enemy_died.connect(_on_enemy_died_received)
 
-func _physics_process(_delta: float) -> void:
-	behaviour_module.handle_movement()
+func _physics_process(delta: float) -> void:
+	behaviour_module.handle_movement(delta)
 
 func take_damage(damage: float):
 	stone_particles.emitting = true

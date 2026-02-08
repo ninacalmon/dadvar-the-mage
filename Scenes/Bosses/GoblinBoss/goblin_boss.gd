@@ -110,9 +110,8 @@ func tree_spawn_in_circle(area: Area2D) -> void:
 		
 		current_angle += TAU / number_of_spawns
 
-func _physics_process(_delta: float) -> void:
-	pass
-	behaviour_module.handle_movement()
+func _physics_process(delta: float) -> void:
+	behaviour_module.handle_movement(delta)
 
 func take_damage(damage: float):
 	$BloodParticles.emitting = true

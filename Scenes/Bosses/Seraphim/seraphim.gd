@@ -1,11 +1,21 @@
 extends CharacterBody2D
+class_name Seraphim
 
 var implements = [Interface.Mob, Interface.Damageable]
 
 @export var behaviour_module: MobBehaviourModule
 
+@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+@onready var boss_health_bar: HealthBar = get_tree().get_first_node_in_group(Global.GROUPS_DIC[Global.Groups.BOSS_HEALTH_BAR])
+
+
+const SHOULD_NOT_DESPAWN = true
+
 func _ready() -> void:
 	EventBus.enemy_died.connect(_on_enemy_died_received)
+	boss_health_bar.set_health_bar_target(self)
+	boss_health_bar.show()
+	
 
 func _physics_process(delta: float) -> void:
 	behaviour_module.handle_movement(delta)
@@ -21,4 +31,5 @@ func _on_enemy_died_received(_self: MobBehaviourModule) -> void:
 		return
 
 	$BloodParticles.emitting = true
+	boss_health_bar.hide()
 	self.queue_free()

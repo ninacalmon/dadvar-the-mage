@@ -23,8 +23,8 @@ func _ready():
 	boss_health_bar.set_health_bar_target(self)
 	boss_health_bar.show()
 
-func _physics_process(_delta: float) -> void:
-	behaviour_module.handle_movement()
+func _physics_process(delta: float) -> void:
+	behaviour_module.handle_movement(delta)
 
 func _process(_delta: float) -> void:
 	$Head1.position.x = -HEAD1_POSITION_X_ABSOLUTE if velocity.x < 0 else HEAD1_POSITION_X_ABSOLUTE

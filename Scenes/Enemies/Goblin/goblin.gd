@@ -23,8 +23,8 @@ func _ready() -> void:
 		).from(0.0)
 	
 
-func _physics_process(_delta: float) -> void:
-	behaviour_module.handle_movement()
+func _physics_process(delta: float) -> void:
+	behaviour_module.handle_movement(delta)
 
 func take_damage(damage: float):
 	$BloodParticles.emitting = true
