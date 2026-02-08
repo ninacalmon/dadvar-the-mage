@@ -16,13 +16,17 @@ var time_count: float = 0
 @export var mega_cerberus: PackedScene
 @export var gargoyle: PackedScene
 @export var banshee: PackedScene
+@export var seraphim: PackedScene
 @export var player: Area2D
 
 
-var mob = null
 var has_megacerberus_spawned = false
 
-@onready var music_system: Node = %MusicSystem
+@onready var music_system: MusicSystem = %MusicSystem
+
+@onready var boss_spawn_timer: Timer = $BossSpawnTimer
+var boss_queue: Array[PackedScene] = []
+var current_active_boss: Node2D = null
 
 # WAVE1 0 - 0.35
 # WAVE3 0.75 - 1.30
@@ -49,25 +53,17 @@ func _on_score_timer_timeout() -> void:
 		$GargoyleSpawnRate.start()
 
 
-	if time_count == 180:
-		if has_megacerberus_spawned == false:
-			self.music_system.start_boss_track(
-				preload("res://Sounds/Vordt of the Boreal Valley.mp3"),
-				2, # last song playing fade out time
-				-10, # volume_db to play
-			)
-
-			$MegaCerberusSpawnRate.wait_time = 3
-			$MegaCerberusSpawnRate.one_shot = true
-			$MegaCerberusSpawnRate.start()
-			has_megacerberus_spawned = true
+	if time_count == 5:
+		self.boss_queue.append(self.mega_cerberus)
+	if time_count == 6:
+		self.boss_queue.append(self.goblin_boss)
+	if time_count == 7:
+		self.boss_queue.append(self.seraphim)
 
 func _ready() -> void:
-	EventBus.mega_cerberus_is_dead.connect(on_mega_cerberus_death)
+	EventBus.enemy_died.connect(_on_enemy_died_received)
 	score_timer.connect("timeout", _on_score_timer_timeout)
-
-func on_mega_cerberus_death():
-	self.music_system.start_main_track(2)
+	boss_spawn_timer.timeout.connect(_boss_spawn_timer_timeout)
 
 func _on_ghost_spawn_rate_timeout() -> void:
 	var spawn_position = self.get_random_spawn_position()
@@ -118,16 +114,42 @@ func _on_mega_cerberus_spawn_rate_timeout() -> void:
 	var spawn_position = get_random_spawn_position()
 	spawn_mob(mega_cerberus, spawn_position)
 
-
-func spawn_mob(mob_to_spawn, spawn_position):
+func spawn_mob(mob_to_spawn: PackedScene, spawn_position: Vector2) -> Node2D:
 	if Global.CURRENT_MOBS_SPAWNED >= Global.MAXIMUM_MOBS_TO_SPAWN:
 		return
 
-	mob = mob_to_spawn.instantiate()
+	var mob = mob_to_spawn.instantiate()
 	mob.position = spawn_position
 	add_child(mob)
 
 	Global.CURRENT_MOBS_SPAWNED += 1
+	
+	return mob
+
+func _boss_spawn_timer_timeout():
+	if current_active_boss or boss_queue.size() == 0:
+		return
+
+	var boss_soundtrack_to_play: AudioStream = preload("res://Sounds/Vordt of the Boreal Valley.mp3")
+
+	if self.music_system.currently_playing_soundtrack != boss_soundtrack_to_play:
+		self.music_system.start_boss_track(
+			boss_soundtrack_to_play,
+			2, # last song playing fade out time
+			-10, # volume_db to play
+		)
+
+	var boss_to_spawn: PackedScene = self.boss_queue.pop_front()
+	var spawn_position: Vector2 = get_random_spawn_position()
+	var boss_spawned_instance = spawn_mob(boss_to_spawn, spawn_position)
+
+	self.current_active_boss = boss_spawned_instance
+
+func _on_enemy_died_received(enemy_mob_behaviour: MobBehaviourModule) -> void:
+	if enemy_mob_behaviour.mob == current_active_boss:
+		current_active_boss = null
+		if self.boss_queue.size() == 0:
+			self.music_system.start_main_track(2)
 
 func get_random_spawn_position() -> Vector2:
 	const OFFSET_TO_OUT_OF_VIEWPORT = 1.5

@@ -1,4 +1,5 @@
 extends Node
+class_name MusicSystem
 
 const DEFAULT_LOW_VOLUME_DB_FADE = -40
 const DEFAULT_MAIN_TRACK_VOLUME_DB = -25
@@ -7,8 +8,12 @@ var time_main_track_stopped = 0
 @onready var main_soundtrack: AudioStreamPlayer = %MainGameStreamPlayer
 @onready var boss_fight_soundtrack: AudioStreamPlayer = %BossFightStreamPlayer
 
+var currently_playing_soundtrack: AudioStream
+
 func start_main_track(fade_in_time: float):
 	self.main_soundtrack.play(self.time_main_track_stopped)
+	self.currently_playing_soundtrack = self.main_soundtrack.stream
+
 	var fade_time_for_each_track = fade_in_time / 2
 
 	var tween = create_tween()
@@ -50,3 +55,5 @@ func start_boss_track(audio_track: AudioStream, last_soundtrack_fade_out_time: i
 	self.boss_fight_soundtrack.stream = audio_track
 	self.boss_fight_soundtrack.volume_db = volume_to_play
 	self.boss_fight_soundtrack.play()
+
+	self.currently_playing_soundtrack = self.boss_fight_soundtrack.stream

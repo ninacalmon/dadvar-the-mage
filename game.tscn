@@ -396,6 +396,7 @@ cerberus = ExtResource("9_vef74")
 mega_cerberus = ExtResource("9_hve3p")
 gargoyle = ExtResource("14_36jdj")
 banshee = ExtResource("31_xfvwf")
+seraphim = ExtResource("42_eu6ph")
 player = NodePath("../player/PlayerArea")
 
 [node name="WaveTimer" type="Timer" parent="y Sorted Layer/WavesSystem"]
@@ -414,6 +415,9 @@ player = NodePath("../player/PlayerArea")
 
 [node name="BansheeSpawnRate" type="Timer" parent="y Sorted Layer/WavesSystem"]
 wait_time = 30.0
+autostart = true
+
+[node name="BossSpawnTimer" type="Timer" parent="y Sorted Layer/WavesSystem"]
 autostart = true
 
 [node name="Consumables" type="Node" parent="y Sorted Layer" node_paths=PackedStringArray("player")]
@@ -1040,9 +1044,6 @@ horizontal_alignment = 1
 [node name="CanvasLayerModulate" type="CanvasModulate" parent="CanvasLayer"]
 scale = Vector2(100000, 100000)
 color = Color(0.7345116, 0.7672969, 1, 1)
-
-[node name="Seraphim" parent="." instance=ExtResource("42_eu6ph")]
-position = Vector2(-686, -176)
 
 [connection signal="timeout" from="y Sorted Layer/WavesSystem/GhostSpawnRate" to="y Sorted Layer/WavesSystem" method="_on_ghost_spawn_rate_timeout"]
 [connection signal="timeout" from="y Sorted Layer/WavesSystem/GoblinSpawnRate" to="y Sorted Layer/WavesSystem" method="_on_goblin_spawn_rate_timeout"]
