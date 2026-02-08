@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://pnsvdyblsexv"]
+[gd_scene load_steps=22 format=3 uid="uid://pnsvdyblsexv"]
 
 [ext_resource type="Script" uid="uid://cbfg5ou1d2b86" path="res://Scenes/Bosses/Seraphim/seraphim.gd" id="1_mq22t"]
 [ext_resource type="Shader" uid="uid://dvafedygytn42" path="res://Shaders/main_shader.gdshader" id="2_2ag5p"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://ckp8nqvjgsevu" path="res://Modules/Generics/health_module.gd" id="6_okh2j"]
 [ext_resource type="Texture2D" uid="uid://cvv1nv81i467q" path="res://Sprites/Seraphim4.png" id="6_vf7tm"]
 [ext_resource type="Texture2D" uid="uid://bkvimyscgo7w3" path="res://Sprites/Seraphim_shadow.png" id="10_wex6o"]
+[ext_resource type="AudioStream" uid="uid://bnda8ikqycssv" path="res://Sounds/seraphim_explosion.mp3" id="11_n5ceu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ao2km"]
 radius = 35.0
@@ -49,6 +50,10 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nhykn"]
 size = Vector2(200, 20)
+
+[sub_resource type="Curve" id="Curve_b5xri"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.6013289, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
 
 [sub_resource type="Animation" id="Animation_nhykn"]
 resource_name = "flying"
@@ -106,7 +111,7 @@ material = SubResource("ShaderMaterial_nhykn")
 position = Vector2(0, -49)
 sprite_frames = SubResource("SpriteFrames_056hb")
 autoplay = "default"
-frame_progress = 0.6720455
+frame_progress = 0.8663191
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
 position = Vector2(-7, -45)
@@ -130,6 +135,27 @@ initial_velocity_min = 50.0
 initial_velocity_max = 100.0
 scale_amount_min = 3.0
 scale_amount_max = 6.0
+color = Color(0.28235295, 0, 0, 1)
+
+[node name="DeathParticles" type="CPUParticles2D" parent="."]
+position = Vector2(0, -45)
+emitting = false
+amount = 200
+lifetime = 0.7
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+lifetime_randomness = 1.0
+emission_shape = 2
+emission_sphere_radius = 18.0
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 100)
+initial_velocity_min = 250.0
+initial_velocity_max = 300.0
+scale_amount_min = 3.0
+scale_amount_max = 6.0
+scale_amount_curve = SubResource("Curve_b5xri")
 color = Color(0.28235295, 0, 0, 1)
 
 [node name="Behaviour" type="Node" parent="."]
@@ -162,3 +188,8 @@ libraries = {
 autoplay = "flying"
 playback_auto_capture_transition_type = 9
 playback_auto_capture_ease_type = 2
+
+[node name="DeathAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_n5ceu")
+pitch_scale = 0.75
+bus = &"SoundEffects"

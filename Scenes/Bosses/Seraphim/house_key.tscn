@@ -1,13 +1,13 @@
 [gd_scene load_steps=5 format=3 uid="uid://b0hmdsfpgk5cm"]
 
-[ext_resource type="Texture2D" uid="uid://bayme6icla0wm" path="res://Sprites/cursor_hand.png" id="1_qd6ts"]
 [ext_resource type="Script" uid="uid://dxvv41gus1f6" path="res://Scenes/Bosses/Seraphim/house_key.gd" id="2_i41j3"]
+[ext_resource type="Texture2D" uid="uid://me3wgw3djjct" path="res://Sprites/key.png" id="2_ovf0k"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_i41j3"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_qd6ts")
+"texture": ExtResource("2_ovf0k")
 }],
 "loop": true,
 "name": &"house_key",

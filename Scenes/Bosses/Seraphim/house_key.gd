@@ -3,8 +3,8 @@ extends Node2D
 @onready var area_2d: Area2D = $Area2D
 var following: bool = false
 var player: Player
-var speed_extra = 1.1
-var collect_offset = 20
+var speed_extra = 0.2
+var collect_offset = 5
 
 func _ready():
 	self.area_2d.area_entered.connect(_on_area_entered)
