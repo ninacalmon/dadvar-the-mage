@@ -39,7 +39,7 @@ frequency = 10.0
 amplitude = 0.1
 
 [node name="HitBox" type="CollisionShape2D" parent="."]
-position = Vector2(-8, -12)
+position = Vector2(0, -12)
 shape = SubResource("CircleShape2D_sdnej")
 
 [node name="WandTip" type="Node2D" parent="."]

@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=3 uid="uid://rtcd51gprhon"]
+
+[ext_resource type="Script" uid="uid://jvpy2rj1b5pj" path="res://Cutscenes/house_cutscene.gd" id="1_07ah0"]
+[ext_resource type="Texture2D" uid="uid://6kaxvrxxiih2" path="res://Sprites/Stump_House1.png" id="1_re71i"]
+[ext_resource type="Texture2D" uid="uid://biaqlu1mpqdmo" path="res://Sprites/Stump_House2.png" id="2_07ah0"]
+[ext_resource type="Texture2D" uid="uid://dswbllhtj1aba" path="res://Sprites/Stump_House3.png" id="3_72wg1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vmw7f"]
+size = Vector2(302.75, 104)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ti6a6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_re71i")
+}],
+"loop": false,
+"name": &"closed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_07ah0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_72wg1")
+}],
+"loop": false,
+"name": &"opening",
+"speed": 1.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uoiq8"]
+size = Vector2(58, 48)
+
+[node name="House" type="StaticBody2D"]
+script = ExtResource("1_07ah0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-4.375, -49)
+shape = SubResource("RectangleShape2D_vmw7f")
+
+[node name="SpriteHouse" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ti6a6")
+animation = &"closed"
+offset = Vector2(0, -60)
+
+[node name="DoorArea" type="Area2D" parent="."]
+
+[node name="DoorEntrance" type="CollisionShape2D" parent="DoorArea"]
+position = Vector2(5, 14)
+shape = SubResource("RectangleShape2D_uoiq8")
