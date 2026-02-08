@@ -1,6 +1,6 @@
 extends VBoxContainer
 
-@onready var main_buttons: CenterContainer = %MainButtons
+@export var inverse_visibility_nodes: Array[Node]
 
 @onready var master_sound_slider_container: HBoxContainer = %MasterSoundSliderContainer
 @onready var master_sound_slider: HSlider = master_sound_slider_container.get_node("HSlider")
@@ -29,6 +29,12 @@ func _ready():
 	self.sound_effects_slider.value_changed.connect(_on_sound_effects_slider_changed)
 	self.back_button.pressed.connect(_on_back_button_pressed)
 
+func _process(_delta: float) -> void:
+	if Input.is_action_just_pressed("ui_cancel"):
+		self.settings_container.hide()
+		for canvas_node in inverse_visibility_nodes:
+			canvas_node.show()
+
 func _on_master_slider_changed(value: float):
 	var db = linear_to_db(value)
 
@@ -46,4 +52,6 @@ func _on_sound_effects_slider_changed(value: float):
 
 func _on_back_button_pressed():
 	self.settings_container.hide()
-	self.main_buttons.show()
+
+	for canvas_node in inverse_visibility_nodes:
+		canvas_node.show()

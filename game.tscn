@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=3 uid="uid://qinxn2c2shu7"]
+[gd_scene load_steps=90 format=3 uid="uid://qinxn2c2shu7"]
 
 [ext_resource type="PackedScene" uid="uid://d2c1s3qmdi4ti" path="res://Scenes/Player/player.tscn" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://g1vr201lpslj" path="res://game.gd" id="1_feb5d"]
@@ -39,6 +39,8 @@
 [ext_resource type="Script" uid="uid://37glmr03ihcp" path="res://UI/hover_r.gd" id="35_aa0lp"]
 [ext_resource type="FontFile" uid="uid://lyk0q1luk8p3" path="res://Fonts/Pixel_Operator/PixelOperatorHB8.ttf" id="36_4v2jo"]
 [ext_resource type="Script" uid="uid://c5twxgg1ud4nu" path="res://paused_main_menu.gd" id="37_l1i01"]
+[ext_resource type="Script" uid="uid://db7vnnnvjdw7v" path="res://UI/Menu/settings.gd" id="39_r62pu"]
+[ext_resource type="Script" uid="uid://dvb5l4jfu8g81" path="res://UI/Menu/settings_options.gd" id="41_klri6"]
 
 [sub_resource type="Environment" id="Environment_xa8c5"]
 background_mode = 3
@@ -316,6 +318,18 @@ bg_color = Color(0.17367996, 0.1404, 0.39, 0.7058824)
 bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_klri6"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eu6ph"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_edr7y"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kq12w"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t46w6"]
 bg_color = Color(0, 0, 0, 1)
 
 [node name="game" type="Node" groups=["Main"]]
@@ -840,6 +854,126 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_klri6")
 text = "MAIN MENU"
 script = ExtResource("37_l1i01")
 
+[node name="Settings" type="Button" parent="CanvasLayer/PausedOverlay/Control" node_paths=PackedStringArray("inverse_visibility_nodes")]
+custom_minimum_size = Vector2(150, 40)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -74.0
+offset_top = -151.0
+offset_right = 76.0
+offset_bottom = -111.0
+grow_horizontal = 2
+grow_vertical = 0
+focus_mode = 0
+theme_override_colors/font_hover_color = Color(0.17254902, 0.14117648, 0.3882353, 1)
+theme_override_fonts/font = ExtResource("36_4v2jo")
+theme_override_styles/normal = SubResource("StyleBoxFlat_eu6ph")
+theme_override_styles/hover = SubResource("StyleBoxFlat_edr7y")
+action_mode = 0
+text = "SETTINGS"
+script = ExtResource("39_r62pu")
+inverse_visibility_nodes = [NodePath("../RichTextLabel"), NodePath("../MainMenu"), NodePath(".")]
+
+[node name="SettingsContainer" type="CenterContainer" parent="CanvasLayer/PausedOverlay/Control"]
+unique_name_in_owner = true
+process_mode = 3
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -125.0
+offset_right = 200.0
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="Panel" parent="CanvasLayer/PausedOverlay/Control/SettingsContainer"]
+custom_minimum_size = Vector2(400, 250)
+layout_mode = 2
+
+[node name="SettingsOptions" type="VBoxContainer" parent="CanvasLayer/PausedOverlay/Control/SettingsContainer" node_paths=PackedStringArray("inverse_visibility_nodes")]
+layout_mode = 2
+theme_override_constants/separation = 34
+script = ExtResource("41_klri6")
+inverse_visibility_nodes = [NodePath("../../RichTextLabel"), NodePath("../../MainMenu"), NodePath("../../Settings")]
+
+[node name="MasterSoundSliderContainer" type="HBoxContainer" parent="CanvasLayer/PausedOverlay/Control/SettingsContainer/SettingsOptions"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/PausedOverlay/Control/SettingsContainer/SettingsOptions/MasterSoundSliderContainer"]
+custom_minimum_size = Vector2(200, 20)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("36_4v2jo")
+text = "Master sound"
+scroll_active = false
+
+[node name="HSlider" type="HSlider" parent="CanvasLayer/PausedOverlay/Control/SettingsContainer/SettingsOptions/MasterSoundSliderContainer"]
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="MainMusicSliderContainer" type="HBoxContainer" parent="CanvasLayer/PausedOverlay/Control/SettingsContainer/SettingsOptions"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/PausedOverlay/Control/SettingsContainer/SettingsOptions/MainMusicSliderContainer"]
+custom_minimum_size = Vector2(200, 20)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("36_4v2jo")
+text = "Main music"
+scroll_active = false
+
+[node name="HSlider" type="HSlider" parent="CanvasLayer/PausedOverlay/Control/SettingsContainer/SettingsOptions/MainMusicSliderContainer"]
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="SoundEffectsSliderContainer" type="HBoxContainer" parent="CanvasLayer/PausedOverlay/Control/SettingsContainer/SettingsOptions"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/PausedOverlay/Control/SettingsContainer/SettingsOptions/SoundEffectsSliderContainer"]
+custom_minimum_size = Vector2(200, 20)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("36_4v2jo")
+text = "Sound effects"
+scroll_active = false
+
+[node name="HSlider" type="HSlider" parent="CanvasLayer/PausedOverlay/Control/SettingsContainer/SettingsOptions/SoundEffectsSliderContainer"]
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="BackButton" type="Button" parent="CanvasLayer/PausedOverlay/Control/SettingsContainer/SettingsOptions"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 40)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_hover_color = Color(0.17254902, 0.14117648, 0.3882353, 1)
+theme_override_fonts/font = ExtResource("36_4v2jo")
+theme_override_styles/normal = SubResource("StyleBoxFlat_kq12w")
+theme_override_styles/hover = SubResource("StyleBoxFlat_t46w6")
+text = "BACK
+"
+
 [node name="RestartOverlay" type="Control" parent="CanvasLayer"]
 unique_name_in_owner = true
 visible = false
@@ -905,9 +1039,6 @@ horizontal_alignment = 1
 [node name="CanvasLayerModulate" type="CanvasModulate" parent="CanvasLayer"]
 scale = Vector2(100000, 100000)
 color = Color(0.7345116, 0.7672969, 1, 1)
-
-[node name="GoblinBoss" parent="." instance=ExtResource("4_ryrav")]
-position = Vector2(95.999985, 648.00006)
 
 [connection signal="timeout" from="y Sorted Layer/WavesSystem/GhostSpawnRate" to="y Sorted Layer/WavesSystem" method="_on_ghost_spawn_rate_timeout"]
 [connection signal="timeout" from="y Sorted Layer/WavesSystem/GoblinSpawnRate" to="y Sorted Layer/WavesSystem" method="_on_goblin_spawn_rate_timeout"]

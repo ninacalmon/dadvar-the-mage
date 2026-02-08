@@ -130,7 +130,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_khm05")
 text = "START"
 script = ExtResource("2_4hclx")
 
-[node name="Settings" type="Button" parent="CanvasLayer/MainButtons/HBoxContainer"]
+[node name="Settings" type="Button" parent="CanvasLayer/MainButtons/HBoxContainer" node_paths=PackedStringArray("inverse_visibility_nodes")]
 custom_minimum_size = Vector2(150, 40)
 layout_mode = 2
 focus_mode = 0
@@ -141,6 +141,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_khm05")
 action_mode = 0
 text = "SETTINGS"
 script = ExtResource("6_8610p")
+inverse_visibility_nodes = [NodePath("../..")]
 
 [node name="Exit" type="Button" parent="CanvasLayer/MainButtons/HBoxContainer"]
 custom_minimum_size = Vector2(150, 40)
@@ -172,10 +173,11 @@ grow_vertical = 2
 custom_minimum_size = Vector2(400, 250)
 layout_mode = 2
 
-[node name="SettingsOptions" type="VBoxContainer" parent="CanvasLayer/SettingsContainer"]
+[node name="SettingsOptions" type="VBoxContainer" parent="CanvasLayer/SettingsContainer" node_paths=PackedStringArray("inverse_visibility_nodes")]
 layout_mode = 2
 theme_override_constants/separation = 34
 script = ExtResource("7_fp7wp")
+inverse_visibility_nodes = [NodePath("../../MainButtons")]
 
 [node name="MasterSoundSliderContainer" type="HBoxContainer" parent="CanvasLayer/SettingsContainer/SettingsOptions"]
 unique_name_in_owner = true
@@ -183,8 +185,9 @@ layout_mode = 2
 theme_override_constants/separation = 40
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/SettingsContainer/SettingsOptions/MasterSoundSliderContainer"]
-custom_minimum_size = Vector2(110, 20)
+custom_minimum_size = Vector2(200, 20)
 layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_o5at2")
 text = "Master sound"
 scroll_active = false
 
@@ -201,8 +204,9 @@ layout_mode = 2
 theme_override_constants/separation = 40
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/SettingsContainer/SettingsOptions/MainMusicSliderContainer"]
-custom_minimum_size = Vector2(110, 20)
+custom_minimum_size = Vector2(200, 20)
 layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_o5at2")
 text = "Main music"
 scroll_active = false
 
@@ -219,8 +223,9 @@ layout_mode = 2
 theme_override_constants/separation = 40
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/SettingsContainer/SettingsOptions/SoundEffectsSliderContainer"]
-custom_minimum_size = Vector2(110, 20)
+custom_minimum_size = Vector2(200, 20)
 layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_o5at2")
 text = "Sound effects"
 scroll_active = false
 

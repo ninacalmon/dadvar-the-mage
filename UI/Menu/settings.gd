@@ -1,6 +1,6 @@
 extends Button
 
-@onready var main_buttons: CenterContainer = %MainButtons
+@export var inverse_visibility_nodes: Array[Node]
 @onready var settings_container: CenterContainer = %SettingsContainer
 
 func _ready():
@@ -8,4 +8,5 @@ func _ready():
 
 func _on_settings_button_pressed():
 	self.settings_container.show()
-	self.main_buttons.hide()
+	for canvas_node in inverse_visibility_nodes:
+		canvas_node.hide()
