@@ -5,10 +5,11 @@ var implements = Interface.BulletHabilities
 var sprite_texture = preload("res://Sprites/Spell Sprites/VampiricGoblet.png")
 var current_level = 0
 var max_level = 1
+const MAXIMUM_LIFE_STEAL = 1
 
 var hability_type: EventSpell.EventSpellType = EventSpell.EventSpellType.ENEMY_ACTION
 
-@export var percentage_health_steal: float = 1
+@export var percentage_health_steal: float = 0.65
 
 func apply_spell(spell_context: SpellContext):
 	self.validate(spell_context)
@@ -21,7 +22,7 @@ func apply_spell(spell_context: SpellContext):
 func steal_health(mob_behaviour: MobBehaviourModule, caster: Node):
 	var enemy_health = mob_behaviour.health_module
 	var player_current_health = caster.health_module.get_health()
-	var health_to_add = (percentage_health_steal/100) * enemy_health.get_max_health()
+	var health_to_add = min((percentage_health_steal/100) * enemy_health.get_max_health(), MAXIMUM_LIFE_STEAL)
 
 	NumberPopUp.create_health_number_pop_up(health_to_add, caster, true)
 	caster.health_module.set_health(player_current_health + health_to_add)

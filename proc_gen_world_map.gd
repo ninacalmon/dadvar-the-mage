@@ -3,8 +3,8 @@ extends Node2D
 @export var noise_woods_texture: NoiseTexture2D
 var noise: Noise
 
-var width: float = 500
-var height: float = 500
+var width: float = 700
+var height: float = 700
 var noise_value_arr = []
 
 @onready var tile_map_layer_lighted: TileMapLayer = %TileMapLayer_Lighted

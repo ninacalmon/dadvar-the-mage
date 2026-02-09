@@ -58,7 +58,8 @@ scale_amount_max = 3.0
 color_ramp = SubResource("Gradient_0wdvf")
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
-energy = 0.08
+color = Color(0.75, 0.75, 0.75, 1)
+energy = 0.03
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamRandomizer_uhsa6")

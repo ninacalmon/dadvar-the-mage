@@ -92,7 +92,7 @@ texture = ExtResource("4_dcqfg")
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="lamp"]
 enabled = false
-color = Color(0.4033337, 0.64852744, 0.86304766, 1)
+color = Color(0.6141, 0.7612466, 0.89, 1)
 energy = 0.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

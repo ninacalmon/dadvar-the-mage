@@ -11,6 +11,7 @@ class_name House
 
 var lamps_lighted: int = 0
 var is_colliding: bool = false
+var is_door_open: bool = false
 
 func _ready() -> void:
 	animated_sprite_house.play("closed")
@@ -27,7 +28,8 @@ func _process(_delta: float) -> void:
 			door_text_label.text = "it's too dark to open the door."
 			door_text_label.show()
 			door_text_label_timer.start()
-		else:
+		elif lamps_lighted >= 2 and is_door_open == false:
+			is_door_open = true
 			door_opening_audio.play()
 			await get_tree().create_timer(2.5).timeout
 			animated_sprite_house.play("opening")
@@ -36,7 +38,7 @@ func _process(_delta: float) -> void:
 			collision_shape_2d.one_way_collision = true
 
 func _on_area_entered(area: Area2D):
-	if area is PlayerCutscene:
+	if area is PlayerCutscene and is_door_open == false:
 		is_colliding = true
 
 		door_text_label_timer.stop()

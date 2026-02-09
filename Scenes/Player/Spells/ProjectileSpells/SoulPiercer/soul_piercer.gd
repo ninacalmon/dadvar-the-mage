@@ -9,6 +9,7 @@ var remaining_pierces
 var current_level = 0
 var max_level = 4
 var hability_type: EventSpell.EventSpellType = EventSpell.EventSpellType.PROJECTILE
+const MIN_DAMAGE_POSSIBLE = 10
 
 func apply_spell(spell_context: SpellContext):
 	self.validate(spell_context)
@@ -19,12 +20,15 @@ func apply_spell(spell_context: SpellContext):
 	
 	var bullet_module = spell_context.bullet_module
 
-	bullet_module.enemy_hit.connect(pierce_enemy)
+	bullet_module.enemy_hit.connect(pierce_enemy.bind(bullet_module))
 	## destroy signal comes from parent ProjectileSpell
 	self.destroy.connect(bullet_module.destroy)
 	
-func pierce_enemy(_enemy):
+func pierce_enemy(_enemy, bullet_module: BulletModule):
 	self.remaining_pierces -= 1
+
+	if bullet_module.damage > MIN_DAMAGE_POSSIBLE:
+		bullet_module.damage -= 5
 
 	if (remaining_pierces <= 0 and !already_emitted):
 		destroy.emit()

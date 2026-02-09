@@ -14,7 +14,7 @@ var hability_type: EventSpell.EventSpellType = EventSpell.EventSpellType.TIMER_S
 @export var base_tick: float = 2
 var current_tick = base_tick
 
-var light_bolt_screen_time = 0.1
+var light_bolt_screen_time = 0.2
 
 var current_level = 0
 var max_level = 5
@@ -24,7 +24,7 @@ func apply_spell(spell_context: SpellContext):
 
 	var main_scene_node = spell_context.player.get_tree().get_first_node_in_group('Main')
 	## MAYBE SET THE TICK TO ONE SECOND WHEN IT REACHES THE MAX LEVEL
-	self.current_tick = max(self.base_tick - self.current_level / 6.0, 0.5)
+	self.current_tick = max(self.base_tick - (self.current_level / 7.0), 0.5)
 
 	if self.current_level == self.get_event_spell_max_level():
 		self.bolts_to_trigger = 2

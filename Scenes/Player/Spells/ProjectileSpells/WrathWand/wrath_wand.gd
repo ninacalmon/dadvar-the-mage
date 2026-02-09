@@ -8,22 +8,23 @@ var sprite_texture = preload("res://Sprites/Spell Sprites/WrathWand.png")
 
 var current_level = 0
 var max_level = 4
+var scaling_factor = 5
 var hability_type: EventSpell.EventSpellType = EventSpell.EventSpellType.PROJECTILE
 
 func apply_spell(spell_context: SpellContext):
 	self.validate(spell_context)
 	## Scales with level
-	self.damage_to_add = 5 * current_level 
+	self.damage_to_add = self.scaling_factor * self.current_level 
 	
 	var bullet_module = spell_context.bullet_module
 
 	bullet_module.damage += self.damage_to_add
 
 func get_event_spell_description() -> String:
-	return "[b]Spells cast through the wand deal increased damage.[/b]
+	return "[b]Spells cast through the wand deal [color=20877b]%.0f[/color] extra damage.[/b]
 
 	'The wand amplifies destructive intent.
-Spells land with greater weight.'"
+Spells land with greater weight.'" % int(self.scaling_factor * self.get_event_spell_next_level())
 
 func get_event_spell_sprite_texture() -> Texture:
 	return self.sprite_texture

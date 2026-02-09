@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://einoml78wvmn"]
+[gd_scene load_steps=18 format=4 uid="uid://einoml78wvmn"]
 
 [ext_resource type="Script" uid="uid://bqpcywm5a5lnq" path="res://Cutscenes/directional_light_2d_cutscene.gd" id="2_eil0i"]
 [ext_resource type="PackedScene" uid="uid://c2vt78nfm0457" path="res://Cutscenes/player_cutscene.tscn" id="3_lgbxn"]
@@ -26,6 +26,12 @@ glow_levels/5 = 0.0
 glow_strength = 2.0
 glow_bloom = 0.43
 glow_blend_mode = 1
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6tncm"]
+size = Vector2(108, 186)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j76rb"]
+size = Vector2(102, 184)
 
 [sub_resource type="Resource" id="Resource_eil0i"]
 resource_local_to_scene = true
@@ -63,6 +69,14 @@ y_sort_enabled = true
 [node name="House" parent="y Sorted Layer" instance=ExtResource("3_vm0yi")]
 unique_name_in_owner = true
 position = Vector2(7, -3230)
+
+[node name="HouseWallCollision1" type="CollisionShape2D" parent="y Sorted Layer/House"]
+position = Vector2(-106, -88)
+shape = SubResource("RectangleShape2D_6tncm")
+
+[node name="HouseWallCollision2" type="CollisionShape2D" parent="y Sorted Layer/House"]
+position = Vector2(101, -87)
+shape = SubResource("RectangleShape2D_j76rb")
 
 [node name="StumpHouseBack" type="Sprite2D" parent="y Sorted Layer"]
 z_index = -1

@@ -75,42 +75,39 @@ func get_local_random_spawn_offset() -> Vector2:
 	
 	
 func tree_spawn_in_circle(area: Area2D) -> void:
-	self.behaviour_module.movement_speed = 100
-
-	await get_tree().create_timer(0.1).timeout
 	if area == player:
-	
 		if has_spawned:
 			return # prevents spawning again
 
-	has_spawned = true
-	var size_offset = 2.2
-	var number_of_spawns = 40 * size_offset
-	var circle: CircleShape2D = spawn_area_shape.shape
-	var radius = circle.radius * size_offset
+		self.behaviour_module.movement_speed = 100
+		has_spawned = true
+		var size_offset = 2.2
+		var number_of_spawns = 40 * size_offset
+		var circle: CircleShape2D = spawn_area_shape.shape
+		var radius = circle.radius * size_offset
 
-	var y_sorted_layer = get_tree().get_first_node_in_group("YSortedLayerGroup")
-	for i in range(number_of_spawns):
-		var _angle := TAU * float(i) / float(number_of_spawns)
+		var y_sorted_layer = get_tree().get_first_node_in_group("YSortedLayerGroup")
+		for i in range(number_of_spawns):
+			var _angle := TAU * float(i) / float(number_of_spawns)
 
-		if current_angle >= TAU:
-			return # full circle complete
+			if current_angle >= TAU:
+				return # full circle complete
 
-		var local_offset: Vector2 = Vector2(
-			cos(current_angle),
-			sin(current_angle)
-		) * radius
+			var local_offset: Vector2 = Vector2(
+				cos(current_angle),
+				sin(current_angle)
+			) * radius
 
-		var global_pos := spawn_area.global_transform * local_offset
-		var reveal_interval = 0.03
-		var tree_to_spawn: ArenaTree = self.tree.instantiate()
-		tree_to_spawn.global_position = global_pos
-		# Tell the tree WHEN to reveal
-		tree_to_spawn.parent = self
-		tree_to_spawn.reveal_delay = i * reveal_interval
-		y_sorted_layer.add_child(tree_to_spawn)
-		
-		current_angle += TAU / number_of_spawns
+			var global_pos := spawn_area.global_transform * local_offset
+			var reveal_interval = 0.03
+			var tree_to_spawn: ArenaTree = self.tree.instantiate()
+			tree_to_spawn.global_position = global_pos
+			# Tell the tree WHEN to reveal
+			tree_to_spawn.parent = self
+			tree_to_spawn.reveal_delay = i * reveal_interval
+			y_sorted_layer.add_child(tree_to_spawn)
+			
+			current_angle += TAU / number_of_spawns
 
 func _physics_process(delta: float) -> void:
 	behaviour_module.handle_movement(delta)

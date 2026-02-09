@@ -35,7 +35,9 @@ func _on_enemy_died_received(_self: MobBehaviourModule) -> void:
 	if self.behaviour_module != _self:
 		return
 	var main_node = get_tree().get_first_node_in_group("Main")
-	
+	var house_key_instance = house_key.instantiate()
+	house_key_instance.global_position = self.global_position
+	main_node.add_child(house_key_instance)
 	shadow_sprite.hide()
 	death_particles.emitting = true
 	death_audio_stream_player.play()
@@ -45,9 +47,5 @@ func _on_enemy_died_received(_self: MobBehaviourModule) -> void:
 
 	boss_health_bar.hide()
 
-
-	var house_key_instance = house_key.instantiate()
-	house_key_instance.global_position = self.global_position
-	main_node.add_child(house_key_instance)
 
 	self.queue_free()

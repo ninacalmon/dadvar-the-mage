@@ -11,8 +11,10 @@ signal health_depleted
 var immortality_timer: Timer = null
 
 @onready var health: float = max_health
+var has_health_depleted = false
 
 func _ready():
+	self.has_health_depleted = false
 	if immortality:
 		print("IMMORTALITY ON")
 
@@ -41,8 +43,9 @@ func set_health(health_value: float):
 		health = health_value_capped
 		health_changed.emit(difference)
 
-		if health <= 0:
+		if health <= 0 and !self.has_health_depleted:
 			health_depleted.emit()
+			self.has_health_depleted = true
 
 func get_health() -> float:
 	return health

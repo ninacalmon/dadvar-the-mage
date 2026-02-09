@@ -53,8 +53,8 @@ func _on_score_timer_timeout() -> void:
 		skeleton_spawn_rate.wait_time = 1 / skeleton_curve.sample(time_count_normalized)
 		skeleton_spawn_rate.start()
 
-	if time_count == 10:
-		is_banshee_attack = true
+	#if time_count == 10:
+		#is_banshee_attack = true
 	if time_count == 150:
 		self.boss_queue.append(self.goblin_boss)
 	if time_count == 330:

@@ -159,7 +159,7 @@ mob_sprite = NodePath("../../AnimatedSprite2D")
 
 [node name="HealthModule" type="Node" parent="Behaviour" groups=["HealthModuleGroup"]]
 script = ExtResource("6_okh2j")
-max_health = 3000.0
+max_health = 4000.0
 metadata/_custom_type_script = "uid://ckp8nqvjgsevu"
 
 [node name="ShadowSprite" type="Sprite2D" parent="."]

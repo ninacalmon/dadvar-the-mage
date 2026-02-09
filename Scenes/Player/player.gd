@@ -38,6 +38,7 @@ var lazy_cast_cooldown = 0
 
 var audio_track: AudioStream = preload("res://Sounds/retro-game-shot-2-152053.mp3")
 var mobs_on_damage_range: Array[MobBehaviourModule] = []
+var death_tween: Tween
 const WAND_TIP_POSITION_X_ABSOLUTE = 63
 
 func start(pos):
@@ -58,7 +59,7 @@ func start(pos):
 
 	self.timer_to_be_hurt.start()
 	self.timer_to_be_hurt.timeout.connect(hurt_myself)
-	#self.add_new_spell(ProfaneBolt.new(), 1)
+	#self.add_new_spell(ProfaneBolt.new(), 5)
 	#self.add_new_spell(OgresScent.new(), 1)
 	#self.add_new_spell(VampiricGoblet.new(), 1)
 	#self.add_new_spell(BoreasSwiftness.new(), 1)
@@ -153,6 +154,7 @@ func _on_area_entered(area: Area2D) -> void:
 
 
 func _on_player_health_health_depleted() -> void:
+	hurt_box.set_deferred("disabled", true)
 	self.stats_module.current_move_speed = 0
 	var stream_player = AudioStreamPlayer.new()
 	stream_player.stream = audio_track
@@ -162,15 +164,13 @@ func _on_player_health_health_depleted() -> void:
 	get_parent().add_child(stream_player)
 
 	var tween = get_tree().create_tween()
-	hurt_box.set_deferred("disabled", true)
 	tween.tween_callback(stream_player.play)
 	tween.tween_property(
 		player_sprite.material,
 		"shader_parameter/dissolve_value",
 		0.0,
-		3.5
+		2
 	).from(1.0)
-	#tween.parallel().tween_property(player_sprite, "scale", Vector2(1, 0.06), 1)
 
 	tween.tween_callback(player_death.emit)
 
