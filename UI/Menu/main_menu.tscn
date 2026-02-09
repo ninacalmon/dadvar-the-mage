@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://lrwtrhhdv65l"]
+[gd_scene load_steps=22 format=3 uid="uid://lrwtrhhdv65l"]
 
 [ext_resource type="FontFile" uid="uid://lyk0q1luk8p3" path="res://Fonts/Pixel_Operator/PixelOperatorHB8.ttf" id="1_o5at2"]
 [ext_resource type="Texture2D" uid="uid://bj31ex7mahex" path="res://Sprites/forest_image_noise.png" id="1_t0n6y"]
@@ -8,12 +8,43 @@
 [ext_resource type="Texture2D" uid="uid://ch77qoff4r0gg" path="res://Sprites/fog.png" id="5_khm05"]
 [ext_resource type="Script" uid="uid://db7vnnnvjdw7v" path="res://UI/Menu/settings.gd" id="6_8610p"]
 [ext_resource type="Script" uid="uid://dvb5l4jfu8g81" path="res://UI/Menu/settings_options.gd" id="7_fp7wp"]
+[ext_resource type="Shader" uid="uid://cwxvplnqrndsl" path="res://Shaders/main_shader_glow.gdshader" id="9_xlf5w"]
+[ext_resource type="Shader" uid="uid://dvafedygytn42" path="res://Shaders/main_shader.gdshader" id="10_gx68b"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4hclx"]
 bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_khm05"]
 bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_3f1ty"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6gd86"]
+noise = SubResource("FastNoiseLite_3f1ty")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vqwim"]
+shader = ExtResource("10_gx68b")
+shader_parameter/hit_flash_enabled = false
+shader_parameter/hit_flash_color = Color(1, 1, 1, 1)
+shader_parameter/dissolve_noise = SubResource("NoiseTexture2D_6gd86")
+shader_parameter/dissolve_value = 0.66000003135
+shader_parameter/dissolve_outline_color = Color(0.305882, 0.854902, 0.941176, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ak47m"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ve72o"]
+noise = SubResource("FastNoiseLite_ak47m")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l5lb0"]
+shader = ExtResource("9_xlf5w")
+shader_parameter/glow_color = Color(0.5, 0.8, 1, 1)
+shader_parameter/glow_radius = 10.0
+shader_parameter/glow_intensity = 3.3
+shader_parameter/hit_flash_enabled = false
+shader_parameter/hit_flash_color = Color(1, 1, 1, 1)
+shader_parameter/dissolve_noise = SubResource("NoiseTexture2D_ve72o")
+shader_parameter/dissolve_value = 0.6610000313975
+shader_parameter/dissolve_outline_color = Color(0.305882, 0.854902, 0.941176, 1)
 
 [sub_resource type="Animation" id="Animation_fp7wp"]
 length = 0.001
@@ -247,6 +278,35 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_4hclx")
 theme_override_styles/hover = SubResource("StyleBoxFlat_khm05")
 text = "BACK
 "
+
+[node name="ShaderPreloader" type="Node2D" parent="CanvasLayer"]
+z_index = -100
+
+[node name="MainShaderVariations" type="Node2D" parent="CanvasLayer/ShaderPreloader"]
+
+[node name="MainShaderHitFlashON" type="ColorRect" parent="CanvasLayer/ShaderPreloader/MainShaderVariations"]
+material = SubResource("ShaderMaterial_vqwim")
+offset_left = 36.0
+offset_right = 37.0
+offset_bottom = 1.0
+
+[node name="MainShaderHitFlashOFF" type="ColorRect" parent="CanvasLayer/ShaderPreloader/MainShaderVariations"]
+material = SubResource("ShaderMaterial_vqwim")
+offset_left = 36.0
+offset_right = 37.0
+offset_bottom = 1.0
+
+[node name="GlowShaderVariations" type="Node2D" parent="CanvasLayer/ShaderPreloader"]
+
+[node name="GlowShaderHitFlashON" type="ColorRect" parent="CanvasLayer/ShaderPreloader/GlowShaderVariations"]
+material = SubResource("ShaderMaterial_l5lb0")
+offset_right = 1.0
+offset_bottom = 1.0
+
+[node name="GlowShaderHitFlashOFF" type="ColorRect" parent="CanvasLayer/ShaderPreloader/GlowShaderVariations"]
+material = SubResource("ShaderMaterial_l5lb0")
+offset_right = 1.0
+offset_bottom = 1.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
