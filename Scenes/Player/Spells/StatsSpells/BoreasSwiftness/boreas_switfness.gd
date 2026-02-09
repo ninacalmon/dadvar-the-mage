@@ -7,7 +7,7 @@ var sprite_texture = preload("res://Sprites/Spell Sprites/BoreasSwiftness2.png")
 var hability_type: EventSpell.EventSpellType = EventSpell.EventSpellType.STATS_SPELL
 var current_level = 0
 var max_level = 3
-var switfness_to_reduce = 0.9
+var switfness_to_reduce = 0.93
 
 func apply_spell(spell_context: SpellContext):
 	self.stat_modifier = StatModifier.CreateStatModifier(

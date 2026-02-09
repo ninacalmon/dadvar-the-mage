@@ -1,7 +1,7 @@
-[gd_scene load_steps=27 format=3 uid="uid://c1eer3wqp1stk"]
+[gd_scene load_steps=24 format=3 uid="uid://c1eer3wqp1stk"]
 
 [ext_resource type="Script" uid="uid://dk5t1ep1cawxk" path="res://Scenes/Enemies/Skeleton/skeleton.gd" id="1_mnwpc"]
-[ext_resource type="Shader" uid="uid://dvafedygytn42" path="res://Shaders/main_shader.gdshader" id="2_7nfea"]
+[ext_resource type="Material" uid="uid://cwbdttprlvkob" path="res://Shaders/Consolidated/skeleton.tres" id="2_mjya5"]
 [ext_resource type="Texture2D" uid="uid://bre4u1ttp860k" path="res://Sprites/skeleton2arm1.png" id="3_mjya5"]
 [ext_resource type="Texture2D" uid="uid://fa1tncxhtw2t" path="res://Sprites/skeleton1body.png" id="4_2qfue"]
 [ext_resource type="PackedScene" uid="uid://dnr2fm6mdvs2" path="res://Modules/Mobs/mob_behaviour_module.tscn" id="4_k1ht5"]
@@ -9,20 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://074u46307g8r" path="res://Scenes/Progression/Void Power/vp.tscn" id="5_kq5ko"]
 [ext_resource type="Texture2D" uid="uid://xwg714irrlk0" path="res://Sprites/skeleton3head.png" id="6_qrapg"]
 [ext_resource type="Script" uid="uid://ckp8nqvjgsevu" path="res://Modules/Generics/health_module.gd" id="6_vhglc"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_psqmn"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7555g"]
-noise = SubResource("FastNoiseLite_psqmn")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_u8yfu"]
-resource_local_to_scene = true
-shader = ExtResource("2_7nfea")
-shader_parameter/hit_flash_enabled = false
-shader_parameter/hit_flash_color = Color(1, 1, 1, 1)
-shader_parameter/dissolve_noise = SubResource("NoiseTexture2D_7555g")
-shader_parameter/dissolve_value = 1.0
-shader_parameter/dissolve_outline_color = Color(0.17254902, 0.14117648, 0.3882353, 1)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2j1j4"]
 animations = [{
@@ -211,7 +197,7 @@ _data = {
 
 [node name="Skeleton" type="CharacterBody2D" node_paths=PackedStringArray("behaviour_module")]
 collision_layer = 4
-collision_mask = 32770
+collision_mask = 32772
 motion_mode = 1
 platform_floor_layers = 4278190080
 safe_margin = 0.001
@@ -220,13 +206,13 @@ behaviour_module = NodePath("Behaviour/MobBehaviour")
 
 [node name="Body" type="AnimatedSprite2D" parent="."]
 light_mask = 9
-material = SubResource("ShaderMaterial_u8yfu")
+material = ExtResource("2_mjya5")
 position = Vector2(0, -66)
 sprite_frames = SubResource("SpriteFrames_2j1j4")
 
 [node name="Arm1" type="AnimatedSprite2D" parent="Body"]
 light_mask = 9
-material = SubResource("ShaderMaterial_u8yfu")
+material = ExtResource("2_mjya5")
 position = Vector2(14.999999, -15.258728)
 rotation = -0.08726646
 scale = Vector2(0.9999999, 0.9999999)
@@ -234,14 +220,14 @@ sprite_frames = SubResource("SpriteFrames_2qfue")
 
 [node name="Arm2" type="AnimatedSprite2D" parent="Body"]
 light_mask = 9
-material = SubResource("ShaderMaterial_u8yfu")
+material = ExtResource("2_mjya5")
 position = Vector2(-13, -31.258728)
 rotation = 0.08726646
 sprite_frames = SubResource("SpriteFrames_qrapg")
 
 [node name="Head" type="AnimatedSprite2D" parent="Body"]
 light_mask = 9
-material = SubResource("ShaderMaterial_u8yfu")
+material = ExtResource("2_mjya5")
 position = Vector2(0, -66)
 sprite_frames = SubResource("SpriteFrames_vy4d1")
 offset = Vector2(0, 66)

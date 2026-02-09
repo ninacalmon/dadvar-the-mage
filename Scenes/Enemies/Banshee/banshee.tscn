@@ -1,30 +1,13 @@
-[gd_scene load_steps=18 format=3 uid="uid://cakwnh4a4rc4f"]
+[gd_scene load_steps=15 format=3 uid="uid://cakwnh4a4rc4f"]
 
 [ext_resource type="Script" uid="uid://b7bvl6gq2fdfg" path="res://Scenes/Enemies/Banshee/banshee.gd" id="1_xrhp3"]
-[ext_resource type="Shader" uid="uid://cwxvplnqrndsl" path="res://Shaders/main_shader_glow.gdshader" id="2_ihb8u"]
+[ext_resource type="Material" uid="uid://b388iu0jbywcp" path="res://Shaders/Consolidated/banshee.tres" id="2_mbhbo"]
 [ext_resource type="Texture2D" uid="uid://darp0g7nxksbp" path="res://Sprites/Banshee.png" id="3_x7efa"]
 [ext_resource type="Script" uid="uid://ckp8nqvjgsevu" path="res://Modules/Generics/health_module.gd" id="5_q384t"]
 [ext_resource type="PackedScene" uid="uid://dnr2fm6mdvs2" path="res://Modules/Mobs/mob_behaviour_module.tscn" id="6_6ylle"]
 [ext_resource type="AudioStream" uid="uid://dlr3qeb4bxkdp" path="res://Sounds/banshee-scream-3s.mp3" id="7_2cwk4"]
 [ext_resource type="PackedScene" uid="uid://074u46307g8r" path="res://Scenes/Progression/Void Power/vp.tscn" id="7_3wn3w"]
 [ext_resource type="AudioStream" uid="uid://cdiqjuit0og4s" path="res://Sounds/explosion-sound.mp3" id="8_mbhbo"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_ihb8u"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_v84ck"]
-noise = SubResource("FastNoiseLite_ihb8u")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jdkul"]
-resource_local_to_scene = true
-shader = ExtResource("2_ihb8u")
-shader_parameter/glow_color = Color(0.5, 0.8, 1, 1)
-shader_parameter/glow_radius = 10.0
-shader_parameter/glow_intensity = 3.3
-shader_parameter/hit_flash_enabled = false
-shader_parameter/hit_flash_color = Color(1, 1, 1, 1)
-shader_parameter/dissolve_noise = SubResource("NoiseTexture2D_v84ck")
-shader_parameter/dissolve_value = 1.0
-shader_parameter/dissolve_outline_color = Color(0.17254902, 0.14117648, 0.3882353, 1)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_o80aq"]
 animations = [{
@@ -72,7 +55,7 @@ modulate = Color(1, 1, 1, 0.30980393)
 light_mask = 9
 y_sort_enabled = true
 texture_filter = 1
-material = SubResource("ShaderMaterial_jdkul")
+material = ExtResource("2_mbhbo")
 sprite_frames = SubResource("SpriteFrames_o80aq")
 animation = &"ghost1"
 offset = Vector2(0, -37)

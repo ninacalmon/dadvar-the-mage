@@ -1,0 +1,20 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://b388iu0jbywcp"]
+
+[ext_resource type="Shader" uid="uid://cwxvplnqrndsl" path="res://Shaders/main_shader_glow.gdshader" id="1_aeord"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ihb8u"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_v84ck"]
+noise = SubResource("FastNoiseLite_ihb8u")
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_aeord")
+shader_parameter/glow_color = Color(0.5, 0.8, 1, 1)
+shader_parameter/glow_radius = 10.0
+shader_parameter/glow_intensity = 3.3
+shader_parameter/hit_flash_enabled = false
+shader_parameter/hit_flash_color = Color(1, 1, 1, 1)
+shader_parameter/dissolve_noise = SubResource("NoiseTexture2D_v84ck")
+shader_parameter/dissolve_value = 1.0
+shader_parameter/dissolve_outline_color = Color(0.17254902, 0.14117648, 0.3882353, 1)

@@ -5,8 +5,8 @@ var time_count: float = 0
 
 @export var ghost_curve: Curve
 @export var goblin_curve: Curve
+@export var skeleton_curve: Curve
 @export var cerberus_curve: Curve
-@export var goblin_boss_curve: Curve
 @export var gargoyle_curve: Curve
 
 @export var ghost: PackedScene
@@ -16,17 +16,18 @@ var time_count: float = 0
 @export var mega_cerberus: PackedScene
 @export var gargoyle: PackedScene
 @export var banshee: PackedScene
+@export var skeleton: PackedScene
 @export var seraphim: PackedScene
 @export var player: Area2D
 
-
-var has_megacerberus_spawned = false
-
 @onready var music_system: MusicSystem = %MusicSystem
-
 @onready var boss_spawn_timer: Timer = $BossSpawnTimer
+@onready var skeleton_spawn_rate: Timer = $SkeletonSpawnRate
+@onready var banshee_spawn_rate: Timer = $BansheeSpawnRate
+
 var boss_queue: Array[PackedScene] = []
 var current_active_boss: Node2D = null
+var is_banshee_attack: bool = false
 
 # WAVE1 0 - 0.35
 # WAVE3 0.75 - 1.30
@@ -45,25 +46,28 @@ func _on_score_timer_timeout() -> void:
 		#Cerberus
 		$CerberusSpawnRate.wait_time = 1 / cerberus_curve.sample(time_count_normalized)
 		$CerberusSpawnRate.start()
-		#Goblin Boss
-		$GoblinBossSpawnRate.wait_time = 1 / goblin_boss_curve.sample(time_count_normalized)
-		$GoblinBossSpawnRate.start()
 		#Gargoyle
 		$GargoyleSpawnRate.wait_time = 1 / gargoyle_curve.sample(time_count_normalized)
 		$GargoyleSpawnRate.start()
+		#Skeleton
+		skeleton_spawn_rate.wait_time = 1 / skeleton_curve.sample(time_count_normalized)
+		skeleton_spawn_rate.start()
 
-
-	if time_count == 5:
-		self.boss_queue.append(self.mega_cerberus)
-	if time_count == 6:
+	if time_count == 10:
+		is_banshee_attack = true
+	if time_count == 150:
 		self.boss_queue.append(self.goblin_boss)
-	if time_count == 7:
+	if time_count == 330:
+		self.boss_queue.append(self.mega_cerberus)
+	if time_count == 590:
 		self.boss_queue.append(self.seraphim)
 
 func _ready() -> void:
+	EventBus.mega_cerberus_death.connect(_on_mega_cerberus_death)
 	EventBus.enemy_died.connect(_on_enemy_died_received)
 	score_timer.connect("timeout", _on_score_timer_timeout)
 	boss_spawn_timer.timeout.connect(_boss_spawn_timer_timeout)
+	skeleton_spawn_rate.timeout.connect(_on_skeleton_spawn_rate_timeout)
 
 func _on_ghost_spawn_rate_timeout() -> void:
 	var spawn_position = self.get_random_spawn_position()
@@ -97,8 +101,22 @@ func _on_gargoyle_spawn_rate_timeout() -> void:
 	var spawn_position = self.get_random_spawn_position()
 	spawn_mob(gargoyle, spawn_position)
 	
+func _on_skeleton_spawn_rate_timeout() -> void:
+	var spawn_position = self.get_random_spawn_position()
+	spawn_mob(skeleton, spawn_position)
+	
 func _on_banshee_spawn_rate_timeout() -> void:
 	var horde_chance = randi_range(1, 5)
+
+	if time_count >= 450:
+		is_banshee_attack = false
+
+	if !is_banshee_attack:
+		banshee_spawn_rate.wait_time = randi_range(20, 40)
+	else:
+		banshee_spawn_rate.wait_time = randi_range(1, 10)
+		horde_chance = randi_range(1, 3)
+
 	if horde_chance <= 2:
 		var spawn_quantity = randi_range(2, 4)
 		for _sp in range(spawn_quantity):
@@ -108,11 +126,8 @@ func _on_banshee_spawn_rate_timeout() -> void:
 		var spawn_position = self.get_random_spawn_position()
 		spawn_mob(banshee, spawn_position)
 
-	$BansheeSpawnRate.wait_time = randi_range(20, 40)
-
-func _on_mega_cerberus_spawn_rate_timeout() -> void:
-	var spawn_position = get_random_spawn_position()
-	spawn_mob(mega_cerberus, spawn_position)
+func _on_mega_cerberus_death():
+	is_banshee_attack = true
 
 func spawn_mob(mob_to_spawn: PackedScene, spawn_position: Vector2) -> Node2D:
 	if Global.CURRENT_MOBS_SPAWNED >= Global.MAXIMUM_MOBS_TO_SPAWN:
@@ -190,5 +205,6 @@ func _on_player_player_death() -> void:
 	$GhostSpawnRate.stop()
 	$GoblinSpawnRate.stop()
 	$CerberusSpawnRate.stop()
-	$GoblinBossSpawnRate.stop()
 	$GargoyleSpawnRate.stop()
+	skeleton_spawn_rate.stop()
+	boss_spawn_timer.stop()

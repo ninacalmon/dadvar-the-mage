@@ -1,26 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://lo1aexwurrqg"]
+[gd_scene load_steps=10 format=3 uid="uid://lo1aexwurrqg"]
 
 [ext_resource type="Script" uid="uid://66e13ckj7aom" path="res://Scenes/Enemies/Goblin/goblin.gd" id="1_v3txi"]
 [ext_resource type="Texture2D" uid="uid://mxpku1fk6108" path="res://Sprites/Goblin-2.png" id="2_v3txi"]
-[ext_resource type="Shader" uid="uid://dvafedygytn42" path="res://Shaders/main_shader.gdshader" id="2_xpmg4"]
+[ext_resource type="Material" uid="uid://bxbgoro3om5ug" path="res://Shaders/Consolidated/goblin.tres" id="2_xpmg4"]
 [ext_resource type="Texture2D" uid="uid://yx74icg37doa" path="res://Sprites/Goblin-3.png" id="3_xpyb8"]
 [ext_resource type="PackedScene" uid="uid://dnr2fm6mdvs2" path="res://Modules/Mobs/mob_behaviour_module.tscn" id="4_xpyb8"]
 [ext_resource type="Script" uid="uid://ckp8nqvjgsevu" path="res://Modules/Generics/health_module.gd" id="6_u8yfu"]
 [ext_resource type="PackedScene" uid="uid://074u46307g8r" path="res://Scenes/Progression/Void Power/vp.tscn" id="6_xpmg4"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_o4xp5"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6t58p"]
-noise = SubResource("FastNoiseLite_o4xp5")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_u8yfu"]
-resource_local_to_scene = true
-shader = ExtResource("2_xpmg4")
-shader_parameter/hit_flash_enabled = false
-shader_parameter/hit_flash_color = Color(1, 1, 1, 1)
-shader_parameter/dissolve_noise = SubResource("NoiseTexture2D_6t58p")
-shader_parameter/dissolve_value = 1.0
-shader_parameter/dissolve_outline_color = Color(0.17254902, 0.14117648, 0.3882353, 1)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_q0u7v"]
 animations = [{
@@ -56,7 +42,7 @@ behaviour_module = NodePath("Behaviour/MobBehaviour")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 light_mask = 9
-material = SubResource("ShaderMaterial_u8yfu")
+material = ExtResource("2_xpmg4")
 position = Vector2(-1, -49)
 sprite_frames = SubResource("SpriteFrames_q0u7v")
 animation = &"goblin2"

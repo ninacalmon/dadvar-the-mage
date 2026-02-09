@@ -17,7 +17,7 @@ func apply_shake(shake_str: float, shake_dcay: float):
 	self.shake_decay = shake_dcay
 
 func _process(delta: float):
-	if shake_strength and shake_strength > 0 and shake_decay and shake_decay > 0:
+	if shake_strength and shake_strength > 0 and shake_decay and shake_decay > 0 and self.camera:
 		self.camera.offset = get_random_offset()
 		var decay = 1.0 - pow(threshold, delta / shake_decay)
 		self.shake_strength = lerpf(self.shake_strength, 0, decay)

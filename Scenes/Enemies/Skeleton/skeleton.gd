@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 var implements = [Interface.Mob, Interface.Damageable]
+@onready var body_sprite: AnimatedSprite2D = $Body
 
 @export var behaviour_module: MobBehaviourModule
 

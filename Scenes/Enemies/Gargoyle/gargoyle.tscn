@@ -1,8 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://d0kj6ol22kpuh"]
+[gd_scene load_steps=15 format=3 uid="uid://d0kj6ol22kpuh"]
 
 [ext_resource type="Script" uid="uid://bfowbx164eqei" path="res://Scenes/Enemies/Gargoyle/gargoyle.gd" id="1_lnp2y"]
 [ext_resource type="PackedScene" uid="uid://dnr2fm6mdvs2" path="res://Modules/Mobs/mob_behaviour_module.tscn" id="1_sltjp"]
-[ext_resource type="Shader" uid="uid://dvafedygytn42" path="res://Shaders/main_shader.gdshader" id="2_31fxy"]
+[ext_resource type="Material" uid="uid://fyk5xrydn4hh" path="res://Shaders/Consolidated/gargoyle.tres" id="2_31fxy"]
 [ext_resource type="Texture2D" uid="uid://ctswk26uywcu6" path="res://Sprites/gargoyle.png" id="2_a3fl6"]
 [ext_resource type="PackedScene" uid="uid://074u46307g8r" path="res://Scenes/Progression/Void Power/vp.tscn" id="2_snxcg"]
 [ext_resource type="Texture2D" uid="uid://cql1ksgwmulpy" path="res://Sprites/gargoyle_broken.png" id="3_a3fl6"]
@@ -11,20 +11,6 @@
 [ext_resource type="AudioStream" uid="uid://dp5dcf622flwk" path="res://Sounds/broken_stone.mp3" id="9_1fbxh"]
 [ext_resource type="AudioStream" uid="uid://whpnyaraeidj" path="res://Sounds/broken_stone2.mp3" id="10_parks"]
 [ext_resource type="AudioStream" uid="uid://csnyh36wnyibg" path="res://Sounds/broken_stone3.mp3" id="11_vlas6"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_ib5h1"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fxstd"]
-noise = SubResource("FastNoiseLite_ib5h1")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_a3fl6"]
-resource_local_to_scene = true
-shader = ExtResource("2_31fxy")
-shader_parameter/hit_flash_enabled = false
-shader_parameter/hit_flash_color = Color(1, 1, 1, 1)
-shader_parameter/dissolve_noise = SubResource("NoiseTexture2D_fxstd")
-shader_parameter/dissolve_value = 1.0
-shader_parameter/dissolve_outline_color = Color(0.17254902, 0.14117648, 0.3882353, 1)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_mtjh4"]
 animations = [{
@@ -73,7 +59,7 @@ health_module = NodePath("Behaviour/HealthModule")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 light_mask = 9
-material = SubResource("ShaderMaterial_a3fl6")
+material = ExtResource("2_31fxy")
 position = Vector2(0, -88)
 sprite_frames = SubResource("SpriteFrames_mtjh4")
 

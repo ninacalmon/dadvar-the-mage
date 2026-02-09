@@ -7,7 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://ccqhgdgwf5tbh" path="res://Sounds/freesound_community-door-unlocking-101333.mp3" id="5_72wg1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vmw7f"]
-size = Vector2(302.75, 104)
+size = Vector2(302.75, 178)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ti6a6"]
 animations = [{
@@ -40,13 +40,13 @@ animations = [{
 size = Vector2(58, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_07ah0"]
-size = Vector2(316, 18)
+size = Vector2(162, 18)
 
 [node name="House" type="StaticBody2D"]
 script = ExtResource("1_07ah0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-4.375, -49)
+position = Vector2(-4.375, -86)
 shape = SubResource("RectangleShape2D_vmw7f")
 
 [node name="SpriteHouse" type="AnimatedSprite2D" parent="."]

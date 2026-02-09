@@ -1,4 +1,4 @@
-[gd_scene load_steps=91 format=3 uid="uid://qinxn2c2shu7"]
+[gd_scene load_steps=92 format=3 uid="uid://qinxn2c2shu7"]
 
 [ext_resource type="PackedScene" uid="uid://d2c1s3qmdi4ti" path="res://Scenes/Player/player.tscn" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://g1vr201lpslj" path="res://game.gd" id="1_feb5d"]
@@ -42,6 +42,7 @@
 [ext_resource type="Script" uid="uid://db7vnnnvjdw7v" path="res://UI/Menu/settings.gd" id="39_r62pu"]
 [ext_resource type="Script" uid="uid://dvb5l4jfu8g81" path="res://UI/Menu/settings_options.gd" id="41_klri6"]
 [ext_resource type="PackedScene" uid="uid://pnsvdyblsexv" path="res://Scenes/Bosses/Seraphim/seraphim.tscn" id="42_eu6ph"]
+[ext_resource type="PackedScene" uid="uid://c1eer3wqp1stk" path="res://Scenes/Enemies/Skeleton/skeleton.tscn" id="43_edr7y"]
 
 [sub_resource type="Environment" id="Environment_xa8c5"]
 background_mode = 3
@@ -60,31 +61,29 @@ glow_blend_mode = 1
 resource_local_to_scene = true
 script = ExtResource("7_215e1")
 base_move_speed = 400.0
-base_cast_cooldown = 0.3
+base_cast_cooldown = 0.35
 metadata/_custom_type_script = "uid://cx1bveptsnmc"
 
 [sub_resource type="Curve" id="Curve_vaj68"]
 _limits = [0.0, 10.0, 0.0, 3.0]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.53999996, 0), 0.0, 0.0, 0, 0, Vector2(1.02, 5.2000003), 0.0, 0.0, 0, 0, Vector2(1.62, 0), 0.0, 0.0, 0, 0, Vector2(1.89, 0), 0.0, 0.0, 0, 0]
-point_count = 5
+_data = [Vector2(0.6, 0), 0.0, 0.0, 0, 0, Vector2(0.75, 2.5), 0.0, 0.0, 0, 0, Vector2(0.9, 2.6000001), 0.0, 0.0, 0, 0, Vector2(1.1999999, 3.7), 0.0, 0.0, 0, 0, Vector2(1.5, 1.7), 0.0, 0.0, 0, 0, Vector2(2.37, 2.2), 0.0, 0.0, 0, 0, Vector2(2.7, 0), 0.0, 0.0, 0, 0]
+point_count = 7
 metadata/_snap_enabled = true
 metadata/_snap_count = 100
+
+[sub_resource type="Curve" id="Curve_edr7y"]
+_limits = [0.0, 10.0, 0.0, 8.0]
+_data = [Vector2(0.020689666, 0), 0.0, 0.0, 0, 0, Vector2(1.5601661, 0), 0.0, 0.0, 0, 0, Vector2(2.8160918, 3.465909), 0.0, 0.0, 0, 0, Vector2(3.5402296, 0), 0.0, 0.0, 0, 0, Vector2(5.6, 0), 0.0, 0.0, 0, 0, Vector2(6.771785, 6.5168543), 0.0, 0.0, 0, 0]
+point_count = 6
 
 [sub_resource type="Curve" id="Curve_i2p71"]
 _limits = [0.0, 10.0, 0.0, 3.0]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.78594244, 0), 0.0, 0.0, 0, 0, Vector2(1.2076677, 1.8123398), 0.0, 0.0, 0, 0, Vector2(1.8881788, 0), 0.0, 0.0, 0, 0]
-point_count = 4
-
-[sub_resource type="Curve" id="Curve_xa8c5"]
-_limits = [0.0, 10.0, 0.0, 3.0]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.75, 0), 0.0, 0.0, 0, 0, Vector2(1, 0.2), 0.0, 0.0, 0, 0, Vector2(1.41, 0.2), 0.0, 0.0, 0, 0, Vector2(1.5899999, 0), 0.0, 0.0, 0, 0]
-point_count = 5
-metadata/_snap_enabled = true
-metadata/_snap_count = 100
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.78594244, 0), 0.0, 0.0, 0, 0, Vector2(1.8881788, 0), 0.0, 0.0, 0, 0]
+point_count = 3
 
 [sub_resource type="Curve" id="Curve_bnpwn"]
-_limits = [0.0, 10.0, 0.0, 3.0]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(2.1565495, 0), 0.0, 0.0, 0, 0, Vector2(2.4057508, 4.402314), 0.0, 0.0, 0, 0]
+_limits = [0.0, 10.0, 0.0, 7.0]
+_data = [Vector2(4.4149384, 0), 0.0, 0.0, 0, 0, Vector2(5.1333337, 6.1363635), 0.0, 0.0, 0, 0, Vector2(5.648276, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hb5m1"]
@@ -386,8 +385,8 @@ script = ExtResource("8_j5wjh")
 score_timer = NodePath("../../ScoreTimer")
 ghost_curve = ExtResource("22_xa8c5")
 goblin_curve = SubResource("Curve_vaj68")
+skeleton_curve = SubResource("Curve_edr7y")
 cerberus_curve = SubResource("Curve_i2p71")
-goblin_boss_curve = SubResource("Curve_xa8c5")
 gargoyle_curve = SubResource("Curve_bnpwn")
 ghost = ExtResource("2_fc0e3")
 goblin = ExtResource("3_eow3j")
@@ -396,6 +395,7 @@ cerberus = ExtResource("9_vef74")
 mega_cerberus = ExtResource("9_hve3p")
 gargoyle = ExtResource("14_36jdj")
 banshee = ExtResource("31_xfvwf")
+skeleton = ExtResource("43_edr7y")
 seraphim = ExtResource("42_eu6ph")
 player = NodePath("../player/PlayerArea")
 
@@ -407,11 +407,7 @@ player = NodePath("../player/PlayerArea")
 
 [node name="CerberusSpawnRate" type="Timer" parent="y Sorted Layer/WavesSystem"]
 
-[node name="GoblinBossSpawnRate" type="Timer" parent="y Sorted Layer/WavesSystem"]
-
 [node name="GargoyleSpawnRate" type="Timer" parent="y Sorted Layer/WavesSystem"]
-
-[node name="MegaCerberusSpawnRate" type="Timer" parent="y Sorted Layer/WavesSystem"]
 
 [node name="BansheeSpawnRate" type="Timer" parent="y Sorted Layer/WavesSystem"]
 wait_time = 30.0
@@ -419,6 +415,8 @@ autostart = true
 
 [node name="BossSpawnTimer" type="Timer" parent="y Sorted Layer/WavesSystem"]
 autostart = true
+
+[node name="SkeletonSpawnRate" type="Timer" parent="y Sorted Layer/WavesSystem"]
 
 [node name="Consumables" type="Node" parent="y Sorted Layer" node_paths=PackedStringArray("player")]
 script = ExtResource("17_f1jbl")
@@ -1048,8 +1046,6 @@ color = Color(0.7345116, 0.7672969, 1, 1)
 [connection signal="timeout" from="y Sorted Layer/WavesSystem/GhostSpawnRate" to="y Sorted Layer/WavesSystem" method="_on_ghost_spawn_rate_timeout"]
 [connection signal="timeout" from="y Sorted Layer/WavesSystem/GoblinSpawnRate" to="y Sorted Layer/WavesSystem" method="_on_goblin_spawn_rate_timeout"]
 [connection signal="timeout" from="y Sorted Layer/WavesSystem/CerberusSpawnRate" to="y Sorted Layer/WavesSystem" method="_on_cerberus_spawn_rate_timeout"]
-[connection signal="timeout" from="y Sorted Layer/WavesSystem/GoblinBossSpawnRate" to="y Sorted Layer/WavesSystem" method="_on_goblin_boss_spawn_rate_timeout"]
 [connection signal="timeout" from="y Sorted Layer/WavesSystem/GargoyleSpawnRate" to="y Sorted Layer/WavesSystem" method="_on_gargoyle_spawn_rate_timeout"]
-[connection signal="timeout" from="y Sorted Layer/WavesSystem/MegaCerberusSpawnRate" to="y Sorted Layer/WavesSystem" method="_on_mega_cerberus_spawn_rate_timeout"]
 [connection signal="timeout" from="y Sorted Layer/WavesSystem/BansheeSpawnRate" to="y Sorted Layer/WavesSystem" method="_on_banshee_spawn_rate_timeout"]
 [connection signal="timeout" from="y Sorted Layer/Consumables/ConsumableSpawnTimer" to="y Sorted Layer/Consumables" method="_on_consumable_spawn_timer_timeout"]

@@ -1,17 +1,17 @@
-[gd_scene load_steps=18 format=3 uid="uid://drrllpdvbctga"]
+[gd_scene load_steps=15 format=3 uid="uid://drrllpdvbctga"]
 
 [ext_resource type="Script" uid="uid://cvh6pdd1cahof" path="res://Scenes/Bosses/GoblinBoss/goblin_boss.gd" id="1_bs2mh"]
-[ext_resource type="Shader" uid="uid://dvafedygytn42" path="res://Shaders/main_shader.gdshader" id="2_1p0cp"]
 [ext_resource type="PackedScene" uid="uid://lo1aexwurrqg" path="res://Scenes/Enemies/Goblin/goblin.tscn" id="2_72co8"]
 [ext_resource type="Texture2D" uid="uid://bgqumwqddncyp" path="res://Sprites/Goblin-1.png" id="2_h2756"]
 [ext_resource type="PackedScene" uid="uid://dnr2fm6mdvs2" path="res://Modules/Mobs/mob_behaviour_module.tscn" id="3_1lps0"]
 [ext_resource type="PackedScene" uid="uid://b1tq0kskxcfbf" path="res://Scenes/Bosses/GoblinBoss/arena_tree.tscn" id="3_jgpot"]
 [ext_resource type="Script" uid="uid://ckp8nqvjgsevu" path="res://Modules/Generics/health_module.gd" id="4_4f2ww"]
+[ext_resource type="Material" uid="uid://cwovme1ctxbjn" path="res://Shaders/Consolidated/Goblin_Boss.tres" id="4_jgpot"]
 [ext_resource type="PackedScene" uid="uid://074u46307g8r" path="res://Scenes/Progression/Void Power/vp.tscn" id="5_1p0cp"]
 [ext_resource type="AudioStream" uid="uid://b66t5o1p1hh8k" path="res://Sounds/witch-laugh-256450.mp3" id="6_jbg4a"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_72co8"]
-radius = 134.43808
+radius = 86.40001
 
 [sub_resource type="Curve" id="Curve_72co8"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -20,20 +20,6 @@ point_count = 2
 [sub_resource type="Gradient" id="Gradient_jgpot"]
 offsets = PackedFloat32Array(0.02173913, 0.26545453)
 colors = PackedColorArray(1, 1, 1, 0.3254902, 1, 1, 1, 0)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_72co8"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jgpot"]
-noise = SubResource("FastNoiseLite_72co8")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jbg4a"]
-resource_local_to_scene = true
-shader = ExtResource("2_1p0cp")
-shader_parameter/hit_flash_enabled = false
-shader_parameter/hit_flash_color = Color(1, 1, 1, 1)
-shader_parameter/dissolve_noise = SubResource("NoiseTexture2D_jgpot")
-shader_parameter/dissolve_value = 1.0
-shader_parameter/dissolve_outline_color = Color(0.17254902, 0.14117648, 0.3882353, 1)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_q0u7v"]
 animations = [{
@@ -58,7 +44,7 @@ size = Vector2(55.466675, 37.333336)
 y_sort_enabled = true
 scale = Vector2(2.5, 2.5)
 collision_layer = 2
-collision_mask = 32770
+collision_mask = 32768
 motion_mode = 1
 platform_floor_layers = 4278190080
 safe_margin = 0.001
@@ -103,7 +89,7 @@ hue_variation_max = 0.54
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 light_mask = 9
 texture_filter = 1
-material = SubResource("ShaderMaterial_jbg4a")
+material = ExtResource("4_jgpot")
 position = Vector2(0, -74.666664)
 sprite_frames = SubResource("SpriteFrames_q0u7v")
 animation = &"GoblinBoss"
@@ -184,7 +170,7 @@ hue_variation_max = 0.54
 [node name="Behaviour" type="Node" parent="."]
 
 [node name="MobBehaviour" parent="Behaviour" node_paths=PackedStringArray("health_module", "mob", "mob_collision_shape_array", "mob_sprite") instance=ExtResource("3_1lps0")]
-movement_speed = 40
+movement_speed = 530
 damage = 20.0
 health_module = NodePath("../HealthModule")
 vp_orb_scene = ExtResource("5_1p0cp")
@@ -194,7 +180,7 @@ mob_sprite = NodePath("../../AnimatedSprite2D")
 
 [node name="HealthModule" type="Node" parent="Behaviour"]
 script = ExtResource("4_4f2ww")
-max_health = 600.0
+max_health = 1500.0
 metadata/_custom_type_script = "uid://ckp8nqvjgsevu"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
@@ -203,4 +189,5 @@ volume_db = -16.0
 bus = &"SoundEffects"
 
 [node name="SpawnMinionsRate" type="Timer" parent="."]
+wait_time = 0.85
 autostart = true

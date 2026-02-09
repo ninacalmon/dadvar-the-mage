@@ -122,7 +122,7 @@ func shoot():
 	get_parent().add_child(bullet_instance)
 
 	cast_cooldown = self.stats_module.current_cast_cooldown
-	lazy_cast_cooldown = self.stats_module.current_cast_cooldown * 2
+	lazy_cast_cooldown = self.stats_module.current_cast_cooldown * 1.2
 	
 	
 	# Collision
@@ -153,6 +153,7 @@ func _on_area_entered(area: Area2D) -> void:
 
 
 func _on_player_health_health_depleted() -> void:
+	self.stats_module.current_move_speed = 0
 	var stream_player = AudioStreamPlayer.new()
 	stream_player.stream = audio_track
 	stream_player.pitch_scale = randf_range(0.15, 0.2)
