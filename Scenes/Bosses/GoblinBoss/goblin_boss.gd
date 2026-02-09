@@ -128,6 +128,5 @@ func _on_enemy_died_received(_self: MobBehaviourModule) -> void:
 	audio_stream_player.finished.connect(func(): audio_stream_player.queue_free())
 
 	$BloodParticles.emitting = true
-
 	boss_health_bar.hide()
 	self.queue_free()

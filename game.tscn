@@ -1,4 +1,4 @@
-[gd_scene load_steps=92 format=3 uid="uid://qinxn2c2shu7"]
+[gd_scene load_steps=94 format=3 uid="uid://qinxn2c2shu7"]
 
 [ext_resource type="PackedScene" uid="uid://d2c1s3qmdi4ti" path="res://Scenes/Player/player.tscn" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://g1vr201lpslj" path="res://game.gd" id="1_feb5d"]
@@ -28,7 +28,6 @@
 [ext_resource type="Script" uid="uid://brrt48yngfmq3" path="res://Scenes/Progression/Consumables/consumables_system.gd" id="17_f1jbl"]
 [ext_resource type="PackedScene" uid="uid://r1rufctix7bt" path="res://Scenes/Progression/Consumables/vp_magnet.tscn" id="18_vaj68"]
 [ext_resource type="PackedScene" uid="uid://bknxikea76lkg" path="res://Scenes/Progression/Consumables/food.tscn" id="19_i2p71"]
-[ext_resource type="Curve" uid="uid://balli3kxs211y" path="res://Resources/ghost_curve.tres" id="22_xa8c5"]
 [ext_resource type="Script" uid="uid://ia4f2b8ismcl" path="res://Sounds/Scripts/music_system.gd" id="25_i2p71"]
 [ext_resource type="Script" uid="uid://3d62f857c6wr" path="res://UI/health_bar.gd" id="27_l1i01"]
 [ext_resource type="PackedScene" uid="uid://cakwnh4a4rc4f" path="res://Scenes/Enemies/Banshee/banshee.tscn" id="31_xfvwf"]
@@ -64,27 +63,38 @@ base_move_speed = 400.0
 base_cast_cooldown = 0.35
 metadata/_custom_type_script = "uid://cx1bveptsnmc"
 
-[sub_resource type="Curve" id="Curve_vaj68"]
-_limits = [0.0, 10.0, 0.0, 3.0]
-_data = [Vector2(0.6, 0), 0.0, 0.0, 0, 0, Vector2(0.75, 2.5), 0.0, 0.0, 0, 0, Vector2(0.9, 2.6000001), 0.0, 0.0, 0, 0, Vector2(1.1999999, 3.7), 0.0, 0.0, 0, 0, Vector2(1.5, 1.7), 0.0, 0.0, 0, 0, Vector2(2.37, 2.2), 0.0, 0.0, 0, 0, Vector2(2.7, 0), 0.0, 0.0, 0, 0]
-point_count = 7
-metadata/_snap_enabled = true
-metadata/_snap_count = 100
+[sub_resource type="Curve" id="Curve_eu6ph"]
+_limits = [0.0, 5.0, 0.0, 30.0]
 
 [sub_resource type="Curve" id="Curve_edr7y"]
-_limits = [0.0, 10.0, 0.0, 8.0]
-_data = [Vector2(0.020689666, 0), 0.0, 0.0, 0, 0, Vector2(1.5601661, 0), 0.0, 0.0, 0, 0, Vector2(2.8160918, 3.465909), 0.0, 0.0, 0, 0, Vector2(3.5402296, 0), 0.0, 0.0, 0, 0, Vector2(5.6, 0), 0.0, 0.0, 0, 0, Vector2(6.771785, 6.5168543), 0.0, 0.0, 0, 0]
-point_count = 6
+_limits = [0.0, 5.0, 0.0, 30.0]
+_data = [Vector2(0, 0.5), 0.0, 0.0, 0, 0, Vector2(5, 1.3), 0.0, 0.0, 0, 0, Vector2(25, 1.3), 0.0, 0.0, 0, 0, Vector2(30, 0.5), 0.0, 0.0, 0, 0]
+point_count = 4
 
-[sub_resource type="Curve" id="Curve_i2p71"]
-_limits = [0.0, 10.0, 0.0, 3.0]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.78594244, 0), 0.0, 0.0, 0, 0, Vector2(1.8881788, 0), 0.0, 0.0, 0, 0]
-point_count = 3
+[sub_resource type="Curve" id="Curve_kq12w"]
+_limits = [0.0, 5.0, 0.0, 30.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(5, 2.3), 0.0, 0.0, 0, 0, Vector2(25, 2.3), 0.0, 0.0, 0, 0, Vector2(30, 1), 0.0, 0.0, 0, 0]
+point_count = 4
 
-[sub_resource type="Curve" id="Curve_bnpwn"]
-_limits = [0.0, 10.0, 0.0, 7.0]
-_data = [Vector2(4.4149384, 0), 0.0, 0.0, 0, 0, Vector2(5.1333337, 6.1363635), 0.0, 0.0, 0, 0, Vector2(5.648276, 0), 0.0, 0.0, 0, 0]
-point_count = 3
+[sub_resource type="Curve" id="Curve_t46w6"]
+_limits = [0.0, 5.0, 0.0, 30.0]
+_data = [Vector2(0, 2), 0.0, 0.0, 0, 0, Vector2(5, 4), 0.0, 0.0, 0, 0, Vector2(25, 4), 0.0, 0.0, 0, 0, Vector2(30, 2), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Curve" id="Curve_m28ev"]
+_limits = [0.0, 5.0, 0.0, 30.0]
+_data = [Vector2(0, 0.5), 0.0, 0.0, 0, 0, Vector2(5, 1.3), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_lwlx3"]
+_limits = [0.0, 5.0, 0.0, 30.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(5, 2.3), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_0de7l"]
+_limits = [0.0, 5.0, 0.0, 30.0]
+_data = [Vector2(0, 2), 0.0, 0.0, 0, 0, Vector2(5, 4), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hb5m1"]
 bg_color = Color(0, 0, 0, 0.7529412)
@@ -383,11 +393,6 @@ stats_module = SubResource("Resource_5b14r")
 y_sort_enabled = true
 script = ExtResource("8_j5wjh")
 score_timer = NodePath("../../ScoreTimer")
-ghost_curve = ExtResource("22_xa8c5")
-goblin_curve = SubResource("Curve_vaj68")
-skeleton_curve = SubResource("Curve_edr7y")
-cerberus_curve = SubResource("Curve_i2p71")
-gargoyle_curve = SubResource("Curve_bnpwn")
 ghost = ExtResource("2_fc0e3")
 goblin = ExtResource("3_eow3j")
 goblin_boss = ExtResource("4_ryrav")
@@ -398,8 +403,13 @@ banshee = ExtResource("31_xfvwf")
 skeleton = ExtResource("43_edr7y")
 seraphim = ExtResource("42_eu6ph")
 player = NodePath("../player/PlayerArea")
-
-[node name="WaveTimer" type="Timer" parent="y Sorted Layer/WavesSystem"]
+no_spawn_curve = SubResource("Curve_eu6ph")
+low_spawn_curve = SubResource("Curve_edr7y")
+medium_spawn_curve = SubResource("Curve_kq12w")
+high_spawn_curve = SubResource("Curve_t46w6")
+endless_low_spawn_curve = SubResource("Curve_m28ev")
+endless_medium_spawn_curve = SubResource("Curve_lwlx3")
+endless_high_spawn_curve = SubResource("Curve_0de7l")
 
 [node name="GhostSpawnRate" type="Timer" parent="y Sorted Layer/WavesSystem"]
 
@@ -417,6 +427,10 @@ autostart = true
 autostart = true
 
 [node name="SkeletonSpawnRate" type="Timer" parent="y Sorted Layer/WavesSystem"]
+
+[node name="NewWaveTimer" type="Timer" parent="y Sorted Layer/WavesSystem"]
+wait_time = 30.0
+autostart = true
 
 [node name="Consumables" type="Node" parent="y Sorted Layer" node_paths=PackedStringArray("player")]
 script = ExtResource("17_f1jbl")

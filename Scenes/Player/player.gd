@@ -33,6 +33,7 @@ var lazy_cast_cooldown = 0
 @onready var vp_range: CollisionShape2D = $VpCollector/VpRange
 @onready var magic_light: PointLight2D = $MagicLight
 @onready var timer_to_be_hurt: Timer = $"../TimerToBeHurt"
+@onready var hit_sound_stream_player: AudioStreamPlayer = $"../HitSoundStreamPlayer"
 
 #endregion
 
@@ -60,18 +61,19 @@ func start(pos):
 	self.timer_to_be_hurt.start()
 	self.timer_to_be_hurt.timeout.connect(hurt_myself)
 	#self.add_new_spell(ProfaneBolt.new(), 5)
-	#self.add_new_spell(OgresScent.new(), 1)
+	#self.add_new_spell(OgresScent.new(), 5)
 	#self.add_new_spell(VampiricGoblet.new(), 1)
-	#self.add_new_spell(BoreasSwiftness.new(), 1)
+	#self.add_new_spell(BoreasSwiftness.new(), 3)
 	#self.add_new_spell(TitansSkin.new(), 1)
 	#self.add_new_spell(YggdrasilTea.new(), 1)
-	#self.add_new_spell(SoulPiercer.new(), 1)
-	#self.add_new_spell(WrathWand.new(), 1)
+	#self.add_new_spell(SoulPiercer.new(), 4)
+	#self.add_new_spell(WrathWand.new(), 4)
 	
 
 func hurt_myself():
 	for mob: MobBehaviourModule in mobs_on_damage_range:
 		self.take_damage(mob)
+		hit_sound_stream_player.play()
 	
 	if (mobs_on_damage_range.size() == 0):
 		self.player_sprite.material.set_shader_parameter("hit_flash_enabled", false)

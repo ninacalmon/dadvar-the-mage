@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://d2c1s3qmdi4ti"]
+[gd_scene load_steps=16 format=3 uid="uid://d2c1s3qmdi4ti"]
 
 [ext_resource type="Script" uid="uid://ddcjyfv6u117d" path="res://Scenes/Player/player.gd" id="1_fkybt"]
 [ext_resource type="Script" uid="uid://cnihm64tdxf10" path="res://Scenes/Player/player_body_2d.gd" id="1_gk6dx"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://ckp8nqvjgsevu" path="res://Modules/Generics/health_module.gd" id="4_mtuoh"]
 [ext_resource type="PackedScene" uid="uid://cxyeuoba4nxrv" path="res://UI/health_bar.tscn" id="5_htcer"]
 [ext_resource type="Texture2D" uid="uid://b37tdqau44es0" path="res://Sprites/soft_gradient.tres" id="8_jlvik"]
+[ext_resource type="AudioStream" uid="uid://dhphnpq46o30y" path="res://Sounds/player_hit3.mp3" id="10_jhyir"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jlvik"]
 
@@ -29,6 +30,12 @@ height = 96.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dd0ac"]
 radius = 160.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_74mp2"]
+random_pitch = 1.4
+random_volume_offset_db = 2.0
+streams_count = 1
+stream_0/stream = ExtResource("10_jhyir")
 
 [node name="PlayerBody2d" type="CharacterBody2D"]
 script = ExtResource("1_gk6dx")
@@ -117,6 +124,12 @@ position = Vector2(-40, 16)
 
 [node name="TimerToBeHurt" type="Timer" parent="."]
 wait_time = 0.2
+
+[node name="HitSoundStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_74mp2")
+volume_db = -22.0
+pitch_scale = 0.58
+bus = &"SoundEffects"
 
 [connection signal="area_entered" from="PlayerArea" to="PlayerArea" method="_on_area_entered"]
 [connection signal="body_entered" from="PlayerArea" to="PlayerArea" method="_on_body_entered"]

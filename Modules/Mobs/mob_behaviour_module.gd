@@ -84,7 +84,7 @@ func handle_take_damage(damage_to_receive: float) -> void:
 
 	var audio_player := AudioStreamPlayer.new()
 	audio_player.stream = HIT_SOUND
-	audio_player.volume_db = randf_range(-20, -24)
+	audio_player.volume_db = randf_range(-19, -22)
 	audio_player.pitch_scale = randf_range(-1.4, 1.4)
 	audio_player.bus = Global.AUDIO_BUS_DIC[Global.AudioBus.SOUND_EFFECTS]
 

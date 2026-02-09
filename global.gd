@@ -29,3 +29,9 @@ func prettify_class_name(name: String) -> String:
 	var regex = RegEx.new()
 	regex.compile("([a-z])([A-Z])")
 	return regex.sub(name, "$1 $2", true)
+
+func has_property(obj: Object, prop_name: String) -> bool:
+	for p in obj.get_property_list():
+		if p.name == prop_name:
+			return true
+	return false

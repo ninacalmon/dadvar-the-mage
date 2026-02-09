@@ -55,7 +55,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_p4grk"]
-radius = 30.602287
+radius = 40.012497
 
 [sub_resource type="Animation" id="Animation_ws780"]
 resource_name = "Arms"
@@ -233,13 +233,13 @@ sprite_frames = SubResource("SpriteFrames_vy4d1")
 offset = Vector2(0, 66)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(3, -82)
+position = Vector2(4, -88)
 rotation = 1.5707964
 shape = SubResource("CircleShape2D_p4grk")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 modulate = Color(0, 0, 0, 1)
-position = Vector2(0, -66)
+position = Vector2(0, 48)
 rect = Rect2(-420, -516, 840, 840)
 
 [node name="BloodParticles" type="CPUParticles2D" parent="."]

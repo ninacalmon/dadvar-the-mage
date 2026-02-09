@@ -53,5 +53,4 @@ func _on_enemy_died_received(_self: MobBehaviourModule) -> void:
 	$BloodParticles.emitting = true
 
 	boss_health_bar.hide()
-	EventBus.mega_cerberus_death.emit()
 	self.queue_free()

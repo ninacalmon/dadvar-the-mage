@@ -27,7 +27,6 @@ LevelTransition="*res://level_transition.tscn"
 
 [display]
 
-window/size/mode=3
 window/stretch/mode="canvas_items"
 mouse_cursor/custom_image="uid://bayme6icla0wm"
 mouse_cursor/tooltip_position_offset=Vector2(30, -30)
