@@ -49,7 +49,7 @@ enum PossibleMobs {
 
 const GOBLIN_BOSS_WAVE = 5
 const MEGA_CERBERUS_WAVE = 9
-const SERAPHIM_WAVE = 12
+const SERAPHIM_WAVE = 13
 
 @onready var current_ghost_curve = no_spawn_curve
 @onready var current_goblin_curve = no_spawn_curve
@@ -78,15 +78,15 @@ var current_wave: int = 1
 		PossibleMobs.SKELETON: endless_low_spawn_curve
 	},
 	6: {
-		PossibleMobs.SKELETON: medium_spawn_curve
+		PossibleMobs.SKELETON: high_spawn_curve
 	},
 	7: {
-		PossibleMobs.SKELETON: low_spawn_curve,
+		PossibleMobs.SKELETON: medium_spawn_curve,
 		PossibleMobs.CERBERUS: medium_spawn_curve
 	},
 	8: {
-		PossibleMobs.CERBERUS: low_spawn_curve,
-		PossibleMobs.GHOST: medium_spawn_curve
+		PossibleMobs.CERBERUS: medium_spawn_curve,
+		PossibleMobs.GHOST: high_spawn_curve
 	},
 	MEGA_CERBERUS_WAVE: { #Mega Ceberus Wave
 		PossibleMobs.GHOST: endless_high_spawn_curve
@@ -96,9 +96,15 @@ var current_wave: int = 1
 		PossibleMobs.GARGOYLE: medium_spawn_curve
 	},
 	11: { #Banshee Attack
+		PossibleMobs.SKELETON: high_spawn_curve,
+		PossibleMobs.GARGOYLE: medium_spawn_curve
+	},
+	12: { #Banshee Attack
+		PossibleMobs.SKELETON: high_spawn_curve,
 		PossibleMobs.GARGOYLE: high_spawn_curve
 	},
 	SERAPHIM_WAVE: { #Seraphim Wave
+		PossibleMobs.GHOST: endless_high_spawn_curve,
 		PossibleMobs.SKELETON: endless_high_spawn_curve
 	}
 }
@@ -125,7 +131,6 @@ func _ready() -> void:
 func _on_new_wave_timer_timeout():
 	self.set_current_wave(self.current_wave + 1)
 
-	print("CURRENT WAVEEEE ", self.current_wave)
 	var current_wave_dictonary = waves_dictionary.get(self.current_wave, null)
 	## If there are no more waves planned, then just stick with the last one
 	if (current_wave_dictonary == null):
@@ -175,7 +180,7 @@ func _on_wave_changed(wave: int):
 
 	if wave == 10:
 		self.is_banshee_attack = true
-	if wave == 11:
+	if wave == 12:
 		self.is_banshee_attack = false
 
 
@@ -221,8 +226,8 @@ func _on_banshee_spawn_rate_timeout() -> void:
 	if !self.is_banshee_attack:
 		banshee_spawn_rate.wait_time = randi_range(20, 40)
 	else:
-		banshee_spawn_rate.wait_time = randi_range(1, 10)
-		horde_chance = randi_range(1, 3)
+		banshee_spawn_rate.wait_time = randi_range(1, 3)
+		horde_chance = 3
 
 	if horde_chance <= 2:
 		var spawn_quantity = randi_range(2, 4)

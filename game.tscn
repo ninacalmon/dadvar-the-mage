@@ -78,7 +78,7 @@ point_count = 4
 
 [sub_resource type="Curve" id="Curve_t46w6"]
 _limits = [0.0, 5.0, 0.0, 30.0]
-_data = [Vector2(0, 2), 0.0, 0.0, 0, 0, Vector2(5, 4), 0.0, 0.0, 0, 0, Vector2(25, 4), 0.0, 0.0, 0, 0, Vector2(30, 2), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 2), 0.0, 0.0, 0, 0, Vector2(5, 5), 0.0, 0.0, 0, 0, Vector2(25, 5), 0.0, 0.0, 0, 0, Vector2(30, 2), 0.0, 0.0, 0, 0]
 point_count = 4
 
 [sub_resource type="Curve" id="Curve_m28ev"]
@@ -93,7 +93,7 @@ point_count = 2
 
 [sub_resource type="Curve" id="Curve_0de7l"]
 _limits = [0.0, 5.0, 0.0, 30.0]
-_data = [Vector2(0, 2), 0.0, 0.0, 0, 0, Vector2(5, 4), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 2), 0.0, 0.0, 0, 0, Vector2(5, 5), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hb5m1"]

@@ -13,7 +13,7 @@ var max_level = 5
 @export var base_tick: float = 1.8
 var current_tick = base_tick
 
-@export var base_area_scale: Vector2 = Vector2(15, 15)
+@export var base_area_scale: Vector2 = Vector2(18, 18)
 var current_area_scale = base_area_scale
 
 func get_event_spell_description() -> String:

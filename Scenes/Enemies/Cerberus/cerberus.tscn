@@ -23,7 +23,7 @@ radius = 47.502632
 
 [node name="Cerberus" type="CharacterBody2D" node_paths=PackedStringArray("behaviour_module")]
 collision_layer = 4
-collision_mask = 32770
+collision_mask = 32772
 motion_mode = 1
 platform_floor_layers = 4278190080
 safe_margin = 0.001
@@ -70,7 +70,7 @@ color = Color(0.28235295, 0, 0, 1)
 [node name="Behaviour" type="Node" parent="."]
 
 [node name="MobBehaviour" parent="Behaviour" node_paths=PackedStringArray("health_module", "mob", "mob_collision_shape_array", "mob_sprite") instance=ExtResource("5_ub661")]
-movement_speed = 90
+movement_speed = 150
 damage = 20.0
 health_module = NodePath("../HealthModule")
 vp_orb_scene = ExtResource("5_p4grk")
