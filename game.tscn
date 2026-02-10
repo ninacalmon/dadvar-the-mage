@@ -1,4 +1,4 @@
-[gd_scene load_steps=94 format=3 uid="uid://qinxn2c2shu7"]
+[gd_scene load_steps=96 format=3 uid="uid://qinxn2c2shu7"]
 
 [ext_resource type="PackedScene" uid="uid://d2c1s3qmdi4ti" path="res://Scenes/Player/player.tscn" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://g1vr201lpslj" path="res://game.gd" id="1_feb5d"]
@@ -29,6 +29,8 @@
 [ext_resource type="PackedScene" uid="uid://r1rufctix7bt" path="res://Scenes/Progression/Consumables/vp_magnet.tscn" id="18_vaj68"]
 [ext_resource type="PackedScene" uid="uid://bknxikea76lkg" path="res://Scenes/Progression/Consumables/food.tscn" id="19_i2p71"]
 [ext_resource type="Script" uid="uid://ia4f2b8ismcl" path="res://Sounds/Scripts/music_system.gd" id="25_i2p71"]
+[ext_resource type="Script" uid="uid://cn7q8icyqtvpe" path="res://UI/kills_label.gd" id="26_edr7y"]
+[ext_resource type="FontFile" uid="uid://tnu7qai7bul3" path="res://Fonts/Pixel Icons Compilation.ttf" id="26_kq12w"]
 [ext_resource type="Script" uid="uid://3d62f857c6wr" path="res://UI/health_bar.gd" id="27_l1i01"]
 [ext_resource type="PackedScene" uid="uid://cakwnh4a4rc4f" path="res://Scenes/Enemies/Banshee/banshee.tscn" id="31_xfvwf"]
 [ext_resource type="Texture2D" uid="uid://ccqvdkcj60qw5" path="res://Sprites/testSticker.png" id="32_aa0lp"]
@@ -483,23 +485,42 @@ autostart = true
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
 
-[node name="ScoreLabel" type="RichTextLabel" parent="CanvasLayer" node_paths=PackedStringArray("score_timer")]
+[node name="ScoreLabel" type="RichTextLabel" parent="CanvasLayer"]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -104.0
-offset_top = 16.0
+offset_left = -119.0
+offset_top = 17.0
 offset_right = -4.0
-offset_bottom = 56.0
+offset_bottom = 62.0
 grow_horizontal = 0
 theme_override_colors/default_color = Color(0.4117647, 0.105882354, 0.13333334, 1)
 theme_override_fonts/normal_font = ExtResource("12_boyg6")
-theme_override_font_sizes/normal_font_size = 36
+theme_override_font_sizes/normal_font_size = 48
 text = "00:00"
+fit_content = true
 horizontal_alignment = 2
-vertical_alignment = 1
 script = ExtResource("7_eow3j")
-score_timer = NodePath("../../ScoreTimer")
+
+[node name="KillsLabel" type="RichTextLabel" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -167.0
+offset_top = 55.0
+offset_right = -7.0
+offset_bottom = 96.0
+grow_horizontal = 0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("12_boyg6")
+theme_override_fonts/bold_font = ExtResource("26_kq12w")
+theme_override_font_sizes/normal_font_size = 39
+theme_override_font_sizes/bold_font_size = 39
+bbcode_enabled = true
+text = "0[b]A[/b]"
+fit_content = true
+horizontal_alignment = 2
+script = ExtResource("26_edr7y")
 
 [node name="VpBar" type="ProgressBar" parent="CanvasLayer" node_paths=PackedStringArray("player")]
 anchors_preset = 10
@@ -1031,7 +1052,7 @@ offset_bottom = 40.0
 grow_horizontal = 2
 theme_override_fonts/normal_font = ExtResource("12_boyg6")
 theme_override_font_sizes/normal_font_size = 32
-text = "	Omar Dadvar is Dead"
+text = "	Omar Dadvar is Gone"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -1052,9 +1073,56 @@ bbcode_enabled = true
 text = "text text"
 horizontal_alignment = 1
 
+[node name="StatsHboxContainer" type="HBoxContainer" parent="CanvasLayer/RestartOverlay/Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -238.0
+offset_top = -225.0
+offset_right = 238.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ScoreLabelRestart" type="RichTextLabel" parent="CanvasLayer/RestartOverlay/Control/StatsHboxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_fonts/normal_font = ExtResource("12_boyg6")
+theme_override_font_sizes/normal_font_size = 32
+text = "00:00"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("7_eow3j")
+
+[node name="KillsLabelRestart" type="RichTextLabel" parent="CanvasLayer/RestartOverlay/Control/StatsHboxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_fonts/normal_font = ExtResource("12_boyg6")
+theme_override_fonts/bold_font = ExtResource("26_kq12w")
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 39
+bbcode_enabled = true
+text = "0[b]A[/b]"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("26_edr7y")
+
 [node name="CanvasLayerModulate" type="CanvasModulate" parent="CanvasLayer"]
 scale = Vector2(100000, 100000)
 color = Color(0.7345116, 0.7672969, 1, 1)
+
+[node name="Ghost" parent="." instance=ExtResource("2_fc0e3")]
+position = Vector2(-549, -104)
+
+[node name="Ghost2" parent="." instance=ExtResource("2_fc0e3")]
+position = Vector2(342, -141)
 
 [connection signal="timeout" from="y Sorted Layer/WavesSystem/GhostSpawnRate" to="y Sorted Layer/WavesSystem" method="_on_ghost_spawn_rate_timeout"]
 [connection signal="timeout" from="y Sorted Layer/WavesSystem/GoblinSpawnRate" to="y Sorted Layer/WavesSystem" method="_on_goblin_spawn_rate_timeout"]

@@ -1,7 +1,7 @@
 extends RichTextLabel
 
 var time_count = 0
-@export var score_timer: Timer
+@onready var score_timer: Timer = %ScoreTimer
 
 func _ready():
 	self.show()
