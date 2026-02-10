@@ -1,7 +1,7 @@
 extends CharacterBody2D
 class_name Seraphim
 
-var implements = [Interface.Mob, Interface.Damageable]
+var implements = [Interface.Mob, Interface.Damageable, Interface.Boss]
 
 @export var behaviour_module: MobBehaviourModule
 @export var house_key: PackedScene
@@ -13,7 +13,10 @@ var implements = [Interface.Mob, Interface.Damageable]
 @onready var death_audio_stream_player: AudioStreamPlayer = $DeathAudioStreamPlayer
 @onready var shadow_sprite: Sprite2D = $ShadowSprite
 
-
+var soundtrack: Array[AudioStream] = [
+	preload("res://Sounds/BossFight Playlist/Seraphim/Second Try/armagedon_choral.mp3")
+]
+var delay_to_spawn_after_track = 10
 const SHOULD_NOT_DESPAWN = true
 
 func _ready() -> void:

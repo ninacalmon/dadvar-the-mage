@@ -12,8 +12,8 @@ func _ready():
 	$PointLight2D.energy = 0
 	self.scale = Vector2(0.1, 0.1)
 
-	self.stream_player.pitch_scale = randf_range(0.7, 1.4)
-	self.stream_player.volume_db = randf_range(-20, -22)
+	self.stream_player.pitch_scale = randf_range(0.6, 1.4)
+	self.stream_player.volume_db = randf_range(-22, -24)
 	self.stream_player.stream = audio_track
 	self.stream_player.autoplay = true
 	self.stream_player.bus = Global.AUDIO_BUS_DIC[Global.AudioBus.SOUND_EFFECTS]

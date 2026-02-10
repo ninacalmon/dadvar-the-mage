@@ -32,6 +32,10 @@ class Damageable:
 class Mob:
 	var behaviour_module: MobBehaviourModule
 
+class Boss:
+	var soundtrack: Array[AudioStream]
+	var delay_to_spawn_after_track: float
+
 class MobProjectile:
 	var bullet_module: BulletModule
 
@@ -50,9 +54,13 @@ class BulletHabilities:
 
 ## Takes a node and an interface, and returns true if the given node
 ## implements the given interface, and false if it does not
-func node_implements_interface(node_to_check:Node, interface) -> bool:
-	if "implements" in node_to_check:
-		var node_implements = node_to_check.implements
+func node_implements_interface(node_to_check:Node, interface, scene_to_check: PackedScene = null) -> bool:
+	assert(node_to_check != null or scene_to_check != null, "You need to provide either node or scene to check for interface implements")
+	
+	var node = node_to_check if node_to_check != null else scene_to_check.instantiate()
+
+	if "implements" in node:
+		var node_implements = node.implements
 
 		if not node_implements is Array:
 			if node_implements == interface:

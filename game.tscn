@@ -1,4 +1,4 @@
-[gd_scene load_steps=96 format=3 uid="uid://qinxn2c2shu7"]
+[gd_scene load_steps=100 format=3 uid="uid://qinxn2c2shu7"]
 
 [ext_resource type="PackedScene" uid="uid://d2c1s3qmdi4ti" path="res://Scenes/Player/player.tscn" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://g1vr201lpslj" path="res://game.gd" id="1_feb5d"]
@@ -17,7 +17,6 @@
 [ext_resource type="PackedScene" uid="uid://jsquw55fm4an" path="res://Scenes/Enemies/Cerberus/cerberus.tscn" id="9_vef74"]
 [ext_resource type="Theme" uid="uid://0e7pvovb4qnk" path="res://UI/Text Themes/title_test.tres" id="10_7sc4i"]
 [ext_resource type="Script" uid="uid://bt50uc7j2w3fj" path="res://UI/select_spell.gd" id="10_80cx4"]
-[ext_resource type="AudioStream" uid="uid://dx7wroe4ywihq" path="res://Sounds/a time long forgotten (80's dark fantasy playlist)_compressed.mp3" id="11_mfdv2"]
 [ext_resource type="FontFile" uid="uid://b0c3mgf46t565" path="res://Fonts/Alagard/alagard.ttf" id="12_boyg6"]
 [ext_resource type="Script" uid="uid://ctfef58tirius" path="res://UI/vp_bar.gd" id="12_e8heu"]
 [ext_resource type="Texture2D" uid="uid://u0nob4ja1i7q" path="res://Sprites/Spell Sprites/Placeholder.png" id="12_hb5m1"]
@@ -28,9 +27,13 @@
 [ext_resource type="Script" uid="uid://brrt48yngfmq3" path="res://Scenes/Progression/Consumables/consumables_system.gd" id="17_f1jbl"]
 [ext_resource type="PackedScene" uid="uid://r1rufctix7bt" path="res://Scenes/Progression/Consumables/vp_magnet.tscn" id="18_vaj68"]
 [ext_resource type="PackedScene" uid="uid://bknxikea76lkg" path="res://Scenes/Progression/Consumables/food.tscn" id="19_i2p71"]
+[ext_resource type="AudioStream" uid="uid://cicvajnqr0g75" path="res://Sounds/Gameplay Playlist/deuslower-atmosphere-dark-fantasy-dungeon-synth-248210.mp3" id="23_m28ev"]
+[ext_resource type="AudioStream" uid="uid://b72qqbuapjkw2" path="res://Sounds/Gameplay Playlist/deuslower-dark-fantasy-ambient-dungeon-synth-248213.mp3" id="24_lwlx3"]
+[ext_resource type="AudioStream" uid="uid://23w5e3yaa1b1" path="res://Sounds/Gameplay Playlist/Lost in The Forest - No Way Out.mp3" id="25_0de7l"]
 [ext_resource type="Script" uid="uid://ia4f2b8ismcl" path="res://Sounds/Scripts/music_system.gd" id="25_i2p71"]
 [ext_resource type="Script" uid="uid://cn7q8icyqtvpe" path="res://UI/kills_label.gd" id="26_edr7y"]
 [ext_resource type="FontFile" uid="uid://tnu7qai7bul3" path="res://Fonts/Pixel Icons Compilation.ttf" id="26_kq12w"]
+[ext_resource type="AudioStream" uid="uid://dfqpysb66ik3s" path="res://Sounds/BossFight Playlist/Seraphim/Second Try/armagedon_choral.mp3" id="26_lwlx3"]
 [ext_resource type="Script" uid="uid://3d62f857c6wr" path="res://UI/health_bar.gd" id="27_l1i01"]
 [ext_resource type="PackedScene" uid="uid://cakwnh4a4rc4f" path="res://Scenes/Enemies/Banshee/banshee.tscn" id="31_xfvwf"]
 [ext_resource type="Texture2D" uid="uid://ccqvdkcj60qw5" path="res://Sprites/testSticker.png" id="32_aa0lp"]
@@ -97,6 +100,13 @@ point_count = 2
 _limits = [0.0, 5.0, 0.0, 30.0]
 _data = [Vector2(0, 2), 0.0, 0.0, 0, 0, Vector2(5, 5), 0.0, 0.0, 0, 0]
 point_count = 2
+
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_87ddb"]
+shuffle = true
+stream_count = 3
+stream_0 = ExtResource("23_m28ev")
+stream_1 = ExtResource("24_lwlx3")
+stream_2 = ExtResource("25_0de7l")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hb5m1"]
 bg_color = Color(0, 0, 0, 0.7529412)
@@ -465,13 +475,15 @@ script = ExtResource("25_i2p71")
 [node name="MainGameStreamPlayer" type="AudioStreamPlayer" parent="MusicSystem"]
 unique_name_in_owner = true
 process_mode = 3
-stream = ExtResource("11_mfdv2")
-volume_db = -25.0
+stream = SubResource("AudioStreamPlaylist_87ddb")
+volume_db = -19.053
 autoplay = true
 bus = &"Music"
 
 [node name="BossFightStreamPlayer" type="AudioStreamPlayer" parent="MusicSystem"]
 unique_name_in_owner = true
+stream = ExtResource("26_lwlx3")
+volume_db = -10.0
 bus = &"Music"
 
 [node name="Test Mobs" type="Node" parent="."]
@@ -489,7 +501,7 @@ unique_name_in_owner = true
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -119.0
+offset_left = -203.0
 offset_top = 17.0
 offset_right = -4.0
 offset_bottom = 62.0
@@ -506,12 +518,12 @@ script = ExtResource("7_eow3j")
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -167.0
+offset_left = -203.0
 offset_top = 55.0
 offset_right = -7.0
 offset_bottom = 96.0
 grow_horizontal = 0
-theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/default_color = Color(0.03, 0.03, 0.03, 1)
 theme_override_fonts/normal_font = ExtResource("12_boyg6")
 theme_override_fonts/bold_font = ExtResource("26_kq12w")
 theme_override_font_sizes/normal_font_size = 39
@@ -1035,39 +1047,44 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 266.0
-offset_bottom = -217.0
+offset_top = 219.0
+offset_bottom = -264.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("32_dhpj7")
 
 [node name="DeathTitle" type="RichTextLabel" parent="CanvasLayer/RestartOverlay/Control"]
 layout_mode = 1
-anchors_preset = 5
+anchors_preset = 8
 anchor_left = 0.5
+anchor_top = 0.5
 anchor_right = 0.5
+anchor_bottom = 0.5
 offset_left = -188.0
+offset_top = -69.5
 offset_right = 188.0
-offset_bottom = 40.0
+offset_bottom = -29.5
 grow_horizontal = 2
+grow_vertical = 2
 theme_override_fonts/normal_font = ExtResource("12_boyg6")
 theme_override_font_sizes/normal_font_size = 32
-text = "	Omar Dadvar is Gone"
+text = "Omar Dadvar is Gone."
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="DeathDesc" type="RichTextLabel" parent="CanvasLayer/RestartOverlay/Control"]
 layout_mode = 1
-anchors_preset = 7
+anchors_preset = 8
 anchor_left = 0.5
-anchor_top = 1.0
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -222.5
-offset_top = -113.0
-offset_right = 222.5
+anchor_bottom = 0.5
+offset_left = -111.0
+offset_top = -26.5
+offset_right = 111.0
+offset_bottom = 8.5
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
 theme_override_fonts/normal_font = ExtResource("13_e36ub")
 bbcode_enabled = true
 text = "text text"
@@ -1081,27 +1098,32 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -238.0
-offset_top = -225.0
+offset_top = -105.0
 offset_right = 238.0
-offset_bottom = 90.0
+offset_bottom = 210.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_constants/separation = 64
+alignment = 1
 
 [node name="ScoreLabelRestart" type="RichTextLabel" parent="CanvasLayer/RestartOverlay/Control/StatsHboxContainer"]
+custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 4
+size_flags_vertical = 4
 theme_override_colors/default_color = Color(1, 1, 1, 1)
 theme_override_fonts/normal_font = ExtResource("12_boyg6")
 theme_override_font_sizes/normal_font_size = 32
 text = "00:00"
 fit_content = true
-horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("7_eow3j")
 
 [node name="KillsLabelRestart" type="RichTextLabel" parent="CanvasLayer/RestartOverlay/Control/StatsHboxContainer"]
+custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 4
+size_flags_vertical = 4
 theme_override_colors/default_color = Color(1, 1, 1, 1)
 theme_override_fonts/normal_font = ExtResource("12_boyg6")
 theme_override_fonts/bold_font = ExtResource("26_kq12w")
@@ -1110,7 +1132,7 @@ theme_override_font_sizes/bold_font_size = 39
 bbcode_enabled = true
 text = "0[b]A[/b]"
 fit_content = true
-horizontal_alignment = 1
+horizontal_alignment = 2
 vertical_alignment = 1
 script = ExtResource("26_edr7y")
 

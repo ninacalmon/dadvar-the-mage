@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://lrwtrhhdv65l"]
+[gd_scene load_steps=16 format=3 uid="uid://lrwtrhhdv65l"]
 
 [ext_resource type="FontFile" uid="uid://lyk0q1luk8p3" path="res://Fonts/Pixel_Operator/PixelOperatorHB8.ttf" id="1_o5at2"]
 [ext_resource type="Texture2D" uid="uid://bj31ex7mahex" path="res://Sprites/forest_image_noise.png" id="1_t0n6y"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://db7vnnnvjdw7v" path="res://UI/Menu/settings.gd" id="6_8610p"]
 [ext_resource type="Script" uid="uid://dvb5l4jfu8g81" path="res://UI/Menu/settings_options.gd" id="7_fp7wp"]
 [ext_resource type="PackedScene" uid="uid://c0tdip26t1oa" path="res://UI/Menu/shader_preloader.tscn" id="9_5dyac"]
+[ext_resource type="AudioStream" uid="uid://bqn7p257vxs45" path="res://Sounds/Menu Playlist/deuslower-dark-fantasy-ambient-dungeon-synthpiano-verse-248214.mp3" id="10_xlf5w"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4hclx"]
 bg_color = Color(0, 0, 0, 1)
@@ -259,3 +260,9 @@ libraries = {
 autoplay = "fog"
 playback_auto_capture_transition_type = 6
 playback_auto_capture_ease_type = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_xlf5w")
+volume_db = -3.5
+autoplay = true
+bus = &"Music"

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://lbwxgw4gvd7n"
+path="res://.godot/imported/Rorate_Caeli___Gregorian_Chant.mp3-be3650aa154e7626b465b517f4794673.mp3str"
+
+[deps]
+
+source_file="res://Sounds/BossFight Playlist/Seraphim/Rorate_Caeli___Gregorian_Chant.mp3"
+dest_files=["res://.godot/imported/Rorate_Caeli___Gregorian_Chant.mp3-be3650aa154e7626b465b517f4794673.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -34,8 +34,8 @@ func start_main_track(fade_in_time: float):
 	
 	self.boss_fight_soundtrack.stop()
 
-func start_boss_track(audio_track: AudioStream, last_soundtrack_fade_out_time: int, volume_to_play: int = 0) -> void:
-	if audio_track == null:
+func start_boss_track(audio_track_list: Array[AudioStream], last_soundtrack_fade_out_time: int, volume_to_play: int = 0) -> void:
+	if audio_track_list == null or audio_track_list.size() == 0:
 		return
 
 	var tween = create_tween()
@@ -52,7 +52,19 @@ func start_boss_track(audio_track: AudioStream, last_soundtrack_fade_out_time: i
 	self.main_soundtrack.stop()
 
 	self.boss_fight_soundtrack.stop()
-	self.boss_fight_soundtrack.stream = audio_track
+
+	var playlist: AudioStreamPlaylist = AudioStreamPlaylist.new()
+
+	playlist.set_stream_count(audio_track_list.size())
+	playlist.loop = true
+	playlist.shuffle = false
+	playlist.fade_time = 0.3
+
+	for i in audio_track_list.size():
+		var audio_track = audio_track_list[i]
+		playlist.set_list_stream(i, audio_track)
+
+	self.boss_fight_soundtrack.stream = playlist
 	self.boss_fight_soundtrack.volume_db = volume_to_play
 	self.boss_fight_soundtrack.play()
 

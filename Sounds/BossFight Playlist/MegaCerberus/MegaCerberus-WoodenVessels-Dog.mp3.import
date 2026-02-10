@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bv3l5rt7fvf1i"
+path="res://.godot/imported/MegaCerberus-WoodenVessels-Dog.mp3-7ffc6684ab15cc5eca1c64e49310260b.mp3str"
+
+[deps]
+
+source_file="res://Sounds/BossFight Playlist/MegaCerberus/MegaCerberus-WoodenVessels-Dog.mp3"
+dest_files=["res://.godot/imported/MegaCerberus-WoodenVessels-Dog.mp3-7ffc6684ab15cc5eca1c64e49310260b.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

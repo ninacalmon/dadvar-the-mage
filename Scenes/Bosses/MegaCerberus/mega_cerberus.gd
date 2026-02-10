@@ -1,7 +1,7 @@
 extends CharacterBody2D
 class_name MegaCerberus
 
-var implements = [Interface.Mob, Interface.Damageable]
+var implements = [Interface.Mob, Interface.Damageable, Interface.Boss]
 
 @export var behaviour_module: MobBehaviourModule
 @export var bullet: PackedScene
@@ -10,13 +10,17 @@ var implements = [Interface.Mob, Interface.Damageable]
 @onready var heads = [$Head1, $Head2, $Head3]
 @onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
 
+@onready var boss_health_bar: HealthBar = get_tree().get_first_node_in_group(Global.GROUPS_DIC[Global.Groups.BOSS_HEALTH_BAR])
+
+var soundtrack: Array[AudioStream] = [
+	preload("res://Sounds/BossFight Playlist/MegaCerberus/MegaCerberus-WoodenVessels-Dog.mp3")
+]
+var delay_to_spawn_after_track = 0
+
 const HEAD1_POSITION_X_ABSOLUTE = 54
 const HEAD2_POSITION_X_ABSOLUTE = 46
 const HEAD3_POSITION_X_ABSOLUTE = 10
 const SHOULD_NOT_DESPAWN = true
-
-@onready var boss_health_bar: HealthBar = get_tree().get_first_node_in_group(Global.GROUPS_DIC[Global.Groups.BOSS_HEALTH_BAR])
-
 func _ready():
 	EventBus.enemy_died.connect(_on_enemy_died_received)
 	boss_health_bar.set_health_bar_target(self)

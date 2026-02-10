@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dweamd6cg0rju"
+path="res://.godot/imported/kaden_cook-boss-battle-stage-2-346299.mp3-8feaa6e5df95e5cf60c5ab2b9e887b83.mp3str"
+
+[deps]
+
+source_file="res://Sounds/BossFight Playlist/Seraphim/kaden_cook-boss-battle-stage-2-346299.mp3"
+dest_files=["res://.godot/imported/kaden_cook-boss-battle-stage-2-346299.mp3-8feaa6e5df95e5cf60c5ab2b9e887b83.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

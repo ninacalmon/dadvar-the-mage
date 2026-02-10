@@ -47,9 +47,9 @@ enum PossibleMobs {
 	GARGOYLE
 }
 
-const GOBLIN_BOSS_WAVE = 5
-const MEGA_CERBERUS_WAVE = 9
-const SERAPHIM_WAVE = 13
+const GOBLIN_BOSS_WAVE = 6
+const MEGA_CERBERUS_WAVE = 10
+const SERAPHIM_WAVE = 14
 
 @onready var current_ghost_curve = no_spawn_curve
 @onready var current_goblin_curve = no_spawn_curve
@@ -71,35 +71,39 @@ var current_wave: int = 1
 		PossibleMobs.GOBLIN: low_spawn_curve
 	},
 	4: {
+		PossibleMobs.GHOST: low_spawn_curve,
 		PossibleMobs.GOBLIN: medium_spawn_curve
+	},
+	5: {
+		PossibleMobs.GOBLIN: high_spawn_curve
 	},
 	GOBLIN_BOSS_WAVE: { #Goblin Boss Wave
 		PossibleMobs.GOBLIN: endless_low_spawn_curve,
 		PossibleMobs.SKELETON: endless_low_spawn_curve
 	},
-	6: {
+	7: {
 		PossibleMobs.SKELETON: high_spawn_curve
 	},
-	7: {
+	8: {
 		PossibleMobs.SKELETON: medium_spawn_curve,
 		PossibleMobs.CERBERUS: medium_spawn_curve
 	},
-	8: {
+	9: {
 		PossibleMobs.CERBERUS: medium_spawn_curve,
 		PossibleMobs.GHOST: high_spawn_curve
 	},
 	MEGA_CERBERUS_WAVE: { #Mega Ceberus Wave
 		PossibleMobs.GHOST: endless_high_spawn_curve
 	},
-	10: { #Banshee Attack
+	11: { #Banshee Attack
 		PossibleMobs.GHOST: low_spawn_curve,
 		PossibleMobs.GARGOYLE: medium_spawn_curve
 	},
-	11: { #Banshee Attack
+	12: { #Banshee Attack
 		PossibleMobs.SKELETON: high_spawn_curve,
 		PossibleMobs.GARGOYLE: medium_spawn_curve
 	},
-	12: { #Banshee Attack
+	13: { #Banshee Attack
 		PossibleMobs.SKELETON: high_spawn_curve,
 		PossibleMobs.GARGOYLE: high_spawn_curve
 	},
@@ -178,9 +182,9 @@ func _on_wave_changed(wave: int):
 	if wave == self.SERAPHIM_WAVE:
 		self.boss_queue.append(self.seraphim)
 
-	if wave == 10:
+	if wave == 11:
 		self.is_banshee_attack = true
-	if wave == 12:
+	if wave == 13:
 		self.is_banshee_attack = false
 
 
@@ -250,25 +254,37 @@ func spawn_mob(mob_to_spawn: PackedScene, spawn_position: Vector2) -> Node2D:
 	
 	return mob
 
+func spawn_boss(boss_to_spawn: PackedScene) -> Node2D:
+	var boss_spawned_instance = boss_to_spawn.instantiate()
+	var boss_soundtrack_to_play: Array[AudioStream] = boss_spawned_instance.soundtrack
+	self.music_system.start_boss_track(
+		boss_soundtrack_to_play,
+		2, # last song playing fade out time
+		-10, # volume_db to play
+	)
+
+	await get_tree().create_timer(boss_spawned_instance.delay_to_spawn_after_track).timeout
+
+	var spawn_position: Vector2 = get_random_spawn_position()
+	boss_spawned_instance.position = spawn_position
+	add_child(boss_spawned_instance)
+
+	return boss_spawned_instance
+
 func _boss_spawn_timer_timeout():
 	if current_active_boss or boss_queue.size() == 0:
 		return
 
-	var boss_soundtrack_to_play: AudioStream = preload("res://Sounds/Vordt of the Boreal Valley.mp3")
+	var boss_to_spawn_scene: PackedScene = self.boss_queue.pop_front()
 
-	if self.music_system.currently_playing_soundtrack != boss_soundtrack_to_play:
-		self.music_system.start_boss_track(
-			boss_soundtrack_to_play,
-			2, # last song playing fade out time
-			-10, # volume_db to play
-		)
-
-	var boss_to_spawn: PackedScene = self.boss_queue.pop_front()
-	var spawn_position: Vector2 = get_random_spawn_position()
-	var boss_spawned_instance = spawn_mob(boss_to_spawn, spawn_position)
-
-	self.current_active_boss = boss_spawned_instance
-	self.new_wave_timer.stop()
+	if Interface.node_implements_interface(null, Interface.Boss, boss_to_spawn_scene):
+		## If the delay is greater than new wave timer wait time, it will bug catastrophically,
+		## making it spawn more than one boss
+		var boss_spawned_instance = await spawn_boss(boss_to_spawn_scene)
+		
+		## because this value here will not be set in time vvvv
+		self.current_active_boss = boss_spawned_instance
+		self.new_wave_timer.stop()
 
 func _on_enemy_died_received(enemy_mob_behaviour: MobBehaviourModule) -> void:
 	if enemy_mob_behaviour.mob == current_active_boss:

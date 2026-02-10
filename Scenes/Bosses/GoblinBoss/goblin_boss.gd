@@ -1,7 +1,7 @@
 extends CharacterBody2D
 class_name GoblinBoss
 
-var implements = [Interface.Mob, Interface.Damageable]
+var implements = [Interface.Mob, Interface.Damageable, Interface.Boss]
 
 @export var behaviour_module: MobBehaviourModule
 @export var goblilings: PackedScene
@@ -22,6 +22,11 @@ var implements = [Interface.Mob, Interface.Damageable]
 
 var current_angle = 0.0
 var has_spawned: bool = false
+var soundtrack: Array[AudioStream] = [
+	preload("res://Sounds/BossFight Playlist/GoblinBoss/bizinbars_tome-dwarven-forges-213935.mp3"),
+	preload("res://Sounds/BossFight Playlist/GoblinBoss/drmseq-bass-sequence-with-dreamy-pads-321651.mp3")
+]
+var delay_to_spawn_after_track = 0
 
 const SHOULD_NOT_DESPAWN = true
 

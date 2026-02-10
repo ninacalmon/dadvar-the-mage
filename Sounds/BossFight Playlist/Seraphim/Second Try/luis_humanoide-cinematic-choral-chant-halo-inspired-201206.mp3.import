@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c1ffa0s3kujwu"
+path="res://.godot/imported/luis_humanoide-cinematic-choral-chant-halo-inspired-201206.mp3-35d122b236854b865f6101c2670c1995.mp3str"
+
+[deps]
+
+source_file="res://Sounds/BossFight Playlist/Seraphim/Second Try/luis_humanoide-cinematic-choral-chant-halo-inspired-201206.mp3"
+dest_files=["res://.godot/imported/luis_humanoide-cinematic-choral-chant-halo-inspired-201206.mp3-35d122b236854b865f6101c2670c1995.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
