@@ -58,7 +58,7 @@ func start_boss_track(audio_track_list: Array[AudioStream], last_soundtrack_fade
 	playlist.set_stream_count(audio_track_list.size())
 	playlist.loop = true
 	playlist.shuffle = false
-	playlist.fade_time = 0.3
+	playlist.fade_time = 0.2
 
 	for i in audio_track_list.size():
 		var audio_track = audio_track_list[i]
