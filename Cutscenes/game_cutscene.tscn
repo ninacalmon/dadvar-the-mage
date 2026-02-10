@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://einoml78wvmn"]
+[gd_scene load_steps=18 format=4 uid="uid://einoml78wvmn"]
 
 [ext_resource type="Script" uid="uid://bqpcywm5a5lnq" path="res://Cutscenes/directional_light_2d_cutscene.gd" id="2_eil0i"]
 [ext_resource type="PackedScene" uid="uid://c2vt78nfm0457" path="res://Cutscenes/player_cutscene.tscn" id="3_lgbxn"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dvmd0ta88nqi4" path="res://Cutscenes/streetlight.tscn" id="6_3fblr"]
 [ext_resource type="Texture2D" uid="uid://db63gbv5pp4qw" path="res://Sprites/bg.png" id="7_tbhhd"]
 [ext_resource type="Script" uid="uid://cx1bveptsnmc" path="res://Modules/Generics/stats_module.gd" id="10_4pox2"]
+[ext_resource type="AudioStream" uid="uid://cmycbt7tqba12" path="res://Sounds/Cutscene Playlist/deuslower-dark-ambient-winter-music-446448.mp3" id="10_6tncm"]
 [ext_resource type="FontFile" uid="uid://b0c3mgf46t565" path="res://Fonts/Alagard/alagard.ttf" id="11_6tncm"]
 [ext_resource type="Script" uid="uid://ossaxfnt6owi" path="res://Cutscenes/paused_overlay_cutscene.gd" id="11_j76rb"]
 [ext_resource type="FontFile" uid="uid://lyk0q1luk8p3" path="res://Fonts/Pixel_Operator/PixelOperatorHB8.ttf" id="12_j76rb"]
@@ -124,7 +125,8 @@ script = ExtResource("21_8xv3q")
 [node name="MainGameStreamPlayer" type="AudioStreamPlayer" parent="MusicSystem"]
 unique_name_in_owner = true
 process_mode = 3
-volume_db = -25.0
+stream = ExtResource("10_6tncm")
+volume_db = -1.5
 autoplay = true
 bus = &"Music"
 

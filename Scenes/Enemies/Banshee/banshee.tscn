@@ -32,6 +32,7 @@ radius = 83.02409
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_mbhbo"]
 random_pitch = 1.2
+random_volume_offset_db = 2.0
 streams_count = 1
 stream_0/stream = ExtResource("7_2cwk4")
 
@@ -125,6 +126,7 @@ one_shot = true
 
 [node name="AudioScreamPlayer" type="AudioStreamPlayer" parent="Audios"]
 stream = SubResource("AudioStreamRandomizer_mbhbo")
+volume_db = -10.0
 bus = &"SoundEffects"
 
 [node name="ExplosionAudioPlayer" type="AudioStreamPlayer" parent="Audios"]

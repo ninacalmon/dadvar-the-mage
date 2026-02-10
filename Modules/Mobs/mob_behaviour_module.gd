@@ -85,11 +85,13 @@ func handle_take_damage(damage_to_receive: float) -> void:
 	var audio_player := AudioStreamPlayer.new()
 	audio_player.stream = HIT_SOUND
 	audio_player.volume_db = randf_range(-19, -22)
-	audio_player.pitch_scale = randf_range(-1.4, 1.4)
+	audio_player.pitch_scale = randf_range(0.4, 1.4)
 	audio_player.bus = Global.AUDIO_BUS_DIC[Global.AudioBus.SOUND_EFFECTS]
 
 	get_tree().get_first_node_in_group("Main").add_child(audio_player)
 	audio_player.play()
+	audio_player.finished.connect(func(): audio_player.queue_free())
+
 	self.play_hit_flash()
 	
 # drops xp orb

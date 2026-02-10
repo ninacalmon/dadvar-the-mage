@@ -7,7 +7,6 @@ const EXPLOSION_GPU_PARTICLES = preload("uid://v4mgn5rali81")
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var explosion_range: Area2D = $ExplosionRange
-@onready var player_area: Player = $PlayerArea
 @onready var explosion_timer: Timer = $ExplosionTimer
 
 @onready var audio_scream_player: AudioStreamPlayer = $Audios/AudioScreamPlayer
@@ -18,16 +17,24 @@ const EXPLOSION_GPU_PARTICLES = preload("uid://v4mgn5rali81")
 var player: Area2D
 var implements = [Interface.Mob, Interface.Damageable]
 var explosion_tween: Tween
+var has_already_screamed_on_screen = false
 
 func _ready() -> void:
 	explosion_range.area_entered.connect(on_banshee_explosion_range_area_entered)
 	explosion_range.area_exited.connect(on_banshee_explosion_range_area_exited)
 	explosion_timer.timeout.connect(explode)
-	visible_on_screen_scream.screen_entered.connect(audio_scream_player.play)
+	visible_on_screen_scream.screen_entered.connect(_on_screen_scream_entered)
 	EventBus.enemy_died.connect(_on_enemy_died_received)
 
 func _physics_process(delta: float) -> void:
 	behaviour_module.handle_movement(delta)
+
+func _on_screen_scream_entered():
+	if has_already_screamed_on_screen:
+		return
+
+	audio_scream_player.play()
+	has_already_screamed_on_screen = true
 
 func take_damage(damage: float):
 	$BloodParticles.emitting = true

@@ -33,5 +33,8 @@ func _physics_process(delta: float) -> void:
 
 func on_tree_exiting():
 	var main_node = get_tree().get_first_node_in_group("Main")
-	magic_dust.reparent(main_node)
-	magic_dust.finished.connect(func(): magic_dust.queue_free())
+	magic_dust.call_deferred("reparent", main_node)
+	
+	magic_dust.finished.connect(func():
+		magic_dust.queue_free()
+	)

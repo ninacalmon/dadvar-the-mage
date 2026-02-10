@@ -52,6 +52,7 @@ func _ready():
 	EventBus.player_level_up.connect(_on_player_level_up)
 	choice_l.pressed.connect(_on_choice_l_pressed)
 	choice_r.pressed.connect(_on_choice_r_pressed)
+	book_animation.animation_finished.connect(_on_book_animation_finished)
 	book_animation.frame_changed.connect(_on_book_animation_frame_changed)
 	control.hide()
 
@@ -106,7 +107,6 @@ func _on_player_level_up(_level: int):
 	book_animation.show()
 	book_animation.play()
 	stream_player.play()
-	book_animation.animation_finished.connect(_on_book_animation_finished)
 
 func _on_book_animation_finished():
 	if !is_animation_backwards:
