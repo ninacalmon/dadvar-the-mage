@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://einoml78wvmn"]
+[gd_scene load_steps=17 format=4 uid="uid://einoml78wvmn"]
 
 [ext_resource type="Script" uid="uid://bqpcywm5a5lnq" path="res://Cutscenes/directional_light_2d_cutscene.gd" id="2_eil0i"]
 [ext_resource type="PackedScene" uid="uid://c2vt78nfm0457" path="res://Cutscenes/player_cutscene.tscn" id="3_lgbxn"]
@@ -12,7 +12,6 @@
 [ext_resource type="FontFile" uid="uid://lyk0q1luk8p3" path="res://Fonts/Pixel_Operator/PixelOperatorHB8.ttf" id="12_j76rb"]
 [ext_resource type="TileSet" uid="uid://b0lq0cj3rq01q" path="res://Resources/TileSet1.tres" id="20_iawnq"]
 [ext_resource type="Script" uid="uid://ia4f2b8ismcl" path="res://Sounds/Scripts/music_system.gd" id="21_8xv3q"]
-[ext_resource type="AudioStream" uid="uid://dx7wroe4ywihq" path="res://Sounds/a time long forgotten (80's dark fantasy playlist)_compressed.mp3" id="22_8fnuq"]
 
 [sub_resource type="Environment" id="Environment_xa8c5"]
 background_mode = 3
@@ -125,7 +124,6 @@ script = ExtResource("21_8xv3q")
 [node name="MainGameStreamPlayer" type="AudioStreamPlayer" parent="MusicSystem"]
 unique_name_in_owner = true
 process_mode = 3
-stream = ExtResource("22_8fnuq")
 volume_db = -25.0
 autoplay = true
 bus = &"Music"
