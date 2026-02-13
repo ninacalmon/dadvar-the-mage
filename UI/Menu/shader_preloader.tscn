@@ -1,10 +1,21 @@
-[gd_scene load_steps=12 format=3 uid="uid://c0tdip26t1oa"]
+[gd_scene load_steps=24 format=3 uid="uid://c0tdip26t1oa"]
 
 [ext_resource type="Script" uid="uid://bo3jrmqartg6x" path="res://UI/Menu/shader_preloader.gd" id="1_731yq"]
 [ext_resource type="Shader" uid="uid://dvafedygytn42" path="res://Shaders/main_shader.gdshader" id="1_aldoe"]
 [ext_resource type="Shader" uid="uid://cwxvplnqrndsl" path="res://Shaders/main_shader_glow.gdshader" id="2_14350"]
+[ext_resource type="PackedScene" uid="uid://drrllpdvbctga" path="res://Scenes/Bosses/GoblinBoss/Goblin_Boss.tscn" id="6_4rd3w"]
+[ext_resource type="PackedScene" uid="uid://ck5sefsx2pmdk" path="res://Scenes/Bosses/MegaCerberus/Mega_Cerberus.tscn" id="7_8clku"]
+[ext_resource type="PackedScene" uid="uid://pnsvdyblsexv" path="res://Scenes/Bosses/Seraphim/seraphim.tscn" id="8_qog2e"]
+[ext_resource type="PackedScene" uid="uid://cakwnh4a4rc4f" path="res://Scenes/Enemies/Banshee/banshee.tscn" id="9_cl202"]
+[ext_resource type="PackedScene" uid="uid://d0kj6ol22kpuh" path="res://Scenes/Enemies/Gargoyle/gargoyle.tscn" id="10_kraym"]
+[ext_resource type="PackedScene" uid="uid://bkxqp8mj6ayjy" path="res://Scenes/Enemies/Ghost/ghost.tscn" id="11_8d3xt"]
+[ext_resource type="PackedScene" uid="uid://lo1aexwurrqg" path="res://Scenes/Enemies/Goblin/goblin.tscn" id="12_2pcs5"]
 [ext_resource type="PackedScene" uid="uid://v4mgn5rali81" path="res://Particles/explosion_gpu_particles.tscn" id="13_4rd3w"]
+[ext_resource type="PackedScene" uid="uid://c1eer3wqp1stk" path="res://Scenes/Enemies/Skeleton/skeleton.tscn" id="13_jlhm7"]
 [ext_resource type="PackedScene" uid="uid://3m8inrcvk318" path="res://Particles/fire_gpu_particles.tscn" id="14_4rd3w"]
+[ext_resource type="PackedScene" uid="uid://73ai3a0wwokb" path="res://Scenes/Player/Spells/test_bullet.tscn" id="14_q3jv1"]
+[ext_resource type="PackedScene" uid="uid://d2c1s3qmdi4ti" path="res://Scenes/Player/player.tscn" id="15_qog2e"]
+[ext_resource type="Script" uid="uid://cx1bveptsnmc" path="res://Modules/Generics/stats_module.gd" id="16_cl202"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_3f1ty"]
 
@@ -35,7 +46,14 @@ shader_parameter/dissolve_noise = SubResource("NoiseTexture2D_ve72o")
 shader_parameter/dissolve_value = 0.6610000313975
 shader_parameter/dissolve_outline_color = Color(0.305882, 0.854902, 0.941176, 1)
 
-[node name="ShaderPreloader" type="Node2D"]
+[sub_resource type="Resource" id="Resource_kraym"]
+resource_local_to_scene = true
+script = ExtResource("16_cl202")
+base_move_speed = 400.0
+base_cast_cooldown = 0.05
+metadata/_custom_type_script = "uid://cx1bveptsnmc"
+
+[node name="ShaderPreloader" type="Node2D" groups=["ShaderPreload"]]
 z_index = -100
 script = ExtResource("1_731yq")
 
@@ -53,3 +71,63 @@ offset_bottom = 1.0
 [node name="ExplosionGPUPartcles" parent="." instance=ExtResource("13_4rd3w")]
 
 [node name="FireGPUPartcles" parent="." instance=ExtResource("14_4rd3w")]
+
+[node name="GoblinBoss" parent="." instance=ExtResource("6_4rd3w")]
+position = Vector2(-983.99994, 194)
+
+[node name="Mega Cerberus" parent="." instance=ExtResource("7_8clku")]
+position = Vector2(-981, -164)
+
+[node name="Seraphim" parent="." instance=ExtResource("8_qog2e")]
+position = Vector2(-1009, -693)
+
+[node name="Banshee" parent="." instance=ExtResource("9_cl202")]
+position = Vector2(-1036, 1330)
+
+[node name="GargoyleBody2D" parent="." instance=ExtResource("10_kraym")]
+position = Vector2(-1001, 466)
+
+[node name="Ghost" parent="." instance=ExtResource("11_8d3xt")]
+position = Vector2(-1010, 618)
+
+[node name="Goblin" parent="." instance=ExtResource("12_2pcs5")]
+position = Vector2(-1010, 812)
+
+[node name="Skeleton" parent="." instance=ExtResource("13_jlhm7")]
+position = Vector2(-1023, 1051)
+
+[node name="test_bullet" parent="." instance=ExtResource("14_q3jv1")]
+position = Vector2(-1024, 1166)
+
+[node name="test_bullet2" parent="." instance=ExtResource("14_q3jv1")]
+position = Vector2(-1020, 888)
+
+[node name="test_bullet3" parent="." instance=ExtResource("14_q3jv1")]
+position = Vector2(-1000, 701)
+
+[node name="test_bullet4" parent="." instance=ExtResource("14_q3jv1")]
+position = Vector2(-1003, 504)
+
+[node name="test_bullet5" parent="." instance=ExtResource("14_q3jv1")]
+position = Vector2(-994, 307)
+
+[node name="test_bullet6" parent="." instance=ExtResource("14_q3jv1")]
+position = Vector2(-880, -29)
+
+[node name="test_bullet7" parent="." instance=ExtResource("14_q3jv1")]
+position = Vector2(-891, -568)
+
+[node name="test_bullet8" parent="." instance=ExtResource("14_q3jv1")]
+position = Vector2(-1010, -826)
+
+[node name="test_bullet9" parent="." instance=ExtResource("14_q3jv1")]
+position = Vector2(-967.00006, -1014)
+
+[node name="PlayerBody2d" parent="." instance=ExtResource("15_qog2e")]
+position = Vector2(-1014, -931)
+stats_module = SubResource("Resource_kraym")
+
+[node name="PlayerArea" parent="PlayerBody2d" index="2"]
+stats_module = SubResource("Resource_kraym")
+
+[editable path="PlayerBody2d"]

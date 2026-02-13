@@ -1,4 +1,4 @@
-extends VBoxContainer
+extends CenterContainer
 
 @export var inverse_visibility_nodes: Array[Node]
 
@@ -12,7 +12,7 @@ extends VBoxContainer
 @onready var sound_effects_slider: HSlider = sound_effects_slider_container.get_node("HSlider")
 
 @onready var back_button: Button = %BackButton
-@onready var settings_container: CenterContainer = %SettingsContainer
+@onready var settings_container: CenterContainer = $"."
 
 @onready var master_bus_idx = AudioServer.get_bus_index(Global.AUDIO_BUS_DIC[Global.AudioBus.MASTER])
 @onready var music_bus_idx = AudioServer.get_bus_index(Global.AUDIO_BUS_DIC[Global.AudioBus.MUSIC])

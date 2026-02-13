@@ -39,6 +39,11 @@ HealthModuleGroup=""
 Main="The root node of the game scene"
 YSortedLayerGroup=""
 BossHealthBarGroup=""
+ShaderPreload=""
+
+[gui]
+
+timers/tooltip_delay_sec=0.1
 
 [input]
 

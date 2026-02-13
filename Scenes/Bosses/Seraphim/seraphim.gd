@@ -20,6 +20,8 @@ var delay_to_spawn_after_track = 10
 const SHOULD_NOT_DESPAWN = true
 
 func _ready() -> void:
+	if behaviour_module.is_shader_preload:
+		return
 	EventBus.enemy_died.connect(_on_enemy_died_received)
 	boss_health_bar.set_health_bar_target(self)
 	boss_health_bar.show()

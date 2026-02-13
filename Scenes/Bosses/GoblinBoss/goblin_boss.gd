@@ -31,6 +31,9 @@ var delay_to_spawn_after_track = 0
 const SHOULD_NOT_DESPAWN = true
 
 func _ready():
+	if behaviour_module.is_shader_preload:
+		return
+
 	var circle: CircleShape2D = spawn_area_shape.shape
 	self.goblin_magic_particles_ground.emission_sphere_radius = circle.radius
 	self.goblin_magic_particles_ground.lifetime = self.spawn_minions_rate.wait_time

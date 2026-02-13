@@ -40,9 +40,13 @@ var lazy_cast_cooldown = 0
 var audio_track: AudioStream = preload("res://Sounds/retro-game-shot-2-152053.mp3")
 var mobs_on_damage_range: Array[MobBehaviourModule] = []
 var death_tween: Tween
+var is_shader_preload = false
 const WAND_TIP_POSITION_X_ABSOLUTE = 63
 
 func start(pos):
+	if is_shader_preload:
+		return
+
 	var tween = get_tree().create_tween()
 	tween.tween_property(
 		player_sprite.material,
@@ -90,6 +94,9 @@ func take_damage(mob_behaviour: MobBehaviourModule = null, bullet_module: Bullet
 	self.health_module.set_health(current_health - damage_to_take)
 
 func _physics_process(delta: float) -> void:
+	if is_shader_preload:
+		return
+
 	cast_cooldown = max(cast_cooldown - delta, 0)
 	lazy_cast_cooldown = max(lazy_cast_cooldown - delta, 0)
 	

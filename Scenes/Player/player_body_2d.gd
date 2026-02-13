@@ -12,6 +12,7 @@ var wobble_time := 0.0
 @onready var player_sprite: AnimatedSprite2D = $PlayerArea/PlayerSprite
 @onready var wand_tip: Node2D = $WandTip
 
+var is_shader_preload = false
 const WAND_TIP_POSITION_X_ABSOLUTE = 63
 
 func wobble(delta: float):
@@ -19,6 +20,9 @@ func wobble(delta: float):
 	player_sprite.rotation = sin(wobble_time * frequency) * amplitude
 
 func _physics_process(_delta: float) -> void:
+	if is_shader_preload:
+		return
+
 	var direction = Vector2.ZERO
 	if Input.is_action_pressed("Right"):
 		direction.x += 1

@@ -1,6 +1,7 @@
 extends Node2D
 class_name MobBehaviourModule
 
+var is_shader_preload = false
 const HIT_SOUND = preload("uid://2oeqxeyg41fj")
 
 @export var movement_speed: int
@@ -9,7 +10,6 @@ const HIT_SOUND = preload("uid://2oeqxeyg41fj")
 @export var damage: float
 @export var health_module: HealthModule
 @export var vp_orb_scene: PackedScene
-
 
 @export var mob: CharacterBody2D
 @export var mob_collision_shape_array: Array[CollisionShape2D]
@@ -30,6 +30,9 @@ var direction_normalized_x: float
 
 ## ASSERT VARIABLES ON READY TO AVOID GETTING ERRORS THAT ARE NONSENSE
 func _ready():
+	if is_shader_preload: 
+		return
+
 	self.original_mob_sprite_scale_x = self.mob_sprite.scale.x
 	self.original_mob_sprite_scale_y= self.mob_sprite.scale.y
 
@@ -48,10 +51,14 @@ func _ready():
 
 
 func _on_screen_exited():
+	if is_shader_preload: 
+		return
 	mob.queue_free()
 	Global.CURRENT_MOBS_SPAWNED -= 1
 
 func handle_movement(delta: float) -> void:
+	if is_shader_preload: 
+		return
 	## Verify if mob in the last X frames moved less than some limit. If this is true, try to move only after
 	## x seconds.
 	## Also, we can change the mob direction after X frames
@@ -72,7 +79,9 @@ func handle_movement(delta: float) -> void:
 	mob.move_and_slide()
 
 func handle_take_damage(damage_to_receive: float) -> void:
-	
+	if is_shader_preload: 
+		return
+
 	var direction = mob.global_position.direction_to(player.global_position)
 	var  mob_offset_sprite_y = get_sprite_texture().get_height()
 	var mob_offset_to_front_x = -25 * direction.x
