@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://c0tdip26t1oa"]
+[gd_scene load_steps=25 format=3 uid="uid://c0tdip26t1oa"]
 
 [ext_resource type="Script" uid="uid://bo3jrmqartg6x" path="res://UI/Menu/shader_preloader.gd" id="1_731yq"]
 [ext_resource type="Shader" uid="uid://dvafedygytn42" path="res://Shaders/main_shader.gdshader" id="1_aldoe"]
@@ -47,6 +47,13 @@ shader_parameter/dissolve_value = 0.6610000313975
 shader_parameter/dissolve_outline_color = Color(0.305882, 0.854902, 0.941176, 1)
 
 [sub_resource type="Resource" id="Resource_kraym"]
+resource_local_to_scene = true
+script = ExtResource("16_cl202")
+base_move_speed = 400.0
+base_cast_cooldown = 0.05
+metadata/_custom_type_script = "uid://cx1bveptsnmc"
+
+[sub_resource type="Resource" id="Resource_qog2e"]
 resource_local_to_scene = true
 script = ExtResource("16_cl202")
 base_move_speed = 400.0
@@ -128,6 +135,6 @@ position = Vector2(-1014, -931)
 stats_module = SubResource("Resource_kraym")
 
 [node name="PlayerArea" parent="PlayerBody2d" index="2"]
-stats_module = SubResource("Resource_kraym")
+stats_module = SubResource("Resource_qog2e")
 
 [editable path="PlayerBody2d"]
